@@ -26,7 +26,8 @@ angular.module('lematClient').factory('IssueFactory', ['$http', '$window', 'Auth
 	var upsertIssue = function (issue) {
 		var params = {
 			issue: {
-				title: issue.title
+				title: issue.title,
+				image: issue.image
 			}
 		}
 		if (issue.id) {

@@ -35,6 +35,10 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
 				templateUrl: 'views/forms/issue-admin.html',
 				controller: 'IssueController'
 			})
+			.when('/issues/', {
+				templateUrl: 'views/issue-list.html',
+				controller: 'IssueController'
+			})
 			// issue view
 			.when('/issue/:id', {
 				templateUrl: 'views/issue.html',

@@ -19,7 +19,7 @@ angular.module('lematClient').directive('scrollPosition', ['$window', '$document
 angular.module('lematClient').directive('lematRepeat', [function () {
 	return function (scope, element, attrs) {
 		angular.element(element);
-		if (scope.$last) setTimeout(function() {
+		if (scope.$last) setTimeout(function () {
 			scope.$emit('lastElem');
 		}, 1);
 	}
@@ -38,9 +38,9 @@ angular.module('lematClient').directive('scroll', ['$document', '$timeout', '$fi
 				angular.forEach(scope.issue.pieces, function (object) {
 					var selector = "#" + object.title_url.toString();
 					var el = document.querySelector(selector);
-//					console.log(el);
+					//					console.log(el);
 					var top = el.getBoundingClientRect().top;
-//					console.log(top);
+					//					console.log(top);
 					posArray.push({
 						title: object.title,
 						pos: top
@@ -57,12 +57,20 @@ angular.module('lematClient').directive('scroll', ['$document', '$timeout', '$fi
 			var i = 0;
 
 			$document.on('scroll', function () {
-				if ($document.scrollTop() > posArray[0]["pos"] || $document.scrollTop() === 0) {
-					scope.title = '';
+				try {
+					if ($document.scrollTop() > posArray[0]["pos"] || $document.scrollTop() === 0) {
+						scope.title = '';
+					}
+				} catch (e) {
+					// do nothing
 				}
 
-				if ($document.scrollTop() > posArray[i]["pos"] && $document.scrollTop() > 477) {
-					scope.title = posArray[i]["title"];
+				try {
+					if ($document.scrollTop() > posArray[i]["pos"] && $document.scrollTop() > 477) {
+						scope.title = posArray[i]["title"];
+					}
+				} catch (e) {
+					// do nothing
 				}
 
 				try {
@@ -72,9 +80,13 @@ angular.module('lematClient').directive('scroll', ['$document', '$timeout', '$fi
 				} catch (e) {
 					// do nothing
 				}
-
-				if ($document.scrollTop() < posArray[i]["pos"] && $document.scrollTop() > 477) {
-					i--;
+				
+				try {
+					if ($document.scrollTop() < posArray[i]["pos"] && $document.scrollTop() > 477) {
+						i--;
+					}
+				} catch (e) {
+					// do nothing
 				}
 
 				scope.$emit('scroll', scope.title.toUpperCase());
