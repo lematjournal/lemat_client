@@ -1,0 +1,21 @@
+<div class="container" ng-init="getIssue()">
+	<h2>issue: {{ issue.title }}</h2>
+	<h3>created: {{ issue.created_at }}</h3>
+	<div class="content-inner" ng-repeat="piece in issue.pieces | orderBy: 'order'">
+		<h4>{{ piece.title }}</h4>
+		<h4>by {{ piece.author }}</h4>
+		<h4>order: {{ piece.order }}<h4>
+		<a class="btn btn-default" href="#/issue/{{ issue.id }}/{{ piece.title }}/edit">Edit</a> <a class="btn btn-default" href="#/issue/{{ issue.id }}/{{ piece.title }}">Preview</a> <a class="btn btn-default" ng-click="piece.order = piece.order + 1"><span class="glyphicon glyphicon-chevron-up"></span></a> <a class="btn btn-default" ng-click="piece.order = piece.order - 1"><span class="glyphicon glyphicon-chevron-down"></span></a>
+		<hr>	
+		</div>
+	<a class="btn btn-default" href="#/piece-create">Add Piece</a> <a class="btn btn-default" ng-click="updatePieces()">Update Order</a>
+	</div>
+	<hr>
+	<div class="container">
+		<h1>Edit Issue:</h1>
+		<div class="form-group">
+			<label for="name">Issue Title</label>
+			<input type="text" ng-model="issue.title" id="title" class="form-control" placeholder="title" required>
+		</div>
+		<a class="btn btn-default" ng-click="upsertIssue(issue)">Submit</a>
+	</div>

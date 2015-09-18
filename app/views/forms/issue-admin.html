@@ -1,0 +1,22 @@
+<div class="container" ng-init="getIssues()">
+	<div class="content" ng-repeat="issue in issues">
+		<h2>issue: <a href="#/issue/{{ issue.id }}/edit">{{ issue.title }}</a></h2>
+		<h3>created: {{ issue.created_at }}</h3>
+		<div class="content-inner" ng-repeat="piece in issue.pieces">
+			<h4>{{ piece.title }}</h4>
+			<h4>by {{ piece.author }}</h4>
+			<a class="btn btn-default" href="#/issue/{{ issue.id }}/{{ piece.title }}/edit">Edit</a> <a class="btn btn-default" href="#/issue/{{ issue.id }}/{{ piece.title }}">Preview</a>
+			<hr>
+		</div>
+	</div>
+	<a class="btn btn-default" href="#/piece-create">Add Piece</a>
+</div>
+<hr>
+<div class="container">
+	<h1>Add Issue:</h1>
+	<div class="form-group">
+		<label for="name">Issue Title</label>
+		<input type="text" ng-model="issue.title" id="title" class="form-control" placeholder="title" required>
+	</div>
+	<a class="btn btn-default" ng-click="upsertIssue(issue)">Submit</a>
+</div>

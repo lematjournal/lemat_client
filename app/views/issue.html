@@ -1,0 +1,33 @@
+<div class="container" id="contents" ng-init="getIssue()" scroll>
+	<div class="row">
+		<div class="col-md-4">
+			<h2>WRITTEN</h2>
+			<ul ng-repeat="piece in issue.pieces | orderBy: 'order' | filter: { piece_type: '!Picture' }">
+				<li><a href="#{{ piece.title_url }}" du-smooth-scroll>{{ piece.title }}</a>
+				</li>
+			</ul>
+		</div>
+		<div class="col-md-4">
+			<h2>PICTURED</h2>
+			<ul ng-repeat="piece in issue.pieces | filter: { piece_type: 'Picture'}">
+				<li><a href="#{{ piece.title_url }}" du-smooth-scroll>{{ piece.title }}</a></li>
+			</ul>
+		</div>
+		<div class="col-md-4">
+			<h2>AUTHORS</h2>
+			<ul ng-repeat="piece in issue.pieces | unique:'author' | orderBy: 'order'" author>
+				<li><a>{{ piece.author }}</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div ng-repeat="piece in issue.pieces | orderBy: 'order' | filter: author.name" lemat-repeat>
+			<div class="content" id="{{ piece.title_url }}">
+					<p class="title text-center">{{ piece.title }}</p>
+					<p class="text-center">{{ piece.author }}</p>
+				<br>
+				<p ng-bind-html="piece.content | to_trusted"></p>
+			</div>
+		</div>
+	</div>
+</div>
