@@ -64,6 +64,11 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
 				templateUrl: 'views/forms/piece-preview.html',
 				controller: 'IssueController'
 			})
+			// show issue cover image
+			.when('/issue/:id/image/:image_title', {
+				templateUrl: 'views/image-view.html',
+				controller: 'IssueController'
+			})
 			// view all posts
 			.when('/online', {
 				templateUrl: 'views/online.html',

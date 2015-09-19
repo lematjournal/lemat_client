@@ -1,11 +1,17 @@
 'use strict';
 
-angular.module('lematClient').controller('MainController', ['$scope', '$rootScope', '$document', '$location', '$route', '$routeParams', 'AuthFactory', function ($scope, $rootScope, $document, $location, $route, $routeParams, AuthFactory) {
+angular.module('lematClient').controller('MainController', ['$scope', '$rootScope', '$document', '$location', '$route', '$routeParams', '$http', 'AuthFactory', function ($scope, $rootScope, $document, $location, $route, $routeParams, $http, AuthFactory) {
 
 	console.log($location.url())
 
 	$scope.$on('scroll', function (event, data) {
 		$scope.title = data;
+	});
+
+	$scope.$on('$locationChangeStart', function (event) {
+		if ($location.url() != '/issue/:id') {
+			$scope.title = '';
+		}
 	});
 
 	$scope.$watch(function () {
@@ -87,8 +93,13 @@ angular.module('lematClient').controller('MainController', ['$scope', '$rootScop
 			$location.path('/');
 		}
 	});
-	
+
 	$scope.scrollShow = function () {
 		return $location.url() == '/issue/1';
+	};
+	// determines content of response modal
+
+	$scope.isLoading = function () {
+		return $http.pendingRequests.length > 0;
 	};
   }]);

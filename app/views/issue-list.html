@@ -1,12 +1,19 @@
 <div class="container" ng-init="getIssues()">
 	<div class="content" ng-repeat="issue in issues">
-		<h2><a href="#/issue/{{ issue.id }}">{{ issue.title }}:</a></h2>
-		<h2><a href="#/issue/{{ issue.id }}"><img ng-src="{{ issue.image }}" /></a>
+		<h2><a href="#/issue/{{ issue.id }}">{{ ::issue.title | uppercase }}:</a></h2>
+		<h2><a href="#/issue/{{ issue.id }}"><img ng-src="{{ issue.image.image_url }}" /></a>
 </h2>
+		<h3>CONTENTS:</h3>
 		<hr>
-		<h3>contents:</h3>
 		<div class="inner-content" ng-repeat="piece in issue.pieces | orderBy: 'order'">
-			<li>{{ piece.title }} - {{ piece.author }}</li>
+			<li><a href="#/issue/{{ issue.id }}/{{ piece.title_url }}"><h4>{{ ::piece.title }} - {{ ::piece.author }}</a></h4></li>
 		</div>
+		<br>
+<!--
+		<h3>COVER DETAIL:</h3>
+		<hr>
+		<img src="{{ issue.image.image_detail_url }}">
+-->
 	</div>
+	<br>
 </div>

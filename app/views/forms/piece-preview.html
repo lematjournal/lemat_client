@@ -3,6 +3,6 @@
 		<p class="title text-center">{{ piece.title }}</p>
 		<p class="text-center">{{ piece.author }}</p>
 		<br>
-		<p ng-bind-html="piece.content"></p>
+		<p ng-bind-html="piece.content | to_trusted"></p>
 	</div>
 </div>

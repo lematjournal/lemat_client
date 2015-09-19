@@ -69,7 +69,7 @@ angular.module('lematClient').factory('IssueFactory', ['$http', '$window', 'Auth
 
 	var getIssuePiece = function (issueId, pieceTitle) {
 		return $http.get(ServerUrl + '/issues/' + issueId + '/pieces/' + pieceTitle).then(function (response) {
-			angular.copy(response.data[0], piece);
+			angular.copy(response.data, piece);
 		});
 	};
 

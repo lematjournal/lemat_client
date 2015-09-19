@@ -1,7 +1,7 @@
 <div class="container" ng-init="getEntry()">
 	<div class="row">
 		<p ng-bind-html="entry.content"></p>
-		<p>- {{ entry.author }}</p>
+		<p>- {{ ::entry.author }}</p>
 	</div>
 	<hr>
 	<a class="btn btn-default" ng-href="/#/">Back</a>
