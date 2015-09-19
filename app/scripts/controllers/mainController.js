@@ -2,7 +2,8 @@
 
 angular.module('lematClient').controller('MainController', ['$scope', '$rootScope', '$document', '$location', '$route', '$routeParams', '$http', 'AuthFactory', function ($scope, $rootScope, $document, $location, $route, $routeParams, $http, AuthFactory) {
 
-	console.log($location.url())
+	console.log($location.url());
+	console.log("is authenticated?", AuthFactory.isAuthenticated());
 
 	$scope.$on('scroll', function (event, data) {
 		$scope.title = data;
@@ -47,7 +48,7 @@ angular.module('lematClient').controller('MainController', ['$scope', '$rootScop
 	});
 
 	$scope.$watch(function () {
-		return $location.url() === ':post/edit';
+		return $location.url() === '/:post/edit';
 	}, function (val) {
 		if (val == true && !AuthFactory.isAuthenticated()) {
 			$location.path('/');

@@ -79,7 +79,7 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
 				templateUrl: 'views/forms/online-admin.html',
 				controller: 'PostController'
 			})
-			.when('/create-post', {
+			.when('/post-create', {
 				templateUrl: 'views/forms/post-create.html',
 				controller: 'PostController'
 			})
