@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('lematClient').directive('scrollPosition', ['$window', '$document', function ($window, $document) {
+angular.module('lematClient').directive('scrollPosition', ['$document', function ($document) {
 	return {
 		scope: {
 			scroll: '=scrollPosition'
 		},
 		link: function (scope, element, attrs) {
-			var windowEl = angular.element($window);
+			var windowEl = angular.element($document);
 			var handler = function () {
 				scope.scroll = windowEl.scrollTop();
 			}
@@ -43,7 +43,7 @@ angular.module('lematClient').directive('scroll', ['$document', '$timeout', '$fi
 					//					console.log(top);
 					posArray.push({
 						title: object.title,
-						pos: top
+						pos: (top)
 					});
 				});
 
@@ -51,14 +51,16 @@ angular.module('lematClient').directive('scroll', ['$document', '$timeout', '$fi
 
 				posArray.sort(function (a, b) {
 					return parseFloat(a.pos - b.pos);
-				})
+				});
+				
+				console.log(posArray);
 			});
 
 			var i = 0;
 
-			$document.on('scroll', function () {
+			$document.on('scroll', function () {				
 				try {
-					if ($document.scrollTop() > posArray[0]["pos"] || $document.scrollTop() === 0) {
+					if (scope.scroll < posArray[0]["pos"]) {
 						scope.title = '';
 					}
 				} catch (e) {
@@ -66,7 +68,7 @@ angular.module('lematClient').directive('scroll', ['$document', '$timeout', '$fi
 				}
 
 				try {
-					if ($document.scrollTop() > posArray[i]["pos"] && $document.scrollTop() > 477) {
+					if (scope.scroll > posArray[i]["pos"] && scope.scroll > posArray[0]["pos"]) {
 						scope.title = posArray[i]["title"];
 					}
 				} catch (e) {
@@ -74,7 +76,7 @@ angular.module('lematClient').directive('scroll', ['$document', '$timeout', '$fi
 				}
 
 				try {
-					if ($document.scrollTop() > posArray[i + 1]["pos"]) {
+					if (scope.scroll > posArray[i + 1]["pos"]) {
 						i++;
 					}
 				} catch (e) {
@@ -82,14 +84,14 @@ angular.module('lematClient').directive('scroll', ['$document', '$timeout', '$fi
 				}
 				
 				try {
-					if ($document.scrollTop() < posArray[i]["pos"] && $document.scrollTop() > 477) {
+					if (scope.scroll < posArray[i]["pos"] && scope.scroll > posArray[0]["pos"]) {
 						i--;
 					}
 				} catch (e) {
 					// do nothing
 				}
-
 				scope.$emit('scroll', scope.title.toUpperCase());
+
 			});
 		}
 	}

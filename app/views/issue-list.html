@@ -1,19 +1,24 @@
 <div class="container" ng-init="getIssues()">
 	<div class="content" ng-repeat="issue in issues">
-		<h2><a href="#/issue/{{ issue.id }}">{{ ::issue.title | uppercase }}:</a></h2>
-		<h2><a href="#/issue/{{ issue.id }}"><img ng-src="{{ issue.image.image_url }}" /></a>
+		<div class="content-inner">
+			<h2><a href="#/issue/{{ issue.id }}">{{ ::issue.title | uppercase }}:</a></h2>
+			<h2><a href="#/issue/{{ issue.id }}"><img ng-src="{{ issue.image.image_url }}" /></a>
 </h2>
-		<h3>CONTENTS:</h3>
-		<hr>
-		<div class="inner-content" ng-repeat="piece in issue.pieces | orderBy: 'order'">
-			<li><a href="#/issue/{{ issue.id }}/{{ piece.title_url }}"><h4>{{ ::piece.title }} - {{ ::piece.author }}</a></h4></li>
+		</div>
+		<div class="content-inner">
+			<h3>CONTENTS:</h3>
+			<hr>
+			<div class="content-inner" ng-repeat="piece in issue.pieces | orderBy: 'order'">
+				<li><a href="#/issue/{{ issue.id }}/{{ piece.title_url }}"><h4>{{ ::piece.title }} - {{ ::piece.author }}</a>
+					</h4>
+				</li>
+			</div>
 		</div>
 		<br>
-<!--
-		<h3>COVER DETAIL:</h3>
-		<hr>
-		<img src="{{ issue.image.image_detail_url }}">
--->
+		<div class="content-inner" ng-if="issue.link">
+			<h3>DOWNLOAD ISSUE: <a href="{{ issue.link }}"></a></h3>
+			<hr>
+		</div>
 	</div>
 	<br>
 </div>

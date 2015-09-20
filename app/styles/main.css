@@ -12,19 +12,45 @@ body {
 }
 
 .dropdown-menu {
-/*	position: fixed;*/
-/*	border: 0px solid #ccc; */
-/*   border: 0px solid rgba(0, 0, 0, .15); */
-	left: 10px;
-   border-radius: 0px; 
-   -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .175); 
-   box-shadow: 0 0 0 rgba(0, 0, 0, .175); 
+	/*	position: relative;*/
+	/*	border: 0px solid #ccc; */
+	/*   border: 0px solid rgba(0, 0, 0, .15); */
+	
+	margin-top: 0px;
+	width: 100%;
+	left: 0px;
+	border-radius: 0px;
+	-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .175);
+	box-shadow: 0 0 0 rgba(0, 0, 0, .175);
+}
+
+/* less than or equal to*/
+
+@media(min-width:1501px) {
+	.dropdown-menu ul.contact {
+		margin-top: -75px;
+	}
+}
+
+/* greater than or equal to */
+
+@media(max-width:1500px) {
+	.dropdown-menu {
+		font-size: 12px;
+		width: 100%;
+	}
+	.dropdown-menu .col-sm-6 {
+  		width: 25%;
+	}
+}
+
+.navbar {
+	height: 65px;
 }
 
 .logo {
 	margin-left: 109px;
 	margin-top: 13px;
-	
 	color: black;
 	font-size: 19px;
 }
@@ -32,6 +58,11 @@ body {
 .menu-block {
 	margin-left: 220px;
 	margin-top: 18px;
+}
+
+.navbar-default {
+	background-color: white;
+	border-color: white;
 }
 
 .title {
@@ -53,7 +84,7 @@ a {
 }
 
 a:hover {
-	/*	color: #593952;*/
+	text-decoration: none;
 }
 
 .menu-bar {
@@ -202,14 +233,12 @@ body {
 	border: 4px solid;
 	padding: 13px 40px;
 }
-
 /* text */
 
 p {
 	font-family: 'Arial', sans-serif;
 	font-size: 14px;
 }
-
 /* footer */
 
 .full {
@@ -223,7 +252,7 @@ p {
 	display: block;
 }
 
-.footer {	
+.footer {
 	height: auto;
 	padding-bottom: 30px;
 	margin-top: 10px;
@@ -243,7 +272,8 @@ p {
 
 .footer h3 {
 	border-bottom: 1px solid #BAC1C8;
-/*	color: #54697E;*/
+	/*	color: #54697E;*/
+	
 	font-size: 18px;
 	font-weight: 600;
 	line-height: 27px;
@@ -330,7 +360,6 @@ p {
 	-ms-transition: all 0.5s ease 0s;
 	-o-transition: all 0.5s ease 0s;
 }
-
 /*
 .social li:hover {
 	transform: scale(1.15) rotate(360deg);
@@ -368,9 +397,10 @@ p {
 }
 
 .cssFade {
-    transition: 0.5s linear all;
-    opacity: 1;
+	transition: 0.5s linear all;
+	opacity: 1;
 }
+
 .cssFade.ng-hide {
-    opacity: 0;
+	opacity: 0;
 }

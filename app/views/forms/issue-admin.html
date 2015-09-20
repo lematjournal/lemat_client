@@ -18,5 +18,19 @@
 		<label for="name">Issue Title</label>
 		<input type="text" ng-model="issue.title" id="title" class="form-control" placeholder="title" required>
 	</div>
+	<div class="form-group">
+		<label for="name">Issue Image Url</label>
+		<input type="text" ng-model="issue.image.image_url" id="title" class="form-control" placeholder="title" required>
+	</div>
+	<div class="form-group">
+		<label for="name">Issue Image Detail Url</label>
+		<input type="text" ng-model="issue.image.image_detail_url" id="title" class="form-control" placeholder="title" required>
+	</div>
+	<!--
+	<div class="form-group">
+		<label for="name">Download Link</label>
+		<input type="text" ng-model="issue.link" id="title" class="form-control" placeholder="title" required>
+	</div>
+-->
 	<a class="btn btn-default" ng-click="upsertIssue(issue)">Submit</a>
 </div>

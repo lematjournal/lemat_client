@@ -13,9 +13,10 @@
     "angular-scroll": "~0.7.2",
     "angular-touch": "^1.3.0",
     "angular-wysiwyg": "~1.2.4",
-	 "angularUtils-pagination": "angular-utils-pagination#~0.8.4",
+    "angularUtils-pagination": "angular-utils-pagination#~0.8.4",
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.4.0",
+    "ng-device-detector": "~1.1.8",
     "ngWig": "ng-wig#~1.1.10"
   },
   "devDependencies": {

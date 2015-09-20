@@ -1,10 +1,17 @@
 'use strict';
 
-angular.module('lematClient').controller('MainController', ['$scope', '$rootScope', '$document', '$location', '$route', '$routeParams', '$http', 'AuthFactory', function ($scope, $rootScope, $document, $location, $route, $routeParams, $http, AuthFactory) {
+angular.module('lematClient').controller('MainController', ['$scope', '$rootScope', '$document', '$location', '$route', '$routeParams', '$http', 'AuthFactory', 'deviceDetector', function ($scope, $rootScope, $document, $location, $route, $routeParams, $http, AuthFactory, deviceDetector) {
 
 	console.log($location.url());
 	console.log("is authenticated?", AuthFactory.isAuthenticated());
+	
+	$scope.isAuthenticated = function () {
+		return AuthFactory.isAuthenticated();
+	};
 
+	$scope.logout = function () {
+		AuthFactory.logout();
+	}
 	$scope.$on('scroll', function (event, data) {
 		$scope.title = data;
 	});
@@ -103,4 +110,17 @@ angular.module('lematClient').controller('MainController', ['$scope', '$rootScop
 	$scope.isLoading = function () {
 		return $http.pendingRequests.length > 0;
 	};
+	
+	// device detector
+
+	console.log("devices: ", deviceDetector)
+	console.log("is mobile?: ", deviceDetector.isMobile())
+	
+	$rootScope.isChrome = (deviceDetector.browser === "chrome");
+	$rootScope.isIOS = (deviceDetector.os === "ios");
+	$rootScope.isAndroid = (deviceDetector.os === "android");
+	$rootScope.isIPhone = (deviceDetector.device === "iphone");
+	
+	$rootScope.isMobile = deviceDetector.isMobile();
+	$rootScope.isDesktop = deviceDetector.isDesktop();
   }]);

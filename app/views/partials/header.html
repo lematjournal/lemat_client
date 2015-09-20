@@ -1,67 +1,81 @@
-<div class="header navbar-fixed-top" ng-class="" scroll-position="scroll">
-	<a class="menu-bar dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		<span class="bars"></span>
-	</a>
-	<div class="dropdown-menu">
-		<ul class="nav col-lg-3 col-sm-6" role="menu">
-			<li>
-				<h4 style="padding-left: 5px;">HOME</h4>
-			</li>
-			<li class="divider"></li>
-			<li><a href="#/">MAIN PAGE</a>
-			</li>
-			<li><a href="#/issues/">ISSUES</a>
-			</li>
-			<li><a href="#/issue/1">CURRENT ISSUE</a>
-			</li>
-			<li><a href="#/about">ABOUT</a>
-			</li>
-			<li><a href="#/login">LOGIN</a>
-			</li>
-		</ul>
-		<ul class="nav col-lg-3 col-sm-6" role="menu">
-			<li>
-				<h4>ONLINE</h4>
-			</li>
-			<li class="divider"></li>
-			<li><a href="#/online">CONTENTS</a>
-			</li>
-			<li class="divider"></li>
-			<li><a href="#/online">ART</a>
-			</li>
-			<li><a href="#/online">ESSAYS</a>
-			</li>
-			<li><a href="#/online">POETRY</a>
-			</li>
-			<li><a href="#/online">REVIEWS</a>
-			</li>
-		</ul>
-		<ul class="nav col-lg-3 col-sm-6" role="menu">
-			<li>
-				<h4>SOCIAL</h4>
-			</li>
-			<li class="divider"></li>
-			<li>
-				<a href="https://www.facebook.com/lematjournal"><i class=" fa fa-facebook"></i></a>
-			</li>
-			<li>
-				<a href="#"><i class="fa fa-twitter"></i></a>
-			</li>
-		</ul>
-		<ul class="nav col-lg-3 col-sm-6" role="menu">
-			<li>
-				<h4>CONTACT</h4>
-			</li>
-			<li class="divider"></li>
-			<li><a href="#/submissions">SUBMISSIONS</a>
-			</li>
-			<li><a href="#/editors">EDITORS</a>
-			</li>
-			<li class="divider"></li>
-			<li><a class="btn btn-outlined" data-toggle="dropdown">CLOSE</a>
-			</li>
-
-		</ul>
+<nav class="navbar navbar-default navbar-fixed-top" style="margin-top: -25px;" scroll-position="scroll">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="menu-bar dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; margin-top: 15px;"><span class="glyphicon glyphicon-menu-hamburger" style="font-size: 16px;"></span> <font style="font-size: 19px; margin-left: 5px;">LE MAT<b ng-if="title"> //</b> {{ title }}</font></a>
+			<div class="dropdown-menu">
+				<ul class="nav col-sm-6 col-xs-6" role="menu">
+					<li>
+						<h4 style="padding-left: 5px;">HOME</h4>
+					</li>
+					<li class="divider"></li>
+					<li><a href="#/">MAIN PAGE</a>
+					</li>
+					<li><a href="#/issues/">ISSUES</a>
+					</li>
+					<li><a href="#/issue/1">CURRENT ISSUE</a>
+					</li>
+					<li><a href="#/about">ABOUT</a>
+					</li>
+					<li ng-if="!isAuthenticated()"><a href="#/login">LOGIN</a>
+					</li>
+					<li ng-if="isAuthenticated()"><a href="#/" ng-click="logout()">LOGOUT</a>
+					</li>
+				</ul>
+				<ul class="nav col-sm-6 col-xs-6" role="menu">
+					<li>
+						<h4 style="padding-left: 5px;">ONLINE</h4>
+					</li>
+					<li class="divider"></li>
+					<li><a href="#/online">CONTENTS</a>
+					</li>
+					<li><a href="#/online">ART</a>
+					</li>
+					<li><a href="#/online">ESSAYS</a>
+					</li>
+					<li><a href="#/online">POETRY</a>
+					</li>
+				</ul>
+				<ul class="nav col-sm-6 col-xs-6" role="menu" ng-if="isDesktop">
+					<li>
+						<h4 style="padding-left: 5px;">SOCIAL</h4>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="https://www.facebook.com/lematjournal"><i class=" fa fa-facebook"></i></a>
+					</li>
+					<li>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+					</li>
+				</ul>
+				<ul class="nav col-sm-6 col-xs-6 contact" role="menu">
+					<li>
+						<h4 style="padding-left: 5px;">CONTACT</h4>
+					</li>
+					<li class="divider"></li>
+					<li><a href="#/submissions">SUBMISSIONS</a>
+					</li>
+					<li><a href="#/editors">EDITORS</a>
+					</li>
+				</ul>
+				<ul class="nav col-sm-6 col-xs-6" role="menu" ng-if="isAuthenticated()">
+					<li>
+						<h4 style="padding-left: 5px;">ADMIN</h4>
+					</li>
+					<li class="divider"></li>
+					<li><a href="#/issue-admin">ONLINE CONTROL PANEL</a>
+					</li>
+					<li><a href="#/online-admin">ISSUE CONTROL PANEL</a>
+					</li>
+					<li><a href="#/entry-admin">NEWS CONTROL PANEL</a>
+					</li>
+				</ul>
+				<ul class="nav col-sm-6 col-xs-6 pull-right" role="menu">
+					<li class="divider"></li>
+					<li>
+						<a class="btn btn-outlined" style="margin-left: 5px;">CLOSE</a>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
-	<p class="logo"><a class="black">LE MAT</a><b ng-if="title"> //</b> {{ title }}<a><span class="glyphicon glyphicon-chevron-up pull-right" ng-if="scrollShow()" href="#contents" du-smooth-scroll></span></a></p>
-</div>
+</nav>
