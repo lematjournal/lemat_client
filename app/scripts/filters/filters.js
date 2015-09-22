@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('lematClient').filter('to_trusted', ['$sce', function ($sce) {
 	return function (text) {
 		return $sce.trustAsHtml(text);
@@ -26,7 +28,7 @@ angular.module('lematClient').filter('spaceless',function() {
         if (input) {
             return input.replace(/[()&<>"'\/]/g, '').replace(/\s+/g, '-');
         }
-    }
+    };
 });
 
 angular.module('lematClient').filter('cut', function () {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll', 'ngWig', 'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination'])
+angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll', 'ngWig', 'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination', 'validation.match', 'ui.bootstrap', 'angucomplete-alt'])
 	.value('duScrollDuration', 2000)
 	.value('duScrollOffset', 30)
 	.config(function ($routeProvider) {
@@ -91,6 +91,23 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
 				templateUrl: 'views/post-view.html',
 				controller: 'PostController'
 			})
+         // user admin
+         .when('/user-admin', {
+            templateUrl: 'views/forms/user-admin.html',
+            controller: 'UserController'
+         })
+         .when('/user-create', {
+            templateUrl: 'views/forms/user-create.html',
+            controller: 'UserController'
+         })
+         .when('/user/:user/edit', {
+          templateUrl: 'views/forms/user-edit.html',
+          controller: 'UserController'
+         })
+         // control panel
+         .when('/control-panel', {
+            templateUrl: 'views/forms/control-panel.html',
+         })
 			.when('/submissions', {
 				templateUrl: 'views/submissions.html'
 			})

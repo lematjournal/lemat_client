@@ -24,6 +24,7 @@ module.exports = function(config) {
       // bower:js
       'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
+      'bower_components/angucomplete-alt/angucomplete-alt.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-aside/dist/js/angular-aside.js',
@@ -34,8 +35,10 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-scroll/angular-scroll.js',
       'bower_components/angular-touch/angular-touch.js',
+      'bower_components/angular-validation-match/dist/angular-validation-match.min.js',
       'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
       'bower_components/angular-wysiwyg/dist/angular-wysiwyg.min.js',
+      'bower_components/angularUtils-disqus/dirDisqus.js',
       'bower_components/angularUtils-pagination/dirPagination.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/re-tree/re-tree.js',

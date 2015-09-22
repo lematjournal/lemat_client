@@ -1,7 +1,7 @@
 <div class="container" ng-init="getPiece()">
 	<div class="content">
 		<p class="title text-center">{{ piece.title }}</p>
-		<p class="text-center">{{ piece.author }}</p>
+		<p class="text-center" ng-repeat="user in piece.users"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last"> and </span>{{ user.username }}</font></p>
 		<br>
 		<p ng-bind-html="piece.content | to_trusted"></p>
 	</div>

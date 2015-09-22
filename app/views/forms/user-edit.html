@@ -1,0 +1,36 @@
+<div class="container" ng-init="getUser()">
+	<div class="row">
+		<h2>email: {{ user.email }}</h2>
+      <h2>username: {{ user.username }}</h2>
+      <h2>role: {{ user.role }}</h2>
+		<h2>created: {{ user.created_at | date: 'medium' }}</h2>
+	</div>
+   <hr>
+	<div class="row">
+      <h2>user settings:</h2>
+		<div class="form-group">
+			<label for="name">Email</label>
+			<input type="text" ng-model="user.email" id="email" class="form-control" placeholder="email">
+		</div>
+      <div class="form-group">
+			<label for="name">Username</label>
+			<input type="text" ng-model="user.username" id="username" class="form-control" placeholder="username">
+		</div>
+      <div class="form-group">
+         <label for="role">Role</label>
+         <select class="form-control" ng-model="user.role">
+            <option value="admin">admin</option>
+            <option value="contributor">contributor</option>
+         </select>
+      </div>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" ng-model="user.password" id="author" class="form-control" placeholder="password" required>
+		</div>
+		<div class="form-group">
+			<label for="author">Confirm Password</label>
+         <input type="password" ng-model="user.passwordConfirm" id="passord" class="form-control" placeholder="password confirm" match="user.password" required>
+		</div>
+		<a class="btn btn-default" ng-click="upsertUser(user)">Submit</a>
+	</div>
+</div>

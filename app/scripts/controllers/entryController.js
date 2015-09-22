@@ -12,7 +12,6 @@ angular.module('lematClient').controller('EntryController', ['$scope', '$rootSco
 		$scope.entry = EntryFactory.entry;
 	};
 
-
 	// entry crud actions
 
 	$scope.upsertEntry = function (entry) {

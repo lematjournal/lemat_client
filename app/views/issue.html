@@ -15,16 +15,16 @@
 		</div>
 		<div class="col-md-4">
 			<h2>AUTHORS</h2>
-			<ul ng-repeat="piece in issue.pieces | unique:'author' | orderBy: 'order'" author>
-				<li><a>{{ piece.author }}</a></li>
+			<ul ng-repeat="piece in issue.pieces | unique:'users' | orderBy: 'order'" author>
+				<li><a><font ng-repeat="user in piece.users | reverse"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ user.username }}</font></a></li>
 			</ul>
 		</div>
 	</div>
 	<div class="row">
 		<div ng-repeat="piece in issue.pieces | orderBy: 'order' | filter: author.name" lemat-repeat>
 			<div class="content" id="{{ piece.title_url }}">
-					<p class="title text-center">{{ piece.title }}</p>
-					<p class="text-center">{{ piece.author }}</p>
+					<h4 class="title text-center">{{ piece.title }}</h4>
+					<p class="text-center"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ user.username }}</font></p>
 				<br>
 				<p ng-bind-html="piece.content | to_trusted"></p>
 			</div>

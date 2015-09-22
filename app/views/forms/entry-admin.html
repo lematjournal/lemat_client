@@ -1,6 +1,6 @@
 <div class="container" ng-init="getEntries()">
 	<div class="content" ng-repeat="entry in entries">
-		<h2>post: <a href="#/entry/{{ entry.id }}/edit">{{ entry.title }}</a></h2>
+		<h2><a href="#/entry/{{ entry.id }}/edit">{{ entry.title }}</a></h2>
 		<h3>created: {{ entry.created_at }}</h3>
 	</div>
 	<a class="btn btn-default" href="#/entry-create">Add Entry</a>

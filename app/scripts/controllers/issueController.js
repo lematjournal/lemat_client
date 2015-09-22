@@ -1,83 +1,119 @@
 'use strict';
 
-angular.module('lematClient').controller('IssueController', ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', '$http', 'AuthFactory', 'IssueFactory', 'ServerUrl', function ($scope, $rootScope, $route, $routeParams, $location, $document, $http, AuthFactory, IssueFactory, ServerUrl) {
+angular.module('lematClient').controller('IssueController', ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', '$http', '$modal', 'AuthFactory', 'IssueFactory', 'ServerUrl', function ($scope, $rootScope, $route, $routeParams, $location, $document, $http, $modal, AuthFactory, IssueFactory, ServerUrl) {
+   $scope.getIssues = function () {
+      IssueFactory.getIssues();
+      $scope.issues = IssueFactory.issues;
+   };
 
-	$scope.piece = {};
-	$scope.issue = {};
+   $scope.getIssue = function () {
+      IssueFactory.getIssue($routeParams.id);
+      $scope.issue = IssueFactory.issue;
+   };
 
-	$scope.getIssues = function () {
-		IssueFactory.getIssues();
-		$scope.issues = IssueFactory.issues;
-	};
+   $scope.getPieces = function () {
+      IssueFactory.getIssue($routeParams.id);
+      $scope.pieces = IssueFactory.pieces;
+   };
 
-	$scope.getIssue = function () {
-		IssueFactory.getIssue($routeParams.id);
-		$scope.issue = IssueFactory.issue;
-	};
+   $scope.getPiece = function () {
+      IssueFactory.getIssuePiece($routeParams.id, $routeParams.piece);
+      $scope.piece = IssueFactory.piece;
+   };
 
-	$scope.getPieces = function () {
-		IssueFactory.getIssue($routeParams.id);
-		$scope.pieces = IssueFactory.pieces;
-	};
+   // issue crud actions
 
-	$scope.getPiece = function () {
-		IssueFactory.getIssuePiece($routeParams.id, $routeParams.piece);
-		$scope.piece = IssueFactory.piece;
-	};
+   $scope.upsertIssue = function (issue) {
+      if (AuthFactory.isAuthenticated()) {
+         IssueFactory.upsertIssue(issue);
+      }
+   };
 
-	// issue crud actions
+   $scope.deleteIssue = function (id, titleUrl) {
+      if (AuthFactory.isAuthenticated()) {
+         IssueFactory.deletePost(id, titleUrl);
+      }
+   };
 
-	$scope.upsertIssue = function (issue) {
-		if (AuthFactory.isAuthenticated()) {
-			IssueFactory.upsertIssue(issue);
-		}
-	};
+   // piece crud actions
 
-	$scope.deleteIssue = function (id, titleUrl) {
-		if (AuthFactory.isAuthenticated()) {
-			IssueFactory.deletePost(id, titleUrl);
-		}
-	};
+   $scope.upsertPiece = function (piece) {
+      if (AuthFactory.isAuthenticated()) {
+         if ($location.url() === '/piece-create') {
+            IssueFactory.upsertIssuePiece(piece, piece.issue_id).then(function () {;
+               $location.path('/issue/' + $routeParams.id + '/edit');
+               $scope.getPieces();
+            });
+         } else {
+            IssueFactory.upsertIssuePiece(piece, $routeParams.id).then(function () {
+               $scope.getIssue($routeParams.id);
+               $location.path('/issue/' + $routeParams.id + '/edit');
+               $scope.getPieces();
+            });
+         }
+      }
+   };
 
-	// piece crud actions
+   $scope.deletePiece = function () {
+      if (AuthFactory.isAuthenticated()) {
+         IssueFactory.deleteIssuePiece($scope.piece);
+         $location.path('issue/' + $routeParams.id);
+         $scope.getIssue($routeParams.id);
+      }
+   };
 
-	$scope.upsertPiece = function (piece) {
-		if (AuthFactory.isAuthenticated()) {
-			if ($location.url() === '/piece-create') {
-				IssueFactory.upsertIssuePiece(piece, piece.issue_id).then(function (response) {
-					console.log(response);
-				});
-				//				$location.path('issue-admin');
-				$scope.getIssues();
-			} else {
-				IssueFactory.upsertIssuePiece(piece, $routeParams.id);
-				$scope.getIssue($routeParams.id);
-				//				$location.path('issue-admin');
-				$scope.getIssues();
-			}
-		}
-	};
+   $scope.updatePieces = function () {
+      angular.forEach($scope.issue.pieces, function (obj) {
+         $scope.upsertPiece(obj);
+      });
+   }
 
-	$scope.deletePiece = function () {
-		if (AuthFactory.isAuthenticated()) {
-			console.log($scope.piece);
-			IssueFactory.deleteIssuePiece($scope.piece);
-			$location.path('issue/' + $routeParams.id);
-			$scope.getIssue($routeParams.id);
-		}
-	};
+   $scope.title = '';
 
-	$scope.updatePieces = function () {
-		angular.forEach($scope.issue.pieces, function (obj) {
-			console.log("piece " + obj.title + " " + obj.order);
-			$scope.upsertPiece(obj);
-		});
-	}
+   $scope.scrollToTop = function () {
+      $document.scrollTopAnimated(0);
+   };
 
-	$scope.title = '';
-	$scope.author = {};
+   // user create modal for pieces
 
-	$scope.scrollToTop = function () {
-		$document.scrollTopAnimated(0);
-	};
-}]);
+   $scope.open = function (size) {
+      $scope.$modalInstance = $modal.open({
+         scope: $scope,
+         templateUrl: 'views/modals/user-create.html',
+         controller: 'UserController',
+         size: 'lg'
+      });
+   };
+
+   $scope.ok = function () {
+      $scope.$modalInstance.close();
+   };
+
+   $scope.cancel = function () {
+      $scope.$modalInstance.dismiss('cancel');
+   };
+
+   $scope.$on('selectedUser', function (event, data) {
+      if (!!findUserIndexById(data.id)) {
+         // do nothing
+      } else {
+         $scope.piece.users[$scope.piece.users.length] = {
+            username: data.username,
+            email: data.email,
+            id: data.id
+         };
+      }
+   });
+   
+   $scope.removeUser = function (id) {
+      $scope.piece.users.splice(findUserIndexById(id), 1);  
+   };
+
+   var findUserIndexById = function (id) {
+      for (var i = 0; i < $scope.piece.users.length; i++) {
+         if ($scope.piece.users[i].id === id) {
+            return $scope.piece.users[i];
+         }
+      }
+   };
+         }]);

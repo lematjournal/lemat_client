@@ -1,13 +1,10 @@
-<div class="container" lemat-loading>
-	<h1 class="entry-title text-center">loading posts... <i class="fa fa-cog fa-spin"></i></h4>
-</div>
 <div class="container" ng-init="getEntries()">
 	<div dir-paginate="entry in entries | itemsPerPage: 5" current-page="currentPage">
 		<a ng-href="#/entry/{{ entry.id }}">
 			<h1 class="entry-title">{{ ::entry.title }}</h1>
 		</a>
 		<hr>
-		<p class="post-meta">Posted by <a ng-href="/{{ ::entry.id }}"> {{ ::entry.author }}</a> on {{ ::entry.created_at | date:'medium'}}</p>
+		<p class="post-meta">Posted by <a ng-href="/{{ ::entry.id }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium'}}</p>
 		<p class="post-subtitle">{{ entry.content | cut:true: 500 }}</p>
 	</div>
 	<br>

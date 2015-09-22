@@ -9,7 +9,7 @@
 			<h3>CONTENTS:</h3>
 			<hr>
 			<div class="content-inner" ng-repeat="piece in issue.pieces | orderBy: 'order'">
-				<li><a href="#/issue/{{ issue.id }}/{{ piece.title_url }}"><h4>{{ ::piece.title }} - {{ ::piece.author }}</a>
+				<li><a href="#/issue/{{ issue.id }}/{{ piece.title_url }}"><h4>{{ ::piece.title }} - <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ user.username }}</font></a>
 					</h4>
 				</li>
 			</div>
