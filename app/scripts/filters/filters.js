@@ -47,6 +47,7 @@ angular.module('lematClient').filter('cut', function () {
 			}
 		}
 
-		return value;
+		return value + (tail || '…');
+      
 	};
 });

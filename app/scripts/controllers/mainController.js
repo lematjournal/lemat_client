@@ -131,4 +131,15 @@ angular.module('lematClient').controller('MainController', ['$scope', '$rootScop
 
    $rootScope.isMobile = deviceDetector.isMobile();
    $rootScope.isDesktop = deviceDetector.isDesktop();
+   
+   // emitter for filters
+   
+   $scope.filters = {};
+   
+   $scope.setFilter = function (filter) {
+      $scope.filters.tags = filter;
+      $location.path('/online');
+      $scope.$emit('filter', $scope.filters);
+   };
+
   }]);

@@ -26,13 +26,13 @@
 						<h4 style="padding-left: 5px;">ONLINE</h4>
 					</li>
 					<li class="divider"></li>
-					<li><a href="#/online">CONTENTS</a>
+					<li><a ng-click="setFilter()">CONTENTS</a>
 					</li>
-					<li><a href="#/online">ART</a>
+					<li><a ng-click="setFilter('art')">ART</a>
 					</li>
-					<li><a href="#/online">ESSAYS</a>
+					<li><a ng-click="setFilter('essay')">ESSAYS</a>
 					</li>
-					<li><a href="#/online">POETRY</a>
+					<li><a ng-click="setFilter('poetry')">POETRY</a>
 					</li>
 				</ul>
 				<ul class="nav col-sm-6 col-xs-6" role="menu" ng-if="isDesktop">

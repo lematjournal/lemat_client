@@ -3,7 +3,9 @@
 angular.module('lematClient').controller('PostController', ['$scope', '$location', '$route', '$routeParams', '$modal', 'AuthFactory', 'UserFactory', 'PostFactory', function ($scope, $location, $route, $routeParams, $modal, AuthFactory, UserFactory, PostFactory) {
 
    $scope.url = $location.absUrl();
-
+   
+   $scope.post = {};
+   
    $scope.getPost = function () {
       PostFactory.getPost($routeParams.post);
       $scope.post = PostFactory.post;
@@ -57,6 +59,22 @@ angular.module('lematClient').controller('PostController', ['$scope', '$location
    };
 
    $scope.$on('selectedUser', function (event, data) {
-      $scope.post.user_id = data;
+      console.log(data);
+      $scope.post.user_id = data.id;
    });
+   
+   // filters for online view
+   
+   $scope.$on('filter', function (event, data) {
+      $scope.filters = data;
+      $location.path('/online');
+   });
+   
+   // tags
+   
+   $scope.getTags = function () {
+      PostFactory.getTags();
+      $scope.tags = PostFactory.tags;
+   };
+   
   }]);

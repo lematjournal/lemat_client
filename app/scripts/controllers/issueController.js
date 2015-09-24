@@ -92,6 +92,8 @@ angular.module('lematClient').controller('IssueController', ['$scope', '$rootSco
    $scope.cancel = function () {
       $scope.$modalInstance.dismiss('cancel');
    };
+   
+   // methods for user select
 
    $scope.$on('selectedUser', function (event, data) {
       if (!!findUserIndexById(data.id)) {

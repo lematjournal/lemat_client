@@ -3,9 +3,11 @@
       <label for="name">Title</label>
       <input type="text" ng-model="post.title" id="title" class="form-control" placeholder="title" required>
    </div>
-   <div class="form-group">
-      <label for="type">Type</label>
-      <input type="text" ng-model="post.post_type" id="type" class="form-control" placeholder="type" required>
+   <div class="form-group" ng-init="getTags()">
+      <label for="tags">Tags</label>
+      <tags-input display-property="name" ng-model="post.tags">
+         <auto-complete source="tags"></auto-complete>
+      </tags-input>
    </div>
    <div class="form-group" ng-controller="UserController" ng-init="getUsers()">
       <label for="user">Author(s):</label><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last"> and </span>{{ user.username }}</font>
