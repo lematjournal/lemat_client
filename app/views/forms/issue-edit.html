@@ -13,8 +13,7 @@
          <th>{{ piece.order }}</th>
          <th>{{ piece.title | cut:true: 25 }}</th>
          <th>by <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ user.username }}</font></th>
-            <th>
-		<a class="btn btn-default" href="#/issue/{{ issue.id }}/{{ piece.title_url }}/edit">Edit</a> <a class="btn btn-default" href="#/issue/{{ issue.id }}/{{ piece.title_url }}">Preview</a> <a class="btn btn-default" ng-click="piece.order = piece.order + 1"><span class="glyphicon glyphicon-chevron-up"></span></a> <a class="btn btn-default" ng-click="piece.order = piece.order - 1"><span class="glyphicon glyphicon-chevron-down"></span></a></th>
+            <th><a class="btn btn-default" href="#/issue/{{ issue.id }}/{{ piece.title_url }}/edit">Edit</a> <a class="btn btn-default" href="#/issue/{{ issue.id }}/{{ piece.title_url }}">Preview</a> <a class="btn btn-default" ng-click="piece.order = piece.order + 1"><span class="glyphicon glyphicon-chevron-up"></span></a> <a class="btn btn-default" ng-click="piece.order = piece.order - 1"><span class="glyphicon glyphicon-chevron-down"></span></a></th>
          </tr>
             </table>
 	<a class="btn btn-default" href="#/piece-create">Add Piece</a> <a class="btn btn-default" ng-click="updatePieces()">Update Order</a> <a class="btn btn-default" ng-click="upsertIssue(issue)">Submit</a>

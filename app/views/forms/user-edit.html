@@ -31,6 +31,6 @@
 			<label for="author">Confirm Password</label>
          <input type="password" ng-model="user.passwordConfirm" id="passord" class="form-control" placeholder="password confirm" match="user.password" required>
 		</div>
-		<a class="btn btn-default" ng-click="upsertUser(user)">Submit</a>
+		<a class="btn btn-default" ng-click="upsertUser(user)">Submit</a> <a class="btn btn-default" ng-click="deleteUser(user.id)"><i class="glyphicon glyphicon-trash"></i>Delete</a>
 	</div>
 </div>

@@ -1,7 +1,15 @@
 <div class="container" ng-init="getPosts()">
-	<div class="content" ng-repeat="post in posts">
-		<h2><a href="#/{{ ::post.title_url }}/edit">{{ ::post.title }}</a></h2>
-		<h3>created: {{ ::post.created_at | date: 'medium' }}</h3>
-	</div>
-	<a class="btn btn-default" href="#/post-create">Add Post</a>
+   <table class="table">
+      <tr>
+         <th>title</th>
+         <th>author</th>
+         <th>options</th>
+      </tr>
+      <tr ng-repeat="post in posts">
+         <th>{{ ::post.title }}</a></th>
+         <th>{{ ::post.author }}</th>
+         <th><a class="btn btn-default" href="#/{{ ::post.title_url }}/edit">Edit</a></th>
+      </tr>
+   </table>
+   <a class="btn btn-default" href="#/post-create">Add Post</a>
 </div>

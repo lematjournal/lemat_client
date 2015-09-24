@@ -1,6 +1,6 @@
 <div class="container" ng-init="getEntry()">
 	<div class="row">
-		<p ng-bind-html="entry.content"></p>
+		<p ng-bind-html="entry.content | to_trusted"></p>
 		<p>- {{ ::entry.user.email }}</p>
 	</div>
 	<hr>
