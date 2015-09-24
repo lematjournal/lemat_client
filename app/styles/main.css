@@ -24,6 +24,30 @@ body {
 	box-shadow: 0 0 0 rgba(0, 0, 0, .175);
 }
 
+.panel {
+  margin-bottom: 20px;
+  background-color: #fff;
+/*  border: 1px solid transparent;*/
+  border-radius: 0; 
+   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05); 
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0); 
+  height: 173px;
+}
+
+.panel-default > .panel-heading {
+   background-color: white;
+}
+
+.contrast-bar {
+  padding: 0 10px;
+/*  color: #fff;*/
+/*  font-family: Georgia,Times,"Times New Roman",serif;*/
+  text-transform: uppercase;
+/*  background-color: #000 !important;*/
+  line-height: 40px;
+  font-size: 14px;
+}
+
 /* less than or equal to*/
 
 @media(min-width:1501px) {
