@@ -1,11 +1,7 @@
 'use strict';
 
 angular.module('lematClient').factory('IssueFactory', ['$http', '$window', 'AuthFactory', 'ServerUrl', function ($http, $window, AuthFactory, ServerUrl) {
-   var issues = [];
-   var issue = {};
-
-   var pieces = [];
-   var piece = {};
+   var issues = [], issue = {}, pieces = [], piece = {};
 
    var resetIssue = function () {
       angular.copy({}, issue);

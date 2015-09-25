@@ -21,6 +21,7 @@
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.4.0",
     "ng-device-detector": "~1.1.8",
+    "ng-flow": "~2",
     "ng-tags-input": "~3.0.0",
     "ngWig": "ng-wig#~1.1.10"
   },

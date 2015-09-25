@@ -1,37 +1,50 @@
 'use strict';
 
 angular.module('lematClient').controller('EntryController', ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', 'AuthFactory', 'EntryFactory', 'ServerUrl', function ($scope, $rootScope, $route, $routeParams, $location, $document, AuthFactory, EntryFactory, ServerUrl) {
+   
+   $scope.entry = {};
 
-	$scope.getEntries = function () {
-		EntryFactory.getEntries();
-		$scope.entries = EntryFactory.entries;
-	};
+   $scope.getEntries = function () {
+      EntryFactory.getEntries();
+      $scope.entries = EntryFactory.entries;
+   };
 
-	$scope.getEntry = function () {
-		EntryFactory.getEntry($routeParams.id);
-		$scope.entry = EntryFactory.entry;
-	};
+   $scope.getEntry = function () {
+      EntryFactory.getEntry($routeParams.id);
+      $scope.entry = EntryFactory.entry;
+   };
 
-	// entry crud actions
+   // entry crud actions
 
-	$scope.upsertEntry = function (entry) {
-		if (AuthFactory.isAuthenticated()) {
-			EntryFactory.upsertEntry(entry);
-		}
-	};
+   $scope.upsertEntry = function (entry) {
+      if (AuthFactory.isAuthenticated()) {
+         EntryFactory.upsertEntry(entry);
+         $location.path('/entry-admin');
+         EntryFactory.getEntries();
+      }
+   };
 
-	$scope.deleteIssue = function (id) {
-		if (AuthFactory.isAuthenticated()) {
-			EntryFactory.deletePost(id);
-		}
-	};
+   $scope.deleteIssue = function (id) {
+      if (AuthFactory.isAuthenticated()) {
+         EntryFactory.deletePost(id);
+         $location.path('/entry-admin');
+         EntryFactory.getEntries();
+      }
+   };
 
-	// pagination
+   // pagination
 
-	$scope.pageChangeHandler = function (num) {
-		console.log('going to page ' + num);
-	};
-	
-	$scope.currentPage = 1;
+   $scope.pageChangeHandler = function (num) {
+      console.log('going to page ' + num);
+   };
+
+   $scope.currentPage = 1;
+
+   // user
+
+   $scope.$on('selectedUser', function (event, data) {
+      console.log(data);
+      $scope.entry.user_id = data.id;
+   });
 
 }]);

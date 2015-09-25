@@ -26,6 +26,7 @@ angular.module('lematClient').controller('IssueController', ['$scope', '$rootSco
    $scope.upsertIssue = function (issue) {
       if (AuthFactory.isAuthenticated()) {
          IssueFactory.upsertIssue(issue);
+         IssueFactory.getIssues();
       }
    };
 

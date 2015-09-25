@@ -1,9 +1,20 @@
 'use strict';
 
-angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll', 'ngWig', 'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination', 'validation.match', 'ui.bootstrap', 'angucomplete-alt', 'ngTagsInput'])
+angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll', 'ngWig', 'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination', 'validation.match', 'ui.bootstrap', 'angucomplete-alt', 'ngTagsInput', 'flow'])
 	.value('duScrollDuration', 2000)
 	.value('duScrollOffset', 30)
-	.config(function ($routeProvider) {
+   .config(['flowFactoryProvider', '$routeProvider', function (flowFactoryProvider, $routeProvider) {
+     flowFactoryProvider.defaults = {
+       target: '',
+       permanentErrors: [404, 500, 501],
+       maxChunkRetries: 1,
+       chunkRetryInterval: 5000,
+       simultaneousUploads: 4,
+       singleFile: true
+     };
+     flowFactoryProvider.on('catchAll', function (event) {
+       console.log('catchAll', arguments);
+     })
 		$routeProvider
 		// front page
 			.when('/', {
@@ -125,4 +136,4 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
 			.otherwise({
 				redirectTo: '/'
 			});
-	});
+	}]);
