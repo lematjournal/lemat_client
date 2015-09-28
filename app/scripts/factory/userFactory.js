@@ -20,14 +20,7 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
 
    var getUsers = function () {
       return $http.get(ServerUrl + '/users/').then(function (response) {
-         angular.forEach(response.data, function (value) {
-            console.log(value);
-//            var usr = object;
-//            delete usr['token'];
-//            delete usr['password_digest'];
-         })
          angular.copy(response.data, users);
-         console.log(users);
       });
    };
 

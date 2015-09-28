@@ -8,10 +8,8 @@ angular.module('lematClient').controller('UserController', ['$scope', '$location
    };
 
    $scope.getUser = function () {
-      if (AuthFactory.isAuthenticated()) {
-         UserFactory.getUser($routeParams.user);
-         $scope.user = UserFactory.user;
-      }
+      UserFactory.getUser($routeParams.user);
+      $scope.user = UserFactory.user;
    };
 
    $scope.upsertUser = function (user) {
