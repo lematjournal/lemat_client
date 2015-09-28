@@ -35,7 +35,7 @@ angular.module('lematClient').factory('PostFactory', ['$http', 'AuthFactory', 'S
                 content: post.content,
                 title_url: post.title.replace(/\s/g, "-").substring(0, 25).toLowerCase()
             }
-        }
+        };
         
         console.log(params);
 

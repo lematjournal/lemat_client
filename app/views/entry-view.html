@@ -1,5 +1,8 @@
 <div class="container" ng-init="getEntry()">
 	<div class="row">
+      <h1>{{ ::entry.title }}</h1>
+      <hr>
+      <p class="post-meta">Posted by <a ng-href="#/user/{{ ::entry.user.username }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }}</p>
 		<p ng-bind-html="entry.content | to_trusted"></p>
 		<p>- {{ ::entry.user.email }}</p>
 	</div>

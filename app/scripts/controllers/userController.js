@@ -3,10 +3,8 @@
 angular.module('lematClient').controller('UserController', ['$scope', '$location', '$route', '$routeParams', 'AuthFactory', 'UserFactory', 'PostFactory', 'EntryFactory', function ($scope, $location, $route, $routeParams, AuthFactory, UserFactory, PostFactory, EntryFactory) {
 
    $scope.getUsers = function () {
-      if (AuthFactory.isAuthenticated()) {
-         UserFactory.getUsers();
-         $scope.users = UserFactory.users;
-      }
+      UserFactory.getUsers();
+      $scope.users = UserFactory.users;
    };
 
    $scope.getUser = function () {

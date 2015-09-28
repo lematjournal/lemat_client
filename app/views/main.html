@@ -4,7 +4,7 @@
 			<h1 class="entry-title">{{ ::entry.title | uppercase }}</h1>
 		</a>
 		<hr>
-		<p class="post-meta">Posted by <a ng-href="/{{ ::entry.id }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }}</p>
+		<p class="post-meta">Posted by <a ng-href="#/user/{{ ::entry.user.username }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }}</p>
       <br>
 		<p class="post-subtitle" ng-bind-html="entry.content | to_trusted"></p>
 	</div>

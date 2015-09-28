@@ -5,13 +5,29 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
 
    var getUser = function (username) {
       return $http.get(ServerUrl + '/users/' + username).then(function (response) {
-         angular.copy(response.data, user);
+         var params = {
+            email: response.data.email,
+            username: response.data.username,
+            role: response.data.role,
+            image: response.data.image,
+            pieces: response.data.pieces,
+            posts: response.data.posts,
+            entries: response.data.entries
+         };
+         angular.copy(params, user);
       });
    };
 
    var getUsers = function () {
       return $http.get(ServerUrl + '/users/').then(function (response) {
+         angular.forEach(response.data, function (value) {
+            console.log(value);
+//            var usr = object;
+//            delete usr['token'];
+//            delete usr['password_digest'];
+         })
          angular.copy(response.data, users);
+         console.log(users);
       });
    };
 
