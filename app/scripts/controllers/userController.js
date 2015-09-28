@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('lematClient').controller('UserController', ['$scope', '$location', '$route', '$routeParams', 'AuthFactory', 'UserFactory', 'PostFactory', 'EntryFactory', function ($scope, $location, $route, $routeParams, AuthFactory, UserFactory, PostFactory, EntryFactory) {
+angular.module('lematClient').controller('UserController', ['$scope', '$location', '$route', '$routeParams', 'AuthFactory', 'UserFactory', function ($scope, $location, $route, $routeParams, AuthFactory, UserFactory) {
 
    $scope.getUsers = function () {
       UserFactory.getUsers();
@@ -38,5 +38,5 @@ angular.module('lematClient').controller('UserController', ['$scope', '$location
    
    $scope.exclude = function (elem) {
       return !elem.role.match(/^(admin|editor)$/);
-   }
+   };
 }]);

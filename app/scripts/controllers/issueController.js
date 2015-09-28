@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('lematClient').controller('IssueController', ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', '$http', '$modal', 'AuthFactory', 'IssueFactory', 'ServerUrl', function ($scope, $rootScope, $route, $routeParams, $location, $document, $http, $modal, AuthFactory, IssueFactory, ServerUrl) {
+angular.module('lematClient').controller('IssueController', ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', '$http', '$modal', 'AuthFactory', 'IssueFactory', function ($scope, $rootScope, $route, $routeParams, $location, $document, $http, $modal, AuthFactory, IssueFactory) {
    $scope.getIssues = function () {
       IssueFactory.getIssues();
       $scope.issues = IssueFactory.issues;
@@ -41,7 +41,7 @@ angular.module('lematClient').controller('IssueController', ['$scope', '$rootSco
    $scope.upsertPiece = function (piece) {
       if (AuthFactory.isAuthenticated()) {
          if ($location.url() === '/piece-create') {
-            IssueFactory.upsertIssuePiece(piece, piece.issue_id).then(function () {;
+            IssueFactory.upsertIssuePiece(piece, piece.issue_id).then(function () {
                $location.path('/issue/' + $routeParams.id + '/edit');
                $scope.getPieces();
             });

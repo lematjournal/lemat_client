@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('lematClient').controller('EntryController', ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', 'AuthFactory', 'EntryFactory', 'ServerUrl', function ($scope, $rootScope, $route, $routeParams, $location, $document, AuthFactory, EntryFactory, ServerUrl) {
+angular.module('lematClient').controller('EntryController', ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', 'AuthFactory', 'EntryFactory', function ($scope, $rootScope, $route, $routeParams, $location, $document, AuthFactory, EntryFactory) {
    
    $scope.entry = {};
 
@@ -19,6 +19,7 @@ angular.module('lematClient').controller('EntryController', ['$scope', '$rootSco
    $scope.upsertEntry = function (entry) {
       if (AuthFactory.isAuthenticated()) {
          EntryFactory.upsertEntry(entry);
+         console.log(entry);
          $location.path('/entry-admin');
          EntryFactory.getEntries();
       }
@@ -43,7 +44,6 @@ angular.module('lematClient').controller('EntryController', ['$scope', '$rootSco
    // user
 
    $scope.$on('selectedUser', function (event, data) {
-      console.log(data);
       $scope.entry.user_id = data.id;
    });
 

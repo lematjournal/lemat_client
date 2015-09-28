@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll', 'ngWig', 'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination', 'validation.match', 'ui.bootstrap', 'angucomplete-alt', 'ngTagsInput', 'flow'])
+angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll',  'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination', 'validation.match', 'ui.bootstrap', 'angucomplete-alt', 'ngTagsInput', 'flow'])
 	.value('duScrollDuration', 2000)
 	.value('duScrollOffset', 30)
    .config(['flowFactoryProvider', '$routeProvider', function (flowFactoryProvider, $routeProvider) {
@@ -14,7 +14,7 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
      };
      flowFactoryProvider.on('catchAll', function (event) {
        console.log('catchAll', arguments);
-     })
+     });
 		$routeProvider
 		// front page
 			.when('/', {

@@ -15,7 +15,7 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
       return $http.post(ServerUrl + '/users/logout').then(function (response) {
          $window.localStorage.removeItem('lemat-user');
          var userId = {};
-         console.log("logged out")
+         console.log("logged out");
       });
    };
 
@@ -29,7 +29,7 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
       return $http.post(ServerUrl + '/posts/users/', params).then(function (response) {
          _storeSession(response);
       }, function (response) {
-         console.log(response)
+         console.log(response);
       });
    };
 
@@ -50,14 +50,14 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
       if (response.data.role = "admin") {
          $http.defaults.headers.common.Authorization = 'Token token=' + response.data.token;
          console.log(response.data.token);
-      };
+      }
    };
 
    if (isAuthenticated() === true) {
       var userId = JSON.parse($window.localStorage.getItem('lemat-user')).id;
    } else {
       var userId = null;
-   };
+   }
 
    return {
       login: login,

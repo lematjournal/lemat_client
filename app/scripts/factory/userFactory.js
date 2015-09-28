@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'ServerUrl', function ($http, AuthFactory, ServerUrl) {
-   var users = [], user = {};
+   var users = [], user = {}, postUsers = [], issueUsers = [];
 
    var getUser = function (username) {
       return $http.get(ServerUrl + '/users/' + username).then(function (response) {
@@ -23,6 +23,19 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
          angular.copy(response.data, users);
       });
    };
+   
+   var getPostUsers = function () {
+      return $http.get(ServerUrl + '/users/post-users').then(function (response) {
+         angular.copy(response.data, postUsers);
+      });
+   };
+   
+   var getIssueUsers = function () {
+      return $http.get(ServerUrl + '/users/issue-users').then(function (response) {
+         angular.copy(response.data, issueUsers);
+      });
+   };
+
 
    var upsertUser = function (user) {
       var params = {
@@ -32,7 +45,7 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
             role: user.role,
             password: user.password
          }
-      }
+      };
 
       if (user.id) {
          return $http.patch(ServerUrl + '/users/' + user.id, params).then(function (response) {
@@ -64,9 +77,13 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
    return {
       getUser: getUser,
       getUsers: getUsers,
+      getPostUsers: getPostUsers,
+      getIssueUsers: getIssueUsers,
       upsertUser: upsertUser,
       deleteUser: deleteUser,
       user: user,
-      users: users
+      users: users,
+      postUsers: postUsers,
+      issueUsers: issueUsers
    };
 }]);

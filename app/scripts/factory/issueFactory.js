@@ -26,7 +26,8 @@ angular.module('lematClient').factory('IssueFactory', ['$http', '$window', 'Auth
             title: issue.title,
             image: issue.image
          }
-      }
+      };
+      
       if (issue.id) {
          return $http.patch(ServerUrl + '/issues/' + issue.id, params).then(function (response) {
             getIssue(response.data.id);
@@ -43,7 +44,7 @@ angular.module('lematClient').factory('IssueFactory', ['$http', '$window', 'Auth
    };
 
    var deleteIssue = function (id, titleUrl) {
-      return $http.delete(ServerUrl + '/issues/' + titleUrl).then(function (response) {
+      return $http.delete(ServerUrl + '/issues/' + titleUrl).then(function () {
          issues.splice(findIssueIndexById(id), 1);
       });
    };
@@ -90,7 +91,7 @@ angular.module('lematClient').factory('IssueFactory', ['$http', '$window', 'Auth
             order: piece.order,
             title_url: piece.title.replace(/\s/g, "-").substring(0, 25).toLowerCase()
          }
-      }
+      };
 
       if (piece.id) {
          return $http.patch(ServerUrl + '/issues/' + issueId + '/pieces/' + piece.id, params).then(function (response) {
@@ -99,15 +100,15 @@ angular.module('lematClient').factory('IssueFactory', ['$http', '$window', 'Auth
             console.log(response);
          });
       } else {
-         return $http.post(ServerUrl + '/issues/' + issueId + '/pieces/', params).then(function (response) {}, function (response) {
-            console.log("response: ", response);
+         return $http.post(ServerUrl + '/issues/' + issueId + '/pieces/', params).then(function () {}, function (response) {
+            console.log("error: ", response);
          });
       }
    };
 
    var deleteIssuePiece = function (piece) {
       console.log(piece);
-      return $http.delete(ServerUrl + '/issues/' + piece.issue_id + '/pieces/' + piece.title).then(function (response) {});
+      return $http.delete(ServerUrl + '/issues/' + piece.issue_id + '/pieces/' + piece.title);
    };
 
    var findIssuePieceIndexById = function (id) {
