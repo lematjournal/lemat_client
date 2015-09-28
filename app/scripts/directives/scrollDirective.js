@@ -53,7 +53,7 @@ angular.module('lematClient').directive('scroll', ['$document', '$timeout', '$fi
 					return parseFloat(a.pos - b.pos);
 				});
 				
-				console.log(posArray);
+//				console.log(posArray);
 			});
 
 			var i = 0;

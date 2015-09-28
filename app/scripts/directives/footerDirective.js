@@ -3,6 +3,8 @@
 angular.module('lematClient').directive('lematFooter', [ function () {
 	return {
 		restrict: 'E',
-		templateUrl: 'views/partials/footer.html'
+		templateUrl: 'views/partials/footer.html',
+      scope: false,
+      controller: 'IssueController'
 	}
 }]);

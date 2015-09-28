@@ -32,6 +32,7 @@ angular.module('lematClient').filter('spaceless',function() {
 });
 
 angular.module('lematClient').filter('cut', function () {
+   // method signature: "item | cut:true:500"
 	return function (value, wordwise, max, tail) {
 		if (!value) return '';
 

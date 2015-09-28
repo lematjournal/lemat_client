@@ -70,7 +70,7 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
 				templateUrl: 'views/forms/piece-create.html',
 				controller: 'IssueController'
 			})
-			// preview pieces from admin view
+			// piece view
 			.when('/issue/:id/:piece', {
 				templateUrl: 'views/forms/piece-preview.html',
 				controller: 'IssueController'
@@ -90,10 +90,12 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
 				templateUrl: 'views/forms/online-admin.html',
 				controller: 'PostController'
 			})
+         // create post view
 			.when('/post-create', {
 				templateUrl: 'views/forms/post-create.html',
 				controller: 'PostController'
 			})
+         // edit post view
 			.when('/:post/edit', {
 				templateUrl: 'views/forms/post-edit.html',
 				controller: 'PostController'
@@ -112,8 +114,13 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
             controller: 'UserController'
          })
          .when('/user/:user/edit', {
-          templateUrl: 'views/forms/user-edit.html',
-          controller: 'UserController'
+            templateUrl: 'views/forms/user-edit.html',
+            controller: 'UserController'
+         })
+         // user view
+         .when('/user/:user', {
+            templateUrl: 'views/user-view.html',
+            controller: 'UserController'
          })
          // control panel
          .when('/control-panel', {
@@ -123,7 +130,8 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
 				templateUrl: 'views/submissions.html'
 			})
 			.when('/editors', {
-				templateUrl: 'views/editors.html'
+				templateUrl: 'views/editors.html',
+            controller: 'UserController'
 			})
 			.when('/about', {
 				templateUrl: 'views/about.html'

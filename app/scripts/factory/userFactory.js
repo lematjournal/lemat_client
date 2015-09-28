@@ -1,11 +1,10 @@
 'use strict';
 
 angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'ServerUrl', function ($http, AuthFactory, ServerUrl) {
-   var users = [];
-   var user = {};
+   var users = [], user = {};
 
-   var getUser = function (id) {
-      return $http.get(ServerUrl + '/users/' + id).then(function (response) {
+   var getUser = function (username) {
+      return $http.get(ServerUrl + '/users/' + username).then(function (response) {
          angular.copy(response.data, user);
       });
    };
@@ -47,8 +46,8 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
       }
    };
 
-   var deleteUser = function (id) {
-      return $http.delete(ServerUrl + '/users/' + id).then(function () {
+   var deleteUser = function (id, username) {
+      return $http.delete(ServerUrl + '/users/' + username).then(function () {
          users.splice(findUserById(id), 1);
       });
    };

@@ -17,18 +17,20 @@ angular.module('lematClient').controller('UserController', ['$scope', '$location
    };
 
    $scope.upsertUser = function (user) {
-      if (user.role === 'contributor') {
+      if (user.role !== 'admin') {
          user.password = 'default';
       }
 
       if (AuthFactory.isAuthenticated()) {
          UserFactory.upsertUser(user);
+         $location.path('/user-admin');
+         $scope.getUsers();
       }
    };
 
-   $scope.deleteUser = function (id) {
+   $scope.deleteUser = function (id, username) {
       if (AuthFactory.isAuthenticated()) {
-         UserFactory.deleteUser(id);
+         UserFactory.deleteUser(id, username);
       }
    };
 
@@ -37,4 +39,8 @@ angular.module('lematClient').controller('UserController', ['$scope', '$location
          $scope.$emit('selectedUser', $item.originalObject);
       }
    };
+   
+   $scope.exclude = function (elem) {
+      return !elem.role.match(/^(admin|editor)$/);
+   }
 }]);

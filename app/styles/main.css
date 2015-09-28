@@ -46,6 +46,12 @@ input {
     width: 20px;
 }
 
+@media (min-width: 768px) {
+   .social-buttons {
+     width: inherit;
+   }
+}
+
 .panel-default > .panel-heading {
    background-color: white;
 }

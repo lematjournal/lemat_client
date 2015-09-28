@@ -14,7 +14,7 @@
 			</ul>
 		</div>
 		<div class="col-md-4">
-			<h2>AUTHORS</h2>
+			<h2>CONTRIBUTORS</h2>
 			<ul ng-repeat="piece in issue.pieces | unique:'users' | orderBy: 'order'" author>
 				<li><a><font ng-repeat="user in piece.users | reverse"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ user.username }}</font></a></li>
 			</ul>

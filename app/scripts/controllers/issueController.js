@@ -119,4 +119,12 @@ angular.module('lematClient').controller('IssueController', ['$scope', '$rootSco
          }
       }
    };
+   
+   // omit function
+   // this will have to be changed later 
+   // in case contributors become writers
+   
+   $scope.exclude = function (elem) {
+      return elem.role.includes('contributor');
+   }
          }]);
