@@ -1,11 +1,13 @@
 <div class="container" ng-init="getEntry()">
-	<div class="row">
+   <div class="row">
       <h1>{{ ::entry.title }}</h1>
       <hr>
-      <p class="post-meta">Posted by <a ng-href="#/user/{{ ::entry.user.username }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }}</p>
-		<p ng-bind-html="entry.content | to_trusted"></p>
-		<p>- {{ ::entry.user.email }}</p>
-	</div>
-	<hr>
-	<a class="btn btn-default" ng-href="/#/">Back</a>
+      <p class="post-meta">Posted by <a ng-href="#!/user/{{ ::entry.user.username }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }}</p>
+      <p ng-bind-html="entry.content | to_trusted"></p>
+      <p>- {{ ::entry.user.email }}</p>
+   </div>
+   <hr>
+   <a class="btn btn-default" ng-href="/#!/">Back</a>
+   <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ ::identifier }}" disqus-url="{{ ::url }}" disqus-title="{{ ::entry.title }}">
+   </dir-disqus>
 </div>

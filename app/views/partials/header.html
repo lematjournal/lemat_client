@@ -8,17 +8,17 @@
 						<h4 style="padding-left: 5px;">HOME</h4>
 					</li>
 					<li class="divider"></li>
-					<li><a href="#/">MAIN PAGE</a>
+					<li><a href="#!/">MAIN PAGE</a>
 					</li>
-					<li><a href="#/issues/">ISSUES</a>
+					<li><a href="#!/issues/">ISSUES</a>
 					</li>
-					<li><a href="#/issue/1">CURRENT ISSUE</a>
+					<li><a href="#!/issue/1">CURRENT ISSUE</a>
 					</li>
-					<li><a href="#/about">ABOUT</a>
+					<li><a href="#!/about">ABOUT</a>
 					</li>
-					<li ng-if="!isAuthenticated()"><a href="#/login">LOGIN</a>
+					<li ng-if="!isAuthenticated()"><a href="#!/login">LOGIN</a>
 					</li>
-					<li ng-if="isAuthenticated()"><a href="#/" ng-click="logout()">LOGOUT</a>
+					<li ng-if="isAuthenticated()"><a href="#!/" ng-click="logout()">LOGOUT</a>
 					</li>
 				</ul>
 				<ul class="nav col-sm-6 col-xs-6" role="menu">
@@ -35,7 +35,7 @@
 					<li><a ng-click="setFilter('poetry')">POETRY</a>
 					</li>
 				</ul>
-				<ul class="nav col-sm-6 col-xs-6" role="menu" ng-if="isDesktop">
+				<ul class="nav col-sm-6 col-xs-6" role="menu">
 					<li>
 						<h4 style="padding-left: 5px;">SOCIAL</h4>
 					</li>
@@ -44,7 +44,7 @@
 						<a href="https://www.facebook.com/lematjournal"><i class=" fa fa-facebook"></i></a>
 					</li>
 					<li>
-						<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="https://twitter.com/lematjournal"><i class="fa fa-twitter"></i></a>
 					</li>
 				</ul>
 				<ul class="nav col-sm-6 col-xs-6 contact" role="menu">
@@ -52,9 +52,9 @@
 						<h4 style="padding-left: 5px;">CONTACT</h4>
 					</li>
 					<li class="divider"></li>
-					<li><a href="#/submissions">SUBMISSIONS</a>
+					<li><a href="#!/submissions">SUBMISSIONS</a>
 					</li>
-					<li><a href="#/editors">EDITORS</a>
+					<li><a href="#!/editors">EDITORS</a>
 					</li>
 				</ul>
 				<ul class="nav col-sm-6 col-xs-6" role="menu" ng-if="isAuthenticated()">
@@ -62,7 +62,7 @@
 						<h4 style="padding-left: 5px;">ADMIN</h4>
 					</li>
 					<li class="divider"></li>
-					<li><a href="#/control-panel">ADMIN CONTROL PANEL</a>
+					<li><a href="#!/control-panel">ADMIN CONTROL PANEL</a>
 					</li>
 				</ul>
 				<ul class="nav col-sm-6 col-xs-6 pull-right" role="menu">

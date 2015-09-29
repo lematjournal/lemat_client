@@ -2,7 +2,11 @@
 
 angular.module('lematClient').controller('EntryController', ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', 'AuthFactory', 'EntryFactory', function ($scope, $rootScope, $route, $routeParams, $location, $document, AuthFactory, EntryFactory) {
    
+   $scope.url = $location.absUrl();
+   
    $scope.entry = {};
+   
+   $scope.identifier = $routeParams.id;
 
    $scope.getEntries = function () {
       EntryFactory.getEntries();

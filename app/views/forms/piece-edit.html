@@ -9,14 +9,14 @@
    </div>
    <div class="form-group" ng-controller="UserController" ng-init="getUsers()">
       <label for="authors">Author(s):</label>
-      <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ user.username }}<a ng-click="removeUser(user.id)"><span class="glyphicon glyphicon-remove"></a></span></font>
+      <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}<a ng-click="removeUser(user.id)"><span class="glyphicon glyphicon-remove"></a></span></font>
       <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="users" search-fields="username" title-field="username" minlength="1" input-class="form-control form-control-small" initial-value="piece.author" aria-describedby="basic-addon1" />
    </div>
    <a class="btn btn-default" ng-click="open()">Create New User</a>
    <div class="form-group" ng-init="getIssues()">
       <label for="issue">Issue</label>
       <select ng-model="piece.issue_id" class="form-control">
-         <option ng-repeat="issue in issues" value="{{issue.id }}">{{ issue.title }}</option>
+         <option ng-repeat="issue in issues" value="{{ ::issue.id }}">{{ ::issue.title }}</option>
       </select>
    </div>
    <div class="form-group">

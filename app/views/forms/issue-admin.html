@@ -1,7 +1,7 @@
 <div class="container" ng-init="getIssues()">
 	<div class="content" ng-repeat="issue in issues">
-		<h2><a href="#/issue/{{ issue.id }}/edit">{{ issue.title }}</a></h2>
-		<h3>created: {{ issue.created_at }}</h3>
+		<h2><a href="#!/issue/{{ ::issue.id }}/edit">{{ ::issue.title }}</a></h2>
+		<h3>created: {{ ::issue.created_at }}</h3>
 	</div>
 </div>
 <hr>

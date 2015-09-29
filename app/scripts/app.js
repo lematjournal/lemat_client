@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll',  'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination', 'validation.match', 'ui.bootstrap', 'angucomplete-alt', 'ngTagsInput', 'flow'])
+angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll',  'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'validation.match', 'ui.bootstrap', 'angucomplete-alt', 'ngTagsInput', 'flow'])
 	.value('duScrollDuration', 2000)
 	.value('duScrollOffset', 30)
-   .config(['flowFactoryProvider', '$routeProvider', function (flowFactoryProvider, $routeProvider) {
+   .config(['flowFactoryProvider', '$routeProvider', '$locationProvider', function (flowFactoryProvider, $routeProvider, $locationProvider) {
      flowFactoryProvider.defaults = {
        target: '',
        permanentErrors: [404, 500, 501],
@@ -15,6 +15,7 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
      flowFactoryProvider.on('catchAll', function (event) {
        console.log('catchAll', arguments);
      });
+      $locationProvider.html5Mode(false).hashPrefix('!');
 		$routeProvider
 		// front page
 			.when('/', {

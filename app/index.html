@@ -2,120 +2,120 @@
 <html ng-app="lematClient">
 
 <head>
-	<meta charset="utf-8">
-	<title></title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width">
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-	<link href='http://fonts.googleapis.com/css?family=Arimo:400' rel='stylesheet'>
-	<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-		
-	<!-- build:css(.) styles/vendor.css -->
-	<!-- bower:css -->
-	<link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css" />
-	<link rel="stylesheet" href="bower_components/angular-aside/dist/css/angular-aside.css" />
-	<link rel="stylesheet" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-	<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
-	<!-- endbower -->
-	<!-- endbuild -->
-	<!-- build:css(.tmp) styles/main.css -->
-	<link rel="stylesheet" href="styles/main.css">
+   <meta charset="utf-8">
+   <title></title>
+   <meta name="description" content="">
+   <meta name="viewport" content="width=device-width">
+   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+   <link href='http://fonts.googleapis.com/css?family=Arimo:400' rel='stylesheet'>
+   <link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+   <link href='https://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
+   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+   <!-- build:css(.) styles/vendor.css -->
+   <!-- bower:css -->
+   <link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css" />
+   <link rel="stylesheet" href="bower_components/angular-aside/dist/css/angular-aside.css" />
+   <link rel="stylesheet" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
+   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+   <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
+   <!-- endbower -->
+   <!-- endbuild -->
+   <!-- build:css(.tmp) styles/main.css -->
+   <link rel="stylesheet" href="styles/main.css">
    <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css">
-	<!-- endbuild -->
+   <!-- endbuild -->
 </head>
 
 <body ng-controller="MainController">
-	<!--[if lte IE 8]>
+   <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-	<lemat-header></lemat-header>
-	<div ng-view=""></div>
-	<lemat-footer></lemat-footer>
+   <lemat-header></lemat-header>
+   <div ng-view=""></div>
+   <lemat-footer></lemat-footer>
 
 
-	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-	<script>
-		! function (A, n, g, u, l, a, r) {
-			A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
-					(A[l].q = A[l].q || []).push(arguments)
-				}, A[l].l = +new Date, a = n.createElement(g),
-				r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
-		}(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+   <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+   <script>
+      ! function (A, n, g, u, l, a, r) {
+         A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
+               (A[l].q = A[l].q || []).push(arguments)
+            }, A[l].l = +new Date, a = n.createElement(g),
+            r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+      }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-		ga('create', 'UA-XXXXX-X');
-		ga('send', 'pageview');
-	</script>
+      ga('create', 'UA-XXXXX-X');
+      ga('send', 'pageview');
+   </script>
 
-	<!-- build:js(.) scripts/vendor.js -->
-	<!-- bower:js -->
-	<script src="bower_components/jquery/dist/jquery.js"></script>
-	<script src="bower_components/angular/angular.js"></script>
-	<script src="bower_components/angucomplete-alt/angucomplete-alt.js"></script>
-	<script src="bower_components/angular-animate/angular-animate.js"></script>
-	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script src="bower_components/angular-aside/dist/js/angular-aside.js"></script>
-	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-	<script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
-	<script src="bower_components/angular-resource/angular-resource.js"></script>
-	<script src="bower_components/angular-route/angular-route.js"></script>
-	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-	<script src="bower_components/angular-scroll/angular-scroll.js"></script>
-	<script src="bower_components/angular-touch/angular-touch.js"></script>
-	<script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
-	<script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
-	<script src="bower_components/angular-wysiwyg/dist/angular-wysiwyg.min.js"></script>
-	<script src="bower_components/angularUtils-disqus/dirDisqus.js"></script>
-	<script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
-	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="bower_components/re-tree/re-tree.js"></script>
-	<script src="bower_components/ng-device-detector/ng-device-detector.js"></script>
-	<script src="bower_components/flow.js/dist/flow.js"></script>
-	<script src="bower_components/ng-flow/dist/ng-flow.js"></script>
-	<script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
-	<!-- endbower -->
-	<!-- endbuild -->
+   <!-- build:js(.) scripts/vendor.js -->
+   <!-- bower:js -->
+   <script src="bower_components/jquery/dist/jquery.js"></script>
+   <script src="bower_components/angular/angular.js"></script>
+   <script src="bower_components/angucomplete-alt/angucomplete-alt.js"></script>
+   <script src="bower_components/angular-animate/angular-animate.js"></script>
+   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+   <script src="bower_components/angular-aside/dist/js/angular-aside.js"></script>
+   <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+   <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
+   <script src="bower_components/angular-resource/angular-resource.js"></script>
+   <script src="bower_components/angular-route/angular-route.js"></script>
+   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+   <script src="bower_components/angular-scroll/angular-scroll.js"></script>
+   <script src="bower_components/angular-touch/angular-touch.js"></script>
+   <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
+   <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+   <script src="bower_components/angular-wysiwyg/dist/angular-wysiwyg.min.js"></script>
+   <script src="bower_components/angularUtils-disqus/dirDisqus.js"></script>
+   <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+   <script src="bower_components/re-tree/re-tree.js"></script>
+   <script src="bower_components/ng-device-detector/ng-device-detector.js"></script>
+   <script src="bower_components/flow.js/dist/flow.js"></script>
+   <script src="bower_components/ng-flow/dist/ng-flow.js"></script>
+   <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+   <!-- endbower -->
+   <!-- endbuild -->
 
-	<!-- build:js({.tmp,app}) scripts/scripts.js -->
-	<script src="scripts/app.js"></script>
+   <!-- build:js({.tmp,app}) scripts/scripts.js -->
+   <script src="scripts/app.js"></script>
 
-	<!--	contants -->
-	<script src="scripts/constants/constants.js"></script>
+   <!--	contants -->
+   <script src="scripts/constants/constants.js"></script>
 
-	<!--	controllers -->
-	<script src="scripts/controllers/adminController.js"></script>
-	<script src="scripts/controllers/mainController.js"></script>
-	<script src="scripts/controllers/issueController.js"></script>
-	<script src="scripts/controllers/postController.js"></script>
-	<script src="scripts/controllers/entryController.js"></script>
-	<script src="scripts/controllers/userController.js"></script>
+   <!--	controllers -->
+   <script src="scripts/controllers/adminController.js"></script>
+   <script src="scripts/controllers/mainController.js"></script>
+   <script src="scripts/controllers/issueController.js"></script>
+   <script src="scripts/controllers/postController.js"></script>
+   <script src="scripts/controllers/entryController.js"></script>
+   <script src="scripts/controllers/userController.js"></script>
    <script src="scripts/controllers/uploadController.js"></script>
-	<script src="scripts/controllers/about.js"></script>
+   <script src="scripts/controllers/about.js"></script>
 
-	<!--	directives -->
-	<script src="scripts/directives/footerDirective.js"></script>
-	<script src="scripts/directives/headerDirective.js"></script>
-	<script src="scripts/directives/scrollDirective.js"></script>
-	<script src="scripts/directives/authorDirective.js"></script>
-	<script src="scripts/directives/tableDirective.js"></script>
-	<script src="scripts/directives/loadingDirective.js"></script>
+   <!--	directives -->
+   <script src="scripts/directives/footerDirective.js"></script>
+   <script src="scripts/directives/headerDirective.js"></script>
+   <script src="scripts/directives/scrollDirective.js"></script>
+   <script src="scripts/directives/authorDirective.js"></script>
+   <script src="scripts/directives/tableDirective.js"></script>
+   <script src="scripts/directives/loadingDirective.js"></script>
 
-	<!--	factories -->
-	<script src="scripts/factory/issueFactory.js"></script>
-	<script src="scripts/factory/authFactory.js"></script>
-	<script src="scripts/factory/postFactory.js"></script>
-	<script src="scripts/factory/entryFactory.js"></script>
-	<script src="scripts/factory/userFactory.js"></script>
+   <!--	factories -->
+   <script src="scripts/factory/issueFactory.js"></script>
+   <script src="scripts/factory/authFactory.js"></script>
+   <script src="scripts/factory/postFactory.js"></script>
+   <script src="scripts/factory/entryFactory.js"></script>
+   <script src="scripts/factory/userFactory.js"></script>
    <script src="scripts/factory/as3Factory.js"></script>
-	
-	<!-- filters -->
-	<script src="scripts/filters/filters.js"></script>
-   
-	<!-- endbuild -->
+
+   <!-- filters -->
+   <script src="scripts/filters/filters.js"></script>
+
+   <!-- endbuild -->
 </body>
 
 </html>
