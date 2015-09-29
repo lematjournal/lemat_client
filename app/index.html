@@ -37,7 +37,6 @@
    <div ng-view=""></div>
    <lemat-footer></lemat-footer>
 
-
    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
    <script>
       ! function (A, n, g, u, l, a, r) {
@@ -50,6 +49,8 @@
       ga('create', 'UA-XXXXX-X');
       ga('send', 'pageview');
    </script>
+   
+   <script id="tumblr-js" async src="https://assets.tumblr.com/share-button.js"></script>
 
    <!-- build:js(.) scripts/vendor.js -->
    <!-- bower:js -->
@@ -77,10 +78,13 @@
    <script src="bower_components/flow.js/dist/flow.js"></script>
    <script src="bower_components/ng-flow/dist/ng-flow.js"></script>
    <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+   <script src="bower_components/angular-social-links/angular-social-links.js"></script>
    <!-- endbower -->
    <!-- endbuild -->
 
    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+   <script src="bower_components/angularBootstrapColumnsSameHeight/angularBootstrapColumnsSameHeight.js"></script>
+   
    <script src="scripts/app.js"></script>
 
    <!--	contants -->
@@ -114,7 +118,7 @@
 
    <!-- filters -->
    <script src="scripts/filters/filters.js"></script>
-
+   
    <!-- endbuild -->
 </body>
 

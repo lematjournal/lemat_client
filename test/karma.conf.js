@@ -46,6 +46,7 @@ module.exports = function(config) {
       'bower_components/flow.js/dist/flow.js',
       'bower_components/ng-flow/dist/ng-flow.js',
       'bower_components/ng-tags-input/ng-tags-input.min.js',
+      'bower_components/angular-social-links/angular-social-links.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

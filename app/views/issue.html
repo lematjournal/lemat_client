@@ -3,28 +3,28 @@
 		<div class="col-md-4">
 			<h2>WRITTEN</h2>
 			<ul ng-repeat="piece in issue.pieces | orderBy: 'order' | filter: { piece_type: '!Picture' }">
-				<li><a href="#{{ piece.title_url }}" du-smooth-scroll>{{ piece.title }}</a>
+				<li><a href="#{{ ::piece.title_url }}" du-smooth-scroll>{{ ::piece.title }}</a>
 				</li>
 			</ul>
 		</div>
 		<div class="col-md-4">
 			<h2>PICTURED</h2>
 			<ul ng-repeat="piece in issue.pieces | filter: { piece_type: 'Picture'}">
-				<li><a href="#{{ piece.title_url }}" du-smooth-scroll>{{ piece.title }}</a></li>
+				<li><a href="#{{ ::piece.title_url }}" du-smooth-scroll>{{ ::piece.title }}</a></li>
 			</ul>
 		</div>
 		<div class="col-md-4">
 			<h2>CONTRIBUTORS</h2>
 			<ul ng-repeat="piece in issue.pieces | unique:'users' | orderBy: 'order'" author>
-				<li><a><font ng-repeat="user in piece.users | reverse"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ user.username }}</font></a></li>
+				<li><a><font ng-repeat="user in piece.users | reverse"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></a></li>
 			</ul>
 		</div>
 	</div>
 	<div class="row">
 		<div ng-repeat="piece in issue.pieces | orderBy: 'order' | filter: author.name" lemat-repeat>
-			<div class="content" id="{{ piece.title_url }}">
-					<h4 class="title text-center">{{ piece.title }}</h4>
-					<p class="text-center"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ user.username }}</font></p>
+			<div class="content" id="{{ ::piece.title_url }}">
+					<h4 class="title text-center">{{ ::piece.title }}</h4>
+					<p class="text-center"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></p>
 				<br>
 				<p ng-bind-html="piece.content | to_trusted"></p>
 			</div>

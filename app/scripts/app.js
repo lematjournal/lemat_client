@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll',  'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'validation.match', 'ui.bootstrap', 'angucomplete-alt', 'ngTagsInput', 'flow'])
+angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll',  'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'validation.match', 'ui.bootstrap', 'angucomplete-alt', 'ngTagsInput', 'flow', 'bootstrapColumnsSameHeight', 'socialLinks'])
 	.value('duScrollDuration', 2000)
 	.value('duScrollOffset', 30)
    .config(['flowFactoryProvider', '$routeProvider', '$locationProvider', function (flowFactoryProvider, $routeProvider, $locationProvider) {

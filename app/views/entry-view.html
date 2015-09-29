@@ -1,13 +1,16 @@
 <div class="container" ng-init="getEntry()">
    <div class="row">
-      <h1>{{ ::entry.title }}</h1>
+      <h1 class="news-entry">{{ ::entry.title }}</h1>
       <hr>
       <p class="post-meta">Posted by <a ng-href="#!/user/{{ ::entry.user.username }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }}</p>
       <p ng-bind-html="entry.content | to_trusted"></p>
-      <p>- {{ ::entry.user.email }}</p>
+      <p class="pull-right">- {{ ::entry.user.email }}</p>
    </div>
    <hr>
-   <a class="btn btn-default" ng-href="/#!/">Back</a>
-   <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ ::identifier }}" disqus-url="{{ ::url }}" disqus-title="{{ ::entry.title }}">
-   </dir-disqus>
+   <div class="row">
+      <a class="btn btn-default" ng-href="/#!/">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ ::url }}"><span class="fa fa-twitter"></span></a> <a class="btn btn-default" href="https://www.tumblr.com/share"><span class="fa fa-tumblr"></span></a>
+
+      <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ ::identifier }}" disqus-url="{{ ::url }}" disqus-title="{{ ::entry.title }}">
+      </dir-disqus>
+   </div>
 </div>
