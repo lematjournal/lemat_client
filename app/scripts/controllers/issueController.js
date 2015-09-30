@@ -67,7 +67,7 @@ angular.module('lematClient').controller('IssueController', ['$scope', '$rootSco
       angular.forEach($scope.issue.pieces, function (obj) {
          $scope.upsertPiece(obj);
       });
-   }
+   };
 
    $scope.title = '';
 
@@ -77,7 +77,7 @@ angular.module('lematClient').controller('IssueController', ['$scope', '$rootSco
 
    // user create modal for pieces
 
-   $scope.open = function (size) {
+   $scope.open = function () {
       $scope.$modalInstance = $modal.open({
          scope: $scope,
          templateUrl: 'views/modals/user-create.html',
@@ -126,5 +126,5 @@ angular.module('lematClient').controller('IssueController', ['$scope', '$rootSco
    
    $scope.exclude = function (elem) {
       return elem.role.includes('contributor');
-   }
+   };
          }]);

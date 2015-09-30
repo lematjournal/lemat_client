@@ -67,10 +67,8 @@ input {
 
 /* less than or equal to*/
 
-@media(min-width:1501px) {
-	.dropdown-menu ul.contact {
-		margin-top: -75px;
-	}
+.dropdown-menu ul.contact {
+   margin-top: -75px;
 }
 
 /* greater than or equal to */

@@ -6,6 +6,7 @@
 		<p>{{ ::post.description }}</p>
 		<p ng-bind-html="post.content | to_trusted"></p>
       <hr>
+      <a class="btn btn-default" ng-href="/#!/">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ ::url }}entry/{{ ::entry.id }}"><span class="fa fa-twitter"></span>  </a> <a class="btn btn-default" href="https://www.tumblr.com/share"><span class="fa fa-tumblr"></span></a>
       <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ ::identifier }}" disqus-url="{{ ::url }}" disqus-title="{{ ::post.title }}">
    </dir-disqus>
 	</div>

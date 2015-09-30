@@ -31,7 +31,7 @@ angular.module('lematClient').directive('scroll', ['$document', function ($docum
    return {
       scope: false,
       controller: 'IssueController',
-      link: function (scope, element, attrs) {
+      link: function (scope) {
          var posArray = [];
 
          // grabs selectors after dom is loaded

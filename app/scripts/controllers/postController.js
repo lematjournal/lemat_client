@@ -41,7 +41,7 @@ angular.module('lematClient').controller('PostController', ['$scope', '$location
 
    // user create modal for pieces
 
-   $scope.open = function (size) {
+   $scope.open = function () {
       $scope.$modalInstance = $modal.open({
          scope: $scope,
          templateUrl: 'views/modals/user-create.html',

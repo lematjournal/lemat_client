@@ -12,7 +12,7 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
        simultaneousUploads: 4,
        singleFile: true
      };
-     flowFactoryProvider.on('catchAll', function (event) {
+     flowFactoryProvider.on('catchAll', function () {
        console.log('catchAll', arguments);
      });
       $locationProvider.html5Mode(false).hashPrefix('!');

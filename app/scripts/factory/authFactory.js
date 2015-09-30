@@ -12,7 +12,7 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
    };
 
    var logout = function () {
-      return $http.post(ServerUrl + '/users/logout').then(function (response) {
+      return $http.post(ServerUrl + '/users/logout').then(function () {
          $window.localStorage.removeItem('lemat-user');
          var userId = {};
          console.log("logged out");
