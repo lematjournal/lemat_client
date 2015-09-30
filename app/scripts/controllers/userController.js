@@ -19,6 +19,7 @@ angular.module('lematClient').controller('UserController', ['$scope', '$location
 
       if (AuthFactory.isAuthenticated()) {
          UserFactory.upsertUser(user);
+         // need to adjust redirect so that it doesn't do this on the create post view
          $location.path('/user-admin');
          $scope.getUsers();
       }

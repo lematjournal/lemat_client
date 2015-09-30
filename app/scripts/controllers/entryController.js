@@ -23,7 +23,6 @@ angular.module('lematClient').controller('EntryController', ['$scope', '$rootSco
    $scope.upsertEntry = function (entry) {
       if (AuthFactory.isAuthenticated()) {
          EntryFactory.upsertEntry(entry);
-         console.log(entry);
          $location.path('/entry-admin');
          EntryFactory.getEntries();
       }

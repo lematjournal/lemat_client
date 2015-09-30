@@ -1,10 +1,10 @@
 <div class="container" ng-init="getEntries()">
    <div dir-paginate="entry in entries | itemsPerPage: 5 | orderBy: '-created_at'" current-page="currentPage">
-      <a ng-href="#!/entry/{{ ::entry.id }}">
+      <a ng-href="#!/entry/{{ ::entry.title_url }}">
          <h1 class="news-entry">{{ ::entry.title | uppercase }}</h1>
       </a>
       <hr>
-      <p class="post-meta">Posted by <a ng-href="#!/user/{{ ::entry.user.username }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }} <span class="disqus-comment-count" data-disqus-url="{{ ::url }}entry/{{ ::entry.id }}"></span>
+      <p class="post-meta">Posted by <a ng-href="#!/user/{{ ::entry.user.username }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }} <span class="disqus-comment-count" data-disqus-url="{{ ::url }}entry/{{ ::entry.title_url }}"></span>
       </p>
       <br>
       <p class="post-subtitle" ng-bind-html="entry.content | to_trusted"></p>
