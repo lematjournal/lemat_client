@@ -8,7 +8,7 @@
    </div>
    <hr>
    <div class="row">
-      <a class="btn btn-default" ng-href="/#!/">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ ::url }}"><span class="fa fa-twitter"></span></a> <a class="btn btn-default" href="https://www.tumblr.com/share"><span class="fa fa-tumblr"></span></a>
+      <a class="btn btn-default" ng-href="/#!/">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ ::url }}"><span class="fa fa-twitter"></span></a> <a class="btn btn-default" href="https://www.tumblr.com/share" data-post-type="text" data-title="{{ entry.title }}" data-content="{{ entry.content }}" data-show-via="lematjournal.org"><span class="fa fa-tumblr"></span></a>
 
       <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ identifier }}" disqus-url="{{ url }}" disqus-title="{{ entry.title }}">
       </dir-disqus>
