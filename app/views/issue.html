@@ -16,7 +16,7 @@
 		<div class="col-md-4">
 			<h2>CONTRIBUTORS</h2>
 			<ul ng-repeat="piece in issue.pieces | unique:'users' | orderBy: 'order'" author>
-				<li><a><font ng-repeat="user in piece.users | reverse"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></a></li>
+				<li><font ng-repeat="user in piece.users | reverse"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span><a href="#!/user/{{ ::user.username }}">{{ ::user.username }}</font></a></li>
 			</ul>
 		</div>
 	</div>
@@ -24,7 +24,7 @@
 		<div ng-repeat="piece in issue.pieces | orderBy: 'order' | filter: author.name" lemat-repeat>
 			<div class="content" id="{{ ::piece.title_url }}">
 					<h4 class="title text-center">{{ ::piece.title }}</h4>
-					<p class="text-center"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></p>
+					<p class="text-center"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span><a href="#!/user/{{ ::user.username }}">{{ ::user.username }}</a></font></p>
 				<br>
 				<p ng-bind-html="piece.content | to_trusted"></p>
 			</div>

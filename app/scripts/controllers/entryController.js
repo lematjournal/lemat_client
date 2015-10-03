@@ -14,7 +14,7 @@ angular.module('lematClient').controller('EntryController', ['$scope', '$rootSco
    };
 
    $scope.getEntry = function () {
-      EntryFactory.getEntry($routeParams.id);
+      EntryFactory.getEntry($routeParams.entry);
       $scope.entry = EntryFactory.entry;
    };
 

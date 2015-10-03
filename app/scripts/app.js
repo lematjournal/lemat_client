@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll',  'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'validation.match', 'ui.bootstrap', 'angucomplete-alt', 'ngTagsInput', 'flow', 'bootstrapColumnsSameHeight', 'socialLinks'])
+angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'ngAside', 'duScroll',  'angular.filter', 'wysiwyg.module', 'ng.deviceDetector', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'validation.match', 'ui.bootstrap', 'angucomplete-alt', 'ngTagsInput', 'flow', 'bootstrapColumnsSameHeight', 'socialLinks', 'akoenig.deckgrid'])
 	.value('duScrollDuration', 2000)
 	.value('duScrollOffset', 30)
    .config(['flowFactoryProvider', '$routeProvider', '$locationProvider', function (flowFactoryProvider, $routeProvider, $locationProvider) {
@@ -17,34 +17,34 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
      });
       $locationProvider.html5Mode(false).hashPrefix('!');
 		$routeProvider
-		// front page
+		   // front page
 			.when('/', {
 				templateUrl: 'views/main.html',
 				controller: 'EntryController'
 			})
 			// entry admin
 			.when('/entry-admin', {
-				templateUrl: 'views/forms/entry-admin.html',
+				templateUrl: 'views/forms/admin/entry-admin.html',
 				controller: 'EntryController'
 			})
 			// create entry
 			.when('/entry-create', {
-				templateUrl: 'views/forms/entry-create.html',
+				templateUrl: 'views/forms/admin/entry-create.html',
 				controller: 'EntryController'
 			})
 			// entry edit
-			.when('/entry/:id/edit', {
-				templateUrl: 'views/forms/entry-edit.html',
+			.when('/entry/:entry/edit', {
+				templateUrl: 'views/forms/admin/entry-edit.html',
 				controller: 'EntryController'
 			})
 			// entry view
-			.when('/entry/:id', {
+			.when('/entry/:entry', {
 				templateUrl: 'views/entry-view.html',
 				controller: 'EntryController'
 			})
 			// issue admin
 			.when('/issue-admin', {
-				templateUrl: 'views/forms/issue-admin.html',
+				templateUrl: 'views/forms/admin/issue-admin.html',
 				controller: 'IssueController'
 			})
 			.when('/issues/', {
@@ -58,22 +58,22 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
 			})
 			// edit issue
 			.when('/issue/:id/edit', {
-				templateUrl: 'views/forms/issue-edit.html',
+				templateUrl: 'views/forms/admin/issue-edit.html',
 				controller: 'IssueController'
 			})
 			// edit pieces attached to issue
 			.when('/issue/:id/:piece/edit', {
-				templateUrl: 'views/forms/piece-edit.html',
+				templateUrl: 'views/forms/admin/piece-edit.html',
 				controller: 'IssueController'
 			})
 			// add pieces to issue
 			.when('/piece-create', {
-				templateUrl: 'views/forms/piece-create.html',
+				templateUrl: 'views/forms/admin/piece-create.html',
 				controller: 'IssueController'
 			})
 			// piece view
 			.when('/issue/:id/:piece', {
-				templateUrl: 'views/forms/piece-preview.html',
+				templateUrl: 'views/forms/admin/piece-preview.html',
 				controller: 'IssueController'
 			})
 			// show issue cover image
@@ -88,17 +88,17 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
 			})
 			// admin for posts
 			.when('/online-admin', {
-				templateUrl: 'views/forms/online-admin.html',
+				templateUrl: 'views/forms/admin/online-admin.html',
 				controller: 'PostController'
 			})
          // create post view
 			.when('/post-create', {
-				templateUrl: 'views/forms/post-create.html',
+				templateUrl: 'views/forms/admin/post-create.html',
 				controller: 'PostController'
 			})
          // edit post view
 			.when('/:post/edit', {
-				templateUrl: 'views/forms/post-edit.html',
+				templateUrl: 'views/forms/admin/post-edit.html',
 				controller: 'PostController'
 			})
 			.when('/online/:post', {
@@ -107,15 +107,15 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
 			})
          // user admin
          .when('/user-admin', {
-            templateUrl: 'views/forms/user-admin.html',
+            templateUrl: 'views/forms/admin/user-admin.html',
             controller: 'UserController'
          })
          .when('/user-create', {
-            templateUrl: 'views/forms/user-create.html',
+            templateUrl: 'views/forms/admin/user-create.html',
             controller: 'UserController'
          })
          .when('/user/:user/edit', {
-            templateUrl: 'views/forms/user-edit.html',
+            templateUrl: 'views/forms/admin/user-edit.html',
             controller: 'UserController'
          })
          // user view
@@ -123,9 +123,14 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
             templateUrl: 'views/user-view.html',
             controller: 'UserController'
          })
+         // images admin view
+         .when('/images-admin', {
+            templateUrl: 'views/forms/admin/images-admin.html',
+            controller: 'ImageController'
+         })
          // control panel
          .when('/control-panel', {
-            templateUrl: 'views/forms/control-panel.html',
+            templateUrl: 'views/forms/admin/control-panel.html',
          })
 			.when('/submissions', {
 				templateUrl: 'views/submissions.html'

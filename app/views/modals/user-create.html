@@ -10,8 +10,10 @@
       </div>
       <div class="form-group">
          <label for="role">Role</label>
-         <select ng-model="user.role">
+         <select class="form-control" ng-model="user.role">
             <option value="admin">admin</option>
+            <option value="editor">editor</option>
+            <option value="author">author</option>
             <option value="contributor">contributor</option>
          </select>
       </div>
@@ -26,8 +28,8 @@
          <input type="password" ng-model="user.passwordConfirm" id="passord" class="form-control" placeholder="password" match="user.password" required>
       </div>
    </div>
-   <hr>
-   <a class="btn btn-default" ng-click="cancel()">Cancel</a>
-   <a class="btn btn-default" ng-click="upsertUser(user); ok()">Submit</a>
-   <br>
+   <div class="row" style="margin-bottom: 15px">
+      <a class="btn btn-default" ng-click="$modalInstance.dismiss();">Cancel</a>
+      <a class="btn btn-default" ng-click="upsertUser(user); $modalInstance.close()">Submit</a>
+   </div>
 </div>

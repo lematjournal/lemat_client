@@ -3,7 +3,7 @@
 angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'ServerUrl', function ($http, $window, ServerUrl) {
 
    var userId = {};
-   
+
    var login = function (credentials) {
       return $http.post(ServerUrl + '/users/login', credentials).then(function (response) {
          var userId = response.id;
@@ -41,8 +41,15 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
          return false;
       }
    };
-
-   var clearStorage = function () {};
+   
+   var isAdmin = function () {
+      var user = JSON.parse($window.localStorage.getItem('lemat-user'));
+      if (user.data.role === 'admin') {
+         return true;
+      } else {
+         return false
+      }
+   };
 
    var _storeSession = function (response) {
       $window.localStorage.setItem('lemat-user', JSON.stringify(response));
@@ -52,19 +59,26 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
          console.log(response.data.token);
       }
    };
-
-   if (isAuthenticated() === true) {
-      var userId = JSON.parse($window.localStorage.getItem('lemat-user')).id;
-   } else {
-      var userId = null;
-   }
+   
+   // this doesn't work
+   var setUserId = function () {
+      var user = JSON.parse($window.localStorage.getItem('lemat-user'));
+      
+      if (isAuthenticated() === true) {
+         userId = user.data.id;
+      } else {
+         var userId = null;
+      }
+      return userId;
+   };
 
    return {
       login: login,
       logout: logout,
       register: register,
       isAuthenticated: isAuthenticated,
-      clearStorage: clearStorage,
+      isAdmin: isAdmin,
+      setUserId: setUserId,
       userId: userId
    };
 }]);

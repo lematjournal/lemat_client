@@ -24,7 +24,8 @@ angular.module('lematClient').factory('IssueFactory', ['$http', '$window', 'Auth
       var params = {
          issue: {
             title: issue.title,
-            image: issue.image
+            image: issue.image,
+            download_link: issue.downloadLink
          }
       };
       

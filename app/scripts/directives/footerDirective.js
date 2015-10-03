@@ -4,7 +4,7 @@ angular.module('lematClient').directive('lematFooter', ['UserFactory', function 
 	return {
 		restrict: 'E',
 		templateUrl: 'views/partials/footer.html',
-      scope: true,
+      scope: false,
       link: function (scope) {
          UserFactory.getPostUsers();
          scope.postUsers = UserFactory.postUsers;

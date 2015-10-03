@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('lematClient').controller('UserController', ['$scope', '$location', '$route', '$routeParams', 'AuthFactory', 'UserFactory', function ($scope, $location, $route, $routeParams, AuthFactory, UserFactory) {
+angular.module('lematClient').controller('UserController', ['$scope', '$rootScope', '$modal', '$location', '$route', '$routeParams', 'AuthFactory', 'UserFactory', function ($scope, $rootScope, $modal, $location, $route, $routeParams, AuthFactory, UserFactory) {
+
+   $scope.master = {};
 
    $scope.getUsers = function () {
       UserFactory.getUsers();
@@ -8,20 +10,17 @@ angular.module('lematClient').controller('UserController', ['$scope', '$location
    };
 
    $scope.getUser = function () {
-      UserFactory.getUser($routeParams.user);
-      $scope.user = UserFactory.user;
+      UserFactory.getUser($routeParams.user).then(function () {
+         $scope.user = UserFactory.user;
+         angular.copy($scope.user, $scope.master);
+      });
    };
 
    $scope.upsertUser = function (user) {
-      if (user.role !== 'admin') {
-         user.password = 'default';
-      }
-
       if (AuthFactory.isAuthenticated()) {
-         UserFactory.upsertUser(user);
-         // need to adjust redirect so that it doesn't do this on the create post view
-         $location.path('/user-admin');
-         $scope.getUsers();
+         UserFactory.upsertUser(user).then(function () {
+            toastr.success('User updated successfully', 'Done');
+         });
       }
    };
 
@@ -30,6 +29,11 @@ angular.module('lematClient').controller('UserController', ['$scope', '$location
          UserFactory.deleteUser(id, username);
       }
    };
+   
+   $scope.resetUser = function () {
+      $scope.user = $scope.master;
+      toastr.info('User reset to last save', 'Done');
+   };
 
    $scope.selectedUser = function ($item) {
       if ($item) {
@@ -37,7 +41,47 @@ angular.module('lematClient').controller('UserController', ['$scope', '$location
       }
    };
    
+   $scope.$on('profileImage', function (event, data) {
+      $scope.setProfileImage(data); // not sure why this doesn't work
+   });
+
+   $scope.setProfileImage = function (imageUrl) { 
+      $scope.user.profileImage = imageUrl;
+      toastr.info('Profile Image Selected', 'Selected');
+   };
+   
    $scope.exclude = function (elem) {
       return !elem.role.match(/^(admin|editor)$/);
    };
+
+   // profile image upload modal
+
+   $scope.open = function () {
+      $scope.$modalInstance = $modal.open({
+         scope: $scope,
+         templateUrl: 'views/modals/image-upload.html',
+         controller: 'UploadController',
+         windowClass: 'app-modal-window',
+         size: 'lg'
+      });
+   };
+
+   $scope.ok = function () {
+      $scope.$modalInstance.close();
+   };
+
+   $scope.cancel = function () {
+      $scope.$modalInstance.dismiss('cancel');
+   };
+   
+   // controls which buttons are highlighted
+
+   $scope.select = function (event) {
+      if (!angular.element(event.target).hasClass('active')) {
+         angular.element(event.target).addClass('active');
+      } else {
+         angular.element(event.target).removeClass('active');
+      }
+      angular.element(event.target).siblings().removeClass('active');
+   }
 }]);

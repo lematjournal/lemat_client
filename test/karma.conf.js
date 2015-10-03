@@ -37,7 +37,7 @@ module.exports = function(config) {
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/angular-validation-match/dist/angular-validation-match.min.js',
       'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
-      'bower_components/angular-wysiwyg/dist/angular-wysiwyg.min.js',
+      'bower_components/angular-wysiwyg/src/angular-wysiwyg.js',
       'bower_components/angularUtils-disqus/dirDisqus.js',
       'bower_components/angularUtils-pagination/dirPagination.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
@@ -47,6 +47,9 @@ module.exports = function(config) {
       'bower_components/ng-flow/dist/ng-flow.js',
       'bower_components/ng-tags-input/ng-tags-input.min.js',
       'bower_components/angular-social-links/angular-social-links.js',
+      'bower_components/aws-sdk/dist/aws-sdk.js',
+      'bower_components/toastr/toastr.js',
+      'bower_components/angular-deckgrid/angular-deckgrid.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

@@ -1,0 +1,135 @@
+<div class="container" ng-init="getUser()">
+   <div class="row">
+      <h3 class="title text-center">{{ user.username }}</h3>
+      <hr>
+      <div class="profile-image">
+         <img class="img-responsive center-block" src="{{ user.profileImage }}" height="455px" width="455px" />
+      </div>
+      <br>
+   </div>
+   <hr>
+   <div class="row">
+      <!--panel-->
+      <div class="panel panel-default">
+         <div class="panel-heading">User</div>
+         <div class="panel-body">
+            <div class="row">
+               <div class="col-md-6">
+                  <div class="list-group">
+                     <a class="list-group-item" ng-click="select($event); selection = 'info'">Info</a>
+                     <a class="list-group-item active" ng-click="select($event); selection = 'settings'">Settings</a>
+                     <a class="list-group-item" ng-click="select($event); selection = 'password'">Password</a>
+                     <a class="list-group-item" ng-click="select($event); selection = 'profile'">Profile Image</a>
+                     <a class="list-group-item" ng-click="select($event); selection = 'actions'">Actions</a>
+                  </div>
+               </div>
+               <div class="col-md-6" ng-switch on="selection">
+                  <div class="animate-switch" ng-switch-when="actions">
+                     <a class="btn btn-default btn-block" ng-click="upsertUser(user)">Save</a>
+                     <a class="btn btn-default btn-block" ng-click="resetUser()">Reset</a>
+                     <a class="btn btn-default btn-block" ng-click="deleteUser(user.id, user.username)">Delete</a>
+                  </div>
+                  <div class="animate-switch" ng-switch-default>
+                     <div class="form-group">
+                        <label for="name">Email</label>
+                        <input type="text" ng-model="user.email" id="email" class="form-control" placeholder="email">
+                     </div>
+                     <div class="form-group">
+                        <label for="name">Username</label>
+                        <input type="text" ng-model="user.username" id="username" class="form-control" placeholder="username">
+                     </div>
+                     <div class="form-group">
+                        <label for="role">Role</label>
+                        <select class="form-control" ng-model="user.role">
+                           <option value="admin">admin</option>
+                           <option value="editor">editor</option>
+                           <option value="author">author</option>
+                           <option value="contributor">contributor</option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="animate-switch" ng-switch-when="profile">
+                     <div class="profile-image">
+                        <a ng-click="open()" tooltip="click to change" tooltip-placement="top"><img ng-src="{{ user.profileImage }}" height="207px" width="255px" class="center-block">
+                        </a>
+                     </div>
+                  </div>
+                  <div class="animate-switch" ng-switch-when="info">
+                     <h4>email: {{ user.email }}</h4>
+                     <h4>username: {{ user.username }}</h4>
+                     <h4>role: {{ user.role }}</h4>
+                     <h4>issue pieces: {{ user.pieces.length }}</h4>
+                     <h4>online content: {{ user.posts.length }}</h4>
+                     <h4>news entries: {{ user.entries.length }}</h4>
+                  </div>
+                  <div class="animate-switch" ng-switch-when="password">
+                     <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" ng-model="user.password" id="author" class="form-control" placeholder="password" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="author">Confirm Password</label>
+                        <input type="password" ng-model="user.passwordConfirm" id="passord" class="form-control" placeholder="password confirm" match="user.password" required>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="panel panel-default">
+         <div class="panel-heading">Content</div>
+         <div class="panel-body">
+            <div class="container" style="margin-top: -50px">
+               <div class="row" ng-if="user.pieces.length > 0">
+                  <table class="table">
+                     <col style="width: 50%">
+                        <col style="width: 50%">
+                           <tr>
+                              <th>pieces</th>
+                              <th>options</th>
+                           </tr>
+                           <tr ng-repeat="piece in user.pieces | orderBy: 'order'">
+                              <th>{{ ::piece.title | cut:true: 25 }}</th>
+                              <th><a class="btn btn-default" href="#!/issue/{{ ::issue.id }}/{{ ::piece.title_url }}/edit">Edit</a> <a class="btn btn-default" href="#!/issue/{{ ::piece.issue_id }}/{{ ::piece.title_url }}">Preview</a>
+                              </th>
+                           </tr>
+                  </table>
+               </div>
+               <div class="row" ng-if="user.posts.length > 0">
+                  <table class="table">
+                     <tr>
+                        <th>online content</th>
+                        <th>options</th>
+                     </tr>
+                     <col style="width: 50%">
+                        <col style="width: 50%">
+                           <tr ng-repeat="post in user.posts">
+                              <th>{{ ::post.title }}</th>
+                              <th><a class="btn btn-default" href="#!/{{ ::post.title_url }}/edit">Edit</a> <a class="btn btn-default" href="#!/online/{{ ::post.title_url }}">Preview</a>
+                              </th>
+                           </tr>
+                  </table>
+               </div>
+               <div class="row" ng-if="user.entries.length > 0">
+                  <table class="table">
+                     <tr>
+                        <th>news entries</th>
+                        <th>options</th>
+                     </tr>
+                     <col style="width: 50%">
+                        <col style="width: 50%">
+                           <tr ng-repeat="entry in user.entries">
+                              <th>{{ ::entry.title }}</th>
+                              <th>
+                                 <a class="btn btn-default" href="#!/entry/{{ ::entry.title_url }}/edit">Edit</a> <a class="btn btn-default" href="#!/entry/{{ ::entry.title_url }}">Preview</a>
+                              </th>
+                           </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('lematClient').controller('IssueController', ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', '$http', '$modal', 'AuthFactory', 'IssueFactory', function ($scope, $rootScope, $route, $routeParams, $location, $document, $http, $modal, AuthFactory, IssueFactory) {
+angular.module('lematClient').controller('IssueController', ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', '$http', '$modal', 'AuthFactory', 'AS3Factory', 'IssueFactory', function ($scope, $rootScope, $route, $routeParams, $location, $document, $http, $modal, AuthFactory, AS3Factory, IssueFactory) {
    $scope.getIssues = function () {
       IssueFactory.getIssues();
       $scope.issues = IssueFactory.issues;
@@ -75,9 +75,30 @@ angular.module('lematClient').controller('IssueController', ['$scope', '$rootSco
       $document.scrollTopAnimated(0);
    };
 
+   $scope.$watch(function () {
+      return $scope.image;
+   }, function (val) {
+      if (val) {
+         var image = {
+            imageUrl: val,
+            userId: $rootScope.userId,
+            issueId: $scope.issue.id
+         };
+         AS3Factory.uploadImage(image).then(function (response) {
+            console.log(response);
+            if ($scope.issue) {
+               $scope.issue.image = response;
+            } else {
+               $scope.issue = {};
+               $scope.issue.image = response;
+            }
+         });
+      }
+   });
+
    // user create modal for pieces
 
-   $scope.open = function () {
+   $scope.openUserModal = function () {
       $scope.$modalInstance = $modal.open({
          scope: $scope,
          templateUrl: 'views/modals/user-create.html',
@@ -86,14 +107,6 @@ angular.module('lematClient').controller('IssueController', ['$scope', '$rootSco
       });
    };
 
-   $scope.ok = function () {
-      $scope.$modalInstance.close();
-   };
-
-   $scope.cancel = function () {
-      $scope.$modalInstance.dismiss('cancel');
-   };
-   
    // methods for user select
 
    $scope.$on('selectedUser', function (event, data) {
@@ -107,9 +120,9 @@ angular.module('lematClient').controller('IssueController', ['$scope', '$rootSco
          };
       }
    });
-   
+
    $scope.removeUser = function (id) {
-      $scope.piece.users.splice(findUserIndexById(id), 1);  
+      $scope.piece.users.splice(findUserIndexById(id), 1);
    };
 
    var findUserIndexById = function (id) {
@@ -119,11 +132,7 @@ angular.module('lematClient').controller('IssueController', ['$scope', '$rootSco
          }
       }
    };
-   
-   // omit function
-   // this will have to be changed later 
-   // in case contributors become writers
-   
+
    $scope.exclude = function (elem) {
       return elem.role.includes('contributor');
    };

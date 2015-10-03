@@ -4,12 +4,16 @@ angular.module('lematClient').controller('MainController', ['$scope', '$rootScop
    
    $scope.url = $location.absUrl();
    
-   console.log($scope.url);
-
    $scope.isAuthenticated = function () {
       return AuthFactory.isAuthenticated();
    };
-
+   
+   $rootScope.userId = AuthFactory.setUserId();
+   
+   $scope.isAdmin = function () {
+      return AuthFactory.isAdmin();
+   };
+         
    $scope.logout = function () {
       AuthFactory.logout();
    };

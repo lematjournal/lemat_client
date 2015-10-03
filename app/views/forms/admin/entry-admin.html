@@ -7,9 +7,9 @@
       </tr>
       <tr ng-repeat="entry in entries">
          <th>{{ ::entry.title }}</th>
-         <th>{{ ::entry.author }}</th>
+         <th>{{ ::entry.user.username }}</th>
          <th>
-            <a class="btn btn-default" href="#!/entry/{{ ::entry.id }}/edit">Edit</a>
+            <a class="btn btn-default" href="#!/entry/{{ ::entry.title_url }}/edit">Edit</a>
          </th>
       </tr>
    </table>

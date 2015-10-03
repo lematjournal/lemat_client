@@ -6,13 +6,15 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
    var getUser = function (username) {
       return $http.get(ServerUrl + '/users/' + username).then(function (response) {
          var params = {
+            id: response.data.id,
             email: response.data.email,
             username: response.data.username,
             role: response.data.role,
-            image: response.data.image,
+            images: response.data.images,
             pieces: response.data.pieces,
             posts: response.data.posts,
-            entries: response.data.entries
+            entries: response.data.entries,
+            profileImage: response.data.profile_image
          };
          angular.copy(params, user);
       });
@@ -43,7 +45,8 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
             email: user.email,
             username: user.username,
             role: user.role,
-            password: user.password
+            password: user.password,
+            profile_image: user.profileImage
          }
       };
 

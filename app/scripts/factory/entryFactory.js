@@ -48,7 +48,7 @@ angular.module('lematClient').factory('EntryFactory', ['$http', '$window', 'Auth
 
    var deleteEntry = function (id) {
       return $http.delete(ServerUrl + '/entries/' + id).then(function () {
-         entry.splice(findEntryIndexById(id), 1);
+         entries.splice(findEntryIndexById(id), 1);
       });
    };
 
