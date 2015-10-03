@@ -1,13 +1,13 @@
 <div class="container">
-	<div class="row" ng-init="getPost()">
-		<h4 class="title text-center">{{ post.title }}</h4>
-		<p class="text-center">{{ post.author }} - {{ post.created_at | date: 'medium' }}</p>
-		<hr>
-		<p>{{ post.description }}</p>
-		<p ng-bind-html="post.content | to_trusted"></p>
+   <div class="row" ng-init="getPost()">
+      <h4 class="title text-center">{{ post.title }}</h4>
+      <p class="text-center">{{ post.author }} - {{ post.created_at | date: 'medium' }}</p>
       <hr>
-      <a class="btn btn-default" ng-href="/#!/">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ url }}"><span class="fa fa-twitter"></span></a> <a class="btn btn-default" href="https://www.tumblr.com/share" data-post-type="text" data-title="{{ entry.title }}" data-content="{{ entry.content }}" data-show-via="lematjournal.org"><span class="fa fa-tumblr"></span></a>
+      <p>{{ post.description }}</p>
+      <p ng-bind-html="post.content | to_trusted"></p>
+      <hr>
+      <a class="btn btn-default" ng-href="/#!/online">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ url }}"><span class="fa fa-twitter"></span></a> <a class="btn btn-default" href="https://www.tumblr.com/share" data-post-type="text" data-title="{{ entry.title }}" data-content="{{ entry.content }}" data-show-via="lematjournal.org"><span class="fa fa-tumblr"></span></a>
       <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ identifier }}" disqus-url="{{ url }}" disqus-title="{{ post.title }}">
-   </dir-disqus>
-	</div>
+      </dir-disqus>
+   </div>
 </div>

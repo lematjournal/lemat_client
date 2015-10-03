@@ -50,6 +50,11 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
          return false
       }
    };
+   
+   var getUserRole = function () {
+      var user = JSON.parse($window.localStorage.getItem('lemat-user'));
+      return user.data.role;
+   };
 
    var _storeSession = function (response) {
       $window.localStorage.setItem('lemat-user', JSON.stringify(response));
@@ -60,7 +65,6 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
       }
    };
    
-   // this doesn't work
    var setUserId = function () {
       var user = JSON.parse($window.localStorage.getItem('lemat-user'));
       
@@ -79,6 +83,7 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
       isAuthenticated: isAuthenticated,
       isAdmin: isAdmin,
       setUserId: setUserId,
+      getUserRole: getUserRole,
       userId: userId
    };
 }]);
