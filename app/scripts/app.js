@@ -25,7 +25,13 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
          // entry admin
          .when('/entry-admin', {
             templateUrl: 'views/forms/admin/entry-admin.html',
-            controller: 'EntryController'
+            controller: 'EntryController',
+            resolve: {
+               permission: function (SecFactory) {
+                  SecFactory.setPermission('admin');
+                  return SecFactory.getPermission();
+               },
+            }
          })
          // create entry
          .when('/entry-create', {
@@ -48,7 +54,8 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
             controller: 'IssueController',
             resolve: {
                permission: function (SecFactory) {
-                  return SecFactory.permissionCheck();
+                  SecFactory.setPermission('admin');
+                  return SecFactory.getPermission();
                },
             }
          })
@@ -67,7 +74,8 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
             controller: 'IssueController',
             resolve: {
                permission: function (SecFactory) {
-                  return SecFactory.permissionCheck();
+                  SecFactory.setPermission('admin');
+                  return SecFactory.getPermission();
                },
             }
          })
@@ -102,7 +110,8 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
             controller: 'PostController',
             resolve: {
                permission: function (SecFactory) {
-                  return SecFactory.permissionCheck();
+                  SecFactory.setPermission('admin');
+                  return SecFactory.getPermission();
                },
             }
          })
@@ -126,17 +135,30 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
             controller: 'UserController',
             resolve: {
                permission: function (SecFactory) {
-                  return SecFactory.permissionCheck();
+                  SecFactory.setPermission('admin');
+                  return SecFactory.getPermission();
                },
             }
          })
          .when('/user-create', {
             templateUrl: 'views/forms/admin/user-create.html',
-            controller: 'UserController'
+            controller: 'UserController',
+            resolve: {
+               permission: function (SecFactory) {
+                  SecFactory.setPermission('admin');
+                  return SecFactory.getPermission();
+               },
+            }
          })
          .when('/user/:user/edit', {
             templateUrl: 'views/forms/admin/user-edit.html',
-            controller: 'UserController'
+            controller: 'UserController',
+            resolve: {
+               permission: function (SecFactory) {
+                  SecFactory.setPermission('contributor');
+                  return SecFactory.getPermission();
+               },
+            }
          })
          // user view
          .when('/user/:user', {
@@ -149,7 +171,8 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
             controller: 'ImageController',
             resolve: {
                permission: function (SecFactory) {
-                  return SecFactory.permissionCheck();
+                  SecFactory.setPermission('admin');
+                  return SecFactory.getPermission();
                },
             }
          })
@@ -158,7 +181,8 @@ angular.module('lematClient', ['ngCookies', 'ngResource', 'ngRoute', 'ngSanitize
             templateUrl: 'views/forms/admin/control-panel.html',
             resolve: {
                permission: function (SecFactory) {
-                  return SecFactory.permissionCheck();
+                  SecFactory.setPermission('admin');
+                  return SecFactory.getPermission();
                },
             }
          })

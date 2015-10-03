@@ -41,16 +41,18 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
          return false;
       }
    };
-   
+
    var isAdmin = function () {
-      var user = JSON.parse($window.localStorage.getItem('lemat-user'));
-      if (user.data.role === 'admin') {
-         return true;
-      } else {
-         return false
+      if ($window.localStorage.getItem('lemat-user')) {
+         var user = JSON.parse($window.localStorage.getItem('lemat-user'));
+         if (user.data.role === 'admin') {
+            return true;
+         } else {
+            return false
+         }
       }
    };
-   
+
    var getUserRole = function () {
       var user = JSON.parse($window.localStorage.getItem('lemat-user'));
       return user.data.role;
@@ -64,10 +66,10 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
          console.log(response.data.token);
       }
    };
-   
+
    var setUserId = function () {
       var user = JSON.parse($window.localStorage.getItem('lemat-user'));
-      
+
       if (isAuthenticated() === true) {
          userId = user.data.id;
       } else {
