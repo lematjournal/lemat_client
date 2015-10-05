@@ -3,7 +3,7 @@
 
 <head>
    <meta charset="utf-8">
-   <title></title>
+   <title>Le Mat Journal</title>
    <meta name="description" content="">
    <meta name="viewport" content="width=device-width">
    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -51,8 +51,6 @@
       ga('send', 'pageview');
    </script>
    
-   <script id="tumblr-js" async src="https://assets.tumblr.com/share-button.js"></script>
-
    <!-- build:js(.) scripts/vendor.js -->
    <!-- bower:js -->
    <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -88,20 +86,24 @@
 
    <!-- build:js({.tmp,app}) scripts/scripts.js -->   
    <script src="scripts/app.js"></script>
+   
+   <!-- routes -->
+   <script src="scripts/config/admin.routes.js"></script>
+   <script src="scripts/config/client.routes.js"></script>
+   <script src="scripts/config/core.routes.js"></script>
 
    <!--	contants -->
    <script src="scripts/constants/constants.js"></script>
 
    <!--	controllers -->
-   <script src="scripts/controllers/adminController.js"></script>
-   <script src="scripts/controllers/mainController.js"></script>
-   <script src="scripts/controllers/issueController.js"></script>
-   <script src="scripts/controllers/imageController.js"></script>
-   <script src="scripts/controllers/postController.js"></script>
-   <script src="scripts/controllers/entryController.js"></script>
-   <script src="scripts/controllers/userController.js"></script>
-   <script src="scripts/controllers/uploadController.js"></script>
-   <script src="scripts/controllers/about.js"></script>
+   <script src="scripts/controllers/core/core.entry.controller.js"></script>
+   <script src="scripts/controllers/core/core.image.controller.js"></script>
+   <script src="scripts/controllers/core/core.issue.controller.js"></script>
+   <script src="scripts/controllers/core/core.main.controller.js"></script>
+   <script src="scripts/controllers/core/core.post.controller.js"></script>
+   <script src="scripts/controllers/core/core.upload.controller.js"></script>
+   <script src="scripts/controllers/admin/admin.user.controller.js"></script>
+   <script src="scripts/controllers/client/client.profile.controller.js"></script>
 
    <!--	directives -->
    <script src="scripts/directives/footerDirective.js"></script>
@@ -109,6 +111,7 @@
    <script src="scripts/directives/scrollDirective.js"></script>
    <script src="scripts/directives/loadingDirective.js"></script>
    <script src="scripts/directives/uploadDirective.js"></script>
+   <script src="scripts/directives/keyDirective.js"></script>
 
    <!--	factories -->
    <script src="scripts/factory/issueFactory.js"></script>
@@ -118,6 +121,7 @@
    <script src="scripts/factory/userFactory.js"></script>
    <script src="scripts/factory/as3Factory.js"></script>
    <script src="scripts/factory/secFactory.js"></script>
+   <script src="scripts/factory/profileFactory.js"></script>
 
    <!-- filters -->
    <script src="scripts/filters/filters.js"></script>

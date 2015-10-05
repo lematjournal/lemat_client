@@ -8,6 +8,7 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
          var params = {
             id: response.data.id,
             email: response.data.email,
+            bio: response.data.bio,
             username: response.data.username,
             role: response.data.role,
             images: response.data.images,
@@ -43,8 +44,9 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
       var params = {
          user: {
             email: user.email,
-            username: user.username,
+            username: user.username.replace(/[^\w\s]/gi, ''),
             role: user.role,
+            bio: user.bio,
             password: user.password,
             profile_image: user.profileImage
          }

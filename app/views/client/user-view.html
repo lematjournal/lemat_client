@@ -1,0 +1,38 @@
+<div class="container" ng-init="getProfile()">
+   <form name="userForm">
+      <div class="row">
+         <h3 class="title text-center"><a ng-click="fields.editName = !fields.editName" ng-show="!fields.editName">{{ user.username }}</a></h3>
+         <h3><input type="text" name="editName" class="title text-center" ng-model="user.username" style="width: 100%" ng-keyup="reset($event, field)" ng-show="fields.editName" ng-enter="save($event, 'editName', user)"></h3>
+         <hr>
+         <a ng-click="open()" tooltip="click to change"><img class="img-responsive center-block" src="{{ user.profile_image }}" /></a>
+         <br>
+      </div>
+      <div class="row">
+         <a ng-click="fields.editBio = !fields.editBio"><h4 class="title text-center">BIO</h4>
+         <p class="text-center" ng-hide="fields.editBio" ng-show="!fields.editBio">{{ user.bio }}</p></a>
+         <input type="text" name="userBio" ng-model="user.bio" ng-keyup="reset($event, field)" ng-if="fields.editBio" class="form-control" ng-enter="save($event, 'editBio', user)" />
+         <i ng-if="editBio">* press 'esc' to reset field</i>
+      </div>
+   </form>
+   <div class="row" ng-if="user.pieces.length > 0">
+      <h4 class="title text-center">ISSUE PIECES</h4>
+      <div ng-repeat="piece in user.pieces">
+         <p class="text-center"><a href="#!/issue/{{ piece.issue_id }}/{{ piece.title_url }}">{{ piece.title | uppercase }}</a>
+         </p>
+      </div>
+   </div>
+   <div class="row" ng-if="user.posts.length > 0">
+      <h4 class="title text-center">ARTWORK/ONLINE CONTENT</h4>
+      <div ng-repeat="post in user.posts">
+         <p class="text-center"><a href="#!/online/{{ post.title_url }}">{{ post.title | uppercase }}</a>
+         </p>
+      </div>
+   </div>
+   <div class="row" ng-if="user.entries.length > 0">
+      <h4 class="title text-center">NEWS ENTRIES</h4>
+      <div ng-repeat="entry in user.entries">
+         <p class="text-center"><a href="#!/entry/{{ entry.title_url }}">{{ entry.title | uppercase }}</a>
+         </p>
+      </div>
+   </div>
+</div>

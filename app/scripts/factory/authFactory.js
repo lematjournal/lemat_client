@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'ServerUrl', function ($http, $window, ServerUrl) {
+angular.module('lematClient').factory('AuthFactory', ['$http', '$q', '$window', 'ServerUrl', function ($http, $q, $window, ServerUrl) {
 
-   var userId = {};
+   var userId = {}, session = {};
 
    var login = function (credentials) {
       return $http.post(ServerUrl + '/users/login', credentials).then(function (response) {
@@ -58,24 +58,27 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
       return user.data.role;
    };
 
+   var setUser = function () {
+      var deferred = $q.defer();
+      if ($window.localStorage.getItem('lemat-user')) {
+         var user = JSON.parse($window.localStorage.getItem('lemat-user'));
+         var user = {
+            id: user.data.id,
+            email: user.data.email,
+            username: user.data.username,
+            role: user.data.role
+         };
+         deferred.resolve(angular.copy(user, session));
+      }
+      return deferred.promise;
+   };
+
    var _storeSession = function (response) {
       $window.localStorage.setItem('lemat-user', JSON.stringify(response));
-      // best practice is to give unique prefixes to your variables
       if (response.data.role = "admin") {
          $http.defaults.headers.common.Authorization = 'Token token=' + response.data.token;
          console.log(response.data.token);
       }
-   };
-
-   var setUserId = function () {
-      var user = JSON.parse($window.localStorage.getItem('lemat-user'));
-
-      if (isAuthenticated() === true) {
-         userId = user.data.id;
-      } else {
-         var userId = null;
-      }
-      return userId;
    };
 
    return {
@@ -84,8 +87,8 @@ angular.module('lematClient').factory('AuthFactory', ['$http', '$window', 'Serve
       register: register,
       isAuthenticated: isAuthenticated,
       isAdmin: isAdmin,
-      setUserId: setUserId,
       getUserRole: getUserRole,
-      userId: userId
+      setUser: setUser,
+      session: session
    };
 }]);

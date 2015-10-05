@@ -1,0 +1,15 @@
+<div class="container" ng-init="getPosts()">
+   <table class="table">
+      <tr>
+         <th>title</th>
+         <th>author</th>
+         <th>options</th>
+      </tr>
+      <tr ng-repeat="post in posts">
+         <th>{{ ::post.title }}</a></th>
+         <th>{{ ::post.author }}</th>
+         <th><a class="btn btn-default" href="#!/admin/posts/{{ ::post.title_url }}/edit">Edit</a></th>
+      </tr>
+   </table>
+   <a class="btn btn-default" href="#!/admin/posts/create">Add Post</a>
+</div>
