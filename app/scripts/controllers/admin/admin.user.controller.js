@@ -17,7 +17,7 @@ angular.module('lematClient').controller('UserController', ['$scope', '$rootScop
    };
 
    $scope.upsertUser = function (user) {
-      if (AuthFactory.isAuthenticated() && !angular.equals($scope.user, $scope.master)) {
+      if (AuthFactory.isAuthenticated()) {
          UserFactory.upsertUser(user).then(function () {
             toastr.success('User updated successfully', 'Done');
          });
@@ -46,7 +46,7 @@ angular.module('lematClient').controller('UserController', ['$scope', '$rootScop
    });
 
    $scope.setProfileImage = function (imageUrl) {
-      $scope.user.profileImage = imageUrl;
+      $scope.user.profile_image = imageUrl;
       toastr.info('Profile Image Selected', 'Selected');
    };
 

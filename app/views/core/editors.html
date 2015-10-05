@@ -4,7 +4,7 @@
          <div class="row">
             <h3 class="title text-center">{{ ::user.username }}</h3>
             <hr>
-            <img class="img-responsive center-block" src="{{ ::user.image.image_url }}" />
+            <img class="img-responsive center-block" src="{{ ::user.profile_image }}" />
             <br>
          </div>
          <div class="row" ng-if="user.pieces.length > 0">

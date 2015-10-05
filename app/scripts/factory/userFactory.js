@@ -15,10 +15,11 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
             pieces: response.data.pieces,
             posts: response.data.posts,
             entries: response.data.entries,
-            profileImage: response.data.profile_image
+            profile_image: response.data.profile_image
          };
          angular.copy(params, user);
       });
+      console.log(user);
    };
 
    var getUsers = function () {
@@ -48,17 +49,19 @@ angular.module('lematClient').factory('UserFactory', ['$http', 'AuthFactory', 'S
             role: user.role,
             bio: user.bio,
             password: user.password,
-            profile_image: user.profileImage
+            profile_image: user.profile_image
          }
       };
 
       if (user.id) {
          return $http.patch(ServerUrl + '/users/' + user.id, params).then(function (response) {
+            angular.copy(response.data, user);
             users.push(response.data);
             getUsers();
          });
       } else {
          return $http.post(ServerUrl + '/users/', params).then(function (response) {
+            angular.copy(response.data, user);
             users.push(response.data);
             getUsers();
          });
