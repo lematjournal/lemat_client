@@ -7,7 +7,7 @@
          <img ng-src="{{ card.image_url }}" width="200px">
       </div>
       <div class="photo-description" ng-if="mother.isAdmin()">
-         <p>owner: {{ card.user }}</p>
+         <p>owner: {{ card.user.username }}</p>
       </div>
    </a>
 </div>

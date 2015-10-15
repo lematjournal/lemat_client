@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('lematClient').config(['$routeProvider', function ($routeProvider) {
+angular.module('lematClient.admin.routes').config(['$routeProvider', function ($routeProvider) {
    $routeProvider
    // admin control panel
       .when('/admin', {
@@ -8,128 +8,116 @@ angular.module('lematClient').config(['$routeProvider', function ($routeProvider
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
       // entry admin
       .when('/admin/entries', {
          templateUrl: 'views/admin/entry-admin.html',
-         controller: 'EntryController',
+         controller: 'EntryAdminController',
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
       // create entry
       .when('/admin/entries/create', {
          templateUrl: 'views/admin/forms/entry-create.html',
-         controller: 'EntryController',
+         controller: 'EntryAdminController',
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('editor');
-               return SecFactory.getPermission();
             }
          }
       })
       // entry edit
       .when('/admin/entries/:entry/edit', {
          templateUrl: 'views/admin/forms/entry-edit.html',
-         controller: 'EntryController',
+         controller: 'EntryAdminController',
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
       // issue admin
       .when('/admin/issues', {
          templateUrl: 'views/admin/issue-admin.html',
-         controller: 'IssueController',
+         controller: 'IssueAdminController',
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
       // edit issue
       .when('/admin/issues/:id/edit', {
          templateUrl: 'views/admin/forms/issue-edit.html',
-         controller: 'IssueController',
+         controller: 'IssueAdminController',
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
       // piece view
       .when('/admin/issues/:id/:piece', {
          templateUrl: 'views/admin/piece-preview.html',
-         controller: 'IssueController',
+         controller: 'PieceAdminController',
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
       // edit pieces attached to issue
       .when('/admin/issues/:id/:piece/edit', {
          templateUrl: 'views/admin/forms/piece-edit.html',
-         controller: 'IssueController',
+         controller: 'PieceAdminController',
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
       // add pieces to issue
-      .when('/admin/pieces/create', {
+      .when('/admin/issues/:id/pieces/create', {
          templateUrl: 'views/admin/forms/piece-create.html',
-         controller: 'IssueController',
+         controller: 'PieceAdminController',
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
       // admin for posts
       .when('/admin/posts', {
          templateUrl: 'views/admin/online-admin.html',
-         controller: 'PostController',
+         controller: 'PostAdminController',
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
       // create post view
       .when('/admin/posts/create', {
          templateUrl: 'views/admin/forms/post-create.html',
-         controller: 'PostController',
+         controller: 'PostAdminController',
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('editor');
-               return SecFactory.getPermission();
             }
          }
       })
       // edit post view
       .when('/admin/posts/:post/edit', {
          templateUrl: 'views/admin/forms/post-edit.html',
-         controller: 'PostController',
+         controller: 'PostAdminController',
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('editor');
-               return SecFactory.getPermission();
             }
          }
       })
@@ -140,7 +128,6 @@ angular.module('lematClient').config(['$routeProvider', function ($routeProvider
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
@@ -151,7 +138,6 @@ angular.module('lematClient').config(['$routeProvider', function ($routeProvider
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
@@ -162,7 +148,6 @@ angular.module('lematClient').config(['$routeProvider', function ($routeProvider
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
             }
          }
       })
@@ -173,7 +158,56 @@ angular.module('lematClient').config(['$routeProvider', function ($routeProvider
          resolve: {
             permission: function (SecFactory) {
                SecFactory.setPermission('admin');
-               return SecFactory.getPermission();
+            }
+         }
+      })
+      // submissions
+      .when('/admin/submissions/', {
+         templateUrl: 'views/admin/submission-admin.html',
+         controller: 'SubmissionController',
+         resolve: {
+            permission: function (SecFactory) {
+               SecFactory.setPermission('admin');
+            }
+         }
+      })
+      // submission view
+      .when('/admin/submissions/:submission', {
+         templateUrl: 'views/admin/submission-view.html',
+         controller: 'SubmissionController',
+         resolve: {
+            permission: function (SecFactory) {
+               SecFactory.setPermission('admin');
+            }
+         }
+      })
+      // submission view
+      .when('/admin/submissions/:submission/comments', {
+         templateUrl: 'views/admin/submission-comments.html',
+         controller: 'SubmissionController',
+         resolve: {
+            permission: function (SecFactory) {
+               SecFactory.setPermission('admin');
+            }
+         }
+      })
+      // email admin
+      .when('/admin/email/', {
+         templateUrl: 'views/admin/email-admin.html',
+         controller: 'MailController',
+         resolve: {
+            permission: function (SecFactory) {
+               SecFactory.setPermission('admin');
+            }
+         }
+      })
+      // email view
+      .when('/admin/email/:email', {
+         templateUrl: 'views/admin/email-view.html',
+         controller: 'MailController',
+         resolve: {
+            permission: function (SecFactory) {
+               SecFactory.setPermission('admin');
             }
          }
       });

@@ -1,16 +1,16 @@
-<div class="container" ng-init="getEntry()">
+<div class="container" ng-controller="EntryClientController as vm" ng-init="vm.getEntry()">
    <div class="row">
-      <h1 class="news-entry">{{ entry.title }}</h1>
+      <h1 class="news-entry">{{ vm.entry.title }}</h1>
       <hr>
-      <p class="post-meta">Posted by <a ng-href="#!/user/{{ entry.user.username }}"> {{ entry.user.email }}</a> on {{ entry.created_at | date:'medium' }}</p>
-      <p ng-bind-html="entry.content | to_trusted"></p>
-      <p class="pull-right">- {{ entry.user.email }}</p>
+      <p class="post-meta">Posted by <a ng-href="#!/user/{{ vm.entry.user.username }}"> {{ vm.entry.user.email }}</a> on {{ vm.entry.created_at | date:'medium' }}</p>
+      <p ng-bind-html="vm.entry.content | to_trusted"></p>
+      <p class="pull-right">- {{ vm.entry.user.email }}</p>
    </div>
    <hr>
    <div class="row">
-      <a class="btn btn-default" ng-href="/#!/">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ ::url }}"><span class="fa fa-twitter"></span></a> <a class="btn btn-default" href="https://www.tumblr.com/share" data-post-type="text" data-title="{{ entry.title }}" data-content="{{ entry.content }}" data-show-via="lematjournal.org"><span class="fa fa-tumblr"></span></a>
+      <a class="btn btn-default" ng-href="/#!/">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ ::vm.url }}"><span class="fa fa-twitter"></span></a>
 
-      <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ identifier }}" disqus-url="{{ url }}" disqus-title="{{ entry.title }}">
+      <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ vm.identifier }}" disqus-url="{{ vm.url }}" disqus-title="{{ vm.entry.title }}">
       </dir-disqus>
    </div>
 </div>

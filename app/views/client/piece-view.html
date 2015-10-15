@@ -1,8 +1,0 @@
-<div class="container" ng-init="getPiece()">
-	<div class="content">
-		<h4 class="title text-center">{{ ::piece.title }}</h4>
-		<p class="text-center"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></p>
-		<br>
-		<p ng-bind-html="piece.content | to_trusted"></p>
-	</div>
-</div>

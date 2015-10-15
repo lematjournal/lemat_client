@@ -13,13 +13,12 @@
    <link href='https://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
    <!-- build:css(.) styles/vendor.css -->
    <!-- bower:css -->
    <link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css" />
-   <link rel="stylesheet" href="bower_components/angular-aside/dist/css/angular-aside.css" />
    <link rel="stylesheet" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
-   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
    <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
    <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css" />
    <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
@@ -58,7 +57,6 @@
    <script src="bower_components/angucomplete-alt/angucomplete-alt.js"></script>
    <script src="bower_components/angular-animate/angular-animate.js"></script>
    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-   <script src="bower_components/angular-aside/dist/js/angular-aside.js"></script>
    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
    <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
    <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -71,11 +69,8 @@
    <script src="bower_components/angular-wysiwyg/src/angular-wysiwyg.js"></script>
    <script src="bower_components/angularUtils-disqus/dirDisqus.js"></script>
    <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
-   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
    <script src="bower_components/re-tree/re-tree.js"></script>
    <script src="bower_components/ng-device-detector/ng-device-detector.js"></script>
-   <script src="bower_components/flow.js/dist/flow.js"></script>
-   <script src="bower_components/ng-flow/dist/ng-flow.js"></script>
    <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
    <script src="bower_components/angular-social-links/angular-social-links.js"></script>
    <script src="bower_components/aws-sdk/dist/aws-sdk.js"></script>
@@ -96,35 +91,47 @@
    <script src="scripts/constants/constants.js"></script>
 
    <!--	controllers -->
-   <script src="scripts/controllers/core/core.entry.controller.js"></script>
-   <script src="scripts/controllers/core/core.image.controller.js"></script>
-   <script src="scripts/controllers/core/core.issue.controller.js"></script>
-   <script src="scripts/controllers/core/core.main.controller.js"></script>
-   <script src="scripts/controllers/core/core.post.controller.js"></script>
-   <script src="scripts/controllers/core/core.upload.controller.js"></script>
-   <script src="scripts/controllers/admin/admin.user.controller.js"></script>
-   <script src="scripts/controllers/client/client.profile.controller.js"></script>
+   <script src="scripts/controllers/entries/entry.admin.controller.js"></script>
+   <script src="scripts/controllers/entries/entry.client.controller.js"></script>
+   <script src="scripts/controllers/issues/issue.admin.controller.js"></script>
+   <script src="scripts/controllers/issues/issue.client.controller.js"></script>
+   <script src="scripts/controllers/issues/issue.modal.admin.controller.js"></script>
+   <script src="scripts/controllers/main/main.controller.js"></script>
+   <script src="scripts/controllers/pieces/piece.admin.controller.js"></script>
+   <script src="scripts/controllers/pieces/piece.client.controller.js"></script>
+   <script src="scripts/controllers/posts/post.admin.controller.js"></script>
+   <script src="scripts/controllers/posts/post.client.controller.js"></script>
+   <script src="scripts/controllers/users/user.controller.js"></script>
+   <script src="scripts/controllers/users/user.modal.controller.js"></script>
+   <script src="scripts/controllers/admin/image.controller.js"></script>
+   <script src="scripts/controllers/admin/mail.controller.js"></script>
+   <script src="scripts/controllers/admin/submission.controller.js"></script>
+   <script src="scripts/controllers/admin/vote.controller.js"></script>
+
 
    <!--	directives -->
-   <script src="scripts/directives/footerDirective.js"></script>
-   <script src="scripts/directives/headerDirective.js"></script>
-   <script src="scripts/directives/scrollDirective.js"></script>
-   <script src="scripts/directives/loadingDirective.js"></script>
-   <script src="scripts/directives/uploadDirective.js"></script>
-   <script src="scripts/directives/keyDirective.js"></script>
+   <script src="scripts/directives/footer.directive.js"></script>
+   <script src="scripts/directives/header.directive.js"></script>
+   <script src="scripts/directives/scroll.directive.js"></script>
+   <script src="scripts/directives/loading.directive.js"></script>
+   <script src="scripts/directives/upload.directive.js"></script>
+   <script src="scripts/directives/key.directive.js"></script>
 
    <!--	factories -->
-   <script src="scripts/factory/issueFactory.js"></script>
-   <script src="scripts/factory/authFactory.js"></script>
-   <script src="scripts/factory/postFactory.js"></script>
-   <script src="scripts/factory/entryFactory.js"></script>
-   <script src="scripts/factory/userFactory.js"></script>
-   <script src="scripts/factory/as3Factory.js"></script>
-   <script src="scripts/factory/secFactory.js"></script>
-   <script src="scripts/factory/profileFactory.js"></script>
+   <script src="scripts/factories/issueFactory.js"></script>
+   <script src="scripts/factories/imageFactory.js"></script>
+   <script src="scripts/factories/authFactory.js"></script>
+   <script src="scripts/factories/postFactory.js"></script>
+   <script src="scripts/factories/entryFactory.js"></script>
+   <script src="scripts/factories/userFactory.js"></script>
+   <script src="scripts/factories/as3Factory.js"></script>
+   <script src="scripts/factories/secFactory.js"></script>
+   <script src="scripts/factories/subFactory.js"></script>
+   <script src="scripts/factories/emailFactory.js"></script>
+   <script src="scripts/factories/pieceFactory.js"></script>
 
    <!-- filters -->
-   <script src="scripts/filters/filters.js"></script>
+   <script src="scripts/filters/core.filters.js"></script>
    
    <!-- libs -->
    <script src="scripts/libs/angularBootstrapColumnsSameHeight/angularBootstrapColumnsSameHeight.js"></script>

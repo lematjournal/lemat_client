@@ -1,0 +1,7 @@
+<div class="content" ng-init="getEmail()">
+   <div class="container">
+      <p>subject: {{ email.subject }}</p>
+      <p>sender: {{ email.sender }}</p>
+      <p ng-bind-html="email.body | to_trusted"></p>
+   </div>
+</div>

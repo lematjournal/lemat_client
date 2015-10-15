@@ -15,14 +15,24 @@ a:hover {
    cursor: pointer;
 }
 
+.navbar-header-dropdown {
+   margin-top: 16px;
+   margin-left: -16px;
+   font-size: 18px;
+}
+
+.menu-logo {
+   margin-left: 9px;
+   font-size: 21px;
+}
+
 .dropdown-menu {
-   /*	position: relative;*/
-   /*	border: 0px solid #ccc; */
-   /*   border: 0px solid rgba(0, 0, 0, .15); */
-   
-   margin-top: 0px;
+   position: relative;
+   border: 0px solid #ccc; 
+   border: 1px solid rgba(0, 0, 0, .15); 
+   margin-top: 50px;
    width: 100%;
-   left: 0px;
+   left: 1px;
    border-radius: 0px;
    -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .175);
    box-shadow: 0 0 0 rgba(0, 0, 0, .175);
@@ -66,12 +76,10 @@ input {
 .dropdown-menu .col-sm-6 {
    width: 25%;
 }
-/* less than or equal to*/
 
 .dropdown-menu ul.contact {
    /*   margin-top: -75px;*/
 }
-/* greater than or equal to */
 
 @media(max-width:778px) {
    .dropdown-menu {
@@ -131,12 +139,24 @@ a:hover {
    text-decoration: none;
 }
 
+.col-center-block {
+    float: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.social-link {
+   list-style: none;
+}
+
 .menu-bar {
    position: absolute;
    top: 20px;
    left: 3.5%;
    height: 14px;
    margin-left: -10px;
+   color: black;
 }
 
 .bars {
@@ -170,7 +190,6 @@ a:hover {
    text-decoration: none;
    opacity: 1;
 }
-/* Styles go here */
 
 body {
    padding: 30px 15px 0;
@@ -327,7 +346,7 @@ select.wysiwyg-select {
 }
 
 .angucomplete-dropdown {
-   margin-top: 35px;
+/*   margin-top: 35px;*/
 }
 
 .input-group-addon {
@@ -354,13 +373,11 @@ select.wysiwyg-select {
   outline: 0;
   opacity: 1;
 }
-/* text */
 
 p {
    font-family: 'Arial', sans-serif;
    font-size: 14px;
 }
-/* footer */
 
 .full {
    width: 100%;
@@ -481,15 +498,6 @@ p {
    -ms-transition: all 0.5s ease 0s;
    -o-transition: all 0.5s ease 0s;
 }
-/*
-.social li:hover {
-	transform: scale(1.15) rotate(360deg);
-	-webkit-transform: scale(1.1) rotate(360deg);
-	-moz-transform: scale(1.1) rotate(360deg);
-	-ms-transform: scale(1.1) rotate(360deg);
-	-o-transform: scale(1.1) rotate(360deg);
-}
-*/
 
 .social li a {
    color: #EDEFF1;

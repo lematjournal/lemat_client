@@ -5,11 +5,11 @@
          <input type="text" ng-model="entry.title" id="title" class="form-control" placeholder="title" required>
       </div>
       <div class="form-group" ng-controller="UserController" ng-init="getUsers()">
-         <label for="user">Author: </label>{{ ::entry.user.username }}
-         <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="users" search-fields="username" title-field="username" minlength="1" input-class="form-control form-control-small" initial-value="entry.user" />
+         <label for="user">Author: </label>{{ entry.user.username }}
+         <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="users" search-fields="username" title-field="username" minlength="1" input-class="form-control form-control-small" initial-value="entry.user.username" />
       </div>
       <div class="form-group">
-         <wysiwyg textarea-id="content" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="entry.content" enable-bootstrap-title="true"></wysiwyg>
+         <wysiwyg textarea-id="content" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="entry.content"></wysiwyg>
       </div>
       <div class="form-group">
          <label for="content">Embedded HTML</label>

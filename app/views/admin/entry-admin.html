@@ -6,12 +6,12 @@
          <th>options</th>
       </tr>
       <tr ng-repeat="entry in entries">
-         <th>{{ ::entry.title }}</th>
-         <th>{{ ::entry.user.username }}</th>
-         <th>
+         <td>{{ entry.title }}</td>
+         <td>{{ entry.user.username }}</td>
+         <td>
             <a class="btn btn-default" href="#!/admin/entries/{{ ::entry.title_url }}/edit">Edit</a>
-         </th>
+         </td>
       </tr>
    </table>
-   <a class="btn btn-default" href="#!/entry-create">Add Entry</a>
+   <a class="btn btn-default" href="#!/admin/entries/create">Add Entry</a>
 </div>

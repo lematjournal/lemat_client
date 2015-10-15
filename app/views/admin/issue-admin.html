@@ -1,7 +1,7 @@
 <div class="container" ng-init="getIssues()">
    <div class="row" ng-repeat="issue in issues">
       <h2><a href="#!/admin/issues/{{ ::issue.id }}/edit">{{ ::issue.title }}</a></h2>
-      <h3>created: {{ ::issue.created_at }}</h3>
+      <h3>created: {{ ::issue.created_at | date: 'medium' }}</h3>
    </div>
    <hr>
    <div class="row">
@@ -18,7 +18,7 @@
 <!--
       <div class="form-group">
          <label for="image">Cover Image</label>
-         <input id="upload" type="file" name="cover" class="upload" style="display: none" file-select folder="'cover/'" accept="image/*" ng-model="image" />
+         <input id="upload" type="file" name="cover" class="upload" style="display: none" file-select folder="'covers/'" accept="image/*" ng-model="image" />
          <button type="button" uploadfile class="btn btn-default btn-block">Select Image to upload</button>
       </div>
 -->

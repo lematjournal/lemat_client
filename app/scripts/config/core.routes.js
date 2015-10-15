@@ -1,40 +1,34 @@
 'use strict';
 
-angular.module('lematClient').config(['$routeProvider', function ($routeProvider) {
+angular.module('lematClient.core.routes').config(['$routeProvider', function ($routeProvider) {
    $routeProvider
       .when('/', {
          templateUrl: 'views/core/main.html',
-         controller: 'EntryController'
+         controller: 'EntryClientController'
       })
-      // list all issues
-      .when('/issues/', {
-         templateUrl: 'views/core/issue-list.html',
-         controller: 'IssueController'
-      })
-      // issue view
-      .when('/issue/:id', {
-         templateUrl: 'views/core/issue.html',
-         controller: 'IssueController'
-      })
-      // entry view
       .when('/entry/:entry', {
          templateUrl: 'views/core/entry-view.html',
-         controller: 'EntryController'
+         controller: 'EntryClientController'
       })
-      // piece view
-      .when('/issue/:id/:piece', {
+      .when('/issues/', {
+         templateUrl: 'views/core/issue-list.html',
+         controller: 'IssueClientController'
+      })
+      .when('/issues/:id', {
+         templateUrl: 'views/core/issue.html',
+         controller: 'IssueClientController'
+      })
+      .when('/issues/:id/:piece', {
          templateUrl: 'views/core/piece-view.html',
-         controller: 'IssueController'
+         controller: 'PieceClientController'
       })
-      // view all posts
       .when('/online', {
          templateUrl: 'views/core/online.html',
-         controller: 'PostController'
+         controller: 'PostClientController'
       })
-      // post view
       .when('/online/:post', {
          templateUrl: 'views/core/post-view.html',
-         controller: 'PostController'
+         controller: 'PostClientController'
       })
       .when('/user/:user', {
          templateUrl: 'views/core/user-view.html',
@@ -50,7 +44,6 @@ angular.module('lematClient').config(['$routeProvider', function ($routeProvider
       .when('/about', {
          templateUrl: 'views/core/about.html'
       })
-      // authentication
       .when('/login', {
          templateUrl: 'views/core/login.html'
       })

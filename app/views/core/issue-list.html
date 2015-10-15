@@ -1,22 +1,22 @@
-<div class="container" ng-init="getIssues()">
-	<div class="content" ng-repeat="issue in issues">
+<div class="container" ng-controller="IssueClientController as vm" ng-init="vm.getIssues()">
+	<div class="content" ng-repeat="issue in vm.issues">
 		<div class="content-inner">
-			<h2><a href="#!/issue/{{ ::issue.id }}">{{ ::issue.title | uppercase }}:</a></h2>
-			<h2><a href="#!/issue/{{ ::issue.id }}"><img ng-src="{{ ::issue.image.image_url }}" /></a>
+			<h2><a href="#!/issues/{{ ::issue.id }}">{{ ::issue.title | uppercase }}:</a></h2>
+			<h2><a href="#!/issues/{{ ::issue.id }}"><img ng-src="{{ ::issue.image_url }}" class="img-responsive" /></a>
 </h2>
 		</div>
 		<div class="content-inner">
 			<h3>CONTENTS:</h3>
 			<hr>
 			<div class="content-inner" ng-repeat="piece in issue.pieces | orderBy: 'order'">
-				<li><a href="#!/issue/{{ ::issue.id }}/{{ ::piece.title_url }}"><h4>{{ ::piece.title }} - <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></a>
+				<li><a href="#!/issues/{{ ::issue.id }}/{{ ::piece.title_url }}"><h4>{{ ::piece.title }} - <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></a>
 					</h4>
 				</li>
 			</div>
 		</div>
 		<br>
-		<div class="content-inner" ng-if="issue.link">
-			<h3>DOWNLOAD ISSUE: <a href="{{ ::issue.link }}"></a></h3>
+		<div class="content-inner" ng-if="issue.download_link">
+			<h3>DOWNLOAD ISSUE: <a href="{{ ::issue.download_link }}"></a></h3>
 			<hr>
 		</div>
 	</div>

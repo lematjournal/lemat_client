@@ -7,10 +7,10 @@
          <th>options</th>
       </tr>
       <tr ng-repeat="user in users">
-         <th>{{ ::user.email }}</th>
-         <th>{{ ::user.username }}</th>
-         <th>{{ ::user.role }}</th>
-         <th><a class="btn btn-default" href="#!/admin/users/{{ ::user.username }}/edit">Edit</a></th>
+         <td>{{ ::user.email }}</td>
+         <td>{{ ::user.username }}</td>
+         <td>{{ ::user.role }}</td>
+         <td><a class="btn btn-default" href="#!/admin/users/{{ ::user.username }}/edit">Edit</a></td>
       </tr>
    </table>
    <a class="btn btn-default" href="#!/user-create">Add User</a>
