@@ -8,38 +8,38 @@
    SubmissionController.$inject = ['$scope', '$filter', '$uibModal', '$rootScope', '$routeParams', 'SubFactory', 'UserFactory'];
 
    function SubmissionController($scope, $filter, $uibModal, $rootScope, $routeParams, SubFactory, UserFactory) {
-
-      $scope.getEditors = function () {
+      var vm = this;
+      vm.getEditors = function () {
          return UserFactory.getEditors().then(function () {
-            $scope.editors = UserFactory.editors;
+            vm.editors = UserFactory.editors;
          });
       };
 
-      $scope.getNumber = function (num) {
+      vm.getNumber = function (num) {
          return new Array(num);
       };
 
-      $scope.getSubmissions = function () {
+      vm.getSubmissions = function () {
          SubFactory.getSubmissions().then(function () {
-            $scope.submissions = SubFactory.submissions;
+            vm.submissions = SubFactory.submissions;
          });
       };
 
-      $scope.getSubmission = function () {
+      vm.getSubmission = function () {
          SubFactory.getSubmission($routeParams.submission).then(function () {
-            $scope.submission = SubFactory.submission;
+            vm.submission = SubFactory.submission;
          });
       };
 
-      $scope.incrementVotes = function (index) {
-         if ($scope.submissions[index].votes_array[$rootScope.userId - 1]) {
-            $scope.submissions[index].votes++;
-         } else if (!$scope.submissions[index].votes_array[$rootScope.userId - 1]) {
-            $scope.submissions[index].votes--;
+      vm.incrementVotes = function (index) {
+         if (vm.submissions[index].votes_array[$rootScope.userId - 1]) {
+            vm.submissions[index].votes++;
+         } else if (!vm.submissions[index].votes_array[$rootScope.userId - 1]) {
+            vm.submissions[index].votes--;
          }
       };
 
-      $scope.editors = function (elem) {
+      vm.editors = function (elem) {
          return elem.role.match(/^(admin|editor)$/);
       };
 
@@ -51,7 +51,7 @@
             controller: 'VoteController',
             resolve: {
                submission: function () {
-                  return $scope.submissions[submissionIndex];
+                  return vm.submissions[submissionIndex];
                }
             }
          });
@@ -63,4 +63,4 @@
       };
    }
    
-})(angular)
+})(angular);

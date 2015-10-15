@@ -1,9 +1,9 @@
-<div class="content" ng-init="getSubmission()">
+<div class="content" ng-controller="SubmissionController as vm" ng-init="vm.getSubmission()">
    <div class="container">
       <div class="row">
-         <p ng-bind-html="submission.email_content | to_trusted"></p>
+         <p ng-bind-html="vm.submission.email_content | to_trusted"></p>
       </div>
-      <div class="row" ng-repeat="attachment in submission.attachments">
+      <div class="row" ng-repeat="attachment in vm.submission.attachments">
          <a class="btn btn-default" href="{{ attachment }}">download submission</a>
       </div>
    </div>

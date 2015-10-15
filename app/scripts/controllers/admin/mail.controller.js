@@ -8,18 +8,18 @@
    MailController.$inject = ['$scope', '$routeParams', 'EmailFactory'];
 
    function MailController($scope, $routeParams, EmailFactory) {
+      var vm = this;
+      vm.emails = [];
 
-      $scope.emails = [];
-
-      $scope.getEmails = function () {
+      vm.getEmails = function () {
          EmailFactory.getEmails().then(function () {
-            $scope.emails = EmailFactory.emails;
+            vm.emails = EmailFactory.emails;
          });
       };
 
-      $scope.getEmail = function () {
+      vm.getEmail = function () {
          EmailFactory.getEmail($routeParams.email).then(function () {
-            $scope.email = EmailFactory.email;
+            vm.email = EmailFactory.email;
          });
       };
    }

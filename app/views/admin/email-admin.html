@@ -1,4 +1,4 @@
-<div class="container" ng-init="getEmails()">
+<div class="container" ng-controller="MailController as vm" ng-init="vm.getEmails()">
    <div class="row" >
       <table class="table">
          <tr>
@@ -6,7 +6,7 @@
             <th>sender</th>
             <th>options</th>
          </tr>
-         <tr ng-repeat="email in emails | orderBy:'uid' : reverse">
+         <tr ng-repeat="email in vm.emails | orderBy:'uid' : reverse">
             <td>{{ ::email.subject }}</td>
             <td>{{ ::email.sender }}</td>
             <td>

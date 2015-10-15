@@ -1,4 +1,4 @@
-<div class="container" ng-init="getSubmissions(); getEditors()">
+<div class="container" ng-controller="SubmissionController as vm" ng-init="vm.getSubmissions(); vm.getEditors()">
    <div class="row">
       <table class="table">
          <col style="width: 20%">
@@ -9,7 +9,7 @@
                   <th>total votes</th>
                   <th>options</th>
                </tr>
-               <tr ng-repeat="submission in submissions">
+               <tr ng-repeat="submission in vm.submissions">
                   <td>{{ ::submission.email_address }}</td>
                   <td>{{ submission.votes }} out of {{ editors.length }}</td>
                   <td>

@@ -1,22 +1,32 @@
-'use strict';
+(function (angular) {
 
-angular.module('lematClient.controllers.admin').controller('VoteController', ['$scope', '$modalInstance', 'submission', function ($scope, $modalInstance, submission) {
-   $scope.submission = submission;
-   $scope.comment = {};
+   'use strict';
 
-   $scope.ok = function () {
-      $modalInstance.close($scope.submission, $scope.comment);
-   };
+   angular.module('lematClient.controllers.admin')
+      .controller('VoteController', VoteController);
 
-   $scope.cancel = function () {
-      $modalInstance.dismiss('cancel');
-   };
+   VoteController.$inject = ['$scope', '$modalInstance', 'submission'];
 
-   $scope.submission.customMenu = [
+   function VoteController($scope, $modalInstance, submission) {
+      var vm = this;
+      vm.submission = submission;
+      vm.comment = {};
+
+      $scope.ok = function () {
+         $modalInstance.close(vm.submission, vm.comment);
+      };
+
+      $scope.cancel = function () {
+         $modalInstance.dismiss('cancel');
+      };
+
+      $scope.submission.customMenu = [
             ['bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript'],
             ['remove-format'],
             ['ordered-list', 'unordered-list', 'outdent', 'indent'],
             ['code', 'quote', 'paragraph'],
             ['link']
         ];
-   }]);
+   }
+
+})(angular);
