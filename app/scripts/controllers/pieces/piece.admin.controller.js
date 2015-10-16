@@ -37,6 +37,20 @@
          }
       };
 
+      // methods for managing piece users
+
+      vm.removeUser = function (id) {
+         vm.piece.users.splice(findUserIndexById(id), 1);
+      };
+
+      function findUserIndexById(id) {
+         for (var i = 0; i < vm.piece.users.length; i++) {
+            if (vm.piece.users[i].id === id) {
+               return vm.piece.users[i];
+            }
+         }
+      };
+
       // user create modal for pieces
 
       $scope.openUserModal = function () {
@@ -48,5 +62,5 @@
          });
       };
    }
-   
+
 })(angular);

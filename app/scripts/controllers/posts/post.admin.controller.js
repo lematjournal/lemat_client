@@ -46,7 +46,7 @@
 
       // user create modal for posts
 
-      $scope.open = function () {
+      $scope.openUserModal = function () {
          $scope.$modalInstance = $uibModal.open({
             scope: $scope,
             templateUrl: 'views/admin/modals/user-create.html',

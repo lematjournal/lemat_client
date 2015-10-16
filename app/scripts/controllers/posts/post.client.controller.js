@@ -9,6 +9,7 @@
 
    function PostClientController($scope, $location, $routeParams, PostFactory) {
       var vm = this;
+      
       vm.getPost = function () {
          PostFactory.getPost($routeParams.post);
          vm.post = PostFactory.post;

@@ -11,10 +11,10 @@
    </div>
    <div class="form-group" ng-controller="UserController" ng-init="getUsers()">
       <label for="user">Author(s):</label><font ng-repeat="user in vm.piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last"> and </span>{{ user.username }}</font>
-      <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="users" search-fields="username" title-field="username" minlength="1" input-class="form-control form-control-small" />
-   </div>
-   <div class="form-group">
-      <a class="btn btn-default" ng-click="open()">Add User</a>
+      <div class="input-group">
+         <span class="input-group-addon" id="user-addon"><a ng-click="openUserModal()">Create user</a></span>
+         <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="users" search-fields="username" title-field="username" minlength="1" input-class="form-control" aria-describedby="user-addon" />
+      </div>
    </div>
    <div class="form-group">
       <wysiwyg textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="vm.post.content"></wysiwyg>

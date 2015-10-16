@@ -9,6 +9,7 @@
 
    function PieceClientController($scope, $routeParams, $location, PieceFactory) {
       var vm = this;
+      
       vm.getPiece = function () {
          PieceFactory.getPiece($routeParams.id, $routeParams.piece);
          vm.piece = PieceFactory.piece;

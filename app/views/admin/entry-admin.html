@@ -1,11 +1,11 @@
-<div class="container" ng-init="getEntries()">
+<div class="container" ng-controller="EntryAdminController as vm" ng-init="vm.getEntries()">
    <table class="table">
       <tr>
          <th>title</th>
          <th>author</th>
          <th>options</th>
       </tr>
-      <tr ng-repeat="entry in entries">
+      <tr ng-repeat="entry in vm.entries">
          <td>{{ entry.title }}</td>
          <td>{{ entry.user.username }}</td>
          <td>

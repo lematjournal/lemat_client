@@ -5,45 +5,58 @@
    angular.module('lematClient.controllers.entries')
       .controller('EntryAdminController', EntryAdminController);
 
-   EntryAdminController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', 'AuthFactory', 'EntryFactory'];
+   EntryAdminController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$uibModal', 'AuthFactory', 'EntryFactory'];
 
-   function EntryAdminController($scope, $rootScope, $route, $routeParams, $location, $document, AuthFactory, EntryFactory) {
-      $scope.entry = {};
+   function EntryAdminController($scope, $rootScope, $route, $routeParams, $location, $uibModal, AuthFactory, EntryFactory) {
+      var vm = this;
 
-      $scope.identifier = $routeParams.id;
+      vm.entry = {};
 
-      $scope.getEntries = function () {
+      vm.identifier = $routeParams.id;
+
+      vm.getEntries = function () {
          EntryFactory.getEntries();
-         $scope.entries = EntryFactory.entries;
+         vm.entries = EntryFactory.entries;
       };
 
-      $scope.getEntry = function () {
+      vm.getEntry = function () {
          EntryFactory.getEntry($routeParams.entry);
-         $scope.entry = EntryFactory.entry;
+         vm.entry = EntryFactory.entry;
       };
 
       // entry crud actions
 
-      $scope.upsertEntry = function (entry) {
+      vm.upsertEntry = function (entry) {
          if (AuthFactory.isAuthenticated()) {
             EntryFactory.upsertEntry(entry);
-            $location.path('/entry-admin');
-            EntryFactory.getEntries();
+            $location.path('/admin/entries');
+            $route.reload();
          }
       };
 
-      $scope.deleteIssue = function (id) {
+      vm.deleteIssue = function (id) {
          if (AuthFactory.isAuthenticated()) {
             EntryFactory.deletePost(id);
-            $location.path('/entry-admin');
-            EntryFactory.getEntries();
+            $location.path('/admin/entries');
+            $route.reload();
          }
+      };
+      
+      // user modal
+
+      $scope.openUserModal = function () {
+         $scope.$modalInstance = $uibModal.open({
+            scope: $scope,
+            templateUrl: 'views/modals/user-create.html',
+            controller: 'UserController',
+            size: 'lg'
+         });
       };
 
       // user
 
       $scope.$on('selectedUser', function (event, data) {
-         $scope.entry.user_id = data.id;
+         vm.entry.user_id = data.id;
       });
    }
 

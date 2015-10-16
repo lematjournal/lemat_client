@@ -33,7 +33,6 @@ angular.module('lematClient.factories').factory('EntryFactory', ['$http', '$wind
       if (entry.id) {
          return $http.patch(ServerUrl + '/news/entries/' + entry.id, params).then(function (response) {
             console.log("response: ", response);
-            getEntry(response.data.id);
          }, function (response) {
             console.log(response);
          });
