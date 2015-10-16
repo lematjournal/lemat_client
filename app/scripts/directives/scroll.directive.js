@@ -60,7 +60,7 @@ angular.module('lematClient').directive('scroll', ['$document', function ($docum
 
          $document.on('scroll', function () {
             try {
-               if (scope.scroll < posArray[0]['pos']) {
+               if (scope.scroll < posArray[0].pos) {
                   scope.title = '';
                }
             } catch (e) {
@@ -68,15 +68,15 @@ angular.module('lematClient').directive('scroll', ['$document', function ($docum
             }
 
             try {
-               if (scope.scroll > posArray[i]['pos'] && scope.scroll > posArray[0]['pos']) {
-                  scope.vm.title = posArray[i]['title'];
+               if (scope.scroll > posArray[i].pos && scope.scroll > posArray[0].pos) {
+                  scope.vm.title = posArray[i].title;
                }
             } catch (e) {
                // do nothing
             }
 
             try {
-               if (scope.scroll > posArray[i + 1]['pos']) {
+               if (scope.scroll > posArray[i + 1].pos) {
                   i++;
                }
             } catch (e) {
@@ -84,7 +84,7 @@ angular.module('lematClient').directive('scroll', ['$document', function ($docum
             }
 
             try {
-               if (scope.scroll < posArray[i]['pos'] && scope.scroll > posArray[0]['pos']) {
+               if (scope.scroll < posArray[i].pos && scope.scroll > posArray[0].pos) {
                   i--;
                }
             } catch (e) {

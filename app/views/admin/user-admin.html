@@ -1,4 +1,4 @@
-<div class="container" ng-init="getUsers()">
+<div class="container" ng-controller="UserController as vm" ng-init="vm.getUsers()">
    <table class="table">
       <tr>
          <th>user</th>
@@ -6,7 +6,7 @@
          <th>role</th>
          <th>options</th>
       </tr>
-      <tr ng-repeat="user in users">
+      <tr ng-repeat="user in vm.users">
          <td>{{ ::user.email }}</td>
          <td>{{ ::user.username }}</td>
          <td>{{ ::user.role }}</td>

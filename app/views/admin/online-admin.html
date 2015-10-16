@@ -1,11 +1,11 @@
-<div class="container" ng-init="getPosts()">
+<div class="container" ng-controller="PostAdminController as vm" ng-init="vm.getPosts()">
    <table class="table">
       <tr>
          <th>title</th>
          <th>author</th>
          <th>options</th>
       </tr>
-      <tr ng-repeat="post in posts">
+      <tr ng-repeat="post in vm.posts">
          <td>{{ ::post.title }}</a></td>
          <td>{{ ::post.user.username }}</td>
          <td><a class="btn btn-default" href="#!/admin/posts/{{ ::post.title_url }}/edit">Edit</a></td>

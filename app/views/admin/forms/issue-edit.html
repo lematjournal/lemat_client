@@ -1,25 +1,25 @@
-<div class="container" ng-init="getIssue()">
+<div class="container" ng-controller="IssueAdminController as vm" ng-init="vm.getIssue()">
    <div class="row">
-      <h3>issue name: <input type="text" style="width: 50%;" ng-model="issue.title"></h3>
-      <h3>created: {{ ::issue.created_at | date: 'medium' }}</h3>
-      <h3>updated: {{ ::issue.updated_at | date: 'medium' }}</h3>
-      <h3>num. of pieces: {{ issue.pieces.length }}</h3>
-      <h3>download link: {{ issue.download_link }}</h3>
+      <h3>issue name: <input type="text" style="width: 50%;" ng-model="vm.issue.title"></h3>
+      <h3>created: {{ ::vm.issue.created_at | date: 'medium' }}</h3>
+      <h3>updated: {{ ::vm.issue.updated_at | date: 'medium' }}</h3>
+      <h3>num. of pieces: {{ vm.issue.pieces.length }}</h3>
+      <h3>download link: {{ vm.issue.download_link }}</h3>
       <h3>cover image:</h3>
-      <img class="center-block" uib-tooltip="click to change" ng-click="openImageManager()" ng-src="{{ issue.image_url }}" style="width: 50%; height: 25%; margin-bottom: 5px">
+      <img class="center-block" uib-tooltip="click to change" ng-click="openImageManager()" ng-src="{{ vm.issue.image_url }}" style="width: 50%; height: 25%; margin-bottom: 5px">
       <div class="form-group">
-         <input id="upload" type="file" name="cover" class="upload" style="display: none" file-select folder="'covers/'" accept="image/*" ng-model="issue.image_url" upload-action="uploadImage" />
+         <input id="upload" type="file" name="cover" class="upload" style="display: none" file-select folder="'covers/'" accept="image/*" ng-model="vm.issue.image_url" upload-action="uploadImage" />
          <button type="button" uploadfile class="btn btn-default btn-block">Upload Cover Image</button>
       </div>
       <div class="form-group">
-         <input id="upload" type="file" name="pdf" class="upload" style="display: none" file-select folder="'issues/'" accept=".pdf" ng-model="issue.download_link" />
+         <input id="upload" type="file" name="pdf" class="upload" style="display: none" file-select folder="'issues/'" accept=".pdf" ng-model="vm.issue.download_link" />
          <button type="button" uploadfile class="btn btn-default btn-block">Upload Issue pdf</button>
       </div>
       <div class="form-group">
-         <a class="btn btn-default btn-block" href="#!/admin/issues/{{ issue.id}}/pieces/create">Add Piece</a>
+         <a class="btn btn-default btn-block" href="#!/admin/issues/{{ vm.issue.id}}/pieces/create">Add Piece</a>
       </div>
       <div class="form-group">
-         <button class="btn btn-default btn-block" ng-click="upsertIssue(issue)">Save</button>
+         <button class="btn btn-default btn-block" ng-click="vm.upsertIssue(issue)">Save</button>
       </div>
    </div>
    <div class="row" style="margin-top: 15px">
@@ -31,15 +31,15 @@
             <th>author</th>
             <th>options</th>
          </tr>
-         <tr ng-repeat="piece in issue.pieces | orderBy: 'order'">
+         <tr ng-repeat="piece in vm.issue.pieces | orderBy: 'order'">
             <td>{{ piece.order }}</td>
             <td>{{ piece.title | cut:true: 25 }}</td>
             <td>by <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font>
             </td>
-            <th><a class="btn btn-default" href="#!/admin/issues/{{ ::issue.id }}/{{ ::piece.title_url }}/edit">Edit</a> <a class="btn btn-default" href="#!/admin/issues/{{ ::issue.id }}/{{ ::piece.title_url }}">Preview</a> <a class="btn btn-default" ng-click="piece.order = piece.order + 1"><span class="glyphicon glyphicon-chevron-up"></span></a> <a class="btn btn-default" ng-click="piece.order = piece.order - 1"><span class="glyphicon glyphicon-chevron-down"></span></a>
+            <th><a class="btn btn-default" href="#!/admin/issues/{{ ::vm.issue.id }}/{{ ::piece.title_url }}/edit">Edit</a> <a class="btn btn-default" href="#!/admin/issues/{{ ::vm.issue.id }}/{{ ::piece.title_url }}">Preview</a> <a class="btn btn-default" ng-click="piece.order = piece.order + 1"><span class="glyphicon glyphicon-chevron-up"></span></a> <a class="btn btn-default" ng-click="piece.order = piece.order - 1"><span class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
          </tr>
       </table>
-      <a class="btn btn-default" ng-click="updatePieces()">Update Order</a>
+      <a class="btn btn-default" ng-click="vm.updatePieces()">Update Order</a>
    </div>
 </div>

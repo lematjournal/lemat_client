@@ -1,5 +1,5 @@
-<div class="container" ng-init="getIssues()">
-   <div class="row" ng-repeat="issue in issues">
+<div class="container" ng-controller="IssueAdminController as vm" ng-init="vm.getIssues()">
+   <div class="row" ng-repeat="issue in vm.issues">
       <h2><a href="#!/admin/issues/{{ ::issue.id }}/edit">{{ ::issue.title }}</a></h2>
       <h3>created: {{ ::issue.created_at | date: 'medium' }}</h3>
    </div>

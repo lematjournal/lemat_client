@@ -8,47 +8,47 @@
    UserController.$inject = ['$scope', '$rootScope', '$uibModal', '$location', '$route', '$routeParams', 'AuthFactory', 'UserFactory'];
 
    function UserController($scope, $rootScope, $uibModal, $location, $route, $routeParams, AuthFactory, UserFactory) {
+      var vm = this;
+      vm.master = {};
 
-      $scope.master = {};
-
-      $scope.getUsers = function () {
+      vm.getUsers = function () {
          UserFactory.getUsers().then(function () {
-            $scope.users = UserFactory.users;
+            vm.users = UserFactory.users;
          });
       };
 
-      $scope.getUser = function () {
+      vm.getUser = function () {
          UserFactory.getUser($routeParams.user).then(function () {
-            $scope.user = UserFactory.user;
-            angular.copy($scope.user, $scope.master);
+            vm.user = UserFactory.user;
+            angular.copy(vm.user, vm.master);
          });
       };
 
-      $scope.getProfile = function () {
+      vm.getProfile = function () {
          AuthFactory.setUser().then(function () {
             $rootScope.session = AuthFactory.session;
             UserFactory.getProfile($rootScope.session).then(function () {
-               $scope.user = UserFactory.profile;
-               angular.copy($scope.user, $scope.master);
+               vm.user = UserFactory.profile;
+               angular.copy(vm.user, vm.master);
             });
          });
       };
 
-      $scope.upsertUser = function (user) {
-         if (AuthFactory.isAuthenticated() && !angular.equals($scope.user, $scope.master)) {
+      vm.upsertUser = function (user) {
+         if (AuthFactory.isAuthenticated() && !angular.equals(vm.user, vm.master)) {
             UserFactory.upsertUser(user).then(function () {
                toastr.success('User updated successfully', 'Done');
             });
          }
       };
 
-      $scope.deleteUser = function (id, username) {
+      vm.deleteUser = function (id, username) {
          if (AuthFactory.isAuthenticated()) {
             UserFactory.deleteUser(id, username);
          }
       };
 
-      $scope.resetUser = function () {
+      vm.resetUser = function () {
          $scope.user = $scope.master;
          toastr.info('User reset to last save', 'Done');
       };
@@ -63,8 +63,8 @@
          $scope.setProfileImage(data); // not sure why this doesn't work
       });
 
-      $scope.setProfileImage = function (imageUrl) {
-         $scope.user.profile_image = imageUrl;
+      vm.setProfileImage = function (imageUrl) {
+         vm.user.profile_image = imageUrl;
          toastr.info('Profile Image Selected', 'Selected');
       };
 
@@ -91,8 +91,12 @@
             scope: $scope,
             templateUrl: 'views/admin/modals/profile-image-upload.html',
             controller: 'UserModalController',
+            controllerAs: 'vm',
             windowClass: 'app-modal-window',
-            size: 'lg'
+            size: 'lg',
+            resolve: {
+               images: vm.user.images
+            }
          });
       };
 
@@ -108,16 +112,16 @@
       // but uses too many of the same methods to justify a seperate controller
       // these are therefore necessary
 
-      $scope.fields = {};
+      vm.fields = {};
 
-      $scope.save = function (event, field, user) {
-         $scope.fields[field] = !$scope.fields[field];
-         $scope.upsertUser(user);
+      vm.save = function (event, field, user) {
+         vm.fields[field] = !vm.fields[field];
+         vm.upsertUser(user);
       };
 
-      $scope.reset = function (event) {
+      vm.reset = function (event) {
          if (event.keyCode === 27) {
-            $scope.userForm.$rollbackViewValue();
+            vm.userForm.$rollbackViewValue();
          }
       };
 

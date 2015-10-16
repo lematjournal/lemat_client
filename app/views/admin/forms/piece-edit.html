@@ -1,23 +1,23 @@
-<div class="container" ng-init="getPiece()">
+<div class="container" ng-controller="PieceAdminController as vm" ng-init="vm.getPiece()">
    <div class="form-group">
       <label for="name">Title</label>
-      <input type="text" ng-model="piece.title" id="title" class="form-control" placeholder="title" required>
+      <input type="text" ng-model="vm.piece.title" id="title" class="form-control" placeholder="title" required>
    </div>
    <div class="form-group">
       <label for="type">Type</label>
-      <input type="text" ng-model="piece.piece_type" id="type" class="form-control" placeholder="type" required>
+      <input type="text" ng-model="vm.piece.piece_type" id="type" class="form-control" placeholder="type" required>
    </div>
    <div class="form-group" ng-controller="UserController" ng-init="getUsers()">
-      <label for="authors">Author(s):</label>
-      <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}<a ng-click="removeUser(user.id)"><span class="glyphicon glyphicon-remove"></span></a></font>
+      <label for="user">Author(s):</label>
+      <font ng-repeat="user in vm.piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}<a ng-click="vm.removeUser(user.id)"><span class="glyphicon glyphicon-remove"></span></a></font>
       <div class="input-group">
          <span class="input-group-addon" id="user-addon"><a ng-click="openUserModal()">Create user</a></span>
-         <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="users" search-fields="username" title-field="username" minlength="1" input-class="form-control" initial-value="piece.author" aria-describedby="user-addon" />
+         <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="users" search-fields="username" title-field="username" minlength="1" input-class="form-control" initial-value="vm.piece.author" aria-describedby="user-addon" />
       </div>
    </div>
    <div class="form-group">
-      <wysiwyg textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="piece.content"></wysiwyg>
+      <wysiwyg textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="vm.piece.content"></wysiwyg>
    </div>
-   <a class="btn btn-default" ng-click="upsertPiece(piece)">Submit</a>
-   <a class="btn btn-default" ng-click="deletePiece()"><i class="glyphicon glyphicon-trash"></i></a>
+   <a class="btn btn-default" ng-click="vm.upsertPiece(piece)">Submit</a>
+   <a class="btn btn-default" ng-click="vm.deletePiece()"><i class="glyphicon glyphicon-trash"></i></a>
 </div>

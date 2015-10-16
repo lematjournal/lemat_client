@@ -1,11 +1,11 @@
-<div class="container" ng-init="getImages()">
+<div class="container" ng-init="vm.getImages()">
    <div class="row">
       <div class="col-md-6">
          <div class="profile-image">
             <carousel>
-               <slide ng-repeat="image in images" active="slide.active" actual>
+               <slide ng-repeat="image in vm.images" active="slide.active" actual>
                   <div class="profile-image">
-                     <a ng-click="setIssueImage(image.image_url)"><img ng-src="{{ image.image_url }}" height="455px" width="600px">
+                     <a ng-click="vm.setIssueImage(image.image_url)"><img ng-src="{{ image.image_url }}" height="455px" width="600px">
                      </a>
                   </div>
                   <div class="carousel-caption">

@@ -3,7 +3,7 @@
    'use strict';
 
    angular.module('lematClient.controllers.admin')
-      .controller('MailController', MailController)
+      .controller('MailController', MailController);
 
    MailController.$inject = ['$scope', '$routeParams', 'EmailFactory'];
 

@@ -8,39 +8,37 @@
    PostAdminController.$inject = ['$scope', '$location', '$route', '$routeParams', '$uibModal', 'AuthFactory', 'UserFactory', 'PostFactory'];
 
    function PostAdminController($scope, $location, $route, $routeParams, $uibModal, AuthFactory, UserFactory, PostFactory) {
+      var vm = this;
+      vm.post = {};
 
-      $scope.url = $location.absUrl();
-
-      $scope.post = {};
-
-      $scope.getPost = function () {
+      vm.getPost = function () {
          PostFactory.getPost($routeParams.post);
-         $scope.post = PostFactory.post;
+         vm.post = PostFactory.post;
       };
 
-      $scope.getPosts = function () {
+      vm.getPosts = function () {
          PostFactory.getPosts();
-         $scope.posts = PostFactory.posts;
+         vm.posts = PostFactory.posts;
       };
 
-      $scope.resetPost = function () {
-         angular.copy({}, $scope.post);
+      vm.resetPost = function () {
+         angular.copy({}, vm.post);
       };
 
-      $scope.getUsers = function () {
+      vm.getUsers = function () {
          UserFactory.getUsers();
-         $scope.users = UserFactory.users;
+         vm.users = UserFactory.users;
       };
 
       // crud actions
 
-      $scope.upsertPost = function (post) {
+      vm.upsertPost = function (post) {
          if (AuthFactory.isAuthenticated()) {
             PostFactory.upsertPost(post);
          }
       };
 
-      $scope.deletePost = function (id, titleUrl) {
+      vm.deletePost = function (id, titleUrl) {
          if (AuthFactory.isAuthenticated()) {
             PostFactory.deletePost(id, titleUrl);
          }
@@ -79,9 +77,9 @@
 
       // tags
 
-      $scope.getTags = function () {
+      vm.getTags = function () {
          PostFactory.getTags();
-         $scope.tags = PostFactory.tags;
+         vm.tags = PostFactory.tags;
       };
    }
    

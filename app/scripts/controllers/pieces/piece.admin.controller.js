@@ -8,31 +8,32 @@
    PieceAdminController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$uibModal', 'AuthFactory', 'IssueFactory', 'PieceFactory'];
 
    function PieceAdminController($scope, $rootScope, $route, $routeParams, $location, $uibModal, AuthFactory, IssueFactory, PieceFactory) {
+      var vm = this;
 
-      $scope.piece = {
+      vm.piece = {
          users: []
       };
 
-      $scope.getPiece = function () {
+      vm.getPiece = function () {
          PieceFactory.getPiece($routeParams.id, $routeParams.piece);
-         $scope.piece = PieceFactory.piece;
+         vm.piece = PieceFactory.piece;
       };
 
       // piece crud actions
 
-      $scope.upsertPiece = function (piece) {
+      vm.upsertPiece = function (piece) {
          if (AuthFactory.isAuthenticated()) {
             PieceFactory.upsertPiece(piece, $routeParams.id).then(function () {
                IssueFactory.getIssue($routeParams.id);
                //            $location.path('admin/issues/' + $routeParams.id);
-               $scope.getPiece();
+               vm.getPiece();
             });
          }
       };
 
-      $scope.deletePiece = function () {
+      vm.deletePiece = function () {
          if (AuthFactory.isAuthenticated()) {
-            PieceFactory.deletePiece($scope.piece);
+            PieceFactory.deletePiece(vm.piece);
          }
       };
 

@@ -8,34 +8,35 @@
    IssueAdminController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$http', '$uibModal', 'AuthFactory', 'AS3Factory', 'IssueFactory', 'ImageFactory', 'PieceFactory'];
 
    function IssueAdminController($scope, $rootScope, $route, $routeParams, $location, $http, $uibModal, AuthFactory, AS3Factory, IssueFactory, ImageFactory, PieceFactory) {
+      var vm = this;
 
-      $scope.image = {};
+      vm.image = {};
 
-      $scope.getIssues = function () {
+      vm.getIssues = function () {
          IssueFactory.getIssues();
-         $scope.issues = IssueFactory.issues;
+         vm.issues = IssueFactory.issues;
       };
 
-      $scope.getIssue = function () {
+      vm.getIssue = function () {
          IssueFactory.getIssue($routeParams.id);
-         $scope.issue = IssueFactory.issue;
+         vm.issue = IssueFactory.issue;
       };
 
-      $scope.getPieces = function () {
+      vm.getPieces = function () {
          IssueFactory.getIssue($routeParams.id);
-         $scope.pieces = IssueFactory.pieces;
+         vm.pieces = IssueFactory.pieces;
       };
 
       // issue crud actions
 
-      $scope.upsertIssue = function (issue) {
+      vm.upsertIssue = function (issue) {
          if (AuthFactory.isAuthenticated()) {
             IssueFactory.upsertIssue(issue);
             IssueFactory.getIssues();
          }
       };
 
-      $scope.deleteIssue = function (id, titleUrl) {
+      vm.deleteIssue = function (id, titleUrl) {
          if (AuthFactory.isAuthenticated()) {
             IssueFactory.deletePost(id, titleUrl);
          }
@@ -43,25 +44,25 @@
 
       // piece crud actions
 
-      $scope.upsertPiece = function (piece) {
+      vm.upsertPiece = function (piece) {
          if (AuthFactory.isAuthenticated()) {
             PieceFactory.upsertPiece(piece, $routeParams.id).then(function () {
-               $scope.getIssue($routeParams.id);
-               $scope.getPieces();
+               vm.getIssue($routeParams.id);
+               vm.getPieces();
             });
          }
       };
 
-      $scope.deletePiece = function () {
+      vm.deletePiece = function () {
          if (AuthFactory.isAuthenticated()) {
             PieceFactory.deletePiece($scope.piece);
-            $scope.getIssue($routeParams.id);
+            vm.getIssue($routeParams.id);
          }
       };
 
-      $scope.updatePieces = function () {
+      vm.updatePieces = function () {
          angular.forEach($scope.issue.pieces, function (obj) {
-            $scope.upsertPiece(obj);
+            vm.upsertPiece(obj);
          });
       };
 
@@ -78,13 +79,14 @@
             scope: $scope,
             templateUrl: 'views/admin/modals/issue-image-upload.html',
             controller: 'IssueModalAdminController',
+            controllerAs: 'vm',
             windowClass: 'app-modal-window',
             size: 'lg'
          });
 
          $scope.$modalInstance.result.then(function (issueImage) {
-            $scope.issue.image_url = issueImage;
-            $scope.upsertIssue($scope.issue);
+            vm.issue.image_url = issueImage;
+            vm.upsertIssue(vm.issue);
          });
       };
 

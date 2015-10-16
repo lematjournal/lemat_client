@@ -5,17 +5,12 @@
    angular.module('lematClient.controllers.users')
       .controller('UserModalController', UserModalController);
 
-   UserModalController.$inject = ['$scope', '$rootScope', '$uibModal', '$location', '$route', '$routeParams', 'AuthFactory', 'UserFactory'];
+   UserModalController.$inject = ['$scope', '$uibModal', 'images'];
 
-   function UserModalController($scope, $rootScope, $uibModal, $location, $route, $routeParams, AuthFactory, UserFactory) {
-      $scope.file = {};
-      $scope.images = [];
-
-      $scope.getUserImages = function () {
-         UserFactory.getUser($routeParams.user).then(function () {
-            $scope.images = UserFactory.user.images;
-         });
-      };
+   function UserModalController($scope, $uibModal, images) {
+      var vm = this;
+      vm.file = {};
+      vm.images = images;
 
       $scope.openImageManager = function () {
          $scope.$modalInstance = $uibModal.open({

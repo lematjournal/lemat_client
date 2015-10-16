@@ -1,8 +1,8 @@
-<div class="container" ng-init="getPiece()">
+<div class="container" ng-controller="PieceAdminController as vm" ng-init="vm.getPiece()">
 	<div class="content">
-		<h4 class="title text-center">{{ ::piece.title }}</h4>
-		<p class="text-center"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="!$first && $last"> and </span>{{ ::user.username }}</font></p>
+		<h4 class="title text-center">{{ ::vm.piece.title }}</h4>
+		<p class="text-center"><font ng-repeat="user in vm.piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="!$first && $last"> and </span>{{ ::user.username }}</font></p>
 		<br>
-		<p ng-bind-html="piece.content | to_trusted"></p>
+		<p ng-bind-html="vm.piece.content | to_trusted"></p>
 	</div>
 </div>
