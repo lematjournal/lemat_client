@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('lematClient.factories').factory('AuthFactory', ['$http', '$q', '$window', 'ServerUrl', function ($http, $q, $window, ServerUrl) {
+angular.module('lematClient.factories')
+   .factory('AuthFactory', ['$http', '$q', '$window', 'ServerUrl', function ($http, $q, $window, ServerUrl) {
 
    var userId = {}, session = {};
 

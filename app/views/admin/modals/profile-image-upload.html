@@ -1,11 +1,11 @@
-<div class="container">
-   <div class="row">
-      <div class="col-md-6">
+<div class="modal-content">
+   <div class="container">
+      <div class="row">
          <div class="profile-image">
             <carousel>
                <slide ng-repeat="image in vm.images" active="slide.active" actual>
                   <div class="profile-image">
-                     <a ng-click="vm.setProfileImage(image.image_url)"><img ng-src="{{ image.image_url }}" height="455px" width="600px">
+                     <a ng-click="vm.profileImage = image.image_url"><img ng-src="{{ image.image_url }}" height="455px" width="100%">
                      </a>
                   </div>
                   <div class="carousel-caption">
@@ -16,25 +16,21 @@
             <p><i>* click to set profile image</i>
             </p>
          </div>
-      </div>
-      <div class="col-md-6">
-         <div class="row" style="height: 440px">
+         <div class="row">
             <div class="content-inner" ng-repeat="image in vm.user.images">
                <h4>{{ image.title }}</h4>
             </div>
             <div class="form-group">
                <input id="upload" type="file" name="file" class="upload" style="display: none" file />
                <button type="button" uploadfile class="btn btn-default btn-block">Select Image to upload</button>
-               <button type="button" ng-click="openImageManager()" class="btn btn-default btn-block">Manage User Images</button>
-               <a class="btn btn-block btn-lg" ng-click="vm.uploadImage()">Upload</a>
+               <!--               <button type="button" ng-click="openImageManager()" class="btn btn-default btn-block">Manage User Images</button>-->
             </div>
          </div>
          <div class="row">
             <div class="btn-group pull-right">
-               <a class="btn btn-default" ng-click="cancel()">Close</a> <a class="btn btn-default" ng-click="ok(); vm.upsertUser(user)" style="margin-left: 5px">Save</a>
+               <a class="btn btn-default" ng-click="cancel()">Close</a> <a class="btn btn-default" ng-click="ok()" style="margin-left: 5px">Save</a>
             </div>
          </div>
       </div>
    </div>
-
 </div>

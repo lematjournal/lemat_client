@@ -1,39 +1,19 @@
-'use strict';
+(function (angular) {
 
-angular.module('lematClient').directive('scrollPosition', ['$document', function ($document) {
-   return {
-      scope: {
-         scroll: '=scrollPosition'
-      },
-      link: function (scope, element) {
-         var windowEl = angular.element($document);
-         var handler = function () {
-            scope.scroll = windowEl.scrollTop();
-         };
-         windowEl.on('scroll', scope.$apply.bind(scope, handler));
-         handler();
-      }
-   };
-}]);
+   'use strict';
 
-angular.module('lematClient').directive('lematRepeat', [function () {
-   return function (scope, element) {
-      angular.element(element);
-      if (scope.$last) {
-         setTimeout(function () {
-            scope.$emit('lastElem');
-         }, 1);
-      }
-   };
-}]);
+   function scroll($document) {
+      var directive = {
+         scope: false,
+         controller: 'IssueClientController',
+         controllerAs: 'vm',
+         bindToController: true,
+         link: link
+      };
+      
+      return directive;
 
-angular.module('lematClient').directive('scroll', ['$document', function ($document) {
-   return {
-      scope: false,
-      controller: 'IssueClientController',
-      controllerAs: 'vm',
-      bindToController: true,
-      link: function (scope) {
+      function link(scope) {
          var posArray = [];
 
          // grabs selectors after dom is loaded
@@ -94,5 +74,11 @@ angular.module('lematClient').directive('scroll', ['$document', function ($docum
 
          });
       }
-   };
-}]);
+   }
+   
+   angular.module('lematClient.directives')
+      .directive('scroll', scroll);
+
+   scroll.$inject = ['$document'];
+
+})(angular);

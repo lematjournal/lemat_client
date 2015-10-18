@@ -25,7 +25,6 @@
          if (AuthFactory.isAuthenticated()) {
             PieceFactory.upsertPiece(piece, $routeParams.id).then(function () {
                IssueFactory.getIssue($routeParams.id);
-               //            $location.path('admin/issues/' + $routeParams.id);
                vm.getPiece();
             });
          }

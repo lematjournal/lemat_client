@@ -1,24 +1,25 @@
 <div class="container" style="width: 99%">
    <label>Cast your vote and give a detailed comment about your reasoning</label>
+   <label>{{ vm.submission.votes_array }}</label>
    <div class="radio">
       <label>
-         <input type="radio" value="YES" ng-model="submission.votes_array[userId - 1]"> Yes
+         <input type="radio" value="YES" ng-model="vm.submission.votes_array[index].vote"> Yes
       </label>
    </div>
    <div class="radio">
       <label>
-         <input type="radio" value="NO" ng-model="submission.votes_array[userId - 1]"> No
+         <input type="radio" value="NO" ng-model="vm.submission.votes_array[index].vote"> No
       </label>
    </div>
-   <div class="radio disabled">
+   <div class="radio">
       <label>
-         <input type="radio" value="ABSTAIN" ng-model="submission.votes_array[userId - 1]"> Abstain
+         <input type="radio" value="ABSTAIN" ng-model="vm.submission.votes_array[index].vote"> Abstain
       </label>
    </div>
    <div class="row" style="margin-bottom: 5px">
-      <wysiwyg style="margin-bottom: 5px" textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="comment" textarea-required ng-model="comment.body" textarea-menu="submission.customMenu"></wysiwyg>
+      <wysiwyg style="margin-bottom: 5px" textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="comment" textarea-required ng-model="vm.comment.body" textarea-menu="customMenu"></wysiwyg>
       <div class="btn-group pull-right">
-         <a class="btn btn-default" ng-click="$modalInstance.dismiss('cancel')">Close</a> <a class="btn btn-default" ng-click="ok()" style="margin-left: 5px">Cast Vote</a>
+         <a class="btn btn-default" ng-click="cancel()">Close</a> <a class="btn btn-default" ng-click="ok()" style="margin-left: 5px">Cast Vote</a>
       </div>
    </div>
 </div>

@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('lematClient.factories').factory('UserFactory', ['$http', 'AuthFactory', 'ServerUrl', function ($http, AuthFactory, ServerUrl) {
+angular.module('lematClient.factories')
+   .factory('UserFactory', ['$http', 'AuthFactory', 'ServerUrl', function ($http, AuthFactory, ServerUrl) {
    var editors = [], users = [], user = {}, postUsers = [], profile = {}, issueUsers = [];
 
    var getUser = function (username) {

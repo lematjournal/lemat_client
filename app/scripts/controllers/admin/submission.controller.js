@@ -9,6 +9,7 @@
 
    function SubmissionController($scope, $filter, $uibModal, $rootScope, $routeParams, SubFactory, UserFactory) {
       var vm = this;
+      
       vm.getEditors = function () {
          return UserFactory.getEditors().then(function () {
             vm.editors = UserFactory.editors;
@@ -31,24 +32,31 @@
          });
       };
 
-      vm.incrementVotes = function (index) {
-         if (vm.submissions[index].votes_array[$rootScope.userId - 1]) {
-            vm.submissions[index].votes++;
-         } else if (!vm.submissions[index].votes_array[$rootScope.userId - 1]) {
-            vm.submissions[index].votes--;
-         }
-      };
-
       vm.editors = function (elem) {
          return elem.role.match(/^(admin|editor)$/);
       };
+      
+      vm.submissionModal = submissionModal;
+            
+      vm.querySubmission = function (index, userId) {
+         var disabled = undefined;
+         // need to find a faster way to do this
+         angular.forEach(vm.submissions[index].votes_array, function (obj) {
+            if (obj.user_id === userId && obj.vote) {
+               disabled = true;
+            } else {
+               disabled = false;
+            }
+         });
+         return disabled;
+      };
 
-      $scope.open = function (submissionIndex) {
+      function submissionModal(submissionIndex) {
          $scope.$modalInstance = $uibModal.open({
-            scope: $scope,
             templateUrl: 'views/admin/modals/submission-vote.html',
+            controller: 'SubmissionModalController',
+            controllerAs: 'vm',
             size: 'lg',
-            controller: 'VoteController',
             resolve: {
                submission: function () {
                   return vm.submissions[submissionIndex];
@@ -56,9 +64,9 @@
             }
          });
 
-         $scope.$modalInstance.result.then(function (submission, comment) {
-            $scope.submissions[submissionIndex] = submission;
-            $scope.submissions[submissionIndex].comments.push(comment);
+         $scope.$modalInstance.result.then(function (submission) {
+            vm.submissions[submissionIndex] = submission;
+            SubFactory.updateVotes(vm.submissions[submissionIndex]);
          });
       };
    }

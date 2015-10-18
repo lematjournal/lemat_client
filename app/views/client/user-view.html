@@ -4,14 +4,14 @@
          <h3 class="title text-center"><a ng-click="vm.fields.editName = !vm.fields.editName" ng-show="!fields.editName">{{ vm.user.username }}</a></h3>
          <h3><input type="text" name="editName" class="title text-center" ng-model="vm.user.username" style="width: 100%" ng-keyup="reset($event, field)" ng-show="vm.fields.editName" ng-enter="save($event, 'editName', user)"></h3>
          <hr>
-         <a ng-click="open()" tooltip="click to change"><img class="img-responsive center-block" src="{{ vm.user.profile_image }}" />
+         <a ng-click="vm.openImageUploadModal()" uib-tooltip="click to change"><img class="img-responsive center-block" src="{{ vm.user.profile_image }}" />
          </a>
          <br>
       </div>
       <div class="row">
          <a ng-click="vm.fields.editBio = !vm.fields.editBio"><h4 class="title text-center">BIO</h4>
-         <p class="text-center" ng-hide="vm.fields.editBio" ng-show="!vm.fields.editBio">{{ user.bio }}</p></a>
-         <input type="text" name="userBio" ng-model="vm.user.bio" ng-keyup="reset($event, field)" ng-if="vm.fields.editBio" class="form-control" ng-enter="vm.save($event, 'editBio', user)" />
+         <p class="text-center" ng-hide="vm.fields.editBio" ng-show="!vm.fields.editBio">{{ vm.user.bio }}</p></a>
+         <input type="text" name="userBio" ng-model="vm.user.bio" ng-keyup="reset($event, field)" ng-if="vm.fields.editBio" class="form-control" ng-enter="vm.save($event, 'editBio', vm.user)" />
          <i ng-if="editBio">* press 'esc' to reset field</i>
       </div>
       <div class="row" ng-if="vm.user.pieces.length > 0">
@@ -39,11 +39,12 @@
          <h4 class="title text-center">SOCIAL LINKS</h4>
          <div class="col-xs-6 col-center-block">
             <ul class="social" ng-repeat="(key, val) in vm.user.social_links">
-               <li class="social-link" popover-title="{{ key | uppercase }}" popover-template="popover.templateUrl"><a><i ng-class="{'fa fa-twitter' : key === 'twitter', 'fa fa-facebook' : key === 'facebook', 'fa fa-linkedin' : key === 'linked_in', 'fa fa-tumblr' : key === 'tumblr', 'fa fa-behance' : key === 'behance', 'fa fa-github' : key === 'github', 'fa fa-youtube-play' : key === 'youtube', 'fa fa-wordpress' : key === 'wordpress', 'fa fa-instagram' : key === 'instagram', 'fa fa-google-plus' : key === 'google_plus' }"></i></a>
+               <li class="social-link" uib-popover-template="popover.templateUrl" tooltip-trigger="mouseenter"><a><i ng-class="{'fa fa-twitter' : key === 'twitter', 'fa fa-facebook' : key === 'facebook', 'fa fa-linkedin' : key === 'linked_in', 'fa fa-tumblr' : key === 'tumblr', 'fa fa-behance' : key === 'behance', 'fa fa-github' : key === 'github', 'fa fa-youtube-play' : key === 'youtube', 'fa fa-wordpress' : key === 'wordpress', 'fa fa-instagram' : key === 'instagram', 'fa fa-google-plus' : key === 'google_plus' }"></i></a>
                   <script type="text/ng-template" id="popoverTemplate.html">
                      <div class="form-group">
-                        <input type="text" ng-model="vm.user.social_links[key]" class="form-control" style="width: 100%" placeholder="enter {{ key }} link" ng-enter="vm.save($event, nil, user)"/>
+                        <input type="text" ng-model="vm.user.social_links[key]" class="form-control" style="width: 100%" placeholder="enter {{ key }} link" ng-enter="vm.save($event, nil, vm.user)" />
                      </div>
+                     <a class="btn-default"></a>
                   </script>
                </li>
             </ul>

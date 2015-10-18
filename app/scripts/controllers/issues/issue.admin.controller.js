@@ -30,15 +30,16 @@
       // issue crud actions
 
       vm.upsertIssue = function (issue) {
+         console.log()
          if (AuthFactory.isAuthenticated()) {
             IssueFactory.upsertIssue(issue);
             IssueFactory.getIssues();
          }
       };
 
-      vm.deleteIssue = function (id, titleUrl) {
+      vm.deleteIssue = function (id) {
          if (AuthFactory.isAuthenticated()) {
-            IssueFactory.deletePost(id, titleUrl);
+            IssueFactory.deletePost(id);
          }
       };
 
@@ -56,7 +57,15 @@
       vm.deletePiece = function () {
          if (AuthFactory.isAuthenticated()) {
             PieceFactory.deletePiece($scope.piece);
-            vm.getIssue($routeParams.id);
+            vm.issue.pieces.splice(findPieceById(id), 1);
+         }
+      };
+      
+      function findPieceById(id) {
+         for (var i = 0; i < vm.issue.piece.length; i++) {
+            if (vm.issue.pieces[i].id === id) {
+               return vm.issue.pieces[i].id;
+            }
          }
       };
 
@@ -69,7 +78,7 @@
       $scope.uploadImage = function () {
          var image = {
             user_id: $rootScope.userId,
-            image_url: $scope.issue.image_url
+            image_url: vm.issue.image_url
          };
          ImageFactory.uploadImage(image);
       };
@@ -88,28 +97,6 @@
             vm.issue.image_url = issueImage;
             vm.upsertIssue(vm.issue);
          });
-      };
-
-      // methods for user select
-
-      $scope.$on('selectedUser', function (event, data) {
-         if (!!findUserIndexById(data.id)) {
-            // do nothing
-         } else {
-            $scope.piece.users.push(data);
-         }
-      });
-
-      $scope.removeUser = function (id) {
-         $scope.piece.users.splice(findUserIndexById(id), 1);
-      };
-
-      var findUserIndexById = function (id) {
-         for (var i = 0; i < $scope.piece.users.length; i++) {
-            if ($scope.piece.users[i].id === id) {
-               return $scope.piece.users[i];
-            }
-         }
       };
    }
    

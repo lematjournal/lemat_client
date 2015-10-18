@@ -1,6 +1,6 @@
-<div class="container" ng-init="getImages()">
+<div class="container" ng-controller="ImageController as vm" ng-init="vm.getImages()">
    <div class="row">
-      <div dir-paginate="image in images | itemsPerPage: 8" current-page="currentPage">
+      <div dir-paginate="image in vm.images | itemsPerPage: 8" current-page="currentPage">
          <div class="col-xs-3">
             <div class="profile-image">
                <img ng-src="{{ image.image_url }}" height="255" width="255" />

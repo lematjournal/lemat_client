@@ -1,10 +1,18 @@
-'use strict';
+(function (angular) {
 
-angular.module('lematClient').directive('lematHeader', [function () {
-   return {
-      restrict: 'E',
-      templateUrl: 'views/core/partials/header.html',
-      controller: 'MainController',
-      scope: false
-   };
-}]);
+   'use strict';
+
+   function lematHeader() {
+      var directive = {
+         restrict: 'E',
+         templateUrl: 'views/core/partials/header.html',
+         controller: 'MainController',
+         scope: false
+      };
+      return directive;
+   }
+
+   angular.module('lematClient.directives')
+      .directive('lematHeader', lematHeader);
+
+})(angular);

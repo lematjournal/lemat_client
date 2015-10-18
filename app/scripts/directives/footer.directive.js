@@ -1,15 +1,30 @@
-'use strict';
+(function (angular) {
 
-angular.module('lematClient').directive('lematFooter', ['UserFactory', function (UserFactory) {
-	return {
-		restrict: 'E',
-		templateUrl: 'views/core/partials/footer.html',
-      scope: false,
-      link: function (scope) {
-         UserFactory.getPostUsers();
-         scope.postUsers = UserFactory.postUsers;
-         UserFactory.getIssueUsers();
-         scope.issueUsers = UserFactory.issueUsers;
+   'use strict';
+
+   function lematFooter(UserFactory) {
+      var directive = {
+         restrict: 'E',
+         templateUrl: 'views/core/partials/footer.html',
+         scope: false,
+         link: link
+      };
+
+      return directive;
+
+      function link(scope) {
+         UserFactory.getPostUsers().then(function () {
+            scope.postUsers = UserFactory.postUsers;
+         });
+         UserFactory.getIssueUsers().then(function () {
+            scope.issueUsers = UserFactory.issueUsers;
+         });
       }
-	};
-}]);
+   }
+
+   angular.module('lematClient.directives')
+      .directive('lematFooter', lematFooter);
+
+   lematFooter.$inject = ['UserFactory'];
+
+})(angular);

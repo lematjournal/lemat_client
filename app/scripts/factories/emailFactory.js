@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('lematClient.factories').factory('EmailFactory', ['$http', 'ServerUrl', function ($http, ServerUrl) {
+angular.module('lematClient.factories')
+   .factory('EmailFactory', ['$http', 'ServerUrl', function ($http, ServerUrl) {
    
    var emails = [], email = {};
    

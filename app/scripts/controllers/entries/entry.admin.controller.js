@@ -34,9 +34,9 @@
          }
       };
 
-      vm.deleteIssue = function (id) {
+      vm.deleteEntry = function (id) {
          if (AuthFactory.isAuthenticated()) {
-            EntryFactory.deletePost(id);
+            EntryFactory.deleteEntry(id);
             $location.path('/admin/entries');
             $route.reload();
          }

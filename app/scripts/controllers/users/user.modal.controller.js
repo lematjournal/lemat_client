@@ -5,21 +5,22 @@
    angular.module('lematClient.controllers.users')
       .controller('UserModalController', UserModalController);
 
-   UserModalController.$inject = ['$scope', '$uibModal', 'images'];
+   UserModalController.$inject = ['$scope', '$uibModal', '$modalInstance', 'images'];
 
-   function UserModalController($scope, $uibModal, images) {
+   function UserModalController($scope, $uibModal, $modalInstance, images) {
       var vm = this;
+
       vm.file = {};
       vm.images = images;
+      vm.profileImage = '';
 
-      $scope.openImageManager = function () {
-         $scope.$modalInstance = $uibModal.open({
-            scope: $scope,
-            controller: 'ImageController',
-            templateUrl: 'views/admin/modals/profile-image-manager.html',
-            size: 'lg'
-         });
+      $scope.ok = function () {
+         $modalInstance.close(vm.profileImage);
+      };
+
+      $scope.cancel = function () {
+         $modalInstance.dismiss('cancel');
       };
    }
-   
+
 })(angular);

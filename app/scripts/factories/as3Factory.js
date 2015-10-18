@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('lematClient.factories').factory('AS3Factory', ['$http', '$q', 'ServerUrl', function ($http, $q, ServerUrl) {
+angular.module('lematClient.factories')
+   .factory('AS3Factory', ['$http', '$q', 'ServerUrl', function ($http, $q, ServerUrl) {
 
    var keys = {},
       images = [],

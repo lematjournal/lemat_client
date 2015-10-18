@@ -1,31 +1,31 @@
-<div class="container" ng-init="getUser()">
+<div class="container" ng-controller="UserController as vm" ng-init="vm.getUser()">
    <div class="row">
-      <h3 class="title text-center">{{ user.username }}</h3>
+      <h3 class="title text-center">{{ vm.user.username }}</h3>
       <hr>
-      <img class="img-responsive center-block" src="{{ user.profile_image }}" />
+      <img class="img-responsive center-block" src="{{ vm.user.profile_image }}" />
       <br>
    </div>
-   <div class="row" ng-if="user.bio">
+   <div class="row" ng-if="vm.user.bio">
       <h4 class="title text-center">BIO</h4>
-      <p class="text-center">{{ user.bio }}</p>
+      <p class="text-center">{{ vm.user.bio }}</p>
    </div>
-   <div class="row" ng-if="user.pieces.length > 0">
+   <div class="row" ng-if="vm.user.pieces.length > 0">
       <h4 class="title text-center">ISSUE PIECES</h4>
-      <div ng-repeat="piece in user.pieces">
+      <div ng-repeat="piece in vm.user.pieces">
          <p class="text-center"><a href="#!/issue/{{ piece.issue_id }}/{{ piece.title_url }}">{{ piece.title | uppercase }}</a>
          </p>
       </div>
    </div>
-   <div class="row" ng-if="user.posts.length > 0">
+   <div class="row" ng-if="vm.user.posts.length > 0">
       <h4 class="title text-center">ARTWORK/ONLINE CONTENT</h4>
-      <div ng-repeat="post in user.posts">
+      <div ng-repeat="post in vm.user.posts">
          <p class="text-center"><a href="#!/online/{{ post.title_url }}">{{ post.title | uppercase }}</a>
          </p>
       </div>
    </div>
-   <div class="row" ng-if="user.entries.length > 0">
+   <div class="row" ng-if="vm.user.entries.length > 0">
       <h4 class="title text-center">NEWS ENTRIES</h4>
-      <div ng-repeat="entry in user.entries">
+      <div ng-repeat="entry in vm.user.entries">
          <p class="text-center"><a href="#!/entry/{{ entry.title_url }}">{{ entry.title | uppercase }}</a>
          </p>
       </div>

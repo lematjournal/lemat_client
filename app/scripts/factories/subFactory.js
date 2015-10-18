@@ -1,39 +1,52 @@
 'use strict';
 
-angular.module('lematClient.factories').factory('SubFactory', ['$http', 'ServerUrl', function ($http, ServerUrl) {
+angular.module('lematClient.factories')
+   .factory('SubFactory', ['$http', 'ServerUrl', function ($http, ServerUrl) {
    
-   var submissions = [], submission = {};
+   var comment = {}, submissions = [], submission = {};
    
    var getSubmissions = function () {
       return $http.get(ServerUrl + '/submissions/').then(function (response) {
          angular.copy(response.data, submissions);
-         console.log(submissions);
       });
    };
    
    var getSubmission = function (id) {
       return $http.get(ServerUrl + '/submissions/' + id).then(function (response) {
          angular.copy(response.data, submission);
-         console.log(submission);
+      });
+   };
+      
+   var upsertComment = function (commentHash) {
+      var params = {
+         comment: commentHash
+      };
+      return $http.post(ServerUrl + '/submissions/comments', params).then(function (response) {
+         angular.copy(response.data, comment);
+         console.log('comment: ', comment);
       });
    };
    
    var updateVotes = function (submission) {
+      console.log("input: ", submission);
       var params = {
-         id: submission.id,
-         votes: submission.votes,
-         votes_array: submission.votes_array
+            submission: {
+               votes: submission.votes,
+               votes_array: submission.votes_array,
+         }
       };
       
-      return $http.post(ServerUrl + '/submissions/' + submission.id, params).then(function (response) {
+      return $http.patch(ServerUrl + '/submissions/' + submission.id, params).then(function (response) {
          angular.copy(response.data, submission);
       });
    };
    
    return {
+      upsertComment: upsertComment,
       getSubmissions: getSubmissions,
       getSubmission: getSubmission,
       submissions: submissions,
-      submission: submission
+      submission: submission,
+      updateVotes: updateVotes
    };
 }]);

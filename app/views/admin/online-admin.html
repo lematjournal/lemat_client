@@ -6,9 +6,11 @@
          <th>options</th>
       </tr>
       <tr ng-repeat="post in vm.posts">
-         <td>{{ ::post.title }}</a></td>
+         <td>{{ ::post.title }}</a>
+         </td>
          <td>{{ ::post.user.username }}</td>
-         <td><a class="btn btn-default" href="#!/admin/posts/{{ ::post.title_url }}/edit">Edit</a></td>
+         <td><a class="btn btn-default" href="#!/admin/posts/{{ ::post.title_url }}/edit">Edit</a> <a class="btn btn-default" ng-click="vm.deletePost(post.id)">Delete</a>
+         </td>
       </tr>
    </table>
    <a class="btn btn-default" href="#!/admin/posts/create">Add Post</a>

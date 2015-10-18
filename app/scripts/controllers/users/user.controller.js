@@ -59,15 +59,6 @@
          }
       };
 
-      $scope.$on('profileImage', function (event, data) {
-         $scope.setProfileImage(data); // not sure why this doesn't work
-      });
-
-      vm.setProfileImage = function (imageUrl) {
-         vm.user.profile_image = imageUrl;
-         toastr.info('Profile Image Selected', 'Selected');
-      };
-
       $scope.exclude = function (elem) {
          return !elem.role.match(/^(admin|editor)$/);
       };
@@ -86,26 +77,26 @@
 
       // profile image upload modal
 
-      $scope.open = function () {
+      vm.openImageUploadModal = openImageUploadModal;
+
+      function openImageUploadModal() {
          $scope.$modalInstance = $uibModal.open({
-            scope: $scope,
             templateUrl: 'views/admin/modals/profile-image-upload.html',
             controller: 'UserModalController',
             controllerAs: 'vm',
             windowClass: 'app-modal-window',
             size: 'lg',
             resolve: {
-               images: vm.user.images
+               images: function () {
+                  return vm.user.images
+               }
             }
          });
-      };
 
-      $scope.ok = function () {
-         $scope.$modalInstance.close();
-      };
-
-      $scope.cancel = function () {
-         $scope.$modalInstance.dismiss('cancel');
+         $scope.$modalInstance.result.then(function (profileImage) {
+            vm.user.profile_image = profileImage;
+            vm.upsertUser(vm.user);
+         });
       };
 
       // note: the client view has a slightly different organization
@@ -117,6 +108,7 @@
       vm.save = function (event, field, user) {
          vm.fields[field] = !vm.fields[field];
          vm.upsertUser(user);
+         toastr.success('User updated successfully', 'Done');
       };
 
       vm.reset = function (event) {
@@ -128,6 +120,7 @@
       $scope.popover = {
          templateUrl: 'popoverTemplate.html',
       };
+
    }
 
 })(angular);

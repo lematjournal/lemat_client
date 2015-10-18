@@ -9,9 +9,9 @@
          <td>{{ entry.title }}</td>
          <td>{{ entry.user.username }}</td>
          <td>
-            <a class="btn btn-default" href="#!/admin/entries/{{ ::entry.title_url }}/edit">Edit</a>
+            <a class="btn btn-default" href="#!/admin/entries/{{ ::entry.title_url }}/edit">Edit</a> <a class="btn btn-default" ng-click="vm.deleteEntry(vm.entry.id)">Delete</a>
          </td>
       </tr>
    </table>
    <a class="btn btn-default" href="#!/admin/entries/create">Add Entry</a>
-</div>
+</div>   

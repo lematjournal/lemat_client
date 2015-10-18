@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('lematClient.factories').factory('SecFactory', ['$rootScope', '$location', 'AuthFactory', function ($rootScope, $location, AuthFactory) {
+angular.module('lematClient.factories')
+   .factory('SecFactory', ['$rootScope', '$location', 'AuthFactory', function ($rootScope, $location, AuthFactory) {
 
    var roles = {
       admin: 3,

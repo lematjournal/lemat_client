@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('lematClient.factories').factory('IssueFactory', ['$http', '$window', 'AuthFactory', 'ServerUrl', function ($http, $window, AuthFactory, ServerUrl) {
+angular.module('lematClient.factories')
+   .factory('IssueFactory', ['$http', '$window', 'AuthFactory', 'ServerUrl', function ($http, $window, AuthFactory, ServerUrl) {
    var issues = [], issue = {}, pieces = [];
 
    var resetIssue = function () {

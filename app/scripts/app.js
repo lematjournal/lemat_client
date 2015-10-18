@@ -2,7 +2,7 @@
 
 angular.module('lematClient', ['lematClient.controllers', 'lematClient.constants', 'lematClient.directives', 'lematClient.factories', 'lematClient.filters', 'lematClient.routes', 'lematClient.services']).config(['$locationProvider', function ($locationProvider) {
       $locationProvider.html5Mode(false).hashPrefix('!');
- }]);
+}]);
 
 angular.module('lematClient.controllers', ['lematClient.controllers.admin', 'lematClient.controllers.entries', 'lematClient.controllers.issues', 'lematClient.controllers.main', 'lematClient.controllers.pieces','lematClient.controllers.posts', 'lematClient.controllers.users']);
 

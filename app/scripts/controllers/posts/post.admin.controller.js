@@ -9,16 +9,19 @@
 
    function PostAdminController($scope, $location, $route, $routeParams, $uibModal, AuthFactory, UserFactory, PostFactory) {
       var vm = this;
+
       vm.post = {};
 
       vm.getPost = function () {
-         PostFactory.getPost($routeParams.post);
-         vm.post = PostFactory.post;
+         PostFactory.getPost($routeParams.post).then(function () {
+            vm.post = PostFactory.post;
+         });
       };
 
       vm.getPosts = function () {
-         PostFactory.getPosts();
-         vm.posts = PostFactory.posts;
+         PostFactory.getPosts().then(function () {
+            vm.posts = PostFactory.posts;
+         });
       };
 
       vm.resetPost = function () {
@@ -26,8 +29,9 @@
       };
 
       vm.getUsers = function () {
-         UserFactory.getUsers();
-         vm.users = UserFactory.users;
+         UserFactory.getUsers().then(function () {
+            vm.users = UserFactory.users;
+         });
       };
 
       // crud actions
@@ -35,12 +39,23 @@
       vm.upsertPost = function (post) {
          if (AuthFactory.isAuthenticated()) {
             PostFactory.upsertPost(post);
+            $location.path('/admin/posts');
+            $route.reload();
          }
       };
 
-      vm.deletePost = function (id, titleUrl) {
+      vm.deletePost = function (id) {
          if (AuthFactory.isAuthenticated()) {
-            PostFactory.deletePost(id, titleUrl);
+            PostFactory.deletePost(id);
+            vm.posts.splice(findPostById(id), 1);
+         }
+      };
+
+      function findPostById(id) {
+         for (var i = 0; i < vm.posts.length; i++) {
+            if (vm.posts[i].id === id) {
+               return vm.posts[i].id;
+            }
          }
       };
 
@@ -64,23 +79,17 @@
       };
 
       $scope.$on('selectedUser', function (event, data) {
-         console.log(data);
-         $scope.post.user_id = data.id;
-      });
-
-      // filters for online view
-
-      $scope.$on('filter', function (event, data) {
-         $scope.filters = data;
-         $location.path('/online');
+         vm.post.user_id = data.id;
       });
 
       // tags
 
       vm.getTags = function () {
-         PostFactory.getTags();
-         vm.tags = PostFactory.tags;
+         console.log('called');
+         PostFactory.getTags().then(function () {;
+            vm.tags = PostFactory.tags;
+         });
       };
    }
-   
+
 })(angular);

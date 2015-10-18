@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('lematClient.factories').factory('ImageFactory', ['$http', 'ServerUrl', function ($http, ServerUrl) {
+angular.module('lematClient.factories')
+   .factory('ImageFactory', ['$http', 'ServerUrl', function ($http, ServerUrl) {
    var images = [],
       image = {};
    

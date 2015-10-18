@@ -1,13 +1,14 @@
 <div class="container" ng-controller="SubmissionController as vm" ng-init="vm.getSubmission()">
-   <div class="row">
+   <div class="row" ng-repeat="comment in vm.submission.comments">
       <div class="media">
          <div class="media-left">
-            <a href="#">
-               <img class="media-object" src="..." alt="...">
-            </a>
+            <div class="profile-image">
+               <img class="media-object" ng-src="{{ comment.user.profile_image }}" alt="..." height="64px" width="64px">
+            </div>
          </div>
          <div class="media-body">
-            <h4 class="media-heading">Media heading</h4> ...
+            <h4 class="media-heading">{{ vm.submission.vote_array[userId ]}}</h4>
+            <p>{{ comment.body }}</p>
          </div>
       </div>
    </div>

@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('lematClient.factories').factory('PostFactory', ['$http', 'AuthFactory', 'ServerUrl', function ($http, AuthFactory, ServerUrl) {
+angular.module('lematClient.factories')
+   .factory('PostFactory', ['$http', 'AuthFactory', 'ServerUrl', function ($http, AuthFactory, ServerUrl) {
     var posts = [], post = {}, tags = [];
 
     var resetPost = function () {
@@ -23,6 +24,7 @@ angular.module('lematClient.factories').factory('PostFactory', ['$http', 'AuthFa
    var getTags = function () {
         return $http.get(ServerUrl + '/content/tags/').then(function (response) {
            angular.copy(response.data, tags);
+           console.log(response.data);
         });
    };
 
@@ -58,8 +60,8 @@ angular.module('lematClient.factories').factory('PostFactory', ['$http', 'AuthFa
         }
     };
 
-    var deletePost = function (id, titleUrl) {
-        return $http.delete(ServerUrl + '/content/posts/' + titleUrl).then(function () {
+    var deletePost = function (id) {
+        return $http.delete(ServerUrl + '/content/posts/' + id).then(function () {
             posts.splice(findPostIndexById(id), 1);
         });
     };
