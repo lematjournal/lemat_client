@@ -1,5 +1,5 @@
-<div class="container" ng-init="getUsers()">
-   <div class="row" ng-repeat="user in users | omit: exclude">
+<div class="container" ng-controller="UserController as vm" ng-init="vm.getUsers()">
+   <div class="row" ng-repeat="user in vm.users | omit: exclude">
       <div>
          <div class="row">
             <h3 class="title text-center">{{ ::user.username }}</h3>
