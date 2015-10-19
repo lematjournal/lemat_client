@@ -46,6 +46,7 @@ module.exports = function(config) {
       'bower_components/aws-sdk/dist/aws-sdk.js',
       'bower_components/toastr/toastr.js',
       'bower_components/angular-deckgrid/angular-deckgrid.js',
+      'bower_components/angular-youtube-mb/src/angular-youtube-embed.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

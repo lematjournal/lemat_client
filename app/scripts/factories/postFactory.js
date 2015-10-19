@@ -37,7 +37,7 @@ angular.module('lematClient.factories')
                 content: post.content,
                 post_type: post.post_type,
                 preview: post.preview,
-                title_url: post.title.replace(/\s/g, "-").substring(0, 25).toLowerCase()
+                title_url: post.title_url
             }
         };
         

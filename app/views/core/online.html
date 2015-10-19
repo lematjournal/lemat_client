@@ -9,7 +9,9 @@
             <div class="panel-heading" ng-if="post.post_type === 'text'"><a style="text-transform: uppercase" href="/#!/online/{{ ::post.title_url }}">{{ ::post.title }}</a>
             </div>
             <div class="panel-body">
-               <div class="video" ng-if="post.post_type === 'video'" ng-bind-html="post.preview | to_trusted"></div>
+               <div class="embed-responsive embed-responsive-16by9 video" ng-if="post.post_type === 'video'">
+                  <youtube-video video-url="post.content" style="padding-bottom: 5px"></youtube-video>
+               </div>
                <p class="overflow elipsis" ng-if="post.post_type === 'text'" ng-bind-html="post.content | to_trusted"></p>
             </div>
             <div class="panel-footer">
@@ -18,7 +20,7 @@
                      <a class="text-center" style="margin-top: 5px" uib-popover-template="popover.templateUrl"><p>TAGS</p></a>
                      <script type="text/ng-template" id="tag-popover.template.html">
                         <div class="form-group">
-                           <p>tags: <font ng-repeat="tag in post.tags"><span ng-show="!$first">, </span><a ng-click="setFilter(tag)">#{{ ::tag | uppercase }}</a></font></p>
+                           <p><font ng-repeat="tag in post.tags"><span ng-show="!$first">, </span><a ng-click="setFilter(tag)">#{{ ::tag | uppercase }}</a></font></p>
                         </div>
                      </script>
                   </div>
@@ -32,7 +34,7 @@
                   </div>
                   <div class="link">
                      <a href="/#!/online/{{ ::post.title_url}}" style="margin-top: 5px">
-                        <p class="text-center">LINK</p>
+                        <p class="text-center" style="margin-left: -5px">LINK</p>
                      </a>
                   </div>
                </div>

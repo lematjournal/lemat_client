@@ -3,10 +3,6 @@ body {
    padding-top: 50px;
 }
 
-.content {
-   padding-top: 50px;
-}
-
 .container {
    padding-top: 50px;
 }
@@ -570,7 +566,7 @@ p {
 }
 
 .video {
-   margin: -16px -16px -20px;
+   margin: -16px -15.5px -20px;
 }
 
 .panel-footer {
