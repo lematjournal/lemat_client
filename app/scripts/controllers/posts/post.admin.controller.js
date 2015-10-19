@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.posts')
-      .controller('PostAdminController', PostAdminController);
-
-   PostAdminController.$inject = ['$scope', '$location', '$route', '$routeParams', '$uibModal', 'AuthFactory', 'UserFactory', 'PostFactory'];
-
    function PostAdminController($scope, $location, $route, $routeParams, $uibModal, AuthFactory, UserFactory, PostFactory) {
       var vm = this;
 
@@ -57,7 +52,7 @@
                return vm.posts[i].id;
             }
          }
-      };
+      }
 
       // user create modal for posts
 
@@ -85,11 +80,15 @@
       // tags
 
       vm.getTags = function () {
-         console.log('called');
-         PostFactory.getTags().then(function () {;
+         PostFactory.getTags().then(function () {
             vm.tags = PostFactory.tags;
          });
       };
    }
+   
+   angular.module('lematClient.controllers.posts')
+      .controller('PostAdminController', PostAdminController);
+
+   PostAdminController.$inject = ['$scope', '$location', '$route', '$routeParams', '$uibModal', 'AuthFactory', 'UserFactory', 'PostFactory'];
 
 })(angular);

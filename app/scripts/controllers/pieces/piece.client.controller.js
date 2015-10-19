@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.pieces')
-      .controller('PieceClientController', PieceClientController);
-
-   PieceClientController.$inject = ['$scope', '$routeParams', '$location', 'PieceFactory'];
-
    function PieceClientController($scope, $routeParams, $location, PieceFactory) {
       var vm = this;
       
@@ -15,5 +10,11 @@
          vm.piece = PieceFactory.piece;
       };
    }
+   
+   angular.module('lematClient.controllers.pieces')
+      .controller('PieceClientController', PieceClientController);
+
+   PieceClientController.$inject = ['$scope', '$routeParams', '$location', 'PieceFactory'];
+
 
 })(angular);

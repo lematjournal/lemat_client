@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.admin')
-      .controller('SubmissionController', SubmissionController);
-
-   SubmissionController.$inject = ['$scope', '$filter', '$uibModal', '$rootScope', '$routeParams', 'SubFactory', 'UserFactory'];
-
    function SubmissionController($scope, $filter, $uibModal, $rootScope, $routeParams, SubFactory, UserFactory) {
       var vm = this;
       
@@ -35,11 +30,9 @@
       vm.editors = function (elem) {
          return elem.role.match(/^(admin|editor)$/);
       };
-      
-      vm.submissionModal = submissionModal;
-            
+                  
       vm.querySubmission = function (index, userId) {
-         var disabled = undefined;
+         var disabled = {};
          // need to find a faster way to do this
          angular.forEach(vm.submissions[index].votes_array, function (obj) {
             if (obj.user_id === userId && obj.vote) {
@@ -68,7 +61,15 @@
             vm.submissions[submissionIndex] = submission;
             SubFactory.updateVotes(vm.submissions[submissionIndex]);
          });
-      };
+      }
+      
+      vm.submissionModal = submissionModal;
+
    }
+   
+   angular.module('lematClient.controllers.admin')
+      .controller('SubmissionController', SubmissionController);
+
+   SubmissionController.$inject = ['$scope', '$filter', '$uibModal', '$rootScope', '$routeParams', 'SubFactory', 'UserFactory'];
    
 })(angular);

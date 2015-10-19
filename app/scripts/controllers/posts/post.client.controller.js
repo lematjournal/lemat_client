@@ -2,10 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.posts')
-      .controller('PostClientController', PostClientController);
-   
-   PostClientController.$inject = ['$scope', '$location', '$routeParams', 'PostFactory'];
 
    function PostClientController($scope, $location, $routeParams, PostFactory) {
       var vm = this;
@@ -26,6 +22,15 @@
          $scope.filters = data;
          $location.path('/online');
       });
+      
+      $scope.popover = {
+         templateUrl: 'tag-popover.template.html',
+      };
    }
+   
+   angular.module('lematClient.controllers.posts')
+      .controller('PostClientController', PostClientController);
+   
+   PostClientController.$inject = ['$scope', '$location', '$routeParams', 'PostFactory'];
    
 })(angular);

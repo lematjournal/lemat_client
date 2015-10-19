@@ -2,9 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.directives')
-      .directive('lematRepeat', lematRepeat);
-
    function lematRepeat() {
       var directive = function (scope, element) {
          angular.element(element);
@@ -14,8 +11,10 @@
             }, 1);
          }
       };
-      
       return directive;
-   };
+   }
+   
+   angular.module('lematClient.directives')
+      .directive('lematRepeat', lematRepeat);
    
 })(angular);

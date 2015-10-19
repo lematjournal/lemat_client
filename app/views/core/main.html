@@ -1,7 +1,7 @@
 <div class="container" ng-controller="EntryClientController as vm" ng-init="vm.getEntries()">
    <div dir-paginate="entry in vm.entries | itemsPerPage: 5 | orderBy: '-created_at'" current-page="currentPage">
       <a ng-href="#!/entry/{{ ::entry.title_url }}">
-         <h1 class="news-entry">{{ ::entry.title | uppercase }}</h1>
+         <h1 class="news-entry" style="text-transform: uppercase">{{ ::entry.title }}</h1>
       </a>
       <hr class="entry-rule">
       <p class="post-meta">Posted by <a ng-href="#!/user/{{ ::entry.user.username }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }} <span class="disqus-comment-count" data-disqus-url="{{ ::url }}entry/{{ ::entry.title_url }}"></span>

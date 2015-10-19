@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.entries')
-      .controller('EntryAdminController', EntryAdminController);
-
-   EntryAdminController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$uibModal', 'AuthFactory', 'EntryFactory'];
-
    function EntryAdminController($scope, $rootScope, $route, $routeParams, $location, $uibModal, AuthFactory, EntryFactory) {
       var vm = this;
 
@@ -59,5 +54,10 @@
          vm.entry.user_id = data.id;
       });
    }
+   
+   angular.module('lematClient.controllers.entries')
+      .controller('EntryAdminController', EntryAdminController);
+
+   EntryAdminController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$uibModal', 'AuthFactory', 'EntryFactory'];
 
 })(angular);

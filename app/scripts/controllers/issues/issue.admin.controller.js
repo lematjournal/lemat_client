@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.issues')
-      .controller('IssueAdminController', IssueAdminController);
-
-   IssueAdminController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$http', '$uibModal', 'AuthFactory', 'AS3Factory', 'IssueFactory', 'ImageFactory', 'PieceFactory'];
-
    function IssueAdminController($scope, $rootScope, $route, $routeParams, $location, $http, $uibModal, AuthFactory, AS3Factory, IssueFactory, ImageFactory, PieceFactory) {
       var vm = this;
 
@@ -30,7 +25,6 @@
       // issue crud actions
 
       vm.upsertIssue = function (issue) {
-         console.log()
          if (AuthFactory.isAuthenticated()) {
             IssueFactory.upsertIssue(issue);
             IssueFactory.getIssues();
@@ -57,7 +51,6 @@
       vm.deletePiece = function () {
          if (AuthFactory.isAuthenticated()) {
             PieceFactory.deletePiece($scope.piece);
-            vm.issue.pieces.splice(findPieceById(id), 1);
          }
       };
       
@@ -67,7 +60,7 @@
                return vm.issue.pieces[i].id;
             }
          }
-      };
+      }
 
       vm.updatePieces = function () {
          angular.forEach($scope.issue.pieces, function (obj) {
@@ -99,5 +92,10 @@
          });
       };
    }
+   
+   angular.module('lematClient.controllers.issues')
+      .controller('IssueAdminController', IssueAdminController);
+
+   IssueAdminController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$http', '$uibModal', 'AuthFactory', 'AS3Factory', 'IssueFactory', 'ImageFactory', 'PieceFactory'];
    
 })(angular);

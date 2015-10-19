@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.admin')
-      .controller('MailController', MailController);
-
-   MailController.$inject = ['$scope', '$routeParams', 'EmailFactory'];
-
    function MailController($scope, $routeParams, EmailFactory) {
       var vm = this;
       vm.emails = [];
@@ -23,5 +18,10 @@
          });
       };
    }
+   
+   angular.module('lematClient.controllers.admin')
+      .controller('MailController', MailController);
+
+   MailController.$inject = ['$scope', '$routeParams', 'EmailFactory'];
 
 })(angular);

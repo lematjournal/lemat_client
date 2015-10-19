@@ -2,12 +2,7 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.admin')
-      .controller('ImageController', ImageController);
-
-   ImageController.$inject = ['$scope', '$q', '$routeParams', 'AuthFactory', 'ImageFactory'];
-
-   function ImageController($scope, $q, $routeParams, AuthFactory, ImageFactory) {
+   function ImageController($scope, $q, $routeParams, AuthFactory, AS3Factory, ImageFactory) {
       var vm = this;
 
       $scope.isAdmin = function () {
@@ -21,8 +16,12 @@
       };
 
       vm.deleteImage = function (image) {
-         ImageFactory.deleteImage(image.id).then(function () {
-            vm.images.splice(findImageIndexById(image.id), 1);
+         AS3Factory.deleteFile(image.image_url).then(function () {
+            ImageFactory.deleteImage(image.id).then(function () {
+               vm.images.splice(findImageIndexById(image.id), 1);
+            }, function () {
+               console.log('error');
+            });
          });
       };
 
@@ -32,7 +31,7 @@
                return i;
             }
          }
-      };
+      }
 
       // pagination
 
@@ -41,5 +40,10 @@
       $scope.currentPage = 1;
 
    }
+   
+   angular.module('lematClient.controllers.admin')
+      .controller('ImageController', ImageController);
+
+   ImageController.$inject = ['$scope', '$q', '$routeParams', 'AuthFactory', 'AS3Factory', 'ImageFactory'];
    
 })(angular);

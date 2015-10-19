@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.users')
-      .controller('UserController', UserController);
-
-   UserController.$inject = ['$scope', '$rootScope', '$uibModal', '$location', '$route', '$routeParams', 'AuthFactory', 'UserFactory'];
-
    function UserController($scope, $rootScope, $uibModal, $location, $route, $routeParams, AuthFactory, UserFactory) {
       var vm = this;
       vm.master = {};
@@ -88,7 +83,10 @@
             size: 'lg',
             resolve: {
                images: function () {
-                  return vm.user.images
+                  return vm.user.images;
+               },
+               userId: function () {
+                  return vm.user.id;
                }
             }
          });
@@ -97,7 +95,7 @@
             vm.user.profile_image = profileImage;
             vm.upsertUser(vm.user);
          });
-      };
+      }
 
       // note: the client view has a slightly different organization
       // but uses too many of the same methods to justify a seperate controller
@@ -120,7 +118,11 @@
       $scope.popover = {
          templateUrl: 'popoverTemplate.html',
       };
-
    }
+   
+   angular.module('lematClient.controllers.users')
+      .controller('UserController', UserController);
+
+   UserController.$inject = ['$scope', '$rootScope', '$uibModal', '$location', '$route', '$routeParams', 'AuthFactory', 'UserFactory'];
 
 })(angular);

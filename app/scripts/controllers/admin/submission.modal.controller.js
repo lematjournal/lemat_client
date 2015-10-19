@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.admin')
-      .controller('SubmissionModalController', SubmissionModalController);
-
-   SubmissionModalController.$inject = ['$scope', '$rootScope', '$modalInstance', 'SubFactory', 'submission'];
-
    function SubmissionModalController($scope, $rootScope, $modalInstance, SubFactory, submission) {
       var vm = this;
       vm.submission = submission;
@@ -49,5 +44,10 @@
             ['link']
         ];
    }
+   
+   angular.module('lematClient.controllers.admin')
+      .controller('SubmissionModalController', SubmissionModalController);
+
+   SubmissionModalController.$inject = ['$scope', '$rootScope', '$modalInstance', 'SubFactory', 'submission'];
 
 })(angular);

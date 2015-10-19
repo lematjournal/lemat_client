@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.entries')
-      .controller('EntryClientController', EntryClientController);
-
-   EntryClientController.$inject = ['$scope', '$location', '$routeParams', 'EntryFactory'];
-
    function EntryClientController($scope, $location, $routeParams, EntryFactory) {
       var vm = this;
 
@@ -36,5 +31,10 @@
 
       $scope.currentPage = 1;
    }
+   
+   angular.module('lematClient.controllers.entries')
+      .controller('EntryClientController', EntryClientController);
+
+   EntryClientController.$inject = ['$scope', '$location', '$routeParams', 'EntryFactory'];
 
 })(angular);

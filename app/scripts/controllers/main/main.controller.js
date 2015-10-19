@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.main')
-      .controller('MainController', MainController);
-
-   MainController.$inject = ['$scope', '$rootScope', '$document', '$location', '$route', '$routeParams', '$http', 'AuthFactory'];
-
    function MainController($scope, $rootScope, $document, $location, $route, $routeParams, $http, AuthFactory) {
 
       $scope.url = $location.absUrl();
@@ -70,5 +65,10 @@
          $scope.$emit('filter', $scope.filters);
       };
    }
+   
+   angular.module('lematClient.controllers.main')
+      .controller('MainController', MainController);
+
+   MainController.$inject = ['$scope', '$rootScope', '$document', '$location', '$route', '$routeParams', '$http', 'AuthFactory'];
    
 })(angular);

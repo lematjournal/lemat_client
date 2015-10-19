@@ -23,7 +23,7 @@
                <h4>{{ image.title }}</h4>
             </div>
             <div class="form-group">
-               <input id="upload" type="file" name="cover" class="upload" style="display: none" file-select folder="'covers/'" accept="image/*" ng-model="issue.image_url" upload-action="uploadImage" />
+               <input id="upload" type="file" name="cover" class="upload" style="display: none" file-select folder="'covers/'" accept="image/*" ng-model="vm.issue.image_url" upload-action="vm.uploadImage" />
                <button type="button" uploadfile class="btn btn-default btn-block">Upload Cover Image</button>
 <!--               <button type="button" ng-click="openImageManager()" class="btn btn-default btn-block">Manage User Images</button>-->
             </div>

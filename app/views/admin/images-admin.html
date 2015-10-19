@@ -3,10 +3,13 @@
       <div dir-paginate="image in vm.images | itemsPerPage: 8" current-page="currentPage">
          <div class="col-xs-3">
             <div class="profile-image">
-               <img ng-src="{{ image.image_url }}" height="255" width="255" />
-            </div>
-            <div class="description">
-               owner: {{ image.user }}
+               <img ng-src="{{ image.image_url }}" height="255px" width="255px" />
+               <div class="inner-box">
+                  <p class="pull-right"><a ng-click="vm.deleteImage(image)">[x]</a></p>
+               </div>
+               <div class="description">
+                  owner: {{ image.user }}
+               </div>
             </div>
          </div>
       </div>

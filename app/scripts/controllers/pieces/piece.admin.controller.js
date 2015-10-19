@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.pieces')
-      .controller('PieceAdminController', PieceAdminController);
-
-   PieceAdminController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$uibModal', 'AuthFactory', 'IssueFactory', 'PieceFactory'];
-
    function PieceAdminController($scope, $rootScope, $route, $routeParams, $location, $uibModal, AuthFactory, IssueFactory, PieceFactory) {
       var vm = this;
 
@@ -48,7 +43,7 @@
                return vm.piece.users[i];
             }
          }
-      };
+      }
 
       // user create modal for pieces
 
@@ -61,5 +56,11 @@
          });
       };
    }
+   
+   angular.module('lematClient.controllers.pieces')
+      .controller('PieceAdminController', PieceAdminController);
+
+   PieceAdminController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$uibModal', 'AuthFactory', 'IssueFactory', 'PieceFactory'];
+
 
 })(angular);

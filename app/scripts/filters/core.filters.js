@@ -45,7 +45,6 @@ angular.module('lematClient.filters').filter('cut', function () {
       if (value.length <= max) {
          return value;
       }
-
       value = value.substr(0, max);
       if (wordwise) {
          var lastspace = value.lastIndexOf(' ');

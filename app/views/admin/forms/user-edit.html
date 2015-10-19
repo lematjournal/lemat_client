@@ -3,7 +3,7 @@
       <h3 class="title text-center">{{ vm.user.username }}</h3>
       <hr>
       <div class="profile-image">
-         <a ng-click="vm.openImageUploadModal()" uib-tooltip="click to change"><img class="img-responsive center-block" src="{{ vm.user.profile_image }}" height="455px" width="455px" />
+         <a ng-click="vm.openImageUploadModal()" uib-tooltip="click to change"><img class="img-responsive center-block" src="{{ vm.user.profile_image || '' }}" height="455px" width="455px" />
          </a>
       </div>
       <br>

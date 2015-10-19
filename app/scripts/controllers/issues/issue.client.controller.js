@@ -1,11 +1,6 @@
 (function (angular) {
 
    'use strict';
-   
-   angular.module('lematClient.controllers.issues')
-      .controller('IssueClientController', IssueClientController);
-   
-   IssueClientController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', '$http', '$uibModal', 'AuthFactory', 'AS3Factory', 'IssueFactory'];
 
    function IssueClientController($scope, $rootScope, $route, $routeParams, $location, $document, $http, $uibModal, AuthFactory, AS3Factory, IssueFactory) {
       var vm = this;
@@ -40,5 +35,10 @@
          return elem.role.includes('contributor');
       };
    }
+     
+   angular.module('lematClient.controllers.issues')
+      .controller('IssueClientController', IssueClientController);
+   
+   IssueClientController.$inject = ['$scope', '$rootScope', '$route', '$routeParams', '$location', '$document', '$http', '$uibModal', 'AuthFactory', 'AS3Factory', 'IssueFactory'];
 
 })(angular);

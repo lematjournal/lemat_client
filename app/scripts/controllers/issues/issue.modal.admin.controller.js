@@ -2,11 +2,6 @@
 
    'use strict';
 
-   angular.module('lematClient.controllers.issues')
-      .controller('IssueModalAdminController', IssueModalAdminController);
-
-   IssueModalAdminController.$inject = ['$scope', '$rootScope', '$modalInstance', 'ImageFactory'];
-
    function IssueModalAdminController($scope, $rootScope, $modalInstance, ImageFactory) {
       var vm = this;
       
@@ -39,5 +34,10 @@
          $modalInstance.dismiss('cancel');
       };
    }
+   
+   angular.module('lematClient.controllers.issues')
+      .controller('IssueModalAdminController', IssueModalAdminController);
+
+   IssueModalAdminController.$inject = ['$scope', '$rootScope', '$modalInstance', 'ImageFactory'];
 
 })(angular);
