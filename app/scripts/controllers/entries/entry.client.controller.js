@@ -2,20 +2,18 @@
 
    'use strict';
 
-   function EntryClientController($scope, $location, $routeParams, EntryFactory) {
+   function EntryClientController($scope, $location, $filter, $routeParams, EntryFactory) {
       var vm = this;
 
       vm.url = $location.absUrl();
-
-      vm.entry = {};
-
-      vm.entries = [];
-
+      
       vm.identifier = $routeParams.id;
 
       vm.getEntries = function () {
-         EntryFactory.getEntries();
-         vm.entries = EntryFactory.entries;
+         EntryFactory.getEntries().then(function () {
+            vm.entries = EntryFactory.entries;
+            vm.entry = $filter('orderBy')(EntryFactory.entries, '-created_at')[0];
+         });
       };
 
       vm.getEntry = function () {
@@ -35,6 +33,6 @@
    angular.module('lematClient.controllers.entries')
       .controller('EntryClientController', EntryClientController);
 
-   EntryClientController.$inject = ['$scope', '$location', '$routeParams', 'EntryFactory'];
+   EntryClientController.$inject = ['$scope', '$location', '$filter', '$routeParams', 'EntryFactory'];
 
 })(angular);

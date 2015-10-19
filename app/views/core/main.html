@@ -1,30 +1,35 @@
 <div class="container" ng-controller="EntryClientController as vm" ng-init="vm.getEntries()">
-   <div dir-paginate="entry in vm.entries | itemsPerPage: 5 | orderBy: '-created_at'" current-page="currentPage">
-      <a ng-href="#!/entry/{{ ::entry.title_url }}">
-         <h1 class="news-entry" style="text-transform: uppercase">{{ ::entry.title }}</h1>
-      </a>
-      <hr class="entry-rule">
-      <p class="post-meta">Posted by <a ng-href="#!/user/{{ ::entry.user.username }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }} <span class="disqus-comment-count" data-disqus-url="{{ ::url }}entry/{{ ::entry.title_url }}"></span>
-      </p>
-      <br>
-      <p class="post-subtitle" ng-bind-html="entry.content | to_trusted"></p>
+   <header class="contrast-bar">
+      <h3>NEWS // <a href="#!/online">ONLINE</a> // <a href="#!/issues/1">CURRENT ISSUE</a> // <a href="#!/about">ABOUT</a> // <a href="#!/submissions">SUBMISSIONS</a></h3>
+   </header>
+   <hr>
+   <div class="row">
+      <h3 style="padding-left: 20px">NEWS // LATEST</h3>
    </div>
-   <br>
-   <ul class="pager">
-      <dir-pagination-controls template-url="views/core/partials/pagination.html"></dir-pagination-controls>
-   </ul>
+   <div class="row">
+      <div class="col-md-5 news-image">
+         <img height="400" width="400" ng-src="{{ vm.entry.image_url }}" />
+      </div>
+      <div class="col-md-6">
+         <a ng-href="#!/entry/{{ ::vm.entry.title_url }}"><h3 class="news-entry" style="text-transform: uppercase">{{ ::vm.entry.title }}</h3></a>
+         <p class="entry-meta">Posted by <a ng-href="#!/user/{{ ::vm.entry.user.username }}"> {{ ::vm.entry.user.email }}</a> on {{ ::vm.entry.created_at | date:'medium' }}</p>
+         <p ng-bind-html="vm.entry.preview | to_trusted"></p>
+      </div>
+   </div>
+   <hr>
+   <div class="row">
+      <h3 style="padding-left: 20px">NEWS // ELSE</h3>
+   </div>
+   <div class="row">
+      <div class="col-md-3" ng-repeat="entry in vm.entries | orderBy: '-created_at'" ng-show="!$first">
+         <a ng-href="#!/entry/{{ ::entry.title_url }}">
+            <div class="news-image">
+               <img height="200px" src="{{ ::entry.image_url }}" />
+            </div>
+            <h3 class="news-entry" style="text-transform: uppercase">{{ ::entry.title }}</h3>
+         </a>
+         <hr class="entry-rule">
+         <p class="post-meta">Posted by <a ng-href="#!/user/{{ ::entry.user.username }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }}</p>
+      </div>
+   </div>
 </div>
-
-<script type="text/javascript">
-   /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-   var disqus_shortname = 'lematjournal'; // required: replace example with your forum shortname
-
-   /* * * DON'T EDIT BELOW THIS LINE * * */
-   (function () {
-      var s = document.createElement('script');
-      s.async = true;
-      s.type = 'text/javascript';
-      s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-   }());
-</script>

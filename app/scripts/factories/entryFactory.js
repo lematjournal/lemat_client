@@ -21,13 +21,14 @@ angular.module('lematClient.factories')
    };
 
    var upsertEntry = function (entry) {
-      console.log(entry);
       var params = {
          entry: {
             title: entry.title,
             content: entry.content,
             user_id: entry.user_id,
-            title_url: entry.title.replace(/\s/g, "-").substring(0, 25).toLowerCase()
+            image_url: entry.image_url,
+            title_url: entry.title_url,
+            preview: entry.preview
          }
       };
 

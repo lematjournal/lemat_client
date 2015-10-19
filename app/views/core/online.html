@@ -9,7 +9,7 @@
             <div class="panel-heading" ng-if="post.post_type === 'text'"><a style="text-transform: uppercase" href="/#!/online/{{ ::post.title_url }}">{{ ::post.title }}</a>
             </div>
             <div class="panel-body">
-               <div class="embed-responsive embed-responsive-16by9 video" ng-if="post.post_type === 'video'">
+               <div class="video embed-responsive embed-responsive-16by9" ng-if="post.post_type === 'video'">
                   <youtube-video video-url="post.content" style="padding-bottom: 5px"></youtube-video>
                </div>
                <p class="overflow elipsis" ng-if="post.post_type === 'text'" ng-bind-html="post.content | to_trusted"></p>
