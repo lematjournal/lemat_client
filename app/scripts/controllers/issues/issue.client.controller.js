@@ -26,11 +26,6 @@
          $scope.pieces = IssueFactory.issue.pieces;
       };
 
-      vm.getPiece = function () {
-         IssueFactory.getIssuePiece($routeParams.id, $routeParams.piece);
-         vm.piece = IssueFactory.piece;
-      };
-
       vm.exclude = function (elem) {
          return elem.role.includes('contributor');
       };

@@ -587,6 +587,10 @@ p {
    background-color: #FFFFFF;
 }
 
+.meta {
+   display: table-row;
+}
+
 .tags {
    display: table-cell;
    text-transform: uppercase;

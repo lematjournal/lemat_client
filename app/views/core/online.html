@@ -15,7 +15,7 @@
                <p class="overflow elipsis" ng-if="post.post_type === 'text'" ng-bind-html="post.content | to_trusted"></p>
             </div>
             <div class="panel-footer">
-               <div class="row" style="display: table-row">
+               <div class="row meta">
                   <div class="tags">
                      <a class="text-center" style="margin-top: 5px" uib-popover-template="popover.templateUrl"><p>TAGS</p></a>
                      <script type="text/ng-template" id="tag-popover.template.html">

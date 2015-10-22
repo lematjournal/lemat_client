@@ -22,7 +22,7 @@ angular.module('lematClient.controllers.users', []);
 
 angular.module('lematClient.constants', []);
 
-angular.module('lematClient.directives', ['ngTouch', 'ui.bootstrap', 'duScroll', 'wysiwyg.module', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'angucomplete-alt', 'ngTagsInput', 'validation.match', 'akoenig.deckgrid', 'bootstrapColumnsSameHeight', 'socialLinks', 'youtube-embed']);
+angular.module('lematClient.directives', ['ngTouch', 'ui.bootstrap', 'duScroll', 'wysiwyg.module', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'angucomplete-alt', 'ngTagsInput', 'validation.match', 'akoenig.deckgrid', 'bootstrapColumnsSameHeight', 'socialLinks', 'youtube-embed', 'slugifier']);
 
 angular.module('lematClient.factories', []);
 

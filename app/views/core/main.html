@@ -1,6 +1,6 @@
 <div class="container" ng-controller="EntryClientController as vm" ng-init="vm.getEntries()">
    <header class="contrast-bar">
-      <h3>NEWS // <a href="#!/online">ONLINE</a> // <a href="#!/issues/1">CURRENT ISSUE</a> // <a href="#!/about">ABOUT</a> // <a href="#!/submissions">SUBMISSIONS</a></h3>
+      <h3 class="section-title">NEWS // <a href="#!/online">ONLINE</a> // <a href="#!/issues/1">CURRENT ISSUE</a> // <a href="#!/about">ABOUT</a> // <a href="#!/submissions">SUBMISSIONS</a></h3>
    </header>
    <hr>
    <div class="row">
@@ -30,6 +30,27 @@
          </a>
          <hr class="entry-rule">
          <p class="post-meta">Posted by <a ng-href="#!/user/{{ ::entry.user.username }}"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }}</p>
+      </div>
+   </div>
+   <hr>
+   <div class="row">
+      <h3 style="padding-left: 20px">CURRENT ISSUE</h3>
+   </div>
+   <div class="row" ng-controller="IssueClientController as issue" ng-init="issue.getIssues()">
+      <div class="content" ng-repeat="issue in issue.issues">
+         <div class="col-md-6">
+            <div class="content-inner">
+               <h2><a href="#!/issues/{{ ::issue.id }}"><img ng-src="{{ ::issue.image_url }}" class="img-responsive" /></a>
+</h2>
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div class="content-inner" ng-repeat="piece in issue.pieces | orderBy: 'order'">
+               <li><a href="#!/issues/{{ ::issue.id }}/{{ ::piece.title_url }}"><h4>{{ ::piece.title }} - <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></a>
+                  </h4>
+               </li>
+            </div>
+         </div>
       </div>
    </div>
 </div>

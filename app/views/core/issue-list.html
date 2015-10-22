@@ -1,7 +1,7 @@
 <div class="container" ng-controller="IssueClientController as vm" ng-init="vm.getIssues()">
 	<div class="content" ng-repeat="issue in vm.issues">
 		<div class="content-inner">
-			<h2><a href="#!/issues/{{ ::issue.id }}">{{ ::issue.title | uppercase }}:</a></h2>
+			<h2 style="text-transform: uppercase"><a href="#!/issues/{{ ::issue.id }}">{{ ::issue.title }}:</a></h2>
 			<h2><a href="#!/issues/{{ ::issue.id }}"><img ng-src="{{ ::issue.image_url }}" class="img-responsive" /></a>
 </h2>
 		</div>
