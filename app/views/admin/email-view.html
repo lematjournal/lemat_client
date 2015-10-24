@@ -1,7 +1,0 @@
-<div class="content" ng-controller="MailController as vm" ng-init="vm.getEmail()">
-   <div class="container">
-      <p>subject: {{ vm.email.subject }}</p>
-      <p>sender: {{ vm.email.sender }}</p>
-      <p ng-bind-html="vm.email.body | to_trusted"></p>
-   </div>
-</div>

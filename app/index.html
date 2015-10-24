@@ -34,9 +34,9 @@
    <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-   <lemat-header></lemat-header>
-   <div ng-view=""></div>
-   <lemat-footer></lemat-footer>
+   <div ui-view="nav"></div>
+   <div ui-view></div>
+   <div ui-view="footer"></div>
 
    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
    <script>
@@ -51,7 +51,6 @@
       ga('send', 'pageview');
    </script>
    <script src="https://www.youtube.com/iframe_api"></script>
-   <script src="angular-youtube-embed.js"></script>
    <!-- build:js(.) scripts/vendor.js -->
    <!-- bower:js -->
    <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -82,6 +81,7 @@
    <script src="bower_components/underscore/underscore.js"></script>
    <script src="bower_components/angular-underscore-module/angular-underscore-module.js"></script>
    <script src="bower_components/angular-slugify/angular-slugify.js"></script>
+   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
    <!-- endbower -->
    <!-- endbuild -->
 
@@ -89,65 +89,64 @@
    <script src="scripts/app.js"></script>
    
    <!-- routes -->
-   <script src="scripts/config/admin.routes.js"></script>
-   <script src="scripts/config/client.routes.js"></script>
-   <script src="scripts/config/core.routes.js"></script>
+   <script src="scripts/routes/admin.routes.js"></script>
+   <script src="scripts/routes/core.routes.js"></script>
 
    <!--	contants -->
-   <script src="scripts/constants/constants.js"></script>
-
-   <!--	controllers -->
-   <script src="scripts/controllers/entries/entry.admin.controller.js"></script>
-   <script src="scripts/controllers/entries/entry.client.controller.js"></script>
-   <script src="scripts/controllers/issues/issue.admin.controller.js"></script>
-   <script src="scripts/controllers/issues/issue.client.controller.js"></script>
-   <script src="scripts/controllers/issues/issue.modal.admin.controller.js"></script>
-   <script src="scripts/controllers/main/main.controller.js"></script>
-   <script src="scripts/controllers/pieces/piece.admin.controller.js"></script>
-   <script src="scripts/controllers/pieces/piece.client.controller.js"></script>
-   <script src="scripts/controllers/posts/post.admin.controller.js"></script>
-   <script src="scripts/controllers/posts/post.client.controller.js"></script>
-   <script src="scripts/controllers/users/user.controller.js"></script>
-   <script src="scripts/controllers/users/user.modal.controller.js"></script>
-   <script src="scripts/controllers/admin/image.controller.js"></script>
-   <script src="scripts/controllers/admin/mail.controller.js"></script>
-   <script src="scripts/controllers/admin/submission.controller.js"></script>
-   <script src="scripts/controllers/admin/submission.modal.controller.js"></script>
-
-
-   <!--	directives -->
-   <script src="scripts/directives/file.directive.js"></script>
-   <script src="scripts/directives/fileselect.directive.js"></script>
-   <script src="scripts/directives/fileupload.directive.js"></script>
-   <script src="scripts/directives/footer.directive.js"></script>
-   <script src="scripts/directives/header.directive.js"></script>
-   <script src="scripts/directives/lemat-repeat.directive.js"></script>
-   <script src="scripts/directives/loading.directive.js"></script>
-   <script src="scripts/directives/ng-enter.directive.js"></script>
-   <script src="scripts/directives/ng-esc.directive.js"></script>
-   <script src="scripts/directives/scroll.directive.js"></script>
-   <script src="scripts/directives/scrollposition.directive.js"></script>
-
-   <!--	factories -->
-   <script src="scripts/factories/issueFactory.js"></script>
-   <script src="scripts/factories/imageFactory.js"></script>
-   <script src="scripts/factories/authFactory.js"></script>
-   <script src="scripts/factories/postFactory.js"></script>
-   <script src="scripts/factories/entryFactory.js"></script>
-   <script src="scripts/factories/userFactory.js"></script>
-   <script src="scripts/factories/as3Factory.js"></script>
-   <script src="scripts/factories/secFactory.js"></script>
-   <script src="scripts/factories/subFactory.js"></script>
-   <script src="scripts/factories/emailFactory.js"></script>
-   <script src="scripts/factories/pieceFactory.js"></script>
+   <script src="scripts/common/constants/constants.js"></script>
 
    <!-- filters -->
-   <script src="scripts/filters/core.filters.js"></script>
+   <script src="scripts/common/filters/filters.js"></script>
    
    <!-- libs -->
-   <script src="scripts/libs/angularBootstrapColumnsSameHeight/angularBootstrapColumnsSameHeight.js"></script>
+   <script src="scripts/common/libs/angularBootstrapColumnsSameHeight/angularBootstrapColumnsSameHeight.js"></script>
    
+   <!-- directives -->
+   <script src="scripts/common/directives/file.directive.js"></script>
+   <script src="scripts/common/directives/fileselect.directive.js"></script>
+   <script src="scripts/common/directives/fileupload.directive.js"></script>
+   <script src="scripts/common/directives/lemat-repeat.directive.js"></script>
+   <script src="scripts/common/directives/loading.directive.js"></script>
+   <script src="scripts/common/directives/ng-enter.directive.js"></script>
+   <script src="scripts/common/directives/ng-esc.directive.js"></script>
+   <script src="scripts/common/directives/scroll.directive.js"></script>
+   <script src="scripts/common/directives/scrollposition.directive.js"></script>
+   
+   <!-- factories -->
+   <script src="scripts/common/factories/as3.factory.js"></script>
+   <script src="scripts/common/factories/authentication.factory.js"></script>
+   <script src="scripts/common/factories/entries.factory.js"></script>
+   <script src="scripts/common/factories/issues.factory.js"></script>
+   <script src="scripts/common/factories/permission.factory.js"></script>
+   <script src="scripts/common/factories/pieces.factory.js"></script>
+   <script src="scripts/common/factories/posts.factory.js"></script>
+   <script src="scripts/common/factories/users.factory.js"></script>
+   
+   <!-- admin components -->
+   <script src="scripts/admin/entries/entries.admin.controller.js"></script>
+   <script src="scripts/admin/images/images.controller.js"></script>
+   <script src="scripts/admin/images/images.factory.js"></script>
+   <script src="scripts/admin/issues/issues.admin.controller.js"></script>
+   <script src="scripts/admin/mail/mail.controller.js"></script>
+   <script src="scripts/admin/mail/mail.factory.js"></script>
+   <script src="scripts/admin/posts/posts.admin.controller.js"></script>
+   <script src="scripts/admin/submissions/submissions.controller.js"></script>
+   <script src="scripts/admin/submissions/submissions.factory.js"></script>
+   <script src="scripts/admin/users/users.controller.js"></script>
+   <script src="scripts/admin/users/users.image-upload.modal/users.image-upload.modal.controller.js"></script>
+   
+   <!-- core components -->
+   <script src="scripts/core/editors/editors.controller.js"></script>
+   <script src="scripts/core/layout/footer/footer.controller.js"></script>
+   <script src="scripts/core/entries/entries.controller.js"></script>
+   <script src="scripts/core/layout/nav/nav.controller.js"></script>
+   <script src="scripts/core/issues/issues.controller.js"></script>
+   <script src="scripts/core/posts/posts.controller.js"></script>
+   <script src="scripts/core/login/login.controller.js"></script>
+   <script src="scripts/core/profile/profile.controller.js"></script>
+      
    <!-- endbuild -->
+   
 </body>
 
 </html>

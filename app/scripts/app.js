@@ -1,39 +1,72 @@
-'use strict';
+(function (angular) {
 
-angular.module('lematClient', ['lematClient.controllers', 'lematClient.constants', 'lematClient.directives', 'lematClient.factories', 'lematClient.filters', 'lematClient.routes', 'lematClient.services']).config(['$locationProvider', function ($locationProvider) {
-      $locationProvider.html5Mode(false).hashPrefix('!');
-}]);
+   'use strict';
 
-angular.module('lematClient.controllers', ['lematClient.controllers.admin', 'lematClient.controllers.entries', 'lematClient.controllers.issues', 'lematClient.controllers.main', 'lematClient.controllers.pieces','lematClient.controllers.posts', 'lematClient.controllers.users']);
+   angular.module('lematClient', ['lematClient.admin', 'lematClient.common', 'lematClient.core', 'lematClient.services', 'ui.router'])
+      .config(['$locationProvider', function ($locationProvider) {
+      $locationProvider.html5Mode({ enabled: false }).hashPrefix('!');
+   }]);
 
-angular.module('lematClient.controllers.admin', []);
+   // shared components
 
-angular.module('lematClient.controllers.entries', []);
+   angular.module('lematClient.common.constants', []);
 
-angular.module('lematClient.controllers.issues', []);
+   angular.module('lematClient.common.directives', ['ngTouch', 'ui.bootstrap', 'duScroll', 'wysiwyg.module', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'angucomplete-alt', 'ngTagsInput', 'validation.match', 'akoenig.deckgrid', 'bootstrapColumnsSameHeight', 'socialLinks', 'youtube-embed', 'slugifier']);
 
-angular.module('lematClient.controllers.main', []);
+   angular.module('lematClient.common.factories', []);
 
-angular.module('lematClient.controllers.pieces', []);
+   angular.module('lematClient.common.filters', ['angular.filter']);
 
-angular.module('lematClient.controllers.posts', []);
+   angular.module('lematClient.common', ['lematClient.common.constants', 'lematClient.common.directives', 'lematClient.common.factories', 'lematClient.common.filters']);
+   
+   // admin components
+   
+   angular.module('lematClient.admin', []);
 
-angular.module('lematClient.controllers.users', []);
+   angular.module('lematClient.admin.entries', []);
+   
+   angular.module('lematClient.admin.images', []);
+   
+   angular.module('lematClient.admin.issues', []);
+   
+   angular.module('lematClient.admin.mail', []);
+   
+   angular.module('lematClient.admin.posts', []);
+   
+   angular.module('lematClient.admin.submissions', []);
+   
+   angular.module('lematClient.admin.users', []);
+   
+   angular.module('lematClient.admin', ['lematClient.admin.entries', 'lematClient.admin.images', 'lematClient.admin.issues', 'lematClient.admin.mail', 'lematClient.admin.posts', 'lematClient.admin.submissions', 'lematClient.admin.users']);
 
-angular.module('lematClient.constants', []);
+   // core components
 
-angular.module('lematClient.directives', ['ngTouch', 'ui.bootstrap', 'duScroll', 'wysiwyg.module', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'angucomplete-alt', 'ngTagsInput', 'validation.match', 'akoenig.deckgrid', 'bootstrapColumnsSameHeight', 'socialLinks', 'youtube-embed', 'slugifier']);
+   angular.module('lematClient.core', []);
 
-angular.module('lematClient.factories', []);
+   angular.module('lematClient.core.editors', []);
 
-angular.module('lematClient.filters', ['angular.filter']);
+   angular.module('lematClient.core.entries', []);
 
-angular.module('lematClient.services', ['ngCookies', 'ngResource', 'ngSanitize', 'ng.deviceDetector']);
+   angular.module('lematClient.core.issues', []);
 
-angular.module('lematClient.routes', ['lematClient.core.routes', 'lematClient.client.routes', 'lematClient.admin.routes']);
+   angular.module('lematClient.core.layout.footer', []);
 
-angular.module('lematClient.admin.routes', ['ngRoute']);
+   angular.module('lematClient.core.layout.header', []);
 
-angular.module('lematClient.core.routes', ['ngRoute']);
+   angular.module('lematClient.core.layout.nav', []);
 
-angular.module('lematClient.client.routes', ['ngRoute']);
+   angular.module('lematClient.core.layout', ['lematClient.core.layout.header', 'lematClient.core.layout.footer', 'lematClient.core.layout.nav']);
+
+   angular.module('lematClient.core.login', []);
+
+   angular.module('lematClient.core.posts', []);
+
+   angular.module('lematClient.core.profile', []);
+
+   angular.module('lematClient.core', ['lematClient.core.editors', 'lematClient.core.entries', 'lematClient.core.issues', 'lematClient.core.layout', 'lematClient.core.login', 'lematClient.core.posts', 'lematClient.core.profile']);
+
+   // angular services
+
+   angular.module('lematClient.services', ['ngCookies', 'ngSanitize', 'ng.deviceDetector']);
+
+})(angular);

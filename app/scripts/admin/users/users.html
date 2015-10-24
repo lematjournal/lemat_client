@@ -1,0 +1,20 @@
+<div class="container" ng-init="usersCtrl.getUsers()">
+   <div class="row">
+      <table class="table">
+         <h1>users</h1>
+         <tr>
+            <th>user</th>
+            <th>name</th>
+            <th>role</th>
+            <th>options</th>
+         </tr>
+         <tr ng-repeat="user in usersCtrl.users">
+            <td>{{ ::user.email }}</td>
+            <td>{{ ::user.username }}</td>
+            <td>{{ ::user.role }}</td>
+            <td><a class="btn btn-default" ui-sref="admin.users-edit({ user: user.username })">Edit</a></td>
+         </tr>
+      </table>
+      <a class="btn btn-default btn-block" ui-sref="admin.users-create">Add User</a>
+   </div>
+</div>

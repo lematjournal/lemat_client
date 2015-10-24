@@ -1,0 +1,33 @@
+<div class="container" ng-init="editorsCtrl.getUsers()">
+   <div class="row" ng-repeat="editor in editorsCtrl.users | omit: exclude">
+      <div>
+         <div class="row">
+            <h3 class="title text-center">{{ ::editor.username }}</h3>
+            <hr>
+            <img class="img-responsive center-block" src="{{ ::editor.profile_image }}" />
+            <br>
+         </div>
+         <div class="row" ng-if="editor.pieces.length > 0">
+            <h4 class="title text-center">ISSUE PIECES</h4>
+            <div ng-repeat="piece in editor.pieces">
+               <p class="text-center"><a href="#!/issue/{{ ::piece.issue_id }}/{{ ::piece.title_url }}">{{ piece.title | uppercase }}</a>
+               </p>
+            </div>
+         </div>
+         <div class="row" ng-if="editors.posts.length > 0">
+            <h4 class="title text-center">ARTWORK/ONLINE CONTENT</h4>
+            <div ng-repeat="post in user.posts">
+               <p class="text-center"><a href="#!/online/{{ ::post.title_url }}">{{ ::post.title | uppercase }}</a>
+               </p>
+            </div>
+         </div>
+         <div class="row" ng-if="editors.entries.length > 0">
+            <h4 class="title text-center">NEWS ENTRIES</h4>
+            <div ng-repeat="entry in editors.entries">
+               <p class="text-center"><a href="#!/entry/{{ ::entry.id }}">{{ ::entry.title | uppercase }}</a>
+               </p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

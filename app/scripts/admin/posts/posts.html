@@ -1,0 +1,20 @@
+<div class="container" ng-init="postsAdminCtrl.getPosts()">
+   <div class="row">
+      <table class="table">
+         <h1>posts</h1>
+         <tr>
+            <th>title</th>
+            <th>author</th>
+            <th>options</th>
+         </tr>
+         <tr ng-repeat="post in postsAdminCtrl.posts">
+            <td>{{ ::post.title }}</a>
+            </td>
+            <td>{{ ::post.user.username }}</td>
+            <td><a class="btn btn-default" ui-sref="admin.posts-edit({ post: post.title_url })">Edit</a> <a class="btn btn-default" ng-click="vm.deletePost(post.id)">Delete</a>
+            </td>
+         </tr>
+      </table>
+      <a class="btn btn-default btn-block" href="#!/admin/posts/create">Add Post</a>
+   </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="container" ng-init="entriesCtrl.getEntries()">
+   <div class="row">
+      <h3 style="padding-left: 20px">NEWS // LATEST</h3>
+   </div>
+   <div class="row">
+      <div class="col-md-5 news-image">
+         <img height="400" width="400" ng-src="{{ entriesCtrl.entry.image_url }}" />
+      </div>
+      <div class="col-md-6">
+         <a ui-sref="main.entries-detail({ entry: entriesCtrl.entry.title_url })"><h3 class="news-entry" style="text-transform: uppercase">{{ ::entriesCtrl.entry.title }}</h3></a>
+         <p class="entry-meta">Posted by <a ui-sref="main.profile-detail({ profile: entriesCtrl.entry.user.username })"> {{ ::entriesCtrl.entry.user.email }}</a> on {{ ::entriesCtrl.entry.created_at | date:'medium' }}</p>
+         <p ng-bind-html="entriesCtrl.entry.preview | to_trusted"></p>
+      </div>
+   </div>
+   <hr>
+   <div class="row">
+      <h3 style="padding-left: 20px">NEWS // ELSE</h3>
+   </div>
+   <div class="row">
+      <div class="col-md-3" ng-repeat="entry in entriesCtrl.entries | orderBy: '-created_at'" ng-show="!$first">
+         <a ui-sref="main.entries-detail({ entry: entry.title_url })">
+            <div class="news-image">
+               <img height="200px" src="{{ ::entry.image_url }}" />
+            </div>
+            <h3 class="news-entry" style="text-transform: uppercase">{{ ::entry.title }}</h3>
+         </a>
+         <hr class="entry-rule">
+         <p class="post-meta">Posted by <a ui-sref="main.profile-detail({ profile: entry.user.username })"> {{ ::entry.user.email }}</a> on {{ ::entry.created_at | date:'medium' }}</p>
+      </div>
+   </div>
+   <hr>
+   <div class="row">
+      <h3 style="padding-left: 20px">CURRENT ISSUE</h3>
+   </div>
+   <div class="row" ng-controller="IssuesController as issuesCtrl" ng-init="issuesCtrl.getIssues()">
+      <div class="content" ng-repeat="issue in issuesCtrl.issues">
+         <div class="col-md-6">
+            <div class="content-inner">
+               <h2><a ui-sref="main.issues-detail({ id: issue.id })"><img ng-src="{{ ::issue.image_url }}" class="img-responsive" /></a>
+</h2>
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div class="content-inner" ng-repeat="piece in issue.pieces | orderBy: 'order'">
+               <li><a ui-sref="main.issues-detail-piece({ id: piece.issue_id, piece: piece.title_url })"><h4>{{ ::piece.title }} - <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></a>
+                  </h4>
+               </li>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

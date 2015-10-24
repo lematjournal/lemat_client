@@ -1,0 +1,42 @@
+<div class="container" ng-init="profileCtrl.getProfile()">
+   <div class="row">
+      <h3 class="title text-center">{{ profileCtrl.user.username }}</h3>
+      <hr>
+      <img class="img-responsive center-block" src="{{ profileCtrl.user.profile_image }}" />
+      <br>
+   </div>
+   <div class="row" ng-if="profileCtrl.user.bio">
+      <h4 class="title text-center">BIO</h4>
+      <p class="text-center">{{ profileCtrl.user.bio }}</p>
+   </div>
+   <div class="row" ng-if="profileCtrl.user.pieces.length > 0">
+      <h4 class="title text-center">ISSUE PIECES</h4>
+      <div ng-repeat="piece in profileCtrl.user.pieces">
+         <p class="text-center"><a ui-sref="issues-detail-piece({ id: piece.issue_id, piece: piece.title_url })">{{ piece.title | uppercase }}</a>
+         </p>
+      </div>
+   </div>
+   <div class="row" ng-if="profileCtrl.user.posts.length > 0">
+      <h4 class="title text-center">ARTWORK/ONLINE CONTENT</h4>
+      <div ng-repeat="post in profileCtrl.user.posts">
+         <p class="text-center"><a ui-sref="posts-detail({ post: post.title_url })">{{ post.title | uppercase }}</a>
+         </p>
+      </div>
+   </div>
+   <div class="row" ng-if="profileCtrl.user.entries.length > 0">
+      <h4 class="title text-center">NEWS ENTRIES</h4>
+      <div ng-repeat="entry in profileCtrl.user.entries">
+         <p class="text-center"><a ui-sref="entries-detail({ entry: entry.title_url })">{{ entry.title | uppercase }}</a>
+         </p>
+      </div>
+   </div>
+   <div class="row" ng-if="profileCtrl.user.social_links.length > 0">
+      <h4 class="title text-center">SOCIAL LINKS</h4>
+      <div class="col-xs-6 col-center-block">
+         <ul class="social" ng-repeat="(key, val) in profileCtrl.user.social_links">
+            <li class="social-link" ng-if="val"><a ng-href="{{ val }}"><i ng-class="{'fa fa-twitter' : key === 'twitter', 'fa fa-facebook' : key === 'facebook', 'fa fa-linkedin' : key === 'linked_in', 'fa fa-tumblr' : key === 'tumblr', 'fa fa-behance' : key === 'behance', 'fa fa-github' : key === 'github', 'fa fa-youtube-play' : key === 'youtube', 'fa fa-wordpress' : key === 'wordpress', 'fa fa-instagram' : key === 'instagram', 'fa fa-google-plus' : key === 'google_plus' }"></i></a>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>

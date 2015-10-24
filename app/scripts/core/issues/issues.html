@@ -1,0 +1,24 @@
+<div class="container" ng-init="issuesCtrl.getIssues()">
+	<div class="content" ng-repeat="issue in issuesCtrl.issues">
+		<div class="content-inner">
+			<h2 style="text-transform: uppercase"><a href="#!/issues/{{ ::issue.id }}">{{ ::issue.title }}:</a></h2>
+			<h2><a ui-sref="issues.detail({ id: issue.id })"><img ng-src="{{ ::issue.image_url }}" class="img-responsive" /></a>
+</h2>
+		</div>
+		<div class="content-inner">
+			<h3>CONTENTS:</h3>
+			<hr>
+			<div class="content-inner" ng-repeat="piece in issue.pieces | orderBy: 'order'">
+				<li><a ui-sref="issues-detail-piece({ id: issue.id, piece: piece.title_url })"><h4>{{ ::piece.title }} - <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></a>
+					</h4>
+				</li>
+			</div>
+		</div>
+		<br>
+		<div class="content-inner" ng-if="issue.download_link">
+			<h3>DOWNLOAD ISSUE: <a href="{{ ::issue.download_link }}"></a></h3>
+			<hr>
+		</div>
+	</div>
+	<br>
+</div>

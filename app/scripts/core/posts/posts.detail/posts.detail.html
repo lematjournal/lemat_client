@@ -1,0 +1,16 @@
+<div class="container" ng-init="postsCtrl.getPost()">
+   <div class="row">
+      <h4 class="title text-center">{{ postsCtrl.post.title }}</h4>
+      <p class="text-center">{{ postsCtrl.post.user.username }}</p>
+      <p class="text-center">{{ postsCtrl.post.created_at | date: 'medium' }}</p>
+      <hr>
+      <div class="embed-responsive embed-responsive-16by9" ng-if="postsCtrl.post.post_type === 'video'">
+         <youtube-video video-url="postsCtrl.post.content"></youtube-video>
+      </div>
+      <p ng-if="postsCtrl.post.post_type === 'text'" ng-bind-html="postsCtrl.post.content | to_trusted"></p>
+      <hr>
+      <a class="btn btn-default" ng-href="/#!/online">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ postCtrls.url }}"><span class="fa fa-twitter"></span></a>
+      <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ postsCtrl.identifier }}" disqus-url="{{ postsCtrl.url }}" disqus-title="{{ postsCtrl.post.title }}">
+      </dir-disqus>
+   </div>
+</div>

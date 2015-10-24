@@ -1,0 +1,21 @@
+<div class="container" ng-init="issuesAdminCtrl.getIssues()">
+   <div class="row">
+      <table class="table">
+         <h1>issues</h1>
+         <tr>
+            <th>title</th>
+            <th>created</th>
+            <th>options</th>
+         </tr>
+         <tr ng-repeat="issue in issuesAdminCtrl.issues">
+            <td>{{ issue.title | cut:true: 25 }}</td>
+            <td>{{ issue.created_at | date: 'medium' }}</td>
+            <td><a class="btn btn-default" ui-sref="admin.issues-edit({ id: issue.id })">Edit</a>
+            </td>
+         </tr>
+      </table>
+   </div>
+   <div class="row">
+      <a class="btn btn-default btn-block" ui-sref="admin.issues-create">Create Issue</a>
+   </div>
+</div>
