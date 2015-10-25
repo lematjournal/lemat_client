@@ -18,7 +18,12 @@
                      templateUrl: 'scripts/core/layout/footer/footer.html',
                      controller: 'FooterController',
                      controllerAs: 'footerCtrl'
-                  },
+                  }
+               },
+               resolve: {
+                  permission: function(SecFactory) {
+                     SecFactory.setPermission('admin');
+                  }
                }
             })
             .state('admin.entries', {

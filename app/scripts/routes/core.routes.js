@@ -68,7 +68,6 @@
                      controllerAs: 'issuesCtrl'
                   },
                   'logo@': {}
-                  
                }
             })
             .state('main.issues-detail-piece', {
@@ -100,7 +99,8 @@
                      templateUrl: 'scripts/core/posts/posts.detail/posts.detail.html',
                      controller: 'PostsController',
                      controllerAs: 'postsCtrl'
-                  }
+                  },
+                  'logo@': {}
                }
             })
             .state('main.profile', {
@@ -110,7 +110,8 @@
                      templateUrl: 'scripts/core/profile/profile.html',
                      controller: 'ProfileController',
                      controllerAs: 'profileCtrl'
-                  }
+                  },
+                  'logo@': {}
                }
             })
             .state('main.profile-detail', {
@@ -120,7 +121,8 @@
                      templateUrl: 'scripts/core/profile/profile.detail/profile.detail.html',
                      controller: 'ProfileController',
                      controllerAs: 'profileCtrl'
-                  }
+                  },
+                  'logo@': {}
                }
             })
             .state('main.editors', {
