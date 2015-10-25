@@ -1,12 +1,12 @@
 <div class="container" ng-init="entriesCtrl.getEntry()">
    <div class="row">
-      <h1 class="news-entry">{{ entriesCtrl.entry.title }}</h1>
-      <hr>
-      <p class="post-meta">Posted by <a ng-href="#!/user/{{ entriesCtrl.entry.user.username }}"> {{ entriesCtrl.entry.user.email }}</a> on {{ entriesCtrl.entry.created_at | date:'medium' }}</p>
+      <h1 class="title">{{ entriesCtrl.entry.title }}</h1>
+   </div>
+   <div class="row">
+      <hr class="dotted">
       <p ng-bind-html="entriesCtrl.entry.content | to_trusted"></p>
       <p class="pull-right">- {{ entriesCtrl.entry.user.email }}</p>
    </div>
-   <hr>
    <div class="row">
       <a class="btn btn-default" ng-href="/#!/">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ ::entriesCtrl.url }}"><span class="fa fa-twitter"></span></a>
       <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ entries.identifier }}" disqus-url="{{ entriesCtrl.url }}" disqus-title="{{ entriesCtrl.entry.title }}">

@@ -2,7 +2,7 @@
 
    'use strict';
 
-   function PieceAdminController($scope, $stateParams, $location, $uibModal, AuthFactory, IssuesFactory, PiecesFactory) {
+   function PiecesAdminController($scope, $stateParams, $location, $uibModal, AuthFactory, IssuesFactory, PiecesFactory) {
       var vm = this;
 
       vm.piece = {
@@ -57,10 +57,10 @@
       };
    }
    
-   angular.module('lematClient.admin.pieces')
-      .controller('PieceAdminController', PieceAdminController);
+   angular.module('lematClient.admin.issues')
+      .controller('PiecesAdminController', PiecesAdminController);
 
-   PieceAdminController.$inject = ['$scope', '$stateParams', '$location', '$uibModal', 'AuthFactory', 'IssuesFactory', 'PiecesFactory'];
+   PiecesAdminController.$inject = ['$scope', '$stateParams', '$location', '$uibModal', 'AuthFactory', 'IssuesFactory', 'PiecesFactory'];
 
 
 })(angular);

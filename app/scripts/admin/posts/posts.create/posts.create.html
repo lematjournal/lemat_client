@@ -1,11 +1,11 @@
-<div class="container" ng-controller="PostAdminController as vm" ng-init="vm.getTags()">
+<div class="container" ng-init="postAdminCtrl.getTags()">
    <div class="form-group">
       <label for="name">Title</label>
-      <input type="text" ng-model="vm.post.title" id="title" class="form-control" placeholder="title" required>
+      <input type="text" ng-model="postAdminCtrl.post.title" id="title" class="form-control" placeholder="title" required>
    </div>
    <div class="form-group">
       <label for="name">Type</label>
-      <select ng-model="vm.post.post_type" id="type" class="form-control" required>
+      <select ng-model="postAdminCtrl.post.post_type" id="type" class="form-control" required>
          <option value="audio">audio</option>
          <option value="text">text</option>
          <option value="video">video</option>
@@ -13,29 +13,29 @@
    </div>
    <div class="form-group">
       <label for="tags">Tags</label>
-      <tags-input display-property="name" ng-model="vm.post.tags">
-         <auto-complete source="vm.tags"></auto-complete>
+      <tags-input display-property="name" ng-model="postAdminCtrl.post.tags">
+         <auto-complete source="postAdminCtrl.tags"></auto-complete>
       </tags-input>
    </div>
-   <div class="form-group" ng-controller="UserController as user" ng-init="user.getUsers()">
-      <label for="user">Author(s):</label><font ng-repeat="user in vm.piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last & !$first"> and </span>{{ user.username }}</font>
+   <div class="form-group" ng-controller="UsersController as usersCtrl" ng-init="usersCtrl.getUsers()">
+      <label for="user">Author(s):</label><font ng-repeat="user in postAdminCtrl.piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last & !$first"> and </span>{{ user.username }}</font>
       <div class="input-group">
          <span class="input-group-addon" id="user-addon"><a ng-click="openUserModal()">Create user</a></span>
          <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="user.users" search-fields="username" title-field="username" minlength="1" input-class="form-control" aria-describedby="user-addon" />
       </div>
    </div>
    <div class="form-group">
-      <wysiwyg textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="vm.post.content"></wysiwyg>
+      <wysiwyg textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="postAdminCtrl.post.content"></wysiwyg>
    </div>
    <div class="form-group">
       <label>Embedded html</label>
-      <input type="text" class="form-control" ng-model="vm.post.content">
+      <input type="text" class="form-control" ng-model="postAdminCtrl.post.content">
    </div>
 <!--
    <div class="form-group">
       <label>Preview html</label>
-      <input type="text" class="form-control" ng-model="vm.post.preview">
+      <input type="text" class="form-control" ng-model="postAdminCtrl.post.preview">
    </div>
 -->
-   <a class="btn btn-default" ng-click="vm.upsertPost(vm.post)">Submit</a>
+   <a class="btn btn-default" ng-click="postAdminCtrl.upsertPost(postAdminCtrl.post)">Submit</a>
 </div>

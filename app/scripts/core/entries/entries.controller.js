@@ -2,7 +2,7 @@
 
    'use strict';
 
-   function EntriesController($scope, $location, $filter, $stateParams, EntryFactory) {
+   function EntriesController($scope, $location, $filter, $stateParams, EntryFactory, IssuesFactory, PostsFactory) {
       var vm = this;
       
       vm.url = $location.absUrl();
@@ -20,6 +20,18 @@
          EntryFactory.getEntry($stateParams.entry);
          vm.entry = EntryFactory.entry;
       };
+      
+      vm.getIssues = function () {
+         IssuesFactory.getIssues();
+         vm.issues = IssuesFactory.issues;
+      };
+      
+      vm.getPosts = function () {
+         PostsFactory.getPosts().then(function () {
+            vm.posts = PostsFactory.posts;
+         });
+      };
+
 
       // pagination
 
@@ -33,6 +45,6 @@
    angular.module('lematClient.core.entries')
       .controller('EntriesController', EntriesController);
 
-   EntriesController.$inject = ['$scope', '$location', '$filter', '$stateParams', 'EntryFactory'];
+   EntriesController.$inject = ['$scope', '$location', '$filter', '$stateParams', 'EntryFactory', 'IssuesFactory', 'PostsFactory'];
 
 })(angular);

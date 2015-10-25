@@ -8,6 +8,7 @@ body {
 }
 
 a:hover {
+   color: red;
    cursor: pointer;
 }
 
@@ -109,7 +110,7 @@ input {
 
 .title {
    font-weight: 700;
-   letter-spacing: .1em;
+   letter-spacing: .2em;
    text-transform: uppercase;
 }
 
@@ -127,11 +128,12 @@ input {
 }
 
 a {
+   color: black;
    text-decoration: none;
 }
 
 a:hover {
-   text-decoration: none;
+   text-decoration: underline;
 }
 
 .col-center-block {
@@ -657,4 +659,52 @@ p {
    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+hr.zero {
+    padding: 0;
+    border: none;
+    border-top: dotted #333 1px;
+    color: #333;
+    text-align: center;
+}
+hr.zero:after {
+    content: "0̸";
+    display: inline-block;
+    position: relative;
+    top: -0.8em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+}
+
+hr.dotted {
+    padding: 0;
+    border: none;
+    border-top: dotted #333 1px;
+    color: #333;
+    text-align: center;
+}
+
+.date {
+   height: 100%;
+   opacity: .9;
+   top: 45%;
+   left: 5%;
+   position: absolute;
+   padding: 0;
+   transition: opacity .5s;
+}
+
+/*
+.date:hover {
+   opacity: .9;
+   transition: opacity .5s;
+}
+*/
+
+.date-text {
+   font-size: 25px;  
+   background-color: white;
+   color: red;
 }

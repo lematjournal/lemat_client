@@ -10,6 +10,11 @@
       vm.isAuthenticated = function () {
          return AuthFactory.isAuthenticated();
       };
+      
+      vm.logout = function () {
+         AuthFactory.logout();
+         $rootScope.session = {};
+      };
 
       vm.getUserName = function () {
          $rootScope.userName = AuthFactory.getUserName();

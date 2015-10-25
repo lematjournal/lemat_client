@@ -1,23 +1,23 @@
-<div class="container" ng-init="issuesAdminCtrl.getPiece()">
+<div class="container" ng-init="piecesAdminCtrl.getPiece()">
    <div class="form-group">
       <label for="name">Title</label>
-      <input type="text" ng-model="issuesAdminCtrl.piece.title" id="title" class="form-control" placeholder="title" required>
+      <input type="text" ng-model="piecesAdminCtrl.piece.title" id="title" class="form-control" placeholder="title" required>
    </div>
    <div class="form-group">
       <label for="type">Type</label>
-      <input type="text" ng-model="issuesAdminCtrl.piece.piece_type" id="type" class="form-control" placeholder="type" required>
+      <input type="text" ng-model="piecesAdminCtrl.piece.piece_type" id="type" class="form-control" placeholder="type" required>
    </div>
-   <div class="form-group" ng-controller="UserController as user" ng-init="user.getUsers()">
+   <div class="form-group" ng-controller="UsersController as usersCtrl" ng-init="usersCtrl.getUsers()">
       <label for="user">Author(s):</label>
-      <font ng-repeat="user in issuesAdminCtrl.piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}<a ng-click="issuesAdminCtrl.removeUser(user.id)"><span class="glyphicon glyphicon-remove"></span></a></font>
+      <font ng-repeat="user in piecesAdminCtrl.piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}<a ng-click="piecesAdminCtrl.removeUser(user.id)"><span class="glyphicon glyphicon-remove"></span></a></font>
       <div class="input-group">
          <span class="input-group-addon" id="user-addon"><a ng-click="openUserModal()">Create user</a></span>
-         <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="user.users" search-fields="username" title-field="username" minlength="1" input-class="form-control" initial-value="issuesAdminCtrl.piece.author" aria-describedby="user-addon" />
+         <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="user.users" search-fields="username" title-field="username" minlength="1" input-class="form-control" initial-value="piecesAdminCtrl.piece.author" aria-describedby="user-addon" />
       </div>
    </div>
    <div class="form-group">
-      <wysiwyg textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="issuesAdminCtrl.piece.content"></wysiwyg>
+      <wysiwyg textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="piecesAdminCtrl.piece.content"></wysiwyg>
    </div>
-   <a class="btn btn-default" ng-click="issuesAdminCtrl.upsertPiece(piece)">Submit</a>
-   <a class="btn btn-default" ng-click="issuesAdminCtrl.deletePiece()"><i class="glyphicon glyphicon-trash"></i></a>
+   <a class="btn btn-default" ng-click="piecesAdminCtrl.upsertPiece(piece)">Submit</a>
+   <a class="btn btn-default" ng-click="piecesAdminCtrl.deletePiece()"><i class="glyphicon glyphicon-trash"></i></a>
 </div>

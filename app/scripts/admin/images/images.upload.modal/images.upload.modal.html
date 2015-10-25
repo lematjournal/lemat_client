@@ -2,8 +2,8 @@
    <div class="row">
       <div class="col-md-6">
          <div class="profile-image">
-            <carousel>
-               <slide ng-repeat="image in user.images" active="slide.active" actual>
+            <uib-carousel>
+               <uib-slide ng-repeat="image in user.images" active="slide.active" actual>
                   <div class="profile-image">
                      <a ng-click="setProfileImage(image.image_url)"><img ng-src="{{ image.image_url }}" height="455px" width="600px">
                      </a>
@@ -11,8 +11,8 @@
                   <div class="carousel-caption">
                      <p>profile image {{ $index }}</p>
                   </div>
-               </slide>
-            </carousel>
+               </uib-slide>
+            </uib-carousel>
             <p><i>* click to set image as profile image</i>
             </p>
          </div>

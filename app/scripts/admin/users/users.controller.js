@@ -79,7 +79,7 @@
 
       function openImageUploadModal() {
          $scope.$modalInstance = $uibModal.open({
-            templateUrl: 'scripts/admin/users/users.image-upload.modal/users.image-upload.modal.controller.js',
+            templateUrl: 'scripts/admin/users/users.image-upload.modal/users.image-upload.modal.html',
             controller: 'UsersImageUploadModalController',
             controllerAs: 'usersImageUploadModalCtrl',
             windowClass: 'app-modal-window',

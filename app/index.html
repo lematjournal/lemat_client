@@ -35,6 +35,10 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
    <div ui-view="nav"></div>
+   <div class="container">
+      <div ui-view="logo"></div>
+      <div ui-view="header"></div>
+   </div>
    <div ui-view></div>
    <div ui-view="footer"></div>
 
@@ -87,19 +91,36 @@
 
    <!-- build:js({.tmp,app}) scripts/scripts.js -->   
    <script src="scripts/app.js"></script>
-   
-   <!-- routes -->
-   <script src="scripts/routes/admin.routes.js"></script>
-   <script src="scripts/routes/core.routes.js"></script>
 
-   <!--	contants -->
+   <!--	constants -->
    <script src="scripts/common/constants/constants.js"></script>
-
-   <!-- filters -->
-   <script src="scripts/common/filters/filters.js"></script>
    
-   <!-- libs -->
-   <script src="scripts/common/libs/angularBootstrapColumnsSameHeight/angularBootstrapColumnsSameHeight.js"></script>
+   <!-- components admin -->
+   <script src="scripts/admin/entries/entries.admin.controller.js"></script>
+   <script src="scripts/admin/images/images.controller.js"></script>
+   <script src="scripts/admin/images/images.factory.js"></script>
+   <script src="scripts/admin/images/images.upload.modal/images.upload.modal.controller.js"></script>
+   <script src="scripts/admin/issues/issues.admin.controller.js"></script>
+   <script src="scripts/admin/issues/issues.cover.modal/issues.cover.modal.controller.js"></script>
+   <script src="scripts/admin/mail/mail.controller.js"></script>
+   <script src="scripts/admin/mail/mail.factory.js"></script>
+   <script src="scripts/admin/issues/pieces/pieces.admin.controller.js"></script>
+   <script src="scripts/admin/posts/posts.admin.controller.js"></script>
+   <script src="scripts/admin/submissions/submissions.controller.js"></script>
+   <script src="scripts/admin/submissions/submissions.factory.js"></script>
+   <script src="scripts/admin/users/users.controller.js"></script>
+   <script src="scripts/admin/users/users.image-upload.modal/users.image-upload.modal.controller.js"></script>
+   
+   <!-- components core -->
+   <script src="scripts/core/editors/editors.controller.js"></script>
+   <script src="scripts/core/layout/footer/footer.controller.js"></script>
+   <script src="scripts/core/entries/entries.controller.js"></script>
+   <script src="scripts/core/layout/nav/nav.controller.js"></script>
+   <script src="scripts/core/layout/logo/logo.controller.js"></script>
+   <script src="scripts/core/issues/issues.controller.js"></script>
+   <script src="scripts/core/posts/posts.controller.js"></script>
+   <script src="scripts/core/login/login.controller.js"></script>
+   <script src="scripts/core/profile/profile.controller.js"></script>
    
    <!-- directives -->
    <script src="scripts/common/directives/file.directive.js"></script>
@@ -121,29 +142,19 @@
    <script src="scripts/common/factories/pieces.factory.js"></script>
    <script src="scripts/common/factories/posts.factory.js"></script>
    <script src="scripts/common/factories/users.factory.js"></script>
+
+   <!-- filters -->
+   <script src="scripts/common/filters/filters.js"></script>
+      
+   <!-- libs -->
+   <script src="scripts/common/libs/angularBootstrapColumnsSameHeight/angularBootstrapColumnsSameHeight.js"></script>
    
-   <!-- admin components -->
-   <script src="scripts/admin/entries/entries.admin.controller.js"></script>
-   <script src="scripts/admin/images/images.controller.js"></script>
-   <script src="scripts/admin/images/images.factory.js"></script>
-   <script src="scripts/admin/issues/issues.admin.controller.js"></script>
-   <script src="scripts/admin/mail/mail.controller.js"></script>
-   <script src="scripts/admin/mail/mail.factory.js"></script>
-   <script src="scripts/admin/posts/posts.admin.controller.js"></script>
-   <script src="scripts/admin/submissions/submissions.controller.js"></script>
-   <script src="scripts/admin/submissions/submissions.factory.js"></script>
-   <script src="scripts/admin/users/users.controller.js"></script>
-   <script src="scripts/admin/users/users.image-upload.modal/users.image-upload.modal.controller.js"></script>
+   <!-- routes -->
+   <script src="scripts/routes/admin.routes.js"></script>
+   <script src="scripts/routes/core.routes.js"></script>
    
-   <!-- core components -->
-   <script src="scripts/core/editors/editors.controller.js"></script>
-   <script src="scripts/core/layout/footer/footer.controller.js"></script>
-   <script src="scripts/core/entries/entries.controller.js"></script>
-   <script src="scripts/core/layout/nav/nav.controller.js"></script>
-   <script src="scripts/core/issues/issues.controller.js"></script>
-   <script src="scripts/core/posts/posts.controller.js"></script>
-   <script src="scripts/core/login/login.controller.js"></script>
-   <script src="scripts/core/profile/profile.controller.js"></script>
+   <!-- services -->
+   <script src="scripts/common/services/modal.provider.js"></script>
       
    <!-- endbuild -->
    

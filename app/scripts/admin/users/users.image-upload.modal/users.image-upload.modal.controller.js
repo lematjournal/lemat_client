@@ -8,6 +8,7 @@
       vm.image = {};
       vm.images = images;
       vm.profileImage = '';
+      console.log(images);
 
       vm.uploadImage = function () {
          var image = {

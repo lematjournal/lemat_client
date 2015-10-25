@@ -56,7 +56,7 @@
             PiecesFactory.deletePiece($scope.piece);
          }
       };
-      
+
       function findPieceById(id) {
          for (var i = 0; i < vm.issue.piece.length; i++) {
             if (vm.issue.pieces[i].id === id) {
@@ -79,27 +79,29 @@
          ImagesFactory.uploadImage(image);
       };
 
-      $scope.openImageManager = function () {
-         $scope.$modalInstance = $uibModal.open({
-            scope: $scope,
-            templateUrl: 'views/admin/modals/issue-image-upload.html',
-            controller: 'IssuesModalAdminController',
-            controllerAs: 'vm',
-            windowClass: 'app-modal-window',
-            size: 'lg'
-         });
+      vm.openImageManager = openImageManager;
 
-         $scope.$modalInstance.result.then(function (issueImage) {
-            vm.issue.image_url = issueImage;
-            vm.upsertIssue(vm.issue);
-         });
-      };
-      
+         function openImageManager() {
+            $scope.$modalInstance = $uibModal.open({
+               scope: $scope,
+               templateUrl: 'scripts/admin/issues/issues.cover.modal/issues.cover.modal.html',
+               controller: 'IssuesCoverModalController',
+               controllerAs: 'issuesCoverModalCtrl',
+               windowClass: 'app-modal-window', 
+               size: 'lg'
+            });
+
+            $scope.$modalInstance.result.then(function (issueImage) {
+               vm.issue.image_url = issueImage;
+               vm.upsertIssue(vm.issue);
+            });
+         }
+
    }
-   
+
    angular.module('lematClient.admin.issues')
       .controller('IssuesAdminController', IssuesAdminController);
 
    IssuesAdminController.$inject = ['$scope', '$rootScope', '$stateParams', '$location', '$uibModal', 'AuthFactory', 'AS3Factory', 'IssuesFactory', 'ImagesFactory', 'PiecesFactory'];
-   
+
 })(angular);

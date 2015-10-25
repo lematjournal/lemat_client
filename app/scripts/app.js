@@ -52,13 +52,15 @@
    angular.module('lematClient.core.layout.footer', []);
 
    angular.module('lematClient.core.layout.header', []);
+   
+   angular.module('lematClient.core.layout.logo', []);
 
    angular.module('lematClient.core.layout.nav', []);
 
-   angular.module('lematClient.core.layout', ['lematClient.core.layout.header', 'lematClient.core.layout.footer', 'lematClient.core.layout.nav']);
+   angular.module('lematClient.core.layout', ['lematClient.core.layout.header', 'lematClient.core.layout.footer', 'lematClient.core.layout.nav', 'lematClient.core.layout.logo']);
 
    angular.module('lematClient.core.login', []);
-
+   
    angular.module('lematClient.core.posts', []);
 
    angular.module('lematClient.core.profile', []);

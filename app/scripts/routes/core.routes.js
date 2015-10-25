@@ -4,6 +4,7 @@
 
    angular.module('lematClient')
       .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+         $urlRouterProvider.otherwise('/');
          $stateProvider
             .state('root', {
                abstract: true,
@@ -28,6 +29,10 @@
                      templateUrl: 'scripts/core/entries/entries.html',
                      controller: 'EntriesController',
                      controllerAs: 'entriesCtrl'
+                  },
+                  'logo@': {
+                     templateUrl: 'scripts/core/layout/logo/logo.html',
+                     controller: 'LogoController'
                   }
                },
                parent: 'root'
@@ -39,7 +44,8 @@
                      templateUrl: 'scripts/core/entries/entries.detail/entries.detail.html',
                      controller: 'EntriesController',
                      controllerAs: 'entriesCtrl'
-                  }
+                  },
+                  'logo@': {}
                }
             })
             .state('main.issues', {
@@ -49,7 +55,8 @@
                      templateUrl: 'scripts/core/issues/issues.html',
                      controller: 'IssuesController',
                      controllerAs: 'issuesCtrl'
-                  }
+                  },
+                  'logo@': {}
                }
             })
             .state('main.issues-detail', {
@@ -59,7 +66,9 @@
                      templateUrl: 'scripts/core/issues/issues.detail/issues.detail.html',
                      controller: 'IssuesController',
                      controllerAs: 'issuesCtrl'
-                  }
+                  },
+                  'logo@': {}
+                  
                }
             })
             .state('main.issues-detail-piece', {
@@ -69,7 +78,8 @@
                      templateUrl: 'scripts/core/issues/issues.detail/piece.html',
                      controller: 'IssuesController',
                      controllerAs: 'issuesCtrl'
-                  }
+                  },
+                  'logo@': {}
                }
             })
             .state('main.posts', {
@@ -79,7 +89,8 @@
                      templateUrl: 'scripts/core/posts/posts.html',
                      controller: 'PostsController',
                      controllerAs: 'postsCtrl'
-                  }
+                  },
+                  'logo@': {}
                }
             })
             .state('main.posts-detail', {
@@ -119,7 +130,8 @@
                      templateUrl: 'scripts/core/editors/editors.html',
                      controller: 'EditorsController',
                      controllerAs: 'editorsCtrl'
-                  }
+                  },
+                  'logo@': {}
                }
             })
             .state('main.login', {
@@ -129,7 +141,8 @@
                      templateUrl: 'scripts/core/login/login.html',
                      controller: 'LoginController',
                      controllerAs: 'loginCtrl'
-                  }
+                  },
+                  'logo@': {}
                }
             })
             .state('main.submissions', {
@@ -137,7 +150,8 @@
                views: {
                   '@': {
                      templateUrl: 'scripts/core/submissions/submissions.html'
-                  }
+                  },
+                  'logo@': {}
                }
             })
             .state('main.about', {
@@ -145,7 +159,8 @@
                views: {
                   '@': {
                      templateUrl: 'scripts/core/about/about.html'
-                  }
+                  },
+                  'logo@': {}
                }
             });
       }]);

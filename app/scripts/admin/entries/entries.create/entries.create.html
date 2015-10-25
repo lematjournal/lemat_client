@@ -4,7 +4,7 @@
          <label for="name">Title</label>
          <input type="text" ng-model="entriesAdminCtrl.entry.title" id="title" class="form-control" placeholder="title" required>
       </div>
-      <div class="form-group" ng-controller="UserController as user" ng-init="user.getUsers()">
+      <div class="form-group" ng-controller="UsersController as userCtrl" ng-init="userCtrl.getUsers()">
          <label for="user">Author: </label>{{ ::entriesAdminCtrl.entry.user.username }}
          <div class="input-group">
             <span class="input-group-addon" id="user-addon"><a ng-click="openUserModal()">Create user</a></span>
@@ -13,9 +13,6 @@
       </div>
       <div class="form-group">
          <wysiwyg textarea-id="content" textarea-class="form-control" textarea-height="400px" textarea-name="textareaPreview" textarea-required ng-model="entriesAdminCtrl.entry.content"></wysiwyg>
-      </div>
-      <div class="form-group">
-         <wysiwyg textarea-id="content" textarea-class="form-control" textarea-height="400px" textarea-name="textareaPreview" textarea-required ng-model="entriesAdminCtrl.entry.preview"></wysiwyg>
       </div>
       <div class="form-group">
          <label for="content">Embedded HTML</label>

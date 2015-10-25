@@ -3,15 +3,39 @@
    'use strict';
 
    angular.module('lematClient')
-      .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+      .config(['$stateProvider', '$modalStateProvider', '$urlRouterProvider', function ($stateProvider, $modalStateProvider, $urlRouterProvider) {
          $stateProvider
             .state('admin', {
                url: '/admin',
-               templateUrl: 'scripts/admin/admin.html'
+               views: {
+                  '@': { 
+                     templateUrl: 'scripts/admin/admin.html' 
+                  },
+                  'nav@': { 
+                     templateUrl: 'scripts/admin/layout/nav/nav.html' 
+                  },
+                  'footer@': {
+                     templateUrl: 'scripts/core/layout/footer/footer.html',
+                     controller: 'FooterController',
+                     controllerAs: 'footerCtrl'
+                  },
+               }
             })
             .state('admin.entries', {
                url: '/entries',
                templateUrl: 'scripts/admin/entries/entries.html',
+               controller: 'EntriesAdminController',
+               controllerAs: 'entriesAdminCtrl'
+            })
+            .state('admin.entries-create', {
+               url: '/entries/create',
+               templateUrl: 'scripts/admin/entries/entries.create/entries.create.html',
+               controller: 'EntriesAdminController',
+               controllerAs: 'entriesAdminCtrl'
+            })
+            .state('admin.entries-edit', {
+               url: '/entries/:entry/edit',
+               templateUrl: 'scripts/admin/entries/entries.edit/entries.edit.html',
                controller: 'EntriesAdminController',
                controllerAs: 'entriesAdminCtrl'
             })
@@ -28,16 +52,22 @@
                controllerAs: 'issuesAdminCtrl'
             })
             .state('admin.issues-create', {
-               url: '/create',
+               url: '/issues/create',
                templateUrl: 'scripts/admin/issues/issues.create/issues.create.html',
                controller: 'IssuesAdminController',
                controllerAs: 'issuesAdminCtrl'
             })
             .state('admin.issues-edit', {
-               url: '/:id/edit',
+               url: '/issues/:id/edit',
                templateUrl: 'scripts/admin/issues/issues.edit/issues.edit.html',
                controller: 'IssuesAdminController',
                controllerAs: 'issuesAdminCtrl'
+            })
+            .state('admin.issues-edit-piece', {
+               url: '/issues/:id/edit/:piece',
+               templateUrl: 'scripts/admin/issues/pieces/pieces.edit/pieces.edit.html',
+               controller: 'PiecesAdminController',
+               controllerAs: 'piecesAdminCtrl'
             })
             .state('admin.mail', {
                url: '/mail',
@@ -54,6 +84,12 @@
             .state('admin.posts', {
                url: '/posts',
                templateUrl: 'scripts/admin/posts/posts.html',
+               controller: 'PostsAdminController',
+               controllerAs: 'postsAdminCtrl'
+            })
+            .state('admin.posts-create', {
+               url: 'posts/create',
+               templateUrl: 'scripts/admin/posts/posts.create/posts.create.html',
                controller: 'PostsAdminController',
                controllerAs: 'postsAdminCtrl'
             })
@@ -76,17 +112,17 @@
                controllerAs: 'usersCtrl'
             })
             .state('admin.users-create', {
-               url: 'users/create',
+               url: '/users/create',
                templateUrl: 'scripts/admin/users/users.create/users.create.html',
                controller: 'UsersController',
                controllerAs: 'usersCtrl'
             })
             .state('admin.users-edit', {
-               url: 'users/:user/edit',
+               url: '/users/:user/edit',
                templateUrl: 'scripts/admin/users/users.edit/users.edit.html',
                controller: 'UsersController',
                controllerAs: 'usersCtrl'
-            })
+            });
       }]);
 
 })(angular);

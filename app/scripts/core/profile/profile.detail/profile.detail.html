@@ -1,7 +1,7 @@
 <div class="container" ng-init="profileCtrl.getProfile()">
    <div class="row">
       <h3 class="title text-center">{{ profileCtrl.user.username }}</h3>
-      <hr>
+      <hr class="dotted">
       <img class="img-responsive center-block" src="{{ profileCtrl.user.profile_image }}" />
       <br>
    </div>
@@ -12,21 +12,21 @@
    <div class="row" ng-if="profileCtrl.user.pieces.length > 0">
       <h4 class="title text-center">ISSUE PIECES</h4>
       <div ng-repeat="piece in profileCtrl.user.pieces">
-         <p class="text-center"><a ui-sref="issues-detail-piece({ id: piece.issue_id, piece: piece.title_url })">{{ piece.title | uppercase }}</a>
+         <p class="text-center"><a ui-sref="main.issues-detail-piece({ id: piece.issue_id, piece: piece.title_url })">{{ piece.title | uppercase }}</a>
          </p>
       </div>
    </div>
    <div class="row" ng-if="profileCtrl.user.posts.length > 0">
       <h4 class="title text-center">ARTWORK/ONLINE CONTENT</h4>
       <div ng-repeat="post in profileCtrl.user.posts">
-         <p class="text-center"><a ui-sref="posts-detail({ post: post.title_url })">{{ post.title | uppercase }}</a>
+         <p class="text-center"><a ui-sref="main.posts-detail({ post: post.title_url })">{{ post.title | uppercase }}</a>
          </p>
       </div>
    </div>
    <div class="row" ng-if="profileCtrl.user.entries.length > 0">
       <h4 class="title text-center">NEWS ENTRIES</h4>
       <div ng-repeat="entry in profileCtrl.user.entries">
-         <p class="text-center"><a ui-sref="entries-detail({ entry: entry.title_url })">{{ entry.title | uppercase }}</a>
+         <p class="text-center"><a ui-sref="main.entries-detail({ entry: entry.title_url })">{{ entry.title | uppercase }}</a>
          </p>
       </div>
    </div>

@@ -11,10 +11,10 @@
             <td>{{ entry.title }}</td>
             <td>{{ entry.user.username }}</td>
             <td>
-               <a class="btn btn-default" href="#!/admin/entries/{{ ::entry.title_url }}/edit">Edit</a> <a class="btn btn-default" ng-click="entriesAdminCtrl.deleteEntry(entriesAdminCtrl.entry.id)">Delete</a>
+               <a class="btn btn-default" ui-sref="admin.entries-edit({ entry: entry.title_url })">Edit</a> <a class="btn btn-default" ng-click="entriesAdminCtrl.deleteEntry(entry.id)">Delete</a>
             </td>
          </tr>
       </table>
-      <a class="btn btn-default btn-block" href="#!/admin/entries/create">Add Entry</a>
+      <a class="btn btn-default btn-block" ui-sref="admin.entries-create">Add Entry</a>
    </div>
 </div>

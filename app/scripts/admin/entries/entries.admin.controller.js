@@ -41,7 +41,7 @@
          $scope.$modalInstance = $uibModal.open({
             scope: $scope,
             templateUrl: 'scripts/admin/users/users.create.modal/users.create.modal.html',
-            controller: 'UserController',
+            controller: 'UsersController',
             size: 'lg'
          });
       };

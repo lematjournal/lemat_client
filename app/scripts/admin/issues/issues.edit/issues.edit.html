@@ -13,7 +13,7 @@
             <td>{{ piece.title | cut:true: 25 }}</td>
             <td>by <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font>
             </td>
-            <th><a class="btn btn-default" href="#!/admin/issues/{{ ::issuesAdminCtrl.issue.id }}/{{ ::piece.title_url }}/edit">Edit</a> <a class="btn btn-default" href="#!/admin/issues/{{ ::issuesAdminCtrl.issue.id }}/{{ ::piece.title_url }}">Preview</a> <a class="btn btn-default" ng-click="piece.order = piece.order + 1"><span class="glyphicon glyphicon-chevron-up"></span></a> <a class="btn btn-default" ng-click="piece.order = piece.order - 1"><span class="glyphicon glyphicon-chevron-down"></span></a>
+            <th><a class="btn btn-default" ui-sref="admin.issues-edit-piece({ id: piece.issue_id, piece: piece.title_url })">Edit</a> <a class="btn btn-default" href="#!/admin/issues/{{ ::issuesAdminCtrl.issue.id }}/{{ ::piece.title_url }}">Preview</a> <a class="btn btn-default" ng-click="piece.order = piece.order + 1"><span class="glyphicon glyphicon-chevron-up"></span></a> <a class="btn btn-default" ng-click="piece.order = piece.order - 1"><span class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
          </tr>
       </table>
@@ -21,13 +21,13 @@
    </div>
    <div class="row">
       <h1>issue options</h1>
+      <hr>
       <h3>issue name: <input type="text" style="width: 50%;" ng-model="issuesAdminCtrl.issue.title"></h3>
-      <h3>created: {{ ::issuesAdminCtrl.issue.created_at | date: 'medium' }}</h3>
-      <h3>updated: {{ ::issuesAdminCtrl.issue.updated_at | date: 'medium' }}</h3>
+      <h3>created: {{ ::issuesAdminCtrl.issue.created_at | date: 'medium' }}, updated: {{ ::issuesAdminCtrl.issue.updated_at | date: 'medium' }}</h3>
       <h3>num. of pieces: {{ issuesAdminCtrl.issue.pieces.length }}</h3>
       <h3>download link: {{ issuesAdminCtrl.issue.download_link }}</h3>
       <h3>cover image:</h3>
-      <img class="center-block" uib-tooltip="click to change" ng-click="openImageManager()" ng-src="{{ issuesAdminCtrl.issue.image_url }}" style="width: 50%; height: 25%; margin-bottom: 5px">
+      <img class="center-block" uib-tooltip="click to change" ng-click="issuesAdminCtrl.openImageManager()" ng-src="{{ issuesAdminCtrl.issue.image_url }}" style="width: 50%; height: 25%; margin-bottom: 5px">
       <div class="form-group">
          <input id="upload" type="file" name="cover" class="upload" style="display: none" file-select folder="'covers/'" accept="image/*" ng-model="issuesAdminCtrl.issue.image_url" upload-action="uploadImage" />
          <button type="button" uploadfile class="btn btn-default btn-block">Upload Cover Image</button>

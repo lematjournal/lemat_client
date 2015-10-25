@@ -3,9 +3,9 @@
       <div class="row">
          <div class="profile-image">
             <uib-carousel>
-               <uib-slide ng-repeat="image in usersModalCtrl.images" active="slide.active" actual>
+               <uib-slide ng-repeat="image in usersImageUploadModalCtrl.images" active="slide.active">
                   <div class="profile-image">
-                     <a ng-click="usersModalCtrl.profileImage = image.image_url"><img ng-src="{{ image.image_url || '' }}" height="455px" width="500px">
+                     <a ng-click="usersImageUploadModalCtrl.profileImage = image.image_url"><img ng-src="{{ image.image_url || '' }}" height="455px" width="500px">
                      </a>
                   </div>
                   <div class="carousel-caption">
@@ -16,20 +16,18 @@
             <p><i>* click to set profile image</i>
             </p>
          </div>
-         <div class="row">
-            <div class="content-inner" ng-repeat="image in usersModalCtrl.user.images">
-               <h4>{{ image.title }}</h4>
-            </div>
-            <div class="form-group">
-               <input id="upload" type="file" name="file" class="upload" style="display: none" file-select folder="'uploads/'" ng-model="usersModalCtrl.profileImage" accept="image/*" upload-action="usersModalCtrl.uploadImage" />
-               <button type="button" uploadfile class="btn btn-default btn-block">Select Image to upload</button>
-               <!--               <button type="button" ng-click="openImageManager()" class="btn btn-default btn-block">Manage User Images</button>-->
-            </div>
+      </div>
+      <div class="row">
+         <div class="content-inner" ng-repeat="image in usersImageUploadModalCtrl.user.images">
+            <h4>{{ image.title }}</h4>
          </div>
-         <div class="row">
-            <div class="btn-group pull-right">
-               <a class="btn btn-default" ng-click="cancel()">Close</a> <a class="btn btn-default" ng-click="ok()" style="margin-left: 5px">Save</a>
-            </div>
+         <div class="form-group">
+            <input id="upload" type="file" name="file" class="upload" style="display: none" file-select folder="'uploads/'" ng-model="usersImageUploadModalCtrl.profileImage" accept="image/*" upload-action="usersImageUploadModalCtrl.uploadImage" />
+            <button type="button" uploadfile class="btn btn-default btn-block">Select Image to upload</button>
+            <!--               <button type="button" ng-click="openImageManager()" class="btn btn-default btn-block">Manage User Images</button>-->
+         </div>
+         <div class="btn-group pull-right">
+            <a class="btn btn-default" ng-click="cancel()">Close</a> <a class="btn btn-default" ng-click="ok()" style="margin-left: 5px">Save</a>
          </div>
       </div>
    </div>

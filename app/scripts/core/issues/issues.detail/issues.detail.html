@@ -16,15 +16,15 @@
 		<div class="col-md-4">
 			<h2>CONTRIBUTORS</h2>
 			<ul ng-repeat="piece in issuesCtrl.issue.pieces | unique:'users' | orderBy: 'order'" author>
-				<li><font ng-repeat="user in piece.users | reverse"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span><a ui-sref="profile-detail({ profile: user.username })">{{ ::user.username }}</font></a></li>
+				<li><font ng-repeat="user in piece.users | reverse"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span><a ui-sref="main.profile-detail({ profile: user.username })">{{ ::user.username }}</font></a></li>
 			</ul>
 		</div>
 	</div>
 	<div class="row">
 		<div ng-repeat="piece in issuesCtrl.issue.pieces | orderBy: 'order' | filter: author.name" lemat-repeat>
 			<div class="content" id="{{ ::piece.title_url }}" style="margin-bottom: 50px">
-					<h4 class="title text-center"><a ui-sref="issues-detail-piece({ id: piece.issue_id, piece: piece.title_url })">{{ ::piece.title }}</a></h4>
-					<p class="text-center"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span><a ui-sref="profile-detail({ profile: user.username })">{{ ::user.username }}</a></font></p>
+					<h4 class="title text-center"><a ui-sref="main.issues-detail-piece({ id: piece.issue_id, piece: piece.title_url })">{{ ::piece.title }}</a></h4>
+					<p class="text-center"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span><a ui-sref="main.profile-detail({ profile: user.username })">{{ ::user.username }}</a></font></p>
 				<br>
 				<p ng-bind-html="piece.content | to_trusted"></p>
 			</div>

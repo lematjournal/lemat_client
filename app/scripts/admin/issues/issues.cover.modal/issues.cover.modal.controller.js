@@ -2,12 +2,12 @@
 
    'use strict';
 
-   function IssueModalAdminController($scope, $rootScope, $modalInstance, ImageFactory) {
+   function IssuesCoverModalController($scope, $rootScope, $modalInstance, ImagesFactory) {
       var vm = this;
-      
+            
       vm.getImages = function () {
-         ImageFactory.getImages().then(function () {
-            vm.images = ImageFactory.images;
+         ImagesFactory.getImages().then(function () {
+            vm.images = ImagesFactory.images;
          });
       };
 
@@ -21,8 +21,8 @@
             user_id: $rootScope.userId,
             image_url: vm.issue.image_url
          };
-         ImageFactory.uploadImage(image).then(function () {
-            ImageFactory.getImages();
+         ImagesFactory.uploadImage(image).then(function () {
+            ImagesFactory.getImages();
          });
       };
 
@@ -35,9 +35,9 @@
       };
    }
    
-   angular.module('lematClient.controllers.issues')
-      .controller('IssueModalAdminController', IssueModalAdminController);
+   angular.module('lematClient.admin.issues')
+      .controller('IssuesCoverModalController', IssuesCoverModalController);
 
-   IssueModalAdminController.$inject = ['$scope', '$rootScope', '$modalInstance', 'ImageFactory'];
+   IssuesCoverModalController.$inject = ['$scope', '$rootScope', '$modalInstance', 'ImagesFactory'];
 
 })(angular);
