@@ -2,7 +2,6 @@
    <header class="contrast-bar">
       <h3 class="section-title"><a ng-click="setFilter()">all</a> // <a ng-click="setFilter('art')">art</a> // <a ng-click="setFilter('essay')"> essays</a> // <a ng-click="setFilter('poetry')">poetry</a> // search: <input type="text" style="width: 200px" ng-model="filters.tags" /></h3>
    </header>
-   <hr class="zero">
    <div class="row">
       <div class="col-md-6" ng-repeat="post in postsCtrl.posts | filter:filters">
          <div class="panel panel-default">

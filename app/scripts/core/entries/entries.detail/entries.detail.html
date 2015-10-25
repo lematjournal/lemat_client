@@ -1,9 +1,9 @@
 <div class="container" ng-init="entriesCtrl.getEntry()">
    <div class="row">
-      <h1 class="title">{{ entriesCtrl.entry.title }}</h1>
+      <h3 class="title text-center">{{ entriesCtrl.entry.title }}</h3>
    </div>
+   <br>
    <div class="row">
-      <hr class="dotted">
       <p ng-bind-html="entriesCtrl.entry.content | to_trusted"></p>
       <p class="pull-right">- {{ entriesCtrl.entry.user.email }}</p>
    </div>
