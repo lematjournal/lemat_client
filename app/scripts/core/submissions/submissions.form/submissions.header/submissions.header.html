@@ -5,21 +5,21 @@
             <div class="connecting-line"></div>
             <ul class="nav nav-tabs" role="tablist">
                <li role="presentation" ui-sref-active="active">
-                  <a ui-sref="main.submissions-info" aria-controls="step1" role="tab" title="Step 1">
+                  <a ui-sref="main.submissions-info" aria-controls="step1" role="tab" title="Step 1" >
                      <span class="round-tab">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </span>
                   </a>
                </li>
                <li role="presentation" ui-sref-active="active">
-                  <a ui-sref="main.submissions-upload" aria-controls="step2" role="tab" title="Step 2" ng-disabled="">
+                  <a aria-controls="step2" role="tab" title="Step 2" ng-class="{ disabled: !valid }" ui-sref-if="valid" ui-sref-val="main.submissions-upload">
                      <span class="round-tab">
                                 <i class="glyphicon glyphicon-folder-open"></i>
                             </span>
                   </a>
                </li >
-               <li role="presentation" ui-sref-active="active" ng-disabled="!valid">
-                  <a ui-sref="main.submissions-complete" aria-controls="complete" role="tab" title="Complete">
+               <li role="presentation" ui-sref-active="active">
+                  <a ng-class=" { disabled : !valid }" ui-sref-if="valid" ui-sref-val="main.submissions-final" aria-controls="complete" role="tab" title="Complete">
                      <span class="round-tab">
                                 <i class="glyphicon glyphicon-ok"></i>
                             </span>

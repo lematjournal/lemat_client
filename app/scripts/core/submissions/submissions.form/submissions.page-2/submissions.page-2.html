@@ -4,7 +4,7 @@
       <p class="text-center" ng-show="submissionsCtrl.submission.submission_type !== 'image'">Please upload your submission to YouTube and provide a link below</p>
       <div class="form-group">
          <label>Link to YouTube Video</label>
-         <input type="text" class="form-control" ng-model="submissionsCtrl.post.link">
+         <input type="text" class="form-control" ng-model="submissionsCtrl.post.link" required>
       </div>
    </form>
    <form name="uploadForm" ng-show="submissionsCtrl.submission.submission_type !== 'video'">
@@ -82,5 +82,5 @@ glyphicon glyphicon-text-size"></i>Edit Attachment</button>
 <hr class="dotted">
 <div class="btn-group pull-right">
    <a class="btn btn-default" ui-sref="main.submissions-form">Back</a>
-   <a class="btn btn-default" ui-sref="main.submissions-complete" style="margin-left: 5px">Next</a>
+   <a class="btn btn-default" ng-class="{ disabled: submissionsCtrl.attachments === 0 || linkForm.$invalid }" ui-sref-if="!linkForm.$invalid || !uploadForm.$invalid" ui-sref-val="main.submissions-final" style="margin-left: 5px">Next</a>
 </div>

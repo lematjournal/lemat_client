@@ -2,7 +2,7 @@
 
    'use strict';
 
-   function SubmissionsController($scope, $filter, $http, $uibModal, $q, $rootScope, $stateParams, $window, AS3Factory, ImagesFactory, PostsFactory, SubFactory, UsersFactory, ServerUrl) {
+   function SubmissionsController($scope, $filter, $http, $uibModal, $q, $rootScope, $state, $stateParams, $window, AS3Factory, ImagesFactory, PostsFactory, SubFactory, UsersFactory, ServerUrl) {
       var vm = this;
 
       vm.submission = {
@@ -16,22 +16,6 @@
       vm.getTags = function () {
          PostsFactory.getTags().then(function () {
             vm.tags = PostsFactory.tags;
-         });
-      };
-
-      $scope.valid = false;
-
-      vm.validate = function (form) {
-         console.log('called', form);
-         $scope.$watch(function () {
-            return form.$invalid && !!form.errors;
-         }, function (val) {
-            if (val === true) {
-               $scope.valid = false;
-            } else {
-               $scope.valid = true;
-            }
-            return $scope.valid;
          });
       };
 
@@ -154,11 +138,25 @@
          }
       }
 
+      $scope.go = $state.go.bind($state);
+
+      $scope.validate = function (form) {
+         var valid = false;
+         if (form.$invalid) {
+            valid = false;
+         } else {
+            valid = true;
+         }
+         console.log(form);
+         $scope.$emit('validate', valid);
+         return valid;
+      };
+
    }
 
    angular.module('lematClient.core.submissions')
       .controller('SubmissionsController', SubmissionsController);
 
-   SubmissionsController.$inject = ['$scope', '$filter', '$http', '$uibModal', '$q', '$rootScope', '$stateParams', '$window', 'AS3Factory', 'ImagesFactory', 'PostsFactory', 'SubFactory', 'UsersFactory', 'ServerUrl'];
+   SubmissionsController.$inject = ['$scope', '$filter', '$http', '$uibModal', '$q', '$rootScope', '$state', '$stateParams', '$window', 'AS3Factory', 'ImagesFactory', 'PostsFactory', 'SubFactory', 'UsersFactory', 'ServerUrl'];
 
 })(angular);

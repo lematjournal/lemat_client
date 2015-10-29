@@ -166,7 +166,9 @@
                   },
                   'logo@': {},
                   'header@main.submissions-form': {
-                     templateUrl: 'scripts/core/submissions/submissions.form/submissions.header/submissions.header.html'
+                     templateUrl: 'scripts/core/submissions/submissions.form/submissions.header/submissions.header.html',
+                     controller: 'SubmissionsHeaderController',
+                     controllerAs: 'submissionsHeaderCtrl'
                   },
                   'title@main.submissions-form': {
                      templateUrl: 'scripts/core/submissions/submissions.form/submissions.title/submissions.title.html'

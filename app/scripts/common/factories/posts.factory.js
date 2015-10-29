@@ -24,7 +24,6 @@ angular.module('lematClient.common.factories')
    var getTags = function () {
         return $http.get(ServerUrl + '/content/tags/').then(function (response) {
            angular.copy(response.data, tags);
-           console.log(response.data);
         });
    };
 
