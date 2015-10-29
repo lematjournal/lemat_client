@@ -156,6 +156,57 @@
                   'logo@': {}
                }
             })
+            .state('main.submissions-form', {
+               url: 'submissions/form',
+               views: {
+                  '@': {
+                     templateUrl: 'scripts/core/submissions/submissions.form/submissions.form.html',
+                     controller: 'SubmissionsController',
+                     controllerAs: 'submissionsCtrl'
+                  },
+                  'logo@': {},
+                  'header@main.submissions-form': {
+                     templateUrl: 'scripts/core/submissions/submissions.form/submissions.header/submissions.header.html'
+                  },
+                  'title@main.submissions-form': {
+                     templateUrl: 'scripts/core/submissions/submissions.form/submissions.title/submissions.title.html'
+                  }
+               },
+               redirectTo: 'main.submissions-info'
+            })
+            .state('main.submissions-info', {
+               url: '/info',
+               views: {
+                  'logo@': {},
+                  'body@main.submissions-form': {
+                     templateUrl: 'scripts/core/submissions/submissions.form/submissions.page-1/submissions.page-1.html'
+                  }
+               },
+               parent: 'main.submissions-form'
+            })
+            .state('main.submissions-upload', {
+               url: '/upload',
+               views: {
+                  'logo@': {},
+                  'body@main.submissions-form': {
+                     templateUrl: 'scripts/core/submissions/submissions.form/submissions.page-2/submissions.page-2.html'
+                  }
+               },
+               parent: 'main.submissions-form'
+            })
+            .state('main.submissions-complete', {
+               url: '/final',
+               views: {
+                  'logo@': {},
+                  'body@main.submissions-form': {
+                     templateUrl: 'scripts/core/submissions/submissions.form/submissions.page-3/submissions.page-3.html'
+                  },
+                  'title@main.submissions-form': {
+                     templateUrl: 'scripts/core/submissions/submissions.form/submissions.title/submissions.title-complete.html'
+                  }
+               },
+               parent: 'main.submissions-form'
+            })
             .state('main.about', {
                url: 'about',
                views: {
@@ -166,6 +217,16 @@
                }
             });
       }]);
+
+   angular.module('lematClient').run(['$rootScope', '$state', function ($rootScope, $state) {
+      $rootScope.$on('$stateChangeStart', function (event, to, params) {
+         console.log(event, to, params);
+         if (to.redirectTo) {
+            event.preventDefault();
+            $state.go(to.redirectTo, params);
+         }
+      });
+   }]);
 
    angular.module('lematClient').run(['$rootScope', '$log', function ($rootScope, $log) {
       $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {

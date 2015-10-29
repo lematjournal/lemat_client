@@ -1,0 +1,32 @@
+<div class="row">
+   <section>
+      <div class="wizard">
+         <div class="wizard-inner">
+            <div class="connecting-line"></div>
+            <ul class="nav nav-tabs" role="tablist">
+               <li role="presentation" ui-sref-active="active">
+                  <a ui-sref="main.submissions-info" aria-controls="step1" role="tab" title="Step 1">
+                     <span class="round-tab">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </span>
+                  </a>
+               </li>
+               <li role="presentation" ui-sref-active="active">
+                  <a ui-sref="main.submissions-upload" aria-controls="step2" role="tab" title="Step 2" ng-disabled="">
+                     <span class="round-tab">
+                                <i class="glyphicon glyphicon-folder-open"></i>
+                            </span>
+                  </a>
+               </li >
+               <li role="presentation" ui-sref-active="active" ng-disabled="!valid">
+                  <a ui-sref="main.submissions-complete" aria-controls="complete" role="tab" title="Complete">
+                     <span class="round-tab">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </span>
+                  </a>
+               </li>
+            </ul>
+         </div>
+      </div>
+   </section>
+</div>

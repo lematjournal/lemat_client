@@ -1,0 +1,43 @@
+<div class="row" ng-init="submissionsCtrl.getTags()">
+   <h2 class="title text-center">Info</h2>
+   <form name="infoForm">
+      <div class="form-group">
+         <label for="name">Title</label>
+         <input type="text" ng-model="submissionsCtrl.submission.title" id="title" class="form-control" required>
+      </div>
+      <div class="form-group">
+         <label for="name">Name</label>
+         <input type="text" ng-model="submissionsCtrl.submission.user.username" id="email" class="form-control" required>
+      </div>
+      <div class="form-group">
+         <label for="email">Email Address†</label>
+         <br>
+         <label for="email" class="text-muted"><i>†we will not send you any unsolicited emails, this is to send a confirmation that we have recieved your submission and so the editors can coordinate with you on publishing your piece</i></label>
+         <input type="email" ng-model="submissionsCtrl.submission.email_address" id="email" class="form-control" required>
+      </div>
+      <div class="form-group">
+         <label for="name">Submission Type</label>
+         <select ng-model="submissionsCtrl.submission.submission_type" id="type" class="form-control" required>
+            <option value="image">image(s)</option>
+            <option value="text">text</option>
+            <option value="video">video</option>
+         </select>
+      </div>
+      <div class="form-group">
+         <label for="tags">Tags††</label>
+         <br>
+         <label class="text-muted"><i>††enter how you would like your work to be tagged in the online edition</i></label>
+         <tags-input display-property="name" ng-model="submissionsCtrl.submission.tags">
+            <auto-complete source="submissionsCtrl.tags"></auto-complete>
+         </tags-input>
+      </div>
+      <div class="form-group">
+         <label for="content">Description†††</label>
+         <br>
+         <label class="text-muted"><i>†††in a short message to the editors describe your work and include anything else you'd like to let us know</i></label>
+         <wysiwyg textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="submissionsCtrl.submission.email_content"></wysiwyg>
+      </div>
+   </form>
+   <hr class="dotted">
+   <a class="btn btn-default pull-right" ui-sref="main.submissions-upload">Next</a>
+</div>

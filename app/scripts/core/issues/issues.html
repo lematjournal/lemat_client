@@ -1,8 +1,8 @@
 <div class="container" ng-init="issuesCtrl.getIssues()">
 	<div class="content" ng-repeat="issue in issuesCtrl.issues">
 		<div class="content-inner">
-			<h2 style="text-transform: uppercase"><a href="#!/issues/{{ ::issue.id }}">{{ ::issue.title }}:</a></h2>
-			<h2><a ui-sref="issues.detail({ id: issue.id })"><img ng-src="{{ ::issue.image_url }}" class="img-responsive" /></a>
+			<h2 style="text-transform: uppercase"><a ui-sref="main.issues-detail({ id: issue.id })">{{ ::issue.title }}:</a></h2>
+			<h2><a ui-sref="main.issues-detail({ id: issue.id })"><img ng-src="{{ ::issue.image_url }}" class="img-responsive" /></a>
 </h2>
 		</div>
 		<div class="content-inner">

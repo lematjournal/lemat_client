@@ -14,10 +14,10 @@
                </tr>
                <tr ng-repeat="submission in submissionsCtrl.submissions">
                   <td>{{ ::submission.email_address }}</td>
-                  <td>{{ submission.votes }} out of {{ vm.editors.length }}</td>
+                  <td>{{ submission.votes }} out of {{ submissionsCtrl.editors.length }}</td>
                   <td>{{ submission.time_remaining }}</td>
                   <td>
-                     <a class="btn btn-default" href="#!/admin/submissions/{{ ::submission.id }}">view</a>
+                     <a class="btn btn-default" ui-sref="admin.submissions-detail({ submission: submission.uid })">view</a>
                      <a class="btn btn-default" href="#!/admin/submissions/{{ ::submission.id }}/comments">view comments</a>
                      <a class="btn btn-default" ng-disabled="vm.querySubmission($index, userId)" ng-click="vm.submissionModal($index)">Cast Vote</a>
                      <a class="btn btn-default" href="{{ ::submission.attachment }}">download submission</a>

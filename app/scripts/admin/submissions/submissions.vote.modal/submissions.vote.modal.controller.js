@@ -44,8 +44,8 @@
             ['link']
         ];
    }
-   
-   angular.module('lematClient.controllers.admin')
+
+   angular.module('lematClient.admin.submissions')
       .controller('SubmissionModalController', SubmissionsVoteModalController);
 
    SubmissionsVoteModalController.$inject = ['$scope', '$rootScope', '$modalInstance', 'SubFactory', 'submission'];

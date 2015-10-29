@@ -107,7 +107,13 @@
             .state('admin.submissions', {
                url: '/submissions',
                templateUrl: 'scripts/admin/submissions/submissions.html',
-               controller: 'SubmissionsController',
+               controller: 'SubmissionsAdminController',
+               controllerAs: 'submissionsCtrl'
+            })
+            .state('admin.submissions-detail', {
+               url: '/submissions/:submission',
+               templateUrl: 'scripts/admin/submissions/submissions.detail/submissions.detail.html',
+               controller: 'SubmissionsAdminController',
                controllerAs: 'submissionsCtrl'
             })
             .state('admin.users', {

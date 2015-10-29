@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" style="margin-top: -25px;" scroll-position="scroll">
+<nav class="navbar navbar-default navbar-fixed-top" style="margin-top: -25px">
    <div class="container-fluid">
       <div class="navbar-header-dropdown" uib-dropdown dropdown-append-to-body>
          <a class="menu-bar" uib-dropdown-toggle><span class="glyphicon glyphicon-menu-hamburger" style="font-size: 16px;"></span><font class="menu-logo"><b ng-if="title"> //</b> {{ title }}</a></font>
@@ -10,11 +10,9 @@
                <li class="divider"></li>
                <li><a ui-sref="main">MAIN PAGE</a>
                </li>
-               <li><a ui-sref="main.issues">ISSUES</a>
-               </li>
                <li><a ui-sref="main.issues-detail({ id: 1 })">CURRENT ISSUE</a>
                </li>
-               <li><a ui-sref="main.about">ABOUT</a>
+               <li><a ui-sref="main.issues">ISSUES</a>
                </li>
             </ul>
             <ul class="nav col-sm-6 col-xs-6" role="menu">
@@ -36,13 +34,15 @@
                   <h4 style="padding-left: 5px;">JOURNAL</h4>
                </li>
                <li class="divider"></li>
-               <li><a ui-sref="main.submissions">SUBMISSIONS</a>
-               </li>
-               <li><a ui-sref="main.editors">EDITORS</a>
+               <li><a ui-sref="main.about">ABOUT</a>
                </li>
                <li ng-if="navCtrl.isAdmin()"><a ui-sref="admin">ADMIN</a>
                </li>
+               <li><a ui-sref="main.editors">EDITORS</a>
+               </li>
                <li ng-if="!navCtrl.isAuthenticated()"><a ui-sref="main.login">LOGIN</a>
+               </li>
+               <li><a ui-sref="main.submissions">SUBMISSIONS</a>
                </li>
                <li ng-if="navCtrl.isAuthenticated()"><a ng-click="navCtrl.logout()">LOGOUT</a>
                </li>

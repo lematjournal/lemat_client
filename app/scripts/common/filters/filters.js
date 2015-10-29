@@ -57,3 +57,35 @@ angular.module('lematClient.common.filters').filter('cut', function () {
 
    };
 });
+
+angular.module('lematClient.common.filters').filter('filterImages', function () {
+   return function (attachments) {
+      var filtered = []
+      angular.forEach(attachments, function (item) {
+         if (item.image_url) {
+            filtered.push(item);
+         }
+      });
+      return filtered;
+   };
+});
+
+angular.module('lematClient.common.filters').filter('filterDocs', function () {
+   return function (attachments) {
+      var filtered = []
+      angular.forEach(attachments, function (item) {
+         if (!item.image_url) {
+            filtered.push(item);
+         }
+      });
+      return filtered;
+   };
+});
+
+angular.module('lematClient.common.filters').filter('newlines', function () {
+    return function(text) {
+       if (text) {
+        return text.replace(/(\r\n|\n|\r)/gm,"");
+       }
+    }
+});

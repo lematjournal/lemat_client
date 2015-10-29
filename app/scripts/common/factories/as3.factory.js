@@ -12,20 +12,20 @@
          });
       };
 
-      var uploadFile = function (image, folder) {
+      var uploadFile = function (file, folder) {
          var deferred = $q.defer();
          getKeys().then(function () {
             var bucket = new AWS.S3({
                region: 'us-east-1',
                credentials: new AWS.Credentials(keys.access_key, keys.secret_key)
             });
-            if (image) {
-               var uniqueFileName = uniqueString() + '-' + image.name;
+            if (file) {
+               var uniqueFileName = uniqueString() + '-' + file.name.replace(/\s+/g, '-').toLowerCase();
                var params = {
                   Bucket: 'lematjournal',
                   Key: folder + uniqueFileName,
-                  ContentType: image.type,
-                  Body: image,
+                  ContentType: file.type,
+                  Body: file,
                   ServerSideEncryption: 'AES256'
                };
 

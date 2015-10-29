@@ -35,5 +35,7 @@
   "scripts": {
     "install": "node ./node_modules/protractor/bin/webdriver-manager update"
   },
-  "dependencies": {}
+  "dependencies": {
+    "docx2html": "^0.10.0"
+  }
 }

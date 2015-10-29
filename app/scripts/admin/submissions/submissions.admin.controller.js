@@ -2,7 +2,7 @@
 
    'use strict';
 
-   function SubmissionsController($scope, $filter, $uibModal, $rootScope, $stateParams, SubFactory, UsersFactory) {
+   function SubmissionsAdminController($scope, $filter, $uibModal, $rootScope, $stateParams, SubFactory, UsersFactory) {
       var vm = this;
       
       vm.getEditors = function () {
@@ -68,8 +68,8 @@
    }
    
    angular.module('lematClient.admin.submissions')
-      .controller('SubmissionsController', SubmissionsController);
+      .controller('SubmissionsAdminController', SubmissionsAdminController);
 
-   SubmissionsController.$inject = ['$scope', '$filter', '$uibModal', '$rootScope', '$stateParams', 'SubFactory', 'UsersFactory'];
+   SubmissionsAdminController.$inject = ['$scope', '$filter', '$uibModal', '$rootScope', '$stateParams', 'SubFactory', 'UsersFactory'];
    
 })(angular);

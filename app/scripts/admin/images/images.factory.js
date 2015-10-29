@@ -19,6 +19,7 @@ angular.module('lematClient.admin.images')
       console.log('input image', image);
       var params = {
          image: {
+            credits: images.credits,
             image_url: image.image_url,
             user_id: image.user_id,
          }

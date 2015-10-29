@@ -2,7 +2,7 @@
 
    'use strict';
 
-   function ProfileModalController($scope, $rootScope, $uibModal, $modalInstance, ImageFactory, images, userId) {
+   function ProfileImageUploadModalController($scope, $rootScope, $uibModal, $modalInstance, ImagesFactory, images, userId) {
       var vm = this;
 
       vm.image = {};
@@ -14,13 +14,14 @@
             user_id: userId,
             image_url: vm.profileImage
          };
-         ImageFactory.uploadImage(image);
+         ImagesFactory.uploadImage(image);
          angular.copy(image, vm.image);
          vm.images.push(image);
       };
 
       $scope.ok = function () {
          $modalInstance.close(vm.profileImage);
+         console.log(vm.profileImage);
       };
 
       $scope.cancel = function () {
@@ -29,8 +30,8 @@
    }
    
    angular.module('lematClient.core.profile')
-      .controller('ProfileModalController', ProfileModalController);
+      .controller('ProfileImageUploadModalController', ProfileImageUploadModalController);
 
-   ProfileModalController.$inject = ['$scope', '$rootScope', '$uibModal', '$modalInstance', 'ImageFactory', 'images', 'userId'];
+   ProfileImageUploadModalController.$inject = ['$scope', '$rootScope', '$uibModal', '$modalInstance', 'ImagesFactory', 'images', 'userId'];
 
 })(angular);

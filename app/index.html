@@ -86,6 +86,8 @@
    <script src="bower_components/angular-underscore-module/angular-underscore-module.js"></script>
    <script src="bower_components/angular-slugify/angular-slugify.js"></script>
    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+   <script src="bower_components/file-saver/FileSaver.min.js"></script>
+   <script src="bower_components/angular-mocks/angular-mocks.js"></script>
    <!-- endbower -->
    <!-- endbuild -->
 
@@ -106,8 +108,7 @@
    <script src="scripts/admin/mail/mail.factory.js"></script>
    <script src="scripts/admin/issues/pieces/pieces.admin.controller.js"></script>
    <script src="scripts/admin/posts/posts.admin.controller.js"></script>
-   <script src="scripts/admin/submissions/submissions.controller.js"></script>
-   <script src="scripts/admin/submissions/submissions.factory.js"></script>
+   <script src="scripts/admin/submissions/submissions.admin.controller.js"></script>
    <script src="scripts/admin/users/users.controller.js"></script>
    <script src="scripts/admin/users/users.image-upload.modal/users.image-upload.modal.controller.js"></script>
    
@@ -121,6 +122,8 @@
    <script src="scripts/core/posts/posts.controller.js"></script>
    <script src="scripts/core/login/login.controller.js"></script>
    <script src="scripts/core/profile/profile.controller.js"></script>
+   <script src="scripts/core/profile/profile.image-upload.modal/profile.image-upload.modal.controller.js"></script>
+   <script src="scripts/core/submissions/submissions.controller.js"></script>
    
    <!-- directives -->
    <script src="scripts/common/directives/file.directive.js"></script>
@@ -136,11 +139,13 @@
    <!-- factories -->
    <script src="scripts/common/factories/as3.factory.js"></script>
    <script src="scripts/common/factories/authentication.factory.js"></script>
+   <script src="scripts/common/factories/docx.factory.js"></script>
    <script src="scripts/common/factories/entries.factory.js"></script>
    <script src="scripts/common/factories/issues.factory.js"></script>
    <script src="scripts/common/factories/permission.factory.js"></script>
    <script src="scripts/common/factories/pieces.factory.js"></script>
    <script src="scripts/common/factories/posts.factory.js"></script>
+   <script src="scripts/common/factories/submissions.factory.js"></script>
    <script src="scripts/common/factories/users.factory.js"></script>
 
    <!-- filters -->

@@ -64,8 +64,10 @@
    angular.module('lematClient.core.posts', []);
 
    angular.module('lematClient.core.profile', []);
+   
+   angular.module('lematClient.core.submissions', []);
 
-   angular.module('lematClient.core', ['lematClient.core.editors', 'lematClient.core.entries', 'lematClient.core.issues', 'lematClient.core.layout', 'lematClient.core.login', 'lematClient.core.posts', 'lematClient.core.profile']);
+   angular.module('lematClient.core', ['lematClient.core.editors', 'lematClient.core.entries', 'lematClient.core.issues', 'lematClient.core.layout', 'lematClient.core.login', 'lematClient.core.posts', 'lematClient.core.profile', 'lematClient.core.submissions']);
 
    // angular services
 

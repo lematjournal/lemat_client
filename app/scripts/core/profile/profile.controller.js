@@ -42,10 +42,10 @@
 
       function openImageUploadModal() {
          vm.$modalInstance = $uibModal.open({
-            templateUrl: 'core/profile/profile-modal/profile.image-upload.html',
-            controller: 'ProfileModalController',
-            controllerAs: 'profileModalCtrl',
-            windowClass: 'app-modal-window',
+            templateUrl: 'scripts/core/profile/profile.image-upload.modal/profile.image-upload.modal.html',
+            controller: 'ProfileImageUploadModalController',
+            controllerAs: 'profileImageUploadModalCtrl',
+//            windowClass: 'app-modal-window',
             size: 'lg',
             resolve: {
                images: function () {
@@ -58,8 +58,8 @@
          });
 
          vm.$modalInstance.result.then(function (profileImage) {
-            vm.profile.profile_image = profileImage;
-            vm.upsertUser(vm.user);
+            vm.user.profile_image = profileImage;
+            vm.upsertProfile(vm.user);
          });
       }
 
