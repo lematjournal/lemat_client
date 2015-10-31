@@ -93,13 +93,13 @@
                controllerAs: 'postsAdminCtrl'
             })
             .state('admin.posts-create', {
-               url: 'posts/create',
+               url: '/posts/create',
                templateUrl: 'scripts/admin/posts/posts.create/posts.create.html',
                controller: 'PostsAdminController',
                controllerAs: 'postsAdminCtrl'
             })
             .state('admin.posts-edit', {
-               url: 'posts/:post/edit',
+               url: '/posts/:post/edit',
                templateUrl: 'scripts/admin/posts/posts.edit/posts.edit.html',
                controller: 'PostsAdminController',
                controllerAs: 'postsAdminCtrl'
@@ -113,6 +113,12 @@
             .state('admin.submissions-detail', {
                url: '/submissions/:submission',
                templateUrl: 'scripts/admin/submissions/submissions.detail/submissions.detail.html',
+               controller: 'SubmissionsAdminController',
+               controllerAs: 'submissionsCtrl'
+            })
+            .state('admin.submissions-comments', {
+               url: '/submissions/:submission/comments',
+               templateUrl: 'scripts/admin/submissions/comments/comments.html',
                controller: 'SubmissionsAdminController',
                controllerAs: 'submissionsCtrl'
             })

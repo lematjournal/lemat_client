@@ -53,6 +53,9 @@ module.exports = function(config) {
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/file-saver/FileSaver.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/momentjs/moment.js',
+      'bower_components/humanize-duration/humanize-duration.js',
+      'bower_components/angular-timer/dist/angular-timer.js',
       // endbower
       "app/scripts/app.js",
       "app/scripts/**/*.js",

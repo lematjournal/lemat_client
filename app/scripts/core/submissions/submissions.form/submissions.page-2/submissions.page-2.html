@@ -1,4 +1,30 @@
 <div class="row">
+   <section>
+      <div class="wizard">
+         <div class="wizard-inner">
+            <div class="connecting-line"></div>
+            <ul class="nav nav-tabs" role="tablist">
+               <li role="presentation">
+                  <a ui-sref="main.submissions-info" aria-controls="step1" role="tab" title="Step 1">
+                     <span class="round-tab"><i class="glyphicon glyphicon-pencil"></i></span>
+                  </a>
+               </li>
+               <li role="presentation" class="active">
+                  <a aria-controls="step2" role="tab" title="Step 2" ng-class="{ disabled: !valid }" ui-sref-if="valid" ui-sref-val="main.submissions-upload">
+                     <span class="round-tab"><i class="glyphicon glyphicon-folder-open"></i></span>
+                  </a>
+               </li>
+               <li role="presentation">
+                  <a ng-class=" { disabled : !valid }" ui-sref-if="valid" ui-sref-val="main.submissions-final" aria-controls="complete" role="tab" title="Complete">
+                     <span class="round-tab"><i class="glyphicon glyphicon-ok"></i></span>
+                  </a>
+               </li>
+            </ul>
+         </div>
+      </div>
+   </section>
+</div>
+<div class="row">
    <h2 class="title text-center">Upload</h2>
    <form name="linkForm" ng-show="submissionsCtrl.submission.submission_type === 'video'">
       <p class="text-center" ng-show="submissionsCtrl.submission.submission_type !== 'image'">Please upload your submission to YouTube and provide a link below</p>
@@ -72,7 +98,7 @@ glyphicon glyphicon-text-size"></i>Edit Attachment</button>
          <br>
          <label class="text-muted"><i>note: when editing your attachment some styles and elements like footnotes or list items may have to be manually formatted (this is a beta feature)</i></label>
          <wysiwyg textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="submissionsCtrl.doc"></wysiwyg>
-            <br>
+         <br>
          <button type="button" class="btn btn-default btn-block" ng-click="submissionsCtrl.uploadDoc(submissionsCtrl.doc)" ng-disabled="!submissionsCtrl.doc"><i class="glyphicon glyphicon-cloud-upload"></i> Submit and Upload Document</button>
       </div>
       <p class="text-center"><i>note: if you opt to copy and paste your text or edit the attachment before submission you can preview your submission on the final page of this form.</i></p>

@@ -2,8 +2,12 @@
 
    'use strict';
 
-   function SubmissionsAdminController($scope, $filter, $uibModal, $rootScope, $stateParams, SubFactory, UsersFactory) {
+   function SubmissionsAdminController($scope, $filter, $uibModal, $rootScope, $stateParams, AuthFactory, SubFactory, UsersFactory) {
       var vm = this;
+      
+      AuthFactory.setUser();
+      
+      vm.userId = AuthFactory.session.id;
       
       vm.getEditors = function () {
          return UsersFactory.getEditors().then(function () {
@@ -18,6 +22,9 @@
       vm.getSubmissions = function () {
          SubFactory.getSubmissions().then(function () {
             vm.submissions = SubFactory.submissions;
+            if (vm.submissions) {
+               vm.querySubmissions();
+            }
          });
       };
 
@@ -31,24 +38,25 @@
          return elem.role.match(/^(admin|editor)$/);
       };
                   
-      vm.querySubmission = function (index, userId) {
-         var disabled = {};
+      vm.querySubmissions = function () {
+         $scope.disabled = [];
          // need to find a faster way to do this
-         angular.forEach(vm.submissions[index].votes_array, function (obj) {
-            if (obj.user_id === userId && obj.vote) {
-               disabled = true;
-            } else {
-               disabled = false;
+         for (var i = 0; vm.submissions.length > i; i++) {
+            for (var j = 0; vm.submissions[i].votes_array.length > j; j++) {
+               if (vm.submissions[i].votes_array[j].user_id === vm.userId && vm.submissions[i].votes_array[j].vote) {
+                  $scope.disabled[i] = true;
+               } else {
+                  $scope.disabled[i] = false;
+               }
             }
-         });
-         return disabled;
+         }
       };
 
       function submissionModal(submissionIndex) {
          $scope.$modalInstance = $uibModal.open({
-            templateUrl: 'views/admin/modals/submission-vote.html',
-            controller: 'SubmissionModalController',
-            controllerAs: 'vm',
+            templateUrl: 'scripts/admin/submissions/submissions.vote.modal/submissions.vote.modal.html',
+            controller: 'SubmissionsVoteModalController',
+            controllerAs: 'submissionsVoteModalCtrl',
             size: 'lg',
             resolve: {
                submission: function () {
@@ -60,16 +68,23 @@
          $scope.$modalInstance.result.then(function (submission) {
             vm.submissions[submissionIndex] = submission;
             SubFactory.updateVotes(vm.submissions[submissionIndex]);
+            vm.querySubmissions();
          });
       }
       
-      vm.submissionModal = submissionModal;
-
+      vm.submissionModal = function (index) {
+         if ($scope.disabled[index] === true) {
+            // do nothing
+         } else {
+            submissionModal(index);
+         }
+      };
+   
    }
    
    angular.module('lematClient.admin.submissions')
       .controller('SubmissionsAdminController', SubmissionsAdminController);
 
-   SubmissionsAdminController.$inject = ['$scope', '$filter', '$uibModal', '$rootScope', '$stateParams', 'SubFactory', 'UsersFactory'];
+   SubmissionsAdminController.$inject = ['$scope', '$filter', '$uibModal', '$rootScope', '$stateParams', 'AuthFactory', 'SubFactory', 'UsersFactory'];
    
 })(angular);

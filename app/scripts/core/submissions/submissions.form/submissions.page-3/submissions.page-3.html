@@ -1,4 +1,30 @@
 <div class="row">
+   <section>
+      <div class="wizard">
+         <div class="wizard-inner">
+            <div class="connecting-line"></div>
+            <ul class="nav nav-tabs" role="tablist">
+               <li role="presentation">
+                  <a ui-sref="main.submissions-info" aria-controls="step1" role="tab" title="Step 1">
+                     <span class="round-tab"><i class="glyphicon glyphicon-pencil"></i></span>
+                  </a>
+               </li>
+               <li role="presentation">
+                  <a aria-controls="step2" role="tab" title="Step 2" ng-class="{ disabled: !valid }" ui-sref-if="valid" ui-sref-val="main.submissions-upload">
+                     <span class="round-tab"><i class="glyphicon glyphicon-folder-open"></i></span>
+                  </a>
+               </li>
+               <li role="presentation" class="active">
+                  <a ng-class="{ disabled : !valid }" ui-sref-if="valid" ui-sref-val="main.submissions-final" aria-controls="complete" role="tab" title="Complete">
+                     <span class="round-tab"><i class="glyphicon glyphicon-ok"></i></span>
+                  </a>
+               </li>
+            </ul>
+         </div>
+      </div>
+   </section>
+</div>
+<div class="row">
    <div class="row">
       <h2 class="title text-center">Submission Info</h2>
       <h4 class="title text-center">Name</h4>

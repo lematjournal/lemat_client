@@ -14,7 +14,7 @@
    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-   
+
 
    <!-- build:css(.) styles/vendor.css -->
    <!-- bower:css -->
@@ -88,15 +88,18 @@
    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
    <script src="bower_components/file-saver/FileSaver.min.js"></script>
    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+   <script src="bower_components/momentjs/moment.js"></script>
+   <script src="bower_components/humanize-duration/humanize-duration.js"></script>
+   <script src="bower_components/angular-timer/dist/angular-timer.js"></script>
    <!-- endbower -->
    <!-- endbuild -->
 
-   <!-- build:js({.tmp,app}) scripts/scripts.js -->   
+   <!-- build:js({.tmp,app}) scripts/scripts.js -->
    <script src="scripts/app.js"></script>
 
    <!--	constants -->
    <script src="scripts/common/constants/constants.js"></script>
-   
+
    <!-- components admin -->
    <script src="scripts/admin/entries/entries.admin.controller.js"></script>
    <script src="scripts/admin/images/images.controller.js"></script>
@@ -109,24 +112,22 @@
    <script src="scripts/admin/issues/pieces/pieces.admin.controller.js"></script>
    <script src="scripts/admin/posts/posts.admin.controller.js"></script>
    <script src="scripts/admin/submissions/submissions.admin.controller.js"></script>
+   <script src="scripts/admin/submissions/submissions.vote.modal/submissions.vote.modal.controller.js"></script>
    <script src="scripts/admin/users/users.controller.js"></script>
    <script src="scripts/admin/users/users.image-upload.modal/users.image-upload.modal.controller.js"></script>
-   
+
    <!-- components core -->
    <script src="scripts/core/editors/editors.controller.js"></script>
    <script src="scripts/core/layout/footer/footer.controller.js"></script>
    <script src="scripts/core/entries/entries.controller.js"></script>
    <script src="scripts/core/layout/nav/nav.controller.js"></script>
-   <script src="scripts/core/layout/logo/logo.controller.js"></script>
    <script src="scripts/core/issues/issues.controller.js"></script>
    <script src="scripts/core/posts/posts.controller.js"></script>
    <script src="scripts/core/login/login.controller.js"></script>
    <script src="scripts/core/profile/profile.controller.js"></script>
    <script src="scripts/core/profile/profile.image-upload.modal/profile.image-upload.modal.controller.js"></script>
    <script src="scripts/core/submissions/submissions.controller.js"></script>
-   <script src="scripts/core/submissions/submissions.form/submissions.header/submissions.header.controller.js"></script>
-   <script src="scripts/core/submissions/submissions.form/submissions.warning.modal/submissions.warning.modal.controller.js"></script>
-   
+
    <!-- directives -->
    <script src="scripts/common/directives/file.directive.js"></script>
    <script src="scripts/common/directives/fileselect.directive.js"></script>
@@ -138,11 +139,10 @@
    <script src="scripts/common/directives/scroll.directive.js"></script>
    <script src="scripts/common/directives/scrollposition.directive.js"></script>
    <script src="scripts/common/directives/ui-sref-if.directive.js"></script>
-   
+
    <!-- factories -->
    <script src="scripts/common/factories/as3.factory.js"></script>
    <script src="scripts/common/factories/authentication.factory.js"></script>
-   <script src="scripts/common/factories/docx.factory.js"></script>
    <script src="scripts/common/factories/entries.factory.js"></script>
    <script src="scripts/common/factories/issues.factory.js"></script>
    <script src="scripts/common/factories/permission.factory.js"></script>
@@ -153,19 +153,19 @@
 
    <!-- filters -->
    <script src="scripts/common/filters/filters.js"></script>
-      
+
    <!-- libs -->
    <script src="scripts/common/libs/angularBootstrapColumnsSameHeight/angularBootstrapColumnsSameHeight.js"></script>
-   
+
    <!-- routes -->
    <script src="scripts/routes/admin.routes.js"></script>
    <script src="scripts/routes/core.routes.js"></script>
-   
+
    <!-- services -->
    <script src="scripts/common/services/modal.provider.js"></script>
-      
+
    <!-- endbuild -->
-   
+
 </body>
 
 </html>

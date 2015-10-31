@@ -13,7 +13,9 @@
             }
          });
       };
+      
       return directive;
+      
    }
 
    angular.module('lematClient.common.directives')

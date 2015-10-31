@@ -38,8 +38,6 @@
 
       // profile image upload modal
 
-      vm.openImageUploadModal = openImageUploadModal;
-
       function openImageUploadModal() {
          vm.$modalInstance = $uibModal.open({
             templateUrl: 'scripts/core/profile/profile.image-upload.modal/profile.image-upload.modal.html',
@@ -62,6 +60,8 @@
             vm.upsertProfile(vm.user);
          });
       }
+      
+      vm.openImageUploadModal = openImageUploadModal;
 
       vm.fields = {};
 

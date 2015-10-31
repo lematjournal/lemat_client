@@ -9,7 +9,8 @@ angular.module('lematClient.admin.submissions')
 
       var getSubmissions = function () {
          return $http.get(ServerUrl + '/submissions/').then(function (response) {
-            angular.copy(response.data, submissions);
+            var modifiedResponse = setDates(response.data);
+            angular.copy(modifiedResponse, submissions);
          });
       };
 
@@ -31,7 +32,7 @@ angular.module('lematClient.admin.submissions')
                username: submission.user.username
             }
          };
-         
+
          return $http.post(ServerUrl + '/submissions/', params).then(function (response) {
             angular.copy(response.data, submission);
          });
@@ -51,7 +52,7 @@ angular.module('lematClient.admin.submissions')
          var params = {
             submission: {
                votes: submission.votes,
-               votes_array: submission.votes_array,
+               votes_array: submission.votes_array
             }
          };
 
@@ -59,6 +60,22 @@ angular.module('lematClient.admin.submissions')
             angular.copy(response.data, submission);
          });
       };
+
+      function setDates(responseData) {
+         var newData = [];
+         angular.forEach(responseData, function (obj) {
+            var date = new Date(obj.end_date);
+            var time = new Date();
+            var timeRemaining = (date.valueOf() - time.getTime().valueOf());
+            timeRemaining = timeRemaining.toString();
+            timeRemaining = timeRemaining.substring(0, timeRemaining.length - 3);
+            timeRemaining = parseInt(timeRemaining);
+            obj.end_date = timeRemaining;
+            newData.push(obj);
+         });
+         return newData;
+      };
+
 
       return {
          upsertComment: upsertComment,

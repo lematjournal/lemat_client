@@ -3,7 +3,7 @@
       <div class="row">
          <p ng-bind-html="submissionsCtrl.submission.email_content | to_trusted"></p>
       </div>
-      <div class="row" ng-repeat="attachment in submissionsCtrl.submission.attachments">
+      <div class="row row-centered" ng-repeat="attachment in submissionsCtrl.submission.attachments">
          <a class="btn btn-default" href="{{ attachment }}">download submission</a>
       </div>
    </div>

@@ -46,7 +46,7 @@
                   if (!(/\.(gif|jpg|jpeg|tiff|png)$/i).test(vm.submission.attachments[i])) {
                      vm.submission.attachments[i] = vm.attachment;
                   }
-               };
+               }
                vm.getAttachmentHtml();
             }
          }
@@ -138,19 +138,13 @@
          }
       }
 
-      $scope.go = $state.go.bind($state);
-
-      $scope.validate = function (form) {
-         var valid = false;
-         if (form.$invalid) {
-            valid = false;
-         } else {
-            valid = true;
-         }
-         console.log(form);
-         $scope.$emit('validate', valid);
-         return valid;
-      };
+      $scope.customMenu = [
+            ['bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript'],
+            ['remove-format'],
+            ['ordered-list', 'unordered-list', 'outdent', 'indent'],
+            ['code', 'quote', 'paragraph'],
+            ['link']
+        ];
 
    }
 

@@ -30,6 +30,7 @@ describe('Controller: SubmissionsController', function () {
          attachments: ['https://amazonshitfuck.co.uk/fuuuuuuckkk.docx']
       };
       expect(scope.vm.postSubmission).toBeDefined();
+      expect(scope.vm.postSubmission(submission))
 
    }));
 });

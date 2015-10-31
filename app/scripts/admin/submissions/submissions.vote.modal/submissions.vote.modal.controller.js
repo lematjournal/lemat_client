@@ -2,24 +2,32 @@
 
    'use strict';
 
-   function SubmissionsVoteModalController($scope, $rootScope, $modalInstance, SubFactory, submission) {
+   function SubmissionsVoteModalController($scope, $rootScope, $modalInstance, AuthFactory, SubFactory, submission) {
       var vm = this;
+      
+      AuthFactory.setUser();
+      
+      vm.userId = AuthFactory.session.id;
+      
       vm.submission = submission;
+      
       vm.comment = {
-         user_id: $rootScope.userId,
+         user_id: vm.userId,
          submission_id: submission.id,
          body: ''
       };
+      
       $scope.index = vm.submission.votes_array.length;
+      
       vm.submission.votes_array[$scope.index] = {
-         user_id: $rootScope.userId,
+         user_id: vm.userId, // this doesn't get assigned for some reason
          vote: undefined
       };
 
       vm.incrementVotes = function (index) {
-         if (vm.submissions[index].votes_array[$rootScope.userId - 1]) {
+         if (vm.submissions[index].votes_array[vm.submissions[index].length]) {
             vm.submissions[index].votes++;
-         } else if (!vm.submissions[index].votes_array[$rootScope.userId - 1]) {
+         } else if (!vm.submissions[index].votes_array[vm.submissions[index].length]) {
             vm.submissions[index].votes--;
          }
       };
@@ -29,6 +37,7 @@
          vm.submission.votes++;
          vm.submission.comments.push(vm.comment);
          $modalInstance.close(vm.submission);
+         
       };
 
       $scope.cancel = function () {
@@ -46,8 +55,8 @@
    }
 
    angular.module('lematClient.admin.submissions')
-      .controller('SubmissionModalController', SubmissionsVoteModalController);
+      .controller('SubmissionsVoteModalController', SubmissionsVoteModalController);
 
-   SubmissionsVoteModalController.$inject = ['$scope', '$rootScope', '$modalInstance', 'SubFactory', 'submission'];
+   SubmissionsVoteModalController.$inject = ['$scope', '$rootScope', '$modalInstance', 'AuthFactory', 'SubFactory', 'submission'];
 
 })(angular);
