@@ -18,6 +18,10 @@
             vm.tags = PostsFactory.tags;
          });
       };
+      
+      $scope.$on('refresh', function () {
+         $scope.$storage.submission = vm.submission;
+      })
 
       $scope.imagePopover = {
          templateUrl: 'image-popover.template.html'
@@ -61,7 +65,10 @@
             var file = blobToFile(response, filename);
             AS3Factory.uploadFile(file, 'submissions/').then(function (response) {
                var s3Path = 'https://lematjournal.s3.amazonaws.com/' + response.params.Key;
-               if ($filter('filterDocs')(vm.submission.attachments).length === 0) {
+               if (!vm.submissions.attachments) {
+                  vm.submission.attachments = [];
+                  vm.submission.attachments.push(s3Path);
+               } else if ($filter('filterDocs')(vm.submission.attachments).length === 0) {
                   vm.submission.attachments.push(s3Path);
                } else {
                   for (var i = 0; vm.submission.attachments.length > i; i++) {

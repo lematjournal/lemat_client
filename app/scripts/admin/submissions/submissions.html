@@ -1,7 +1,34 @@
-<div class="container">
+<div class="container" ng-init="submissionsCtrl.getNewSubmissions()">
    <div class="row">
       <h1>new submissions</h1>
-
+      <table class="table">
+         <col style="width: 13%">
+            <col style="width: 15%">
+               <col style="width: 10%">
+                  <col style="width: 23%">
+                     <col style="width: 30%">
+                        <tr>
+                           <th>sender</th>
+                           <th>uid</th>
+                           <th>total votes</th>
+                           <th>time remaining</th>
+                           <th>options</th>
+                        </tr>
+                        <tr ng-repeat="submission in submissionsCtrl.newSubmissions">
+                           <td>{{ ::submission.email_address }}</td>
+                           <td>{{ ::submission.uid }}</td>
+                           <td>{{ submission.votes }} out of {{ submissionsCtrl.editors.length }}</td>
+                           <td>
+                              <timer countdown="submission.end_date" max-time-unit="'day'" interval="1000" ng-if="submission.votes !== submissionsCtrl.editors.length">{{days}} day{{daysS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}</timer>
+                              <p ng-if="submission.votes === submissionsCtrl.editors.length">voting complete</p>
+                           </td>
+                           <td>
+                              <a class="btn btn-default" ui-sref="admin.submissions-detail({ submission: submission.uid })">view</a>
+                              <a class="btn btn-default" ng-class="{ disabled: submission.comments.length === 0 }" ui-sref-if="submission.comments.length > 0" ui-sref-val="admin.submissions-comments({ submission: submission.uid })">discussion</a>
+                              <a class="btn btn-default" ng-disabled="disabled[$index]" ng-click="submissionsCtrl.submissionModal($index)">Cast Vote</a>
+                           </td>
+                        </tr>
+      </table>
    </div>
    <div class="row">
       <h1>submissions under consideration</h1>

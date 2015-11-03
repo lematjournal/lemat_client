@@ -4,9 +4,10 @@ angular.module('lematClient.admin.submissions')
    .factory('SubFactory', ['$http', 'ServerUrl', function ($http, ServerUrl) {
 
       var comment = {},
+        newSubmissions = {},
+        records = [],
          submissions = [],
-         submission = {},
-          records = [];
+         submission = {};
 
       var getSubmissions = function () {
          return $http.get(ServerUrl + '/submissions/').then(function (response) {
@@ -18,6 +19,12 @@ angular.module('lematClient.admin.submissions')
       var getSubmission = function (uid) {
          return $http.get(ServerUrl + '/submissions/' + uid).then(function (response) {
             angular.copy(response.data, submission);
+         });
+      };
+      
+      var getNewSubmissions = function () {
+         return $http.get(ServerUrl + '/submissions/new-submissions').then(function (response) {
+            angular.copy(response.data, newSubmissions);
          });
       };
 
@@ -79,8 +86,8 @@ angular.module('lematClient.admin.submissions')
          return newData;
       };
       
-      var getRecords = function () {
-         return $http.get(ServerUrl + '/submissions/records').then(function (response) {
+      var getRounds = function () {
+         return $http.get(ServerUrl + '/submissions/rounds').then(function (response) {
             angular.copy(response.data, records);  
          });
       };
@@ -91,7 +98,7 @@ angular.module('lematClient.admin.submissions')
          upsertSubmission: upsertSubmission,
          getSubmissions: getSubmissions,
          getSubmission: getSubmission,
-         getRecords: getRecords,
+         getRounds: getRounds,
          submissions: submissions,
          submission: submission,
          records: records,

@@ -225,7 +225,7 @@
             });
       }]);
 
-   angular.module('lematClient').run(['$rootScope', '$state', '$window', function ($rootScope, $state, $window) {
+   angular.module('lematClient').run(['$rootScope', '$state', function ($rootScope, $state) {
       $rootScope.$on('$stateChangeStart', function (event, to, params) {
          console.log(event, to, params);
          if (to.redirectTo) {
@@ -233,15 +233,16 @@
             $state.go(to.redirectTo, params);
          }
       });
-      
-      var window = angular.element($window);
-      
-//      window.on('beforeunload', function (event) {
-//         console.log('refresh detected');
-//         event.preventDefault();
-//         $rootScope.$broadcast('refresh');
-//      });
    }]);
+   
+   angular.module('lematClient').run(['$rootScope', '$window', function ($rootScope, $window) {
+      var window = angular.element($window);
+      window.on('beforeunload', function (event) {
+         console.log('refresh detected');
+         event.preventDefault();
+         $rootScope.$broadcast('refresh');
+      });
+   }])
 
 //   angular.module('lematClient').run(['$rootScope', '$log', function ($rootScope, $log) {
 //      $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
