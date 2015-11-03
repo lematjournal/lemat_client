@@ -150,6 +150,8 @@
       vm.postSubmission = function () {
          SubFactory.upsertSubmission(vm.submission).then(function (response) {
             console.log(response);
+            delete $scope.$storage.doc;
+            delete $scope.$storage.submission;
          }, function (response) {
             console.log('error: ', response);
          });
