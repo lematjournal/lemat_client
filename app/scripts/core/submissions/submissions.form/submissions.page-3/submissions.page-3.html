@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-init="submissionsCtrl.getAttachmentHtml()">
    <section>
       <div class="wizard">
          <div class="wizard-inner">
@@ -10,12 +10,12 @@
                   </a>
                </li>
                <li role="presentation">
-                  <a aria-controls="step2" role="tab" title="Step 2" ng-class="{ disabled: !valid }" ui-sref-if="valid" ui-sref-val="main.submissions-upload">
+                  <a aria-controls="step2" role="tab" title="Step 2" ui-sref="main.submissions-upload">
                      <span class="round-tab"><i class="glyphicon glyphicon-folder-open"></i></span>
                   </a>
                </li>
                <li role="presentation" class="active">
-                  <a ng-class="{ disabled : !valid }" ui-sref-if="valid" ui-sref-val="main.submissions-final" aria-controls="complete" role="tab" title="Complete">
+                  <a ng-class="{ disabled : !valid }" aria-controls="complete" role="tab" title="Complete">
                      <span class="round-tab"><i class="glyphicon glyphicon-ok"></i></span>
                   </a>
                </li>
@@ -24,25 +24,26 @@
       </div>
    </section>
 </div>
+
 <div class="row">
-   <div class="row">
-      <h2 class="title text-center">Submission Info</h2>
-      <h4 class="title text-center">Name</h4>
-      <p class="text-center">{{ submissionsCtrl.submission.user.username }}</p>
-      <h4 class="title text-center">Email</h4>
-      <p class="text-center">{{ submissionsCtrl.submission.email_address }}</p>
-      <h4 class="title text-center">Type</h4>
-      <p class="text-center">{{ submissionsCtrl.submission.submission_type }}</p>
-      <h4 class="title text-center">Description</h4>
-      <p ng-bind-html="submissionsCtrl.submission.email_content | to_trusted"></p>
-      <h4 class="title text-center">Attachment(s)</h4>
+   <div class="row-centered">
+      <h2 class="title">Submission Info</h2>
+      <h4 class="title">Name</h4>
+      <p>{{ submissionsCtrl.submission.user.username }}</p>
+      <h4 class="title">Email</h4>
+      <p class="">{{ submissionsCtrl.submission.email_address }}</p>
+      <h4 class="title">Type</h4>
+      <p class="">{{ submissionsCtrl.submission.submission_type }}</p>
+      <h4 class="title">Description</h4>
+      <p class="" ng-bind-html="submissionsCtrl.submission.email_content | to_trusted"></p>
+      <h4 class="title">Attachment(s)</h4>
       <div class="form-group" ng-show="submissionsCtrl.doc">
-         <p class="title text-center">Documents</p>
-         <p class="text-center" ng-repeat="attachment in submissionsCtrl.submission.attachments | filterDocs">{{ attachment }}</p>
+         <p class="title">Document</p>
+         <p class="" ng-repeat="attachment in submissionsCtrl.submission.attachments | filterDocs">{{ attachment }}</p>
       </div>
       <div class="form-group" ng-show="submissionsCtrl.images.length > 0">
-         <p class="title text-center">Images</p>
-         <p class="text-center" ng-repeat="attachment in submissionsCtrl.submission.attachments"> {{ attachment.image_url }}</p>
+         <p class="title">Images</p>
+         <p class="" ng-repeat="attachment in submissionsCtrl.submission.attachments"> {{ attachment.image_url }}</p>
       </div>
    </div>
    <hr>
@@ -58,13 +59,13 @@
                   <div class="video embed-responsive embed-responsive-16by9" ng-if="submissionsCtrl.submission.submission_type === 'video'">
                      <youtube-video video-url="submissionsCtrl.submission.link" style="padding-bottom: 5px"></youtube-video>
                   </div>
-                  <p class="overflow elipsis" ng-bind-html="submissionsCtrl.doc | to_trusted"></p>
+                  <p class="overflow elipsis" ng-bind-html="submissionsCtrl.doc"></p>
                </div>
                <div class="panel-footer">
                   <div class="row meta">
                      <div class="tags">
                         <a class="text-center" style="margin-top: 5px" uib-popover-template="tagPopover.templateUrl">
-                           <p>TAGS</p>
+                           <p style="margin-right: 30px">TAGS</p>
                         </a>
                         <script type="text/ng-template" id="tag-popover.template.html">
                            <div class="form-group">
@@ -94,7 +95,7 @@
       </div>
    </div>
    <hr>
-   <div class="row" ng-show="showEdit && submissionsCtrl.doc || submissionsCtrl.images.length > 0">
+   <div class="row" ng-show="submissionsCtrl.doc || submissionsCtrl.images.length > 0">
       <h2 class="title text-center">Preview</h2>
       <p class="text-center">a rendering of the detail view of your work (does not include footnotes or list items, the published version will definitely have footnotes and list items)</p>
       <br>
@@ -105,7 +106,7 @@
       <div class="embed-responsive embed-responsive-16by9" ng-if="submissionsCtrl.submission.submission_type === 'video'">
          <youtube-video video-url="submissionsCtrl.submission.link"></youtube-video>
       </div>
-      <p ng-bind-html="submissionsCtrl.doc | to_trusted"></p>
+      <p ng-bind-html="submissionsCtrl.doc"></p>
       <div class="text-center" ng-repeat="attachment in submissionsCtrl.submission.attachments | filterImages">
          <img src="{{ attachment.image_url }}" />
          <p class="text-center">{{ attachment.credits }}</p>

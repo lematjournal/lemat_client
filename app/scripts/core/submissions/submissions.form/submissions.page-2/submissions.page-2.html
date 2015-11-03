@@ -10,12 +10,12 @@
                   </a>
                </li>
                <li role="presentation" class="active">
-                  <a aria-controls="step2" role="tab" title="Step 2" ng-class="{ disabled: !valid }" ui-sref-if="valid" ui-sref-val="main.submissions-upload">
+                  <a aria-controls="step2" role="tab" title="Step 2" ng-class="{ disabled: !valid }" ui-sref="main.submissions-upload">
                      <span class="round-tab"><i class="glyphicon glyphicon-folder-open"></i></span>
                   </a>
                </li>
                <li role="presentation">
-                  <a ng-class=" { disabled : !valid }" ui-sref-if="valid" ui-sref-val="main.submissions-final" aria-controls="complete" role="tab" title="Complete">
+                  <a ng-class=" { disabled : !valid }" ui-sref-if="submissionsCtrl.submission.attachments.length > 0" ui-sref-val="main.submissions-final" aria-controls="complete" role="tab" title="Complete">
                      <span class="round-tab"><i class="glyphicon glyphicon-ok"></i></span>
                   </a>
                </li>
@@ -66,7 +66,7 @@
          </table>
          <p>*click to preview image</p>
       </div>
-      <div class="form-group" ng-show="submissionsCtrl.doc">
+      <div class="form-group" ng-show="submissionsCtrl.doc || submissonsCtrl.submission.attachments.length > 0">
          <table class="table">
             <label>Attached Document</label>
             <tr>
@@ -87,7 +87,7 @@
          <button type="button" class="btn btn-default btn-block" ng-click="$parent.showEdit = !$parent.showEdit"><i class="glyphicon glyphicon-copy"></i> Copy and Paste Document</button>
       </div>
       <div class="form-group">
-         <button type="button" ng-disabled="!submissionsCtrl.doc" ng-click="$parent.showEdit = !$parent.showEdit" class="btn btn-default btn-block"><i class="
+         <button type="button" ng-disabled="!submissionsCtrl.doc" ng-click="$parent.showEdit = !$parent.showEdit; submissionsCtrl.getAttachmentHtml()" class="btn btn-default btn-block"><i class="
 glyphicon glyphicon-text-size"></i>Edit Attachment</button>
       </div>
       <div class="form-group">
@@ -107,6 +107,7 @@ glyphicon glyphicon-text-size"></i>Edit Attachment</button>
 </div>
 <hr class="dotted">
 <div class="btn-group pull-right">
-   <a class="btn btn-default" ui-sref="main.submissions-form">Back</a>
-   <a class="btn btn-default" ng-class="{ disabled: submissionsCtrl.attachments === 0 || linkForm.$invalid }" ui-sref-if="!linkForm.$invalid || !uploadForm.$invalid" ui-sref-val="main.submissions-final" style="margin-left: 5px">Next</a>
+   <a class="btn btn-default" ui-sref="main.submissions-info">Back</a>
+   <a class="btn btn-default" ng-class="{ disabled: submissionsCtrl.submission.attachments.length === 0 }" ui-sref-if="submissionsCtrl.submission.attachments.length > 0" ui-sref-val="main.submissions-final" style="margin-left: 5px">Next</a>
+<!--   <a class="btn btn-default" ng-if="submissionsCtrl.submission_type === 'video'" ng-class="{ disabled: !linkForm.$invalid" ui-sref-if="!linkForm.$invalid" ui-sref-val="main.submissions-final" style="margin-left: 5px">Next</a>-->
 </div>

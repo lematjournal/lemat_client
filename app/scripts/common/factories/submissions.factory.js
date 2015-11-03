@@ -5,7 +5,8 @@ angular.module('lematClient.admin.submissions')
 
       var comment = {},
          submissions = [],
-         submission = {};
+         submission = {},
+          records = [];
 
       var getSubmissions = function () {
          return $http.get(ServerUrl + '/submissions/').then(function (response) {
@@ -52,7 +53,8 @@ angular.module('lematClient.admin.submissions')
          var params = {
             submission: {
                votes: submission.votes,
-               votes_array: submission.votes_array
+               votes_array: submission.votes_array,
+               user_ids: submission.user_ids
             }
          };
 
@@ -75,6 +77,12 @@ angular.module('lematClient.admin.submissions')
          });
          return newData;
       };
+      
+      var getRecords = function () {
+         return $http.get(ServerUrl + '/submissions/records').then(function (response) {
+            angular.copy(response.data, records);  
+         });
+      };
 
 
       return {
@@ -82,8 +90,10 @@ angular.module('lematClient.admin.submissions')
          upsertSubmission: upsertSubmission,
          getSubmissions: getSubmissions,
          getSubmission: getSubmission,
+         getRecords: getRecords,
          submissions: submissions,
          submission: submission,
+         records: records,
          updateVotes: updateVotes
       };
 }]);

@@ -6,7 +6,7 @@
       var vm = this;
       
       AuthFactory.setUser();
-      
+            
       vm.userId = AuthFactory.session.id;
       
       vm.getEditors = function () {
@@ -33,10 +33,10 @@
             vm.submission = SubFactory.submission;
          });
       };
-
-      vm.editors = function (elem) {
-         return elem.role.match(/^(admin|editor)$/);
-      };
+      
+      vm.getSubmissions();
+      
+      vm.getEditors();
                   
       vm.querySubmissions = function () {
          $scope.disabled = [];
@@ -67,6 +67,7 @@
 
          $scope.$modalInstance.result.then(function (submission) {
             vm.submissions[submissionIndex] = submission;
+            vm.submissions[submissionIndex].push(vm.userId);
             SubFactory.updateVotes(vm.submissions[submissionIndex]);
             vm.querySubmissions();
          });
@@ -79,6 +80,14 @@
             submissionModal(index);
          }
       };
+      
+      vm.getRecords = function () {
+         SubFactory.getRecords().then(function () {
+            vm.records = SubFactory.records;
+         })
+      };
+      
+      vm.getRecords();
    
    }
    

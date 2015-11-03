@@ -31,8 +31,7 @@
                      controllerAs: 'entriesCtrl'
                   },
                   'logo@': {
-                     templateUrl: 'scripts/core/layout/logo/logo.html',
-                     controller: 'LogoController'
+                     templateUrl: 'scripts/core/layout/logo/logo.html'
                   }
                },
                parent: 'root'
@@ -191,7 +190,7 @@
                },
                parent: 'main.submissions-form'
             })
-            .state('main.submissions-complete', {
+            .state('main.submissions-final', {
                url: '/final',
                views: {
                   'logo@': {},
@@ -215,13 +214,21 @@
             });
       }]);
 
-   angular.module('lematClient').run(['$rootScope', '$state', function ($rootScope, $state) {
+   angular.module('lematClient').run(['$rootScope', '$state', '$window', function ($rootScope, $state, $window) {
       $rootScope.$on('$stateChangeStart', function (event, to, params) {
          console.log(event, to, params);
          if (to.redirectTo) {
             event.preventDefault();
             $state.go(to.redirectTo, params);
          }
+      });
+      
+      var window = angular.element($window);
+      
+      window.on('beforeunload', function (event) {
+         console.log('refresh detected');
+         event.preventDefault();
+         $rootScope.$broadcast('refresh');
       });
    }]);
 

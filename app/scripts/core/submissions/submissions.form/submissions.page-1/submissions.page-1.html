@@ -15,7 +15,7 @@
                   </a>
                </li>
                <li role="presentation">
-                  <a ng-class=" { disabled : !valid }" ui-sref-if="!infoForm.$invalid" ui-sref-val="main.submissions-final" aria-controls="complete" role="tab" title="Complete">
+                  <a ng-class=" { disabled : !valid }" ui-sref-if="!infoForm.$invalid && submissionsCtrl.submission.attachments.length > 0" ui-sref-val="main.submissions-final" aria-controls="complete" role="tab" title="Complete">
                      <span class="round-tab"><i class="glyphicon glyphicon-ok"></i></span>
                   </a>
                </li>

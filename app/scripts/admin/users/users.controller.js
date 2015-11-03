@@ -75,8 +75,6 @@
 
       // profile image upload modal
 
-      vm.openImageUploadModal = openImageUploadModal;
-
       function openImageUploadModal() {
          $scope.$modalInstance = $uibModal.open({
             templateUrl: 'scripts/admin/users/users.image-upload.modal/users.image-upload.modal.html',
@@ -99,6 +97,8 @@
             vm.upsertUser(vm.user);
          });
       }
+      
+      vm.openImageUploadModal = openImageUploadModal;
       
    }
    

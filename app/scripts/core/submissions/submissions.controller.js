@@ -2,16 +2,16 @@
 
    'use strict';
 
-   function SubmissionsController($scope, $filter, $http, $uibModal, $q, $rootScope, $state, $stateParams, $window, AS3Factory, ImagesFactory, PostsFactory, SubFactory, UsersFactory, ServerUrl) {
+   function SubmissionsController($scope, $filter, $http, $uibModal, $localStorage, $q, $rootScope, $state, $stateParams, $sessionStorage, $timeout, $window, AS3Factory, ImagesFactory, PostsFactory, SubFactory, UsersFactory, ServerUrl, JSZipUtils, FileSaver, Blob) {
       var vm = this;
 
-      vm.submission = {
-         user: {},
-         attachments: [],
-         created_at: Date.now()
-      };
+      $scope.$storage = $localStorage;
 
-      vm.images = [];
+      vm.submission = $scope.$storage.submission;
+
+      vm.doc = $scope.$storage.doc;
+
+      vm.images = $scope.$storage.images;
 
       vm.getTags = function () {
          PostsFactory.getTags().then(function () {
@@ -30,6 +30,7 @@
       $scope.showEdit = false;
 
       $scope.uploadFile = function () {
+         // check and see if the file is an image
          if ((/\.(gif|jpg|jpeg|tiff|png)$/i).test(vm.attachment)) {
             var image = {
                image_url: vm.attachment
@@ -37,19 +38,41 @@
             ImagesFactory.uploadImage(image);
             vm.submission.attachments.push(image);
             vm.images.push(image);
+            // if it isn't then check if there is a document in the attachment array
          } else {
+            // if there isn't a document then push to array
             if ($filter('filterDocs')(vm.submission.attachments).length === 0) {
                vm.submission.attachments.push(vm.attachment);
-               vm.getAttachmentHtml();
+               // if there is then find it in the array and replace it
             } else {
                for (var i = 0; vm.submission.attachments.length > i; i++) {
                   if (!(/\.(gif|jpg|jpeg|tiff|png)$/i).test(vm.submission.attachments[i])) {
                      vm.submission.attachments[i] = vm.attachment;
                   }
                }
-               vm.getAttachmentHtml();
             }
+            vm.getAttachmentHtml();
          }
+      };
+
+      vm.uploadDoc = function () {
+         generateDocx(vm.doc).then(function (response) {
+            var filename = vm.submission.title + '-' + vm.submission.user.username + '-' + Date.now() + '.docx';
+            var file = blobToFile(response, filename);
+            AS3Factory.uploadFile(file, 'submissions/').then(function (response) {
+               var s3Path = 'https://lematjournal.s3.amazonaws.com/' + response.params.Key;
+               if ($filter('filterDocs')(vm.submission.attachments).length === 0) {
+                  vm.submission.attachments.push(s3Path);
+               } else {
+                  for (var i = 0; vm.submission.attachments.length > i; i++) {
+                     if (!(/\.(gif|jpg|jpeg|tiff|png)$/i).test(vm.submission.attachments[i])) {
+                        vm.submission.attachments[i] = s3Path;
+                     }
+                  }
+               }
+               vm.getAttachmentHtml();
+            });
+         });
       };
 
       vm.clearAttachments = function () {
@@ -62,36 +85,39 @@
                AS3Factory.deleteFile(attachment);
             }
          }
+         $scope.showEdit = false;
          vm.submission.attachments = [];
-         vm.doc = {};
+         vm.doc = '';
       };
-
-      vm.uploadDoc = function () {
-         generateBlob();
-         var filename = vm.submission.title + '-' + vm.submission.user.username + '-' + Date.now() + '.docx';
-         console.log(filename);
-         var file = blobToFile(vm.blob, filename);
-         AS3Factory.uploadFile(file, 'submissions/').then(function (response) {
-            var s3Path = 'https://lematjournal.s3.amazonaws.com/' + response.params.Key;
-            vm.submission.attachments.push(s3Path);
-         });
-      };
-
-      function generateBlob() {
-         var htmlString = vm.doc;
-         var byteNumbers = new Uint8Array(htmlString.length);
-         for (var i = 0; i < htmlString.length; i++) {
-            byteNumbers[i] = htmlString.charCodeAt(i);
-         }
-         vm.blob = new Blob([byteNumbers], {
-            type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-         });
-      }
 
       function blobToFile(theBlob, fileName) {
          theBlob.lastModifiedDate = new Date();
          theBlob.name = fileName;
          return theBlob;
+      }
+
+      function generateDocx(inputString) {
+         var deferred = $q.defer();
+         var out = {};
+         var loadFile = function (url, callback) {
+            JSZipUtils.getBinaryContent(url, callback);
+         };
+
+         loadFile('scripts/core/submissions/submissions.form/input.docx', function (err, content) {
+            if (err) {
+               throw e;
+            };
+            var doc = new Docxgen(content);
+            doc.setData({
+               "template": inputString
+            });
+            doc.render();
+            out = doc.getZip().generate({
+               type: 'blob'
+            });
+            deferred.resolve(out);
+         });
+         return deferred.promise;
       }
 
       vm.deleteFile = function (attachment) {
@@ -116,7 +142,6 @@
             }
          };
          deferred.resolve($http.post(ServerUrl + '/submissions/render-doc', link).then(function (response) {
-            console.log(response.data);
             vm.doc = response.data;
          }));
          return deferred.promise;
@@ -151,6 +176,6 @@
    angular.module('lematClient.core.submissions')
       .controller('SubmissionsController', SubmissionsController);
 
-   SubmissionsController.$inject = ['$scope', '$filter', '$http', '$uibModal', '$q', '$rootScope', '$state', '$stateParams', '$window', 'AS3Factory', 'ImagesFactory', 'PostsFactory', 'SubFactory', 'UsersFactory', 'ServerUrl'];
+   SubmissionsController.$inject = ['$scope', '$filter', '$http', '$uibModal', '$localStorage', '$q', '$rootScope', '$state', '$stateParams', '$sessionStorage', '$timeout', '$window', 'AS3Factory', 'ImagesFactory', 'PostsFactory', 'SubFactory', 'UsersFactory', 'ServerUrl', 'JSZipUtils', 'FileSaver', 'Blob'];
 
 })(angular);

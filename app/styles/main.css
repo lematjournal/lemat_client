@@ -597,7 +597,7 @@ p {
    text-transform: uppercase;
    border-right: 1px solid #ddd;
    height: 21px;
-   width: 1%
+   width: 20%
 }
 
 .author {
@@ -612,13 +612,13 @@ p {
    display: table-cell;
    border-right: 1px solid #ddd;
    height: 21px;
-   width: 25%
+   width: 30%
 }
 
 .link {
    display: table-cell;
    height: 21px;
-   width: 25%
+   width: 20%
 }
 
 .deckgrid[deckgrid]::before {

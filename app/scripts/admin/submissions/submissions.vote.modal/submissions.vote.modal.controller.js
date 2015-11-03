@@ -20,8 +20,9 @@
       $scope.index = vm.submission.votes_array.length;
       
       vm.submission.votes_array[$scope.index] = {
-         user_id: vm.userId, // this doesn't get assigned for some reason
-         vote: undefined
+         user_id: vm.userId,
+         vote: undefined,
+         weight: AuthFactory.session.weight
       };
 
       vm.incrementVotes = function (index) {

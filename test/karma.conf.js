@@ -56,6 +56,11 @@ module.exports = function(config) {
       'bower_components/momentjs/moment.js',
       'bower_components/humanize-duration/humanize-duration.js',
       'bower_components/angular-timer/dist/angular-timer.js',
+      'bower_components/ngstorage/ngStorage.js',
+      'bower_components/docxtemplater-pykiss/browser/docxgen.js',
+      'bower_components/blob-polyfill/Blob.js',
+      'bower_components/file-saver.js/FileSaver.js',
+      'bower_components/angular-file-saver/dist/angular-file-saver.js',
       // endbower
       "app/scripts/app.js",
       "app/scripts/**/*.js",

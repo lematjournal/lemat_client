@@ -3,7 +3,7 @@
    'use strict';
 
    angular.module('lematClient')
-      .config(['$stateProvider', '$modalStateProvider', '$urlRouterProvider', function ($stateProvider, $modalStateProvider, $urlRouterProvider) {
+      .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
          $stateProvider
             .state('admin', {
                url: '/admin',

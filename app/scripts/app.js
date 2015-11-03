@@ -11,13 +11,13 @@
 
    angular.module('lematClient.common.constants', []);
 
-   angular.module('lematClient.common.directives', ['ngTouch', 'ui.bootstrap', 'duScroll', 'wysiwyg.module', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'angucomplete-alt', 'ngTagsInput', 'validation.match', 'akoenig.deckgrid', 'bootstrapColumnsSameHeight', 'socialLinks', 'youtube-embed', 'slugifier', 'timer']);
+   angular.module('lematClient.common.directives', ['ngTouch', 'ui.bootstrap', 'duScroll', 'wysiwyg.module', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'angucomplete-alt', 'ngTagsInput', 'validation.match', 'akoenig.deckgrid', 'bootstrapColumnsSameHeight', 'socialLinks', 'youtube-embed', 'slugifier', 'timer', 'ngStorage']);
 
    angular.module('lematClient.common.factories', []);
 
    angular.module('lematClient.common.filters', ['angular.filter']);
 
-   angular.module('lematClient.common', ['lematClient.common.constants', 'lematClient.common.directives', 'lematClient.common.factories', 'lematClient.common.filters']);
+   angular.module('lematClient.common', ['lematClient.common.constants', 'lematClient.common.directives', 'lematClient.common.factories', 'lematClient.common.filters', 'lematClient.common.libs']);
    
    // admin components
    
@@ -71,6 +71,8 @@
 
    // angular services
 
-   angular.module('lematClient.services', ['ngCookies', 'ngSanitize', 'ng.deviceDetector']);
+   angular.module('lematClient.services', ['ngCookies', 'ngSanitize', 'ng.deviceDetector', 'ngFileSaver']);
+   
+   angular.module('lematClient.common.libs', []);
 
 })(angular);

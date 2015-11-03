@@ -1,4 +1,4 @@
-<div class="container" ng-init="submissionsCtrl.getSubmissions(); submissionsCtrl.getEditors()">
+<div class="container">
    <div class="row">
       <h1>submissions</h1>
       <table class="table">
@@ -25,6 +25,21 @@
                      <a class="btn btn-default" ng-disabled="disabled[$index]" ng-click="submissionsCtrl.submissionModal($index)">Cast Vote</a>
                   </td>
                </tr>
+      </table>
+   </div>
+   <div class="row">
+      <h1>records</h1>
+      <table class="table">
+         <tr>
+            <th>record</th>
+            <th>created at</th>
+            <th>voters</th>
+         </tr>
+         <tr ng-repeat="record in submissionsCtrl.records">
+            <td>{{ record.id }}</td>
+            <td>{{ record.created_at | date:'medium' }}</td>
+            <td><font ng-repeat="user in record.voters"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ user.username }}</font></td>
+         </tr>
       </table>
    </div>
 </div>
