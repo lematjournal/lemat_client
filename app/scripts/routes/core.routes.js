@@ -203,6 +203,17 @@
                },
                parent: 'main.submissions-form'
             })
+            .state('main.submissions-thank-you', {
+               url: '/thanks',
+               views: {
+                  'logo@': {},
+                  'body@main.submissions-form': {
+                     templateUrl: 'scripts/core/submissions/submissions.form/submissions.page-4/submissions.page-4.html'
+                  },
+                  'title@main.submissions-form': {}
+               },
+               parent: 'main.submissions-form'
+            })
             .state('main.about', {
                url: 'about',
                views: {
@@ -225,11 +236,11 @@
       
       var window = angular.element($window);
       
-      window.on('beforeunload', function (event) {
-         console.log('refresh detected');
-         event.preventDefault();
-         $rootScope.$broadcast('refresh');
-      });
+//      window.on('beforeunload', function (event) {
+//         console.log('refresh detected');
+//         event.preventDefault();
+//         $rootScope.$broadcast('refresh');
+//      });
    }]);
 
 //   angular.module('lematClient').run(['$rootScope', '$log', function ($rootScope, $log) {

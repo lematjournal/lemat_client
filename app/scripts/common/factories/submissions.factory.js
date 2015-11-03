@@ -22,6 +22,7 @@ angular.module('lematClient.admin.submissions')
       };
 
       var upsertSubmission = function (submission) {
+         console.log(submission);
          var params = {
             submission: {
                attachments: submission.attachments,

@@ -152,6 +152,7 @@
             console.log(response);
             delete $scope.$storage.doc;
             delete $scope.$storage.submission;
+            $state.go('main.submissions-thank-you');
          }, function (response) {
             console.log('error: ', response);
          });
