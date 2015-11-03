@@ -51,6 +51,18 @@
             }
          }
       };
+      
+      vm.getNewSubmissions = function () {
+        SubFactory.getNewSubmissions().then(function () {
+           vm.newSubmissions = SubFactory.newSubmissions;
+        }) 
+      };
+      
+      vm.getOldSubmissions = function () {
+        SubFactory.getOldSubmissions().then(function () {
+           vm.oldSubmissions = SubFactory.oldSubmissions;
+        }) 
+      };
 
       function submissionModal(submissionIndex) {
          $scope.$modalInstance = $uibModal.open({
@@ -81,13 +93,15 @@
          }
       };
       
-      vm.getRecords = function () {
-         SubFactory.getRecords().then(function () {
-            vm.records = SubFactory.records;
+      vm.getRounds = function () {
+         SubFactory.getRounds().then(function () {
+            vm.rounds = SubFactory.rounds;
          })
       };
       
-      vm.getRecords();
+      vm.getRounds();
+      vm.getOldSubmissions();
+      vm.getNewSubmissions();
    
    }
    

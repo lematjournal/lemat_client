@@ -4,10 +4,30 @@ angular.module('lematClient.admin.submissions')
    .factory('SubFactory', ['$http', 'ServerUrl', function ($http, ServerUrl) {
 
       var comment = {},
-        newSubmissions = {},
-        records = [],
+          currentSubmissions = [],
+        newSubmissions = [],
+          oldSubmissions = [],
+        rounds = [],
          submissions = [],
          submission = {};
+      
+      var getCurrentSubmissions = function () {
+         return $http.get(ServerUrl + '/submissions/rounds/current-submissions').then(function (response) {
+            angular.copy(response.data, currentSubmissions);
+         });
+      };
+      
+      var getNewSubmissions = function () {
+         return $http.get(ServerUrl + '/submissions/rounds/new-submissions').then(function (response) {
+            angular.copy(response.data, newSubmissions);
+         });
+      };
+      
+      var getOldSubmissions = function () {
+         return $http.get(ServerUrl + '/submissions/rounds/old-submissions').then(function (response) {
+            angular.copy(response.data, oldSubmissions);
+         });
+      };
 
       var getSubmissions = function () {
          return $http.get(ServerUrl + '/submissions/').then(function (response) {
@@ -19,12 +39,6 @@ angular.module('lematClient.admin.submissions')
       var getSubmission = function (uid) {
          return $http.get(ServerUrl + '/submissions/' + uid).then(function (response) {
             angular.copy(response.data, submission);
-         });
-      };
-      
-      var getNewSubmissions = function () {
-         return $http.get(ServerUrl + '/submissions/new-submissions').then(function (response) {
-            angular.copy(response.data, newSubmissions);
          });
       };
 
@@ -88,20 +102,25 @@ angular.module('lematClient.admin.submissions')
       
       var getRounds = function () {
          return $http.get(ServerUrl + '/submissions/rounds').then(function (response) {
-            angular.copy(response.data, records);  
+            angular.copy(response.data, rounds);  
          });
       };
 
 
       return {
-         upsertComment: upsertComment,
-         upsertSubmission: upsertSubmission,
+         getCurrentSubmissions: getCurrentSubmissions,
+         getNewSubmissions: getNewSubmissions,
+         getOldSubmissions: getOldSubmissions,
          getSubmissions: getSubmissions,
          getSubmission: getSubmission,
          getRounds: getRounds,
+         newSubmissions: newSubmissions,
+         oldSubmissions: oldSubmissions,
          submissions: submissions,
          submission: submission,
-         records: records,
-         updateVotes: updateVotes
+         rounds: rounds,
+         updateVotes: updateVotes,
+         upsertComment: upsertComment,
+         upsertSubmission: upsertSubmission,
       };
 }]);

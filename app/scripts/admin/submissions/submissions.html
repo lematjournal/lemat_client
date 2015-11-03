@@ -1,4 +1,4 @@
-<div class="container" ng-init="submissionsCtrl.getNewSubmissions()">
+<div class="container">
    <div class="row">
       <h1>new submissions</h1>
       <table class="table">
@@ -45,7 +45,7 @@
                            <th>time remaining</th>
                            <th>options</th>
                         </tr>
-                        <tr ng-repeat="submission in submissionsCtrl.submissions">
+                        <tr ng-repeat="submission in submissionsCtrl.currentRound">
                            <td>{{ ::submission.email_address }}</td>
                            <td>{{ ::submission.uid }}</td>
                            <td>{{ submission.votes }} out of {{ submissionsCtrl.editors.length }}</td>
@@ -62,14 +62,14 @@
       </table>
    </div>
    <div class="row">
-      <h1>records</h1>
+      <h1>previous rounds</h1>
       <table class="table">
          <tr>
             <th>record</th>
             <th>created at</th>
             <th>voters</th>
          </tr>
-         <tr ng-repeat="record in submissionsCtrl.records">
+         <tr ng-repeat="round in submissionsCtrl.rounds">
             <td>{{ record.id }}</td>
             <td>{{ record.created_at | date:'medium' }}</td>
             <td><font ng-repeat="user in record.voters"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ user.username }}</font></td>
