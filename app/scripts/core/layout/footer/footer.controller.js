@@ -2,22 +2,17 @@
 
    'use strict';
 
-   function FooterController(UsersFactory) {
+   function FooterController($rootScope, AuthFactory, UsersFactory, $localStorage) {
       var vm = this;
 
-      UsersFactory.getPostUsers().then(function () {
-         vm.postUsers = UsersFactory.postUsers;
-      });
+      vm.postUsers = UsersFactory.postUsers;
+      vm.issueUsers = UsersFactory.issueUsers;
       
-      UsersFactory.getIssueUsers().then(function () {
-         vm.issueUsers = UsersFactory.issueUsers;
-      });
-
    }
 
    angular.module('lematClient.core.layout.footer')
       .controller('FooterController', FooterController);
 
-   FooterController.$inject = ['UsersFactory'];
+   FooterController.$inject = ['$rootScope', 'AuthFactory', 'UsersFactory', '$localStorage'];
 
 })(angular);
