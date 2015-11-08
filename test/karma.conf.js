@@ -61,6 +61,7 @@ module.exports = function(config) {
       'bower_components/blob-polyfill/Blob.js',
       'bower_components/file-saver.js/FileSaver.js',
       'bower_components/angular-file-saver/dist/angular-file-saver.js',
+      'bower_components/moment/moment.js',
       // endbower
       "app/scripts/app.js",
       "app/scripts/**/*.js",
