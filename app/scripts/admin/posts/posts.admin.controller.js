@@ -5,6 +5,8 @@
    function PostsAdminController($scope, $location, $stateParams, $uibModal, AuthFactory, UsersFactory, PostsFactory) {
       var vm = this;
       
+      vm.tags = PostsFactory.tags;
+      
       vm.getPost = function () {
          PostsFactory.getPost($stateParams.post).then(function () {
             vm.post = PostsFactory.post;
@@ -73,14 +75,7 @@
       $scope.$on('selectedUser', function (event, data) {
          vm.post.user_id = data.id;
       });
-
-      // tags
-
-      vm.getTags = function () {
-         PostsFactory.getTags().then(function () {
-            vm.tags = PostsFactory.tags;
-         });
-      };
+      
    }
    
    angular.module('lematClient.admin.posts')
