@@ -6,28 +6,16 @@
       var vm = this;
 
       $scope.$storage = $localStorage;
-      
-      if (!$scope.$storage.submission) {
-         $scope.$storage.submission = {};
-      }
 
       vm.submission = $scope.$storage.submission;
-            
+
       vm.submission.attachments = [];
-      
+
       vm.doc = $scope.$storage.doc;
 
       vm.images = $scope.$storage.images;
-
-      vm.getTags = function () {
-         PostsFactory.getTags().then(function () {
-            vm.tags = PostsFactory.tags;
-         });
-      };
       
-      $scope.$on('refresh', function () {
-         $scope.$storage.submission = vm.submission;
-      })
+      vm.tags = PostsFactory.tags;
 
       $scope.imagePopover = {
          templateUrl: 'image-popover.template.html'
@@ -38,7 +26,27 @@
       };
 
       $scope.showEdit = false;
+      
+      $scope.$on('refresh', function () {
+         $scope.$storage.submission = vm.submission;
+      })
+      
+      /**
+       * Checks to see if localstorage has a submission object.
+       * If it doesn't it creates it so the following methods don't error out
+       */
+      function setStorage() {
+         if (!$scope.$storage.submission) {
+            $scope.$storage.submission = {};
+         }
+      }
+      
+      setStorage();
 
+      /**
+       * Uploads a document or image file.
+       * If its a document it converts it html.
+       */
       $scope.uploadFile = function () {
          // check and see if the file is an image
          if ((/\.(gif|jpg|jpeg|tiff|png)$/i).test(vm.attachment)) {
@@ -65,6 +73,11 @@
          }
       };
 
+      /**
+       * Takes html stored in 'vm.doc' and generates a file blob to post to Amazon S3. 
+       * There is only one document attachment allowed so the method searches for any other
+       * '.docx' files in the attachment array and replaces them with the new file
+       */
       vm.uploadDoc = function () {
          generateDocx(vm.doc).then(function (response) {
             var filename = vm.submission.title + '-' + vm.submission.user.username + '-' + Date.now() + '.docx';
@@ -85,6 +98,11 @@
          });
       };
 
+      /**
+       * Clears all attachments, if there are images present in the attachment array
+       * it will delete their corresponding Rails SQL entry. 
+       * Resets dom and attachment array.
+       */
       vm.clearAttachments = function () {
          for (var i = 0; vm.submission.attachments.length > i; i++) {
             if (vm.submission.attachments[i].image_url) {
@@ -100,12 +118,24 @@
          vm.doc = '';
       };
 
+      /**
+       * Takes a fileblob and assigns it the necessary properties so it can be
+       * treated as a file (a blob is a file minus date info and a filename)
+       * @param   {Object} theBlob preassembled file blob
+       * @param   {Object} fileName automatically generated file name + date
+       * @returns {Object} file blob that can be treatd as a file
+       */
       function blobToFile(theBlob, fileName) {
          theBlob.lastModifiedDate = new Date();
          theBlob.name = fileName;
          return theBlob;
       }
 
+      /**
+       * Generates a '.docx' file from the input string
+       * @param   {String} inputString
+       * @returns {Object} Promise containing the file blob
+       */
       function generateDocx(inputString) {
          var deferred = $q.defer();
          var out = {};
@@ -130,6 +160,13 @@
          return deferred.promise;
       }
 
+      /**
+       * Takes an attachment as an argument. Checks to see if it is an image,
+       * if its an image it deletes the Amazon S3 file and corresponding entry in the Rails database.
+       * Since documents aren't stored, they are simply deleted from Amazon S3
+       * @summary Deletes an attachment
+       * @param {Object} attachment
+       */
       vm.deleteFile = function (attachment) {
          if ((/\.(gif|jpg|jpeg|tiff|png)$/i).test(attachment.image_url)) {
             AS3Factory.deleteFile(attachment.image_url).then(function () {
@@ -144,6 +181,10 @@
          }
       };
 
+      /**
+       * Sends '.docx' attachment url to the back-end where it is retrieved and converted to html
+       * @returns {Object} Promise containing a string of the converted html
+       */
       vm.getAttachmentHtml = function () {
          var deferred = $q.defer();
          var link = {
@@ -157,6 +198,10 @@
          return deferred.promise;
       };
 
+      /**
+       * Posts submission and clears $localStorage values.
+       * Redirects to 'thank you' view
+       */
       vm.postSubmission = function () {
          SubFactory.upsertSubmission(vm.submission).then(function (response) {
             console.log(response);
