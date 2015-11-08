@@ -3,26 +3,25 @@
    'use strict';
 
    function AuthFactory($http, $q, $window, ServerUrl) {
-
       var userId = {},
          session = {};
 
-      var login = function (credentials) {
+      function login(credentials) {
          return $http.post(ServerUrl + '/users/login', credentials).then(function (response) {
             userId = response.id;
             _storeSession(response);
          });
-      };
+      }
 
-      var logout = function () {
+      function logout() {
          return $http.post(ServerUrl + '/users/logout').then(function () {
             $window.localStorage.removeItem('lemat-user');
             userId = {};
             console.log("logged out");
          });
-      };
+      }
 
-      var register = function (credentials) {
+      function register(credentials) {
          var params = {
             user: {
                email: credentials.email,
@@ -34,18 +33,18 @@
          }, function (response) {
             console.log(response);
          });
-      };
+      }
 
-      var isAuthenticated = function () {
+      function isAuthenticated() {
          var data = JSON.parse($window.localStorage.getItem('lemat-user'));
          if (data) {
             return true;
          } else {
             return false;
          }
-      };
+      }
 
-      var isAdmin = function () {
+      function isAdmin() {
          if ($window.localStorage.getItem('lemat-user')) {
             var user = JSON.parse($window.localStorage.getItem('lemat-user'));
             if (user.data.role === 'admin') {
@@ -54,18 +53,18 @@
                return false;
             }
          }
-      };
+      }
 
-      var getUserRole = function () {
+      function getUserRole() {
          if (isAuthenticated()) {
             var user = JSON.parse($window.localStorage.getItem('lemat-user'));
             return user.data.role;
          } else {
             return 'user';
          }
-      };
+      }
 
-      var setUser = function () {
+      function setUser() {
          var deferred = $q.defer();
          if ($window.localStorage.getItem('lemat-user')) {
             var user = JSON.parse($window.localStorage.getItem('lemat-user'));
@@ -73,20 +72,23 @@
                id: user.data.id,
                email: user.data.email,
                username: user.data.username,
-               role: user.data.role
+               role: user.data.role,
+               weight: user.data.weight
             };
             deferred.resolve(angular.copy(user, session));
          }
-         return deferred.promise;
-      };
 
-      var _storeSession = function (response) {
+         return deferred.promise;
+
+      }
+
+      function _storeSession(response) {
          $window.localStorage.setItem('lemat-user', JSON.stringify(response));
          if (response.data.role = "admin") {
             $http.defaults.headers.common.Authorization = 'Token token=' + response.data.token;
             console.log(response.data.token);
          }
-      };
+      }
 
       return {
          login: login,

@@ -3,16 +3,15 @@
    'use strict';
 
    function AS3Factory($http, $q, ServerUrl) {
-
       var keys = {};
 
-      var getKeys = function () {
+      function getKeys() {
          return $http.get(ServerUrl + '/amazon/sign_key').then(function (response) {
             angular.copy(response.data, keys);
          });
-      };
+      }
 
-      var uploadFile = function (file, folder) {
+      function uploadFile(file, folder) {
          var deferred = $q.defer();
          getKeys().then(function () {
             var bucket = new AWS.S3({
@@ -40,10 +39,12 @@
                console.log('Please select a file to upload');
             }
          });
+         
          return deferred.promise;
+         
       };
 
-      var deleteFile = function (key) {
+      function deleteFile(key) {
          console.log(key);
          var deferred = $q.defer();
          getKeys().then(function () {
@@ -63,18 +64,21 @@
                }
             }));
          });
+         
          return deferred.promise;
-      };
-
-      var uniqueString = function () {
+      }
+      
+      function uniqueString() {
          var text = "";
          var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
 
          for (var i = 0; i < 16; i++) {
             text += possible.charAt(Math.floor(Math.random() * possible.length));
          }
+         
          return text;
-      };
+         
+      }
 
       return {
          getKeys: getKeys,

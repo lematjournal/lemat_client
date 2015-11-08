@@ -1,49 +1,43 @@
-'use strict';
+(function (angular) {
 
-angular.module('lematClient.admin.submissions')
-   .factory('SubFactory', ['$http', 'ServerUrl', function ($http, ServerUrl) {
-
+   'use strict';
+                  
+   function SubFactory($http, ServerUrl) {
       var comment = {},
-          currentSubmissions = [],
-        newSubmissions = [],
-          oldSubmissions = [],
-        rounds = [],
+         currentSubmissions = [],
+         newSubmissions = [],
+         pendingSubmissions = [],
+         rounds = [],
          submissions = [],
          submission = {};
-      
-      var getCurrentSubmissions = function () {
-         return $http.get(ServerUrl + '/submissions/rounds/current-submissions').then(function (response) {
-            angular.copy(response.data, currentSubmissions);
-         });
-      };
-      
-      var getNewSubmissions = function () {
-         return $http.get(ServerUrl + '/submissions/rounds/new-submissions').then(function (response) {
-            angular.copy(response.data, newSubmissions);
-         });
-      };
-      
-      var getOldSubmissions = function () {
-         return $http.get(ServerUrl + '/submissions/rounds/old-submissions').then(function (response) {
-            angular.copy(response.data, oldSubmissions);
-         });
-      };
 
-      var getSubmissions = function () {
-         return $http.get(ServerUrl + '/submissions/').then(function (response) {
+      function getCurrentSubmissions() {
+         return $http.get(ServerUrl + '/voting/current-submissions').then(function (response) {
             var modifiedResponse = setDates(response.data);
-            angular.copy(modifiedResponse, submissions);
+            angular.copy(modifiedResponse, currentSubmissions);
+            console.log(currentSubmissions);
          });
       };
 
-      var getSubmission = function (uid) {
+      function getPendingSubmisions() {
+         return $http.get(ServerUrl + '/voting/pending-submissions').then(function (response) {
+            angular.copy(response.data, pendingSubmissions);
+         });
+      };
+
+      function getSubmissions() {
+         return $http.get(ServerUrl + '/submissions/').then(function (response) {
+            angular.copy(response.data, submissions);
+         });
+      };
+
+      function getSubmission(uid) {
          return $http.get(ServerUrl + '/submissions/' + uid).then(function (response) {
             angular.copy(response.data, submission);
          });
       };
 
-      var upsertSubmission = function (submission) {
-         console.log(submission);
+      function upsertSubmission(submission) {
          var params = {
             submission: {
                attachments: submission.attachments,
@@ -55,13 +49,18 @@ angular.module('lematClient.admin.submissions')
                username: submission.user.username
             }
          };
-
-         return $http.post(ServerUrl + '/submissions/', params).then(function (response) {
-            angular.copy(response.data, submission);
-         });
+         if (submission.id) {
+            return $http.patch(ServerUrl + '/submissions/' + submission.id, params).then(function (response) {
+               angular.copy(response.data, submission);
+            });
+         } else {
+            return $http.post(ServerUrl + '/submissions/', params).then(function (response) {
+               angular.copy(response.data, submission);
+            });
+         }
       };
 
-      var upsertComment = function (commentHash) {
+      function upsertComment(commentHash) {
          var params = {
             comment: commentHash
          };
@@ -71,10 +70,9 @@ angular.module('lematClient.admin.submissions')
          });
       };
 
-      var updateVotes = function (submission) {
+      function updateVotes(submission) {
          var params = {
             submission: {
-               votes: submission.votes,
                votes_array: submission.votes_array,
                user_ids: submission.user_ids
             }
@@ -98,24 +96,39 @@ angular.module('lematClient.admin.submissions')
             newData.push(obj);
          });
          return newData;
-      };
-      
-      var getRounds = function () {
-         return $http.get(ServerUrl + '/submissions/rounds').then(function (response) {
-            angular.copy(response.data, rounds);  
+      }
+
+      function getRounds() {
+         return $http.get(ServerUrl + '/voting/rounds').then(function (response) {
+            angular.copy(response.data, rounds);
+            console.log(rounds);
          });
       };
 
+      function deleteSubmission(id) {
+         return $http.delete(ServerUrl + '/submissions/' + id).then(function () {
+            pendingSubmissions.splice(findSubmissionIndexById(id), 1);
+         });
+      };
+
+      function findSubmissionIndexById(id) {
+         for (var i = 0; i < pendingSubmissions.length; i++) {
+            if (pendingSubmissions[i].id === id) {
+               return i;
+            }
+         }
+      };
 
       return {
+         currentSubmissions: currentSubmissions,
+         deleteSubmission: deleteSubmission,
          getCurrentSubmissions: getCurrentSubmissions,
-         getNewSubmissions: getNewSubmissions,
-         getOldSubmissions: getOldSubmissions,
+         getPendingSubmissions: getPendingSubmisions,
          getSubmissions: getSubmissions,
          getSubmission: getSubmission,
          getRounds: getRounds,
          newSubmissions: newSubmissions,
-         oldSubmissions: oldSubmissions,
+         pendingSubmissions: pendingSubmissions,
          submissions: submissions,
          submission: submission,
          rounds: rounds,
@@ -123,4 +136,11 @@ angular.module('lematClient.admin.submissions')
          upsertComment: upsertComment,
          upsertSubmission: upsertSubmission,
       };
-}]);
+   }
+      
+   angular.module('lematClient.admin.submissions')
+      .factory('SubFactory', SubFactory);
+      
+   SubFactory.$inject = ['$http', 'ServerUrl'];
+
+})(angular);

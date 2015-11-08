@@ -1,101 +1,120 @@
-'use strict';
+(function (angular) {
 
-angular.module('lematClient.common.factories')
-   .factory('UsersFactory', ['$http', 'AuthFactory', 'ServerUrl', function ($http, AuthFactory, ServerUrl) {
-   var editors = [], users = [], user = {}, postUsers = [], profile = {}, issueUsers = [];
+   'use strict';
 
-   var getUser = function (username) {
-      return $http.get(ServerUrl + '/users/' + username).then(function (response) {
-         angular.copy(response.data, user);
-      });
-   };
+   function UsersFactory($http, $localStorage, AuthFactory, ServerUrl) {
+      var editors = [],
+         users = $localStorage.users,
+         user = {},
+         postUsers = $localStorage.postUsers,
+         profile = {},
+         issueUsers = $localStorage.issueUsers;
 
-   var getUsers = function () {
-      return $http.get(ServerUrl + '/users/').then(function (response) {
-         angular.copy(response.data, users);
-      });
-   };
-   
-   var getPostUsers = function () {
-      return $http.get(ServerUrl + '/users/post-users').then(function (response) {
-         angular.copy(response.data, postUsers);
-      });
-   };
-   
-   var getIssueUsers = function () {
-      return $http.get(ServerUrl + '/users/issue-users').then(function (response) {
-         angular.copy(response.data, issueUsers);
-      });
-   };
-   
-   var getEditors = function () {
-      return $http.get(ServerUrl + '/users/editors').then(function (response) {
-         angular.copy(response.data, editors);
-      });
-   };
+      function getUser(username) {
+         return $http.get(ServerUrl + '/users/' + username).then(function (response) {
+            angular.copy(response.data, user);
+         });
+      }
 
-   var upsertUser = function (user) {
-      var params = {
-         user: {
-            email: user.email,
-            username: user.username.replace(/[^\w\s]/gi, ''),
-            role: user.role,
-            bio: user.bio,
-            password: user.password,
-            profile_image: user.profile_image,
-            social_links: user.social_links
+      function getUsers() {
+         return $http.get(ServerUrl + '/users/').then(function (response) {
+            $localStorage.users = response.data;
+            $localStorage.usersGrabDate = Date.now();
+         });
+      }
+
+      function getPostUsers() {
+         return $http.get(ServerUrl + '/users/post-users').then(function (response) {
+            $localStorage.postUsers = response.data;
+            $localStorage.postUsersGrabDate = Date.now();
+         });
+      }
+      
+      getPostUsers();
+
+      function getIssueUsers() {
+         return $http.get(ServerUrl + '/users/issue-users').then(function (response) {
+            $localStorage.issueUsers = response.data;
+            $localStorage.issueUsersGrabDate = Date.now();
+         });
+      }
+
+      function getEditors() {
+         return $http.get(ServerUrl + '/users/editors').then(function (response) {
+            angular.copy(response.data, editors);
+         });
+      }
+
+      function upsertUser(user) {
+         var params = {
+            user: {
+               email: user.email,
+               username: user.username.replace(/[^\w\s]/gi, ''),
+               role: user.role,
+               bio: user.bio,
+               password: user.password,
+               profile_image: user.profile_image,
+               social_links: user.social_links
+            }
+         };
+
+         if (user.id) {
+            return $http.patch(ServerUrl + '/users/' + user.id, params).then(function (response) {
+               angular.copy(response.data, user);
+               users.push(response.data);
+               getUsers();
+            });
+         } else {
+            return $http.post(ServerUrl + '/users/', params).then(function (response) {
+               angular.copy(response.data, user);
+               users.push(response.data);
+               getUsers();
+            });
          }
+      }
+
+      function findUserById(id) {
+         for (var i = 0; i < users.length; i++) {
+            if (users[i].id === id) {
+               return i;
+            }
+         }
+      }
+
+      function deleteUser(id, username) {
+         return $http.delete(ServerUrl + '/users/' + username).then(function () {
+            users.splice(findUserById(id), 1);
+         });
+      }
+
+      function getProfile(user) {
+         return $http.get(ServerUrl + '/users/profiles/' + user.id).then(function (response) {
+            angular.copy(response.data, profile);
+         });
+      }
+
+      return {
+         getEditors: getEditors,
+         getUser: getUser,
+         getUsers: getUsers,
+         getPostUsers: getPostUsers,
+         getIssueUsers: getIssueUsers,
+         getProfile: getProfile,
+         upsertUser: upsertUser,
+         deleteUser: deleteUser,
+         editors: editors,
+         user: user,
+         users: users,
+         profile: profile,
+         postUsers: postUsers,
+         issueUsers: issueUsers
       };
 
-      if (user.id) {
-         return $http.patch(ServerUrl + '/users/' + user.id, params).then(function (response) {
-            angular.copy(response.data, user);
-            users.push(response.data);
-            getUsers();
-         });
-      } else {
-         return $http.post(ServerUrl + '/users/', params).then(function (response) {
-            angular.copy(response.data, user);
-            users.push(response.data);
-            getUsers();
-         });
-      }
-   };
+   }
 
-   var findUserById = function (id) {
-      for (var i = 0; i < users.length; i++) {
-         if (users[i].id === id) {
-            return i;
-         }
-      }
-   };
+   angular.module('lematClient.common.factories')
+      .factory('UsersFactory', UsersFactory);
 
-   var deleteUser = function (id, username) {
-      return $http.delete(ServerUrl + '/users/' + username).then(function () {
-         users.splice(findUserById(id), 1);
-      });
-   };
-   
-   var getProfile = function (user) {
-      return $http.get(ServerUrl + '/users/profiles/' + user.id).then(function (response) {
-         angular.copy(response.data, profile);
-      });
-   };
+   UsersFactory.$inject = ['$http', '$localStorage', 'AuthFactory', 'ServerUrl'];
 
-   return {
-      getEditors: getEditors,
-      getUser: getUser,
-      getUsers: getUsers,
-      getPostUsers: getPostUsers,
-      getIssueUsers: getIssueUsers,
-      getProfile: getProfile,
-      upsertUser: upsertUser,
-      deleteUser: deleteUser,
-      editors: editors,
-      user: user,
-      users: users,
-      profile: profile,
-      postUsers: postUsers,
-      issueUsers: issueUsers
-   };
-}]);
+})(angular);
