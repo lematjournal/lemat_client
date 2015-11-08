@@ -11,8 +11,13 @@
                   '@': { 
                      templateUrl: 'scripts/admin/admin.html' 
                   },
-                  'nav@': { 
-                     templateUrl: 'scripts/admin/layout/nav/nav.html' 
+                  'nav@': {
+                     templateUrl: 'scripts/core/layout/nav/nav.html',
+                     controller: 'NavController',
+                     controllerAs: 'navCtrl'
+                  },
+                  'nav@admin': {
+                     templateUrl: 'scripts/admin/layout/nav/nav.html'
                   },
                   'footer@': {
                      templateUrl: 'scripts/core/layout/footer/footer.html',
@@ -110,15 +115,21 @@
                controller: 'SubmissionsAdminController',
                controllerAs: 'submissionsCtrl'
             })
+            .state('admin.submissions-comments', {
+               url: '/submissions/:submission/comments',
+               templateUrl: 'scripts/admin/submissions/comments/comments.html',
+               controller: 'SubmissionsAdminController',
+               controllerAs: 'submissionsCtrl'
+            })
             .state('admin.submissions-detail', {
                url: '/submissions/:submission',
                templateUrl: 'scripts/admin/submissions/submissions.detail/submissions.detail.html',
                controller: 'SubmissionsAdminController',
                controllerAs: 'submissionsCtrl'
             })
-            .state('admin.submissions-comments', {
-               url: '/submissions/:submission/comments',
-               templateUrl: 'scripts/admin/submissions/comments/comments.html',
+            .state('admin.submissions-edit', {
+               url: '/submissions/:submission/edit',
+               templateUrl: 'scripts/admin/submissions/submissions.edit/submissions.edit.html',
                controller: 'SubmissionsAdminController',
                controllerAs: 'submissionsCtrl'
             })
