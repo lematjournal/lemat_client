@@ -3,7 +3,7 @@
       <div>
          <div class="row">
             <h3 class="title text-center">{{ ::editor.username }}</h3>
-            <img class="img-responsive center-block" src="{{ ::editor.profile_image }}" />
+            <img class="img-responsive center-block" ng-src="{{ ::editor.profile_image }}" />
             <br>
          </div>
          <div class="row" ng-if="editor.pieces.length > 0">

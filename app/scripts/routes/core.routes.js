@@ -227,7 +227,7 @@
 
    angular.module('lematClient').run(['$rootScope', '$state', function ($rootScope, $state) {
       $rootScope.$on('$stateChangeStart', function (event, to, params) {
-         console.log(event, to, params);
+//         console.log(event, to, params);
          if (to.redirectTo) {
             event.preventDefault();
             $state.go(to.redirectTo, params);
@@ -242,7 +242,28 @@
          event.preventDefault();
          $rootScope.$broadcast('refresh');
       });
-   }])
+   }]);
+   
+   angular.module('lematClient').run(['UsersFactory', '$localStorage', function (UsersFactory, $localStorage) {
+      if (!UsersFactory.issueUsers ) {
+         console.log('no issue users, grabbing');
+         UsersFactory.getIssueUsers();
+      } else if (($localStorage.issueUsersGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60 * 72)) {
+         UsersFactory.getIssueUsers();
+      }
+      
+      if (!UsersFactory.postUsers) {
+         console.log('no post users, grabbing');
+         UsersFactory.getPostUsers();
+      } else if (($localStorage.postUsersGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60 * 72)) {
+         UsersFactory.getPostUsers();
+      }
+      if (!UsersFactory.users) {
+         UsersFactory.getUsers();
+      } else if (($localStorage.usersGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60 * 72)) {
+         UsersFactory.getUsers();
+      }
+   }]);
 
 //   angular.module('lematClient').run(['$rootScope', '$log', function ($rootScope, $log) {
 //      $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {

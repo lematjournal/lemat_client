@@ -20,7 +20,7 @@
       <div class="col-md-3" ng-repeat="entry in entriesCtrl.entries | orderBy: '-created_at'" ng-show="!$first">
          <a ui-sref="main.entries-detail({ entry: entry.title_url })">
             <div class="news-image">
-               <img height="200px" src="{{ ::entry.image_url }}" />
+               <img height="200px" ng-src="{{ ::entry.image_url }}" />
                <div class="date">
                   <h3 class="date-text" style="text-transform: uppercase">{{ ::entry.title }}<br>
                   {{ ::entry.created_at | date: 'short'}}</h3>

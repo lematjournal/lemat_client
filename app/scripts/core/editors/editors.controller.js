@@ -4,12 +4,8 @@
 
    function EditorsController($scope, $location, AuthFactory, UsersFactory) {
       var vm = this;
-            
-      vm.getUsers = function () {
-         UsersFactory.getUsers().then(function () {
-            vm.users = UsersFactory.users;
-         });
-      };
+      
+      vm.users = UsersFactory.users;
 
       $scope.exclude = function (elem) {
          return !elem.role.match(/^(admin|editor)$/);
