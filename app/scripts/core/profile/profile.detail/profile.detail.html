@@ -2,7 +2,7 @@
    <div class="row">
       <h3 class="title text-center">{{ profileCtrl.user.username }}</h3>
       <hr class="dotted">
-      <img class="img-responsive center-block" src="{{ profileCtrl.user.profile_image }}" />
+      <img class="img-responsive center-block" ng-src="{{ profileCtrl.user.profile_image }}" />
       <br>
    </div>
    <div class="row" ng-if="profileCtrl.user.bio">

@@ -2,13 +2,17 @@
 
    'use strict';
 
-   function ProfileImageUploadModalController($scope, $rootScope, $uibModal, $modalInstance, ImagesFactory, images, userId) {
+   function ProfileImageUploadModalController($scope, $rootScope, $uibModal, $uibModalInstance, ImagesFactory, images, userId) {
       var vm = this;
 
-      vm.image = {};
       vm.images = images;
       vm.profileImage = '';
-
+      
+      vm.setProfileImage = function (imageUrl) {
+         vm.profileImage = imageUrl;
+         toastr.info(imageUrl, 'Issue cover image selected');
+      };
+      
       vm.uploadImage = function () {
          var image = {
             user_id: userId,
@@ -20,18 +24,24 @@
       };
 
       $scope.ok = function () {
-         $modalInstance.close(vm.profileImage);
-         console.log(vm.profileImage);
+         $uibModalInstance.close(vm.profileImage);
       };
 
       $scope.cancel = function () {
-         $modalInstance.dismiss('cancel');
+         $uibModalInstance.dismiss('cancel');
       };
+      
+      // pagination
+
+      $scope.pageChangeHandler = function () {};
+
+      $scope.currentPage = 1;
+
    }
    
    angular.module('lematClient.core.profile')
       .controller('ProfileImageUploadModalController', ProfileImageUploadModalController);
 
-   ProfileImageUploadModalController.$inject = ['$scope', '$rootScope', '$uibModal', '$modalInstance', 'ImagesFactory', 'images', 'userId'];
+   ProfileImageUploadModalController.$inject = ['$scope', '$rootScope', '$uibModal', '$uibModalInstance', 'ImagesFactory', 'images', 'userId'];
 
 })(angular);

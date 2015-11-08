@@ -2,11 +2,11 @@
 
    'use strict';
 
-   function ProfileController($scope, $rootScope, $uibModal, $location, $stateParams, AuthFactory, UsersFactory) {
+   function ProfileController($scope, $rootScope, $uibModal, $location, $stateParams, AuthFactory, UsersFactory, ServerUrl) {
       var vm = this;
 
       vm.master = {};
-
+      
       vm.getProfile = function () {
          UsersFactory.getUser($stateParams.profile).then(function () {
             vm.user = UsersFactory.user;
@@ -39,11 +39,10 @@
       // profile image upload modal
 
       function openImageUploadModal() {
-         vm.$modalInstance = $uibModal.open({
+         vm.$uibModalInstance = $uibModal.open({
             templateUrl: 'scripts/core/profile/profile.image-upload.modal/profile.image-upload.modal.html',
             controller: 'ProfileImageUploadModalController',
             controllerAs: 'profileImageUploadModalCtrl',
-//            windowClass: 'app-modal-window',
             size: 'lg',
             resolve: {
                images: function () {
@@ -55,7 +54,7 @@
             }
          });
 
-         vm.$modalInstance.result.then(function (profileImage) {
+         vm.$uibModalInstance.result.then(function (profileImage) {
             vm.user.profile_image = profileImage;
             vm.upsertProfile(vm.user);
          });
@@ -68,7 +67,6 @@
       vm.save = function (event, field, user) {
          vm.fields[field] = !vm.fields[field];
          vm.upsertProfile(user);
-         toastr.success('User updated successfully', 'Done');
       };
 
       vm.reset = function (event) {
@@ -85,6 +83,6 @@
    angular.module('lematClient.core.profile')
       .controller('ProfileController', ProfileController);
 
-   ProfileController.$inject = ['$scope', '$rootScope', '$uibModal', '$location', '$stateParams', 'AuthFactory', 'UsersFactory'];
+   ProfileController.$inject = ['$scope', '$rootScope', '$uibModal', '$location', '$stateParams', 'AuthFactory', 'UsersFactory', 'ServerUrl'];
 
 })(angular);

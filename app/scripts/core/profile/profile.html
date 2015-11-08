@@ -4,8 +4,10 @@
          <h3 class="title text-center"><a ng-click="profileCtrl.fields.editName = !profileCtrl.fields.editName" ng-show="!fields.editName">{{ profileCtrl.user.username }}</a></h3>
          <h3><input type="text" name="editName" class="title text-center" ng-model="profileCtrl.user.username" style="width: 100%" ng-keyup="reset($event, field)" ng-show="profileCtrl.fields.editName" ng-enter="save($event, 'editName', user)"></h3>
          <hr class="dotted">
-         <a ng-click="profileCtrl.openImageUploadModal()" uib-tooltip="click to change"><img class="img-responsive center-block" src="{{ profileCtrl.user.profile_image }}" />
-         </a>
+         <div class="profile-image">
+            <a ng-click="profileCtrl.openImageUploadModal()" uib-tooltip="click to change"><img class="img-responsive center-block" src="{{ profileCtrl.user.profile_image }}" height="455px" width="443.636px" />
+            </a>
+         </div>
          <br>
       </div>
       <div class="row">
@@ -17,7 +19,7 @@
       <div class="row" ng-if="profileCtrl.user.pieces.length > 0">
          <h4 class="title text-center">ISSUE PIECES</h4>
          <div ng-repeat="piece in profileCtrl.user.pieces">
-            <p class="text-center"><a ui-sref="main.issues-detail-piece({ id: piece.issued_id, piece: piece.title_url })">{{ piece.title | uppercase }}</a>
+            <p class="text-center"><a ui-sref="main.issues-detail-piece({ id: piece.issue_id, piece: piece.title_url })">{{ piece.title | uppercase }}</a>
             </p>
          </div>
       </div>
