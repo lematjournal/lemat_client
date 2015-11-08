@@ -38,7 +38,7 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
       'bower_components/angular-wysiwyg/src/angular-wysiwyg.js',
       'bower_components/angularUtils-disqus/dirDisqus.js',
-      'bower_components/angularUtils-pagination/dirPagination.js',
+      'bower_components/angular-utils-pagination/dirPagination.js',
       'bower_components/re-tree/re-tree.js',
       'bower_components/ng-device-detector/ng-device-detector.js',
       'bower_components/ng-tags-input/ng-tags-input.min.js',
