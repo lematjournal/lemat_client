@@ -2,10 +2,10 @@
 
    'use strict';
 
-   function PostsFactory($http, AuthFactory, ServerUrl) {
+   function PostsFactory($http, $localStorage, AuthFactory, ServerUrl) {
       var posts = [],
          post = {},
-         tags = [];
+         tags = $localStorage.tags;
 
       function resetPost() {
          angular.copy({}, post);
@@ -20,16 +20,19 @@
       function getPost(titleUrl) {
          return $http.get(ServerUrl + '/content/posts/' + titleUrl).then(function (response) {
             angular.copy(response.data, post);
-            console.log(post);
          });
       };
 
       function getTags() {
-         return $http.get(ServerUrl + '/content/tags/').then(function (response) {
-            angular.copy(response.data, tags);
+         var promise = $http.get(ServerUrl + '/content/tags/').then(function (response) {
+            $localStorage.tags = response.data;
+            $localStorage.tagsGrabDate = Date.now();
+            return tags;
          });
+         
+         return promise;
       };
-
+      
       function upsertPost(post) {
          var params = {
             post: {
@@ -86,6 +89,6 @@
    angular.module('lematClient.common.factories')
       .factory('PostsFactory', PostsFactory);
 
-   PostsFactory.$inject = ['$http', 'AuthFactory', 'ServerUrl'];
+   PostsFactory.$inject = ['$http', '$localStorage', 'AuthFactory', 'ServerUrl'];
 
 })(angular);
