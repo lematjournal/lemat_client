@@ -32,8 +32,7 @@
       vm.upsertPost = function (post) {
          if (AuthFactory.isAuthenticated()) {
             PostsFactory.upsertPost(post);
-            $location.path('/admin/posts');
-            $route.reload();
+            toastr.success('Post updated', 'Success');
          }
       };
 

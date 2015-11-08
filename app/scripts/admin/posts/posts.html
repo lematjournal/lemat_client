@@ -11,7 +11,7 @@
             <td>{{ ::post.title }}</a>
             </td>
             <td>{{ ::post.user.username }}</td>
-            <td><a class="btn btn-default" ui-sref="admin.posts-edit({ post: post.title_url })">Edit</a> <a class="btn btn-default" ng-click="vm.deletePost(post.id)">Delete</a>
+            <td><a class="btn btn-default" ui-sref="main.posts-detail({ post: post.title_url })">View</a> <a class="btn btn-default" ui-sref="admin.posts-edit({ post: post.title_url })">Edit</a> <a class="btn btn-default" ng-click="vm.deletePost(post.id)">Delete</a>
             </td>
          </tr>
       </table>

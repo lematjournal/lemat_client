@@ -11,7 +11,7 @@
             <td>{{ entry.title }}</td>
             <td>{{ entry.user.username }}</td>
             <td>
-               <a class="btn btn-default" ui-sref="admin.entries-edit({ entry: entry.title_url })">Edit</a> <a class="btn btn-default" ng-click="entriesAdminCtrl.deleteEntry(entry.id)">Delete</a>
+               <a class="btn btn-default" ui-sref="main.entries-detail({ entry: entry.title_url })">View</a> <a class="btn btn-default" ui-sref="admin.entries-edit({ entry: entry.title_url })">Edit</a> <a class="btn btn-default" ng-click="entriesAdminCtrl.deleteEntry(entry.id)">Delete</a>
             </td>
          </tr>
       </table>
