@@ -24,19 +24,23 @@
       }
 
       function getPostUsers() {
-         return $http.get(ServerUrl + '/users/post-users').then(function (response) {
+         var promise = $http.get(ServerUrl + '/users/post-users').then(function (response) {
             $localStorage.postUsers = response.data;
             $localStorage.postUsersGrabDate = Date.now();
+            return $localStorage.postUsers;
          });
+         
+         return promise;
       }
       
-      getPostUsers();
-
       function getIssueUsers() {
-         return $http.get(ServerUrl + '/users/issue-users').then(function (response) {
+         var promise = $http.get(ServerUrl + '/users/issue-users').then(function (response) {
             $localStorage.issueUsers = response.data;
             $localStorage.issueUsersGrabDate = Date.now();
+            return $localStorage.issueUsers;
          });
+         
+         return promise;
       }
 
       function getEditors() {

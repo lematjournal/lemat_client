@@ -245,7 +245,7 @@
    }]);
    
    angular.module('lematClient').run(['UsersFactory', '$localStorage', function (UsersFactory, $localStorage) {
-      if (!UsersFactory.issueUsers ) {
+      if (!UsersFactory.issueUsers) {
          console.log('no issue users, grabbing');
          UsersFactory.getIssueUsers();
       } else if (($localStorage.issueUsersGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60 * 72)) {
