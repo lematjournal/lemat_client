@@ -6,11 +6,15 @@
       var vm = this;
 
       $scope.$storage = $localStorage;
+      
+      if (!$scope.$storage.submission) {
+         $scope.$storage.submission = {};
+      }
 
       vm.submission = $scope.$storage.submission;
-      
+            
       vm.submission.attachments = [];
-
+      
       vm.doc = $scope.$storage.doc;
 
       vm.images = $scope.$storage.images;
