@@ -4,16 +4,18 @@
 
    'use strict';
 
-   function UsersController($scope, $rootScope, $uibModal, $location, $stateParams, AuthFactory, UsersFactory) {
+   function UsersController($scope, $rootScope, $uibModal, $location, $stateParams, AuthFactory, ImagesFactory, UsersFactory) {
       var vm = this;
       
       vm.master = {};
+      
+      vm.users = UsersFactory.users;
 
-      vm.getUsers = function () {
-         UsersFactory.getUsers().then(function () {
-            vm.users = UsersFactory.users;
-         });
-      };
+//      vm.getUsers = function () {
+//         UsersFactory.getUsers().then(function () {
+//            vm.users = UsersFactory.users;
+//         });
+//      };
 
       vm.getUser = function () {
          UsersFactory.getUser($stateParams.user).then(function () {
@@ -76,15 +78,15 @@
       // profile image upload modal
 
       function openImageUploadModal() {
-         $scope.$modalInstance = $uibModal.open({
-            templateUrl: 'scripts/admin/users/users.image-upload.modal/users.image-upload.modal.html',
-            controller: 'UsersImageUploadModalController',
-            controllerAs: 'usersImageUploadModalCtrl',
-            windowClass: 'app-modal-window',
+         vm.$uibModalInstance = $uibModal.open({
+            templateUrl: 'scripts/core/profile/profile.image-upload.modal/profile.image-upload.modal.html',
+            controller: 'ProfileImageUploadModalController',
+            controllerAs: 'profileImageUploadModalCtrl',
             size: 'lg',
             resolve: {
                images: function () {
-                  return vm.user.images;
+                  ImagesFactory.getImages();
+                  return ImagesFactory.images;
                },
                userId: function () {
                   return vm.user.id;
@@ -92,7 +94,7 @@
             }
          });
 
-         $scope.$modalInstance.result.then(function (profileImage) {
+         vm.$uibModalInstance.result.then(function (profileImage) {
             vm.user.profile_image = profileImage;
             vm.upsertUser(vm.user);
          });
@@ -105,6 +107,6 @@
    angular.module('lematClient.admin.users')
       .controller('UsersController', UsersController);
 
-   UsersController.$inject = ['$scope', '$rootScope', '$uibModal', '$location', '$stateParams', 'AuthFactory', 'UsersFactory'];
+   UsersController.$inject = ['$scope', '$rootScope', '$uibModal', '$location', '$stateParams', 'AuthFactory', 'ImagesFactory', 'UsersFactory'];
 
 })(angular);

@@ -3,7 +3,7 @@
       <h3 class="title text-center">{{ usersCtrl.user.username }}</h3>
       <hr>
       <div class="profile-image">
-         <a ng-click="usersCtrl.openImageUploadModal()" uib-tooltip="click to change"><img class="img-responsive center-block" src="{{ usersCtrl.user.profile_image || '' }}" height="455px" width="455px" />
+         <a ng-click="usersCtrl.openImageUploadModal()" uib-tooltip="click to change"><img class="img-responsive center-block" src="{{ usersCtrl.user.profile_image }}" height="455px" width="455px" />
          </a>
       </div>
       <br>
@@ -41,7 +41,7 @@
                      </div>
                   </div>
                   <div class="animate-switch" ng-switch-when="role">
-                     <div class="form-group" ng-if="isAdmin()">
+                     <div class="form-group">
                         <label for="role">Role</label>
                         <select class="form-control" ng-model="usersCtrl.user.role">
                            <option value="admin">admin</option>
@@ -96,9 +96,9 @@
                               <th>options</th>
                            </tr>
                            <tr ng-repeat="piece in usersCtrl.user.pieces | orderBy: 'order'">
-                              <th>{{ ::piece.title | cut:true: 25 }}</th>
-                              <th><a class="btn btn-default" href="#!/admin/issues/{{ ::piece.issue_id }}/{{ ::piece.title_url }}/edit">Edit</a> <a class="btn btn-default" href="#!/admin/issues/{{ ::piece.issue_id }}/{{ ::piece.title_url }}">Preview</a>
-                              </th>
+                              <td>{{ ::piece.title | cut:true: 25 }}</td>
+                              <td><a class="btn btn-default" ui-sref="main.issues-detail-piece({ id: piece.issue_id, piece: piece.title_url })">View</a> <a class="btn btn-default" ui-sref="admin.issues-edit-piece({ id: piece.issue_id, piece: piece.title_url })">Edit</a>
+                              </td>
                            </tr>
                   </table>
                </div>
@@ -111,9 +111,9 @@
                      <col style="width: 50%">
                         <col style="width: 50%">
                            <tr ng-repeat="post in usersCtrl.user.posts">
-                              <th>{{ ::post.title }}</th>
-                              <th><a class="btn btn-default" href="#!/admin/posts/{{ ::post.title_url }}/edit">Edit</a> <a class="btn btn-default" href="#!/online/{{ ::post.title_url }}">Preview</a>
-                              </th>
+                              <td>{{ ::post.title }}</td>
+                              <td><a class="btn btn-default" ui-sref="main.posts-detail({ post: post.title_url })">View</a> <a class="btn btn-default" ui-sref="admin.posts-edit({ post: post.title_url })">Edit</a>
+                              </td>
                            </tr>
                   </table>
                </div>
@@ -126,10 +126,10 @@
                      <col style="width: 50%">
                         <col style="width: 50%">
                            <tr ng-repeat="entry in usersCtrl.user.entries">
-                              <th>{{ ::entry.title }}</th>
-                              <th>
-                                 <a class="btn btn-default" href="#!/admin/entries/{{ ::entry.title_url }}/edit">Edit</a> <a class="btn btn-default" href="#!/entry/{{ ::entry.title_url }}">Preview</a>
-                              </th>
+                              <td>{{ ::entry.title }}</td>
+                              <td>
+                                <a class="btn btn-default" ui-sref="main.entries-detail({ entry: entry.title_url })">View</a> <a class="btn btn-default" ui-sref="admin.entries.edit({ entry: entry.title_url })">Edit</a>
+                              </td>
                            </tr>
                   </table>
                </div>
