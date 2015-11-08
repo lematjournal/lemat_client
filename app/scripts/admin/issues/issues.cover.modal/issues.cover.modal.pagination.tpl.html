@@ -1,0 +1,18 @@
+<div class="lightbox-nav row-centered">
+   <!-- close button -->
+   <button class="close" aria-hidden="true" ng-click="$parent.cancel()">×</button>
+
+   <div class="btn-group">
+      <a class="btn btn-xs btn-default" ng-class="{ disabled : pagination.current == 1 }" ng-click="setCurrent(pagination.current - 1)">
+        ‹ Previous
+      </a>
+
+      <a target="_blank" class="btn btn-xs btn-default" title="Open in new tab">
+        Open image in new tab
+      </a>
+
+      <a class="btn btn-xs btn-default" ng-class="{ disabled : pagination.current == pagination.last }" ng-click="setCurrent(pagination.current + 1)">
+        Next ›
+      </a>
+   </div>
+</div>

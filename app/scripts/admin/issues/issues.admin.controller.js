@@ -4,9 +4,7 @@
 
    function IssuesAdminController($scope, $rootScope, $stateParams, $location, $uibModal, AuthFactory, AS3Factory, IssuesFactory, ImagesFactory, PiecesFactory) {
       var vm = this;
-
-      vm.image = {};
-
+            
       vm.getIssues = function () {
          IssuesFactory.getIssues().then(function () {
             vm.issues = IssuesFactory.issues;
@@ -79,23 +77,29 @@
          ImagesFactory.uploadImage(image);
       };
 
-      vm.openImageManager = openImageManager;
-
          function openImageManager() {
-            $scope.$modalInstance = $uibModal.open({
+            $scope.$uibModalInstance = $uibModal.open({
                scope: $scope,
                templateUrl: 'scripts/admin/issues/issues.cover.modal/issues.cover.modal.html',
                controller: 'IssuesCoverModalController',
                controllerAs: 'issuesCoverModalCtrl',
-               windowClass: 'app-modal-window', 
-               size: 'lg'
+               size: 'lg',
+               resolve: {
+                  images: function () {
+                     ImagesFactory.getImages();
+                     return ImagesFactory.images;
+                  }
+               }
             });
 
-            $scope.$modalInstance.result.then(function (issueImage) {
+            $scope.$uibModalInstance.result.then(function (issueImage) {
                vm.issue.image_url = issueImage;
                vm.upsertIssue(vm.issue);
             });
          }
+      
+         vm.openImageManager = openImageManager;
+
 
    }
 

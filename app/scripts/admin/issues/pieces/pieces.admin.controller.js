@@ -33,10 +33,6 @@
 
       // methods for managing piece users
 
-      vm.removeUser = function (id) {
-         vm.piece.users.splice(findUserIndexById(id), 1);
-      };
-
       function findUserIndexById(id) {
          for (var i = 0; i < vm.piece.users.length; i++) {
             if (vm.piece.users[i].id === id) {
@@ -44,6 +40,10 @@
             }
          }
       }
+      
+      vm.removeUser = function (id) {
+         vm.piece.users.splice(findUserIndexById(id), 1);
+      };
 
       // user create modal for pieces
 

@@ -2,18 +2,14 @@
 
    'use strict';
 
-   function IssuesCoverModalController($scope, $rootScope, $modalInstance, ImagesFactory) {
+   function IssuesCoverModalController($scope, $rootScope, $uibModalInstance, ImagesFactory, images) {
       var vm = this;
-            
-      vm.getImages = function () {
-         ImagesFactory.getImages().then(function () {
-            vm.images = ImagesFactory.images;
-         });
-      };
-
+      
+      vm.images = images;
+      
       vm.setIssueImage = function (imageUrl) {
          vm.image_url = imageUrl;
-         toastr.info('Issue cover image selected', 'Selected');
+         toastr.info('Issue cover image selected', imageUrl);
       };
 
       vm.uploadImage = function () {
@@ -27,17 +23,24 @@
       };
 
       $scope.ok = function () {
-         $modalInstance.close(vm.image_url);
+         $uibModalInstance.close(vm.image_url);
       };
 
       $scope.cancel = function () {
-         $modalInstance.dismiss('cancel');
+         $uibModalInstance.dismiss('cancel');
       };
+      
+      // pagination
+
+      $scope.pageChangeHandler = function () {};
+
+      $scope.currentPage = 1;
+      
    }
    
    angular.module('lematClient.admin.issues')
       .controller('IssuesCoverModalController', IssuesCoverModalController);
 
-   IssuesCoverModalController.$inject = ['$scope', '$rootScope', '$modalInstance', 'ImagesFactory'];
+   IssuesCoverModalController.$inject = ['$scope', '$rootScope', '$uibModalInstance', 'ImagesFactory', 'images'];
 
 })(angular);
