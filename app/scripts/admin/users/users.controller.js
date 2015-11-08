@@ -11,12 +11,6 @@
       
       vm.users = UsersFactory.users;
 
-//      vm.getUsers = function () {
-//         UsersFactory.getUsers().then(function () {
-//            vm.users = UsersFactory.users;
-//         });
-//      };
-
       vm.getUser = function () {
          UsersFactory.getUser($stateParams.user).then(function () {
             vm.user = UsersFactory.user;
