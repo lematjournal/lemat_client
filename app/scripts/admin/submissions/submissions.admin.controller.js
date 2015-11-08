@@ -2,13 +2,13 @@
 
    'use strict';
 
-   function SubmissionsAdminController($scope, $filter, $uibModal, $rootScope, $stateParams, AuthFactory, SubFactory, UsersFactory) {
+   function SubmissionsAdminController($scope, $http, $filter, $q, $uibModal, $rootScope, $stateParams, AuthFactory, SubFactory, PostsFactory, UsersFactory, ServerUrl) {
       var vm = this;
-      
+
       AuthFactory.setUser();
-            
+
       vm.userId = AuthFactory.session.id;
-      
+
       vm.getEditors = function () {
          return UsersFactory.getEditors().then(function () {
             vm.editors = UsersFactory.editors;
@@ -19,31 +19,50 @@
          return new Array(num);
       };
 
-      vm.getSubmissions = function () {
-         SubFactory.getSubmissions().then(function () {
-            vm.submissions = SubFactory.submissions;
-            if (vm.submissions) {
-               vm.querySubmissions();
-            }
-         });
-      };
-
       vm.getSubmission = function () {
          SubFactory.getSubmission($stateParams.submission).then(function () {
             vm.submission = SubFactory.submission;
+            vm.getAttachmentHtml();
+         });
+      };
+
+      vm.getSubmissions = function () {
+         SubFactory.getSubmissions().then(function () {
+            vm.submissions = SubFactory.submissions;
          });
       };
       
-      vm.getSubmissions();
+      vm.getPendingSubmissions = function () {
+         SubFactory.getPendingSubmissions().then(function () {
+            vm.pendingSubmissions = SubFactory.pendingSubmissions;
+         });
+      };
+
+      vm.getCurrentSubmissions = function () {
+         SubFactory.getCurrentSubmissions().then(function () {
+            vm.currentSubmissions = SubFactory.currentSubmissions;
+            if (vm.currentSubmissions) {
+               vm.querySubmissions(vm.currentSubmissions);
+            }
+         });
+      };
       
-      vm.getEditors();
-                  
-      vm.querySubmissions = function () {
+      vm.upsertSubmission = function () {
+         SubFactory.upsertSubmission(vm.submission);
+      };
+
+      vm.getTags = function () {
+         PostsFactory.getTags().then(function () {
+            vm.tags = PostsFactory.tags;
+         });
+      };
+      
+      vm.querySubmissions = function (submissions) {
          $scope.disabled = [];
          // need to find a faster way to do this
-         for (var i = 0; vm.submissions.length > i; i++) {
-            for (var j = 0; vm.submissions[i].votes_array.length > j; j++) {
-               if (vm.submissions[i].votes_array[j].user_id === vm.userId && vm.submissions[i].votes_array[j].vote) {
+         for (var i = 0; submissions.length > i; i++) {
+            for (var j = 0; submissions[i].votes_array.length > j; j++) {
+               if (submissions[i].votes_array[j].user_id === vm.userId && submissions[i].votes_array[j].vote) {
                   $scope.disabled[i] = true;
                } else {
                   $scope.disabled[i] = false;
@@ -52,16 +71,17 @@
          }
       };
       
-      vm.getNewSubmissions = function () {
-        SubFactory.getNewSubmissions().then(function () {
-           vm.newSubmissions = SubFactory.newSubmissions;
-        }) 
-      };
-      
-      vm.getOldSubmissions = function () {
-        SubFactory.getOldSubmissions().then(function () {
-           vm.oldSubmissions = SubFactory.oldSubmissions;
-        }) 
+      vm.getAttachmentHtml = function () {
+         var deferred = $q.defer();
+         var link = {
+            submission: {
+               document: $filter('filterDocs')(vm.submission.attachments)[0]
+            }
+         };
+         deferred.resolve($http.post(ServerUrl + '/submissions/render-doc', link).then(function (response) {
+            vm.doc = response.data;
+         }));
+         return deferred.promise;
       };
 
       function submissionModal(submissionIndex) {
@@ -72,19 +92,18 @@
             size: 'lg',
             resolve: {
                submission: function () {
-                  return vm.submissions[submissionIndex];
+                  return vm.currentSubmissions[submissionIndex];
                }
             }
          });
 
          $scope.$modalInstance.result.then(function (submission) {
-            vm.submissions[submissionIndex] = submission;
-            vm.submissions[submissionIndex].push(vm.userId);
-            SubFactory.updateVotes(vm.submissions[submissionIndex]);
-            vm.querySubmissions();
+            vm.currentSubmissions[submissionIndex] = submission;
+            SubFactory.updateVotes(vm.currentSubmissions[submissionIndex]);
+            vm.querySubmissions(vm.currentSubmissions);
          });
       }
-      
+
       vm.submissionModal = function (index) {
          if ($scope.disabled[index] === true) {
             // do nothing
@@ -93,21 +112,15 @@
          }
       };
       
-      vm.getRounds = function () {
-         SubFactory.getRounds().then(function () {
-            vm.rounds = SubFactory.rounds;
-         })
+      vm.deleteSubmission = function (id) {
+         SubFactory.deleteSubmission(id);
       };
-      
-      vm.getRounds();
-      vm.getOldSubmissions();
-      vm.getNewSubmissions();
-   
+
    }
-   
+
    angular.module('lematClient.admin.submissions')
       .controller('SubmissionsAdminController', SubmissionsAdminController);
 
-   SubmissionsAdminController.$inject = ['$scope', '$filter', '$uibModal', '$rootScope', '$stateParams', 'AuthFactory', 'SubFactory', 'UsersFactory'];
-   
+   SubmissionsAdminController.$inject = ['$scope', '$http', '$filter', '$q', '$uibModal', '$rootScope', '$stateParams', 'AuthFactory', 'SubFactory', 'PostsFactory', 'UsersFactory', 'ServerUrl'];
+
 })(angular);

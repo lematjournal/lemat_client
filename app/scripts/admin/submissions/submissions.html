@@ -1,79 +1,97 @@
-<div class="container">
+<div class="container" ng-init="submissionsCtrl.getCurrentSubmissions();
+                                submissionsCtrl.getEditors();
+                                submissionsCtrl.getTags();
+                                submissionsCtrl.getPendingSubmissions()">
    <div class="row">
-      <h1>new submissions</h1>
+      <h1>pending submissions: {{ submissionsCtrl.pendingSubmissions.length }}</h1>
       <table class="table">
-         <col style="width: 13%">
-            <col style="width: 15%">
-               <col style="width: 10%">
-                  <col style="width: 23%">
-                     <col style="width: 30%">
-                        <tr>
-                           <th>sender</th>
-                           <th>uid</th>
-                           <th>total votes</th>
-                           <th>time remaining</th>
-                           <th>options</th>
-                        </tr>
-                        <tr ng-repeat="submission in submissionsCtrl.newSubmissions">
-                           <td>{{ ::submission.email_address }}</td>
-                           <td>{{ ::submission.uid }}</td>
-                           <td>{{ submission.votes }} out of {{ submissionsCtrl.editors.length }}</td>
-                           <td>
-                              <timer countdown="submission.end_date" max-time-unit="'day'" interval="1000" ng-if="submission.votes !== submissionsCtrl.editors.length">{{days}} day{{daysS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}</timer>
-                              <p ng-if="submission.votes === submissionsCtrl.editors.length">voting complete</p>
-                           </td>
-                           <td>
-                              <a class="btn btn-default" ui-sref="admin.submissions-detail({ submission: submission.uid })">view</a>
-                              <a class="btn btn-default" ng-class="{ disabled: submission.comments.length === 0 }" ui-sref-if="submission.comments.length > 0" ui-sref-val="admin.submissions-comments({ submission: submission.uid })">discussion</a>
-                              <a class="btn btn-default" ng-disabled="disabled[$index]" ng-click="submissionsCtrl.submissionModal($index)">Cast Vote</a>
-                           </td>
-                        </tr>
+         <tr>
+            <th>sender</th>
+            <th>uid</th>   
+            <th>options</th>
+         </tr>
+         <tr ng-repeat="submission in submissionsCtrl.pendingSubmissions">
+            <td>{{ ::submission.email_address }}</td>
+            <td>{{ ::submission.uid }}</td>
+            <td>
+               <a class="btn btn-default" ui-sref="admin.submissions-detail({ submission: submission.uid })">view</a>
+               <a class="btn btn-default" ui-sref="admin.submissions-edit({ submission: submission.uid })">edit</a>
+               <a class="btn btn-default" ng-click="submissionsCtrl.deleteSubmission(submission.id)">delete</a>
+            </td>
+         </tr>
       </table>
    </div>
    <div class="row">
-      <h1>submissions under consideration</h1>
+      <h1>current voting round: {{ submissionsCtrl.currentSubmissions[0].round_id }}</h1>
       <table class="table">
+         <col style="width: 4%">
          <col style="width: 13%">
-            <col style="width: 15%">
-               <col style="width: 10%">
-                  <col style="width: 23%">
-                     <col style="width: 30%">
-                        <tr>
-                           <th>sender</th>
-                           <th>uid</th>
-                           <th>total votes</th>
-                           <th>time remaining</th>
-                           <th>options</th>
-                        </tr>
-                        <tr ng-repeat="submission in submissionsCtrl.currentRound">
-                           <td>{{ ::submission.email_address }}</td>
-                           <td>{{ ::submission.uid }}</td>
-                           <td>{{ submission.votes }} out of {{ submissionsCtrl.editors.length }}</td>
-                           <td>
-                              <timer countdown="submission.end_date" max-time-unit="'day'" interval="1000" ng-if="submission.votes !== submissionsCtrl.editors.length">{{days}} day{{daysS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}</timer>
-                              <p ng-if="submission.votes === submissionsCtrl.editors.length">voting complete</p>
-                           </td>
-                           <td>
-                              <a class="btn btn-default" ui-sref="admin.submissions-detail({ submission: submission.uid })">view</a>
-                              <a class="btn btn-default" ng-class="{ disabled: submission.comments.length === 0 }" ui-sref-if="submission.comments.length > 0" ui-sref-val="admin.submissions-comments({ submission: submission.uid })">discussion</a>
-                              <a class="btn btn-default" ng-disabled="disabled[$index]" ng-click="submissionsCtrl.submissionModal($index)">Cast Vote</a>
-                           </td>
-                        </tr>
+         <col style="width: 15%">
+         <col style="width: 10%">
+         <col style="width: 20%">
+         <col style="width: 33%">
+         <tr>
+            <th>id</th>
+            <th>sender</th>
+            <th>uid</th>
+            <th>total votes</th>
+            <th>time remaining</th>
+            <th>options</th>
+         </tr>
+         <tr ng-repeat="submission in submissionsCtrl.currentSubmissions">
+            <td>{{ ::submission.id }}</td>
+            <td>{{ ::submission.email_address }}</td>
+            <td>{{ ::submission.uid }}</td>
+            <td>{{ submission.votes.total_votes }} out of {{ submissionsCtrl.editors.length }}</td>
+            <td>
+               <timer countdown="submission.end_date" max-time-unit="'day'" interval="1000" ng-if="submission.votes !== submissionsCtrl.editors.length">{{days}} day{{daysS}}, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}</timer>
+               <p ng-if="submission.votes === submissionsCtrl.editors.length">voting complete</p>
+            </td>
+            <td>
+               <a class="btn btn-default" ui-sref="admin.submissions-detail({ submission: submission.uid })">view</a>
+               <a class="btn btn-default" ng-class="{ disabled: submission.comments.length === 0 }" ui-sref="admin.submissions-comments({ submission: submission.uid })">discussion</a>
+               <a class="btn btn-default" ng-disabled="disabled[$index]" ng-click="submissionsCtrl.submissionModal($index)">Cast Vote</a>
+            </td>
+         </tr>
       </table>
    </div>
+<!--
+   <div class="row">
+   <table class="table">
+      <h1>accepted submissions</h1>
+         <tr>
+            <th>id</th>
+            <th>sender</th>
+            <th>uid</th>
+            <th>title</th>
+            <th>options</th>
+         </tr>
+         <tr ng-repeat="submission in submissionsCtrl.acceptedSubmissions">
+            <td>{{ submission.id }}</td>
+            <td>{{ submission.uid }}</td>
+            <td>{{ submission.title }}</td>
+         </tr>
+      </table>
+   </div>
+-->
+<!--
    <div class="row">
       <h1>previous rounds</h1>
       <table class="table">
          <tr>
-            <th>record</th>
+            <th>round</th>
             <th>created at</th>
-            <th>voters</th>
+            <th>accepted submissions</th>
+            <th>passed submissions</th>
          </tr>
          <tr ng-repeat="round in submissionsCtrl.rounds">
-            <td>{{ record.id }}</td>
-            <td>{{ record.created_at | date:'medium' }}</td>
+            <td>{{ round.id }}</td>
+            <td>{{ round.created_at | date:'medium' }}</td>
+            <td>{{ (round.submissions | filter: { accepted: true }).length }}</td>
+            <td>{{ (round.submissions | filter: { accepted: false }).length }}</td>
             <td><font ng-repeat="user in record.voters"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ user.username }}</font></td>
          </tr>
       </table>
    </div>
+-->
 </div>

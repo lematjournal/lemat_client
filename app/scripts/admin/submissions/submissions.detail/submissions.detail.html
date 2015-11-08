@@ -1,7 +1,16 @@
 <div class="content" ng-init="submissionsCtrl.getSubmission()">
    <div class="container">
       <div class="row">
-         <p ng-bind-html="submissionsCtrl.submission.email_content | to_trusted"></p>
+         <h3 class="title text-center">Uid</h3>
+         <h3>{{ submissionsCtrl.submission.uid }}</h3>
+         <h3 class="title text-center">Votes Array</h3>
+         <h3>{{ submissionsCtrl.submission.votes_array }}</h3>
+         <h3 class="title text-center">Round Id</h3>
+         <h3>{{ submissionsCtrl.submission.round_id }}</h3>
+      </div>
+      <div class="row">
+         <h3 class="title text-center">Submission</h3>
+         <p ng-bind-html="submissionsCtrl.doc"></p>
       </div>
       <div class="row row-centered" ng-repeat="attachment in submissionsCtrl.submission.attachments">
          <a class="btn btn-default" href="{{ attachment }}">download submission</a>

@@ -24,18 +24,17 @@
          vote: undefined,
          weight: AuthFactory.session.weight
       };
-
+      
       vm.incrementVotes = function (index) {
-         if (vm.submissions[index].votes_array[vm.submissions[index].length]) {
-            vm.submissions[index].votes++;
-         } else if (!vm.submissions[index].votes_array[vm.submissions[index].length]) {
-            vm.submissions[index].votes--;
+         if (vm.currentSubmissions[index].votes_array[vm.currentSubmissions[index].length]) {
+            vm.currentSubmissions[index].votes.total_votes++;
+         } else if (!vm.currentSubmissions[index].votes_array[vm.currentSubmissions[index].length]) {
+            vm.currentSubmissions[index].votes.total_votes--;
          }
       };
 
       $scope.ok = function () {
          SubFactory.upsertComment(vm.comment);
-         vm.submission.votes++;
          vm.submission.comments.push(vm.comment);
          $modalInstance.close(vm.submission);
          
