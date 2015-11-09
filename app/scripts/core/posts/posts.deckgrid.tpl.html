@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-   <div class="panel-heading" ng-if="card.post_type === 'text'"><a style="text-transform: uppercase" ui-sref="main.posts-detail({ post: post.title_url })">{{ card.title }}</a>
+   <div class="panel-heading" ng-if="card.post_type === 'text'"><a style="text-transform: uppercase" ui-sref="main.posts-detail({ post: card.title_url })">{{ card.title }}</a>
    </div>
    <div class="panel-body">
       <div class="video embed-responsive embed-responsive-16by9" ng-if="card.post_type === 'video'">
