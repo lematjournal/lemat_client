@@ -29,7 +29,7 @@
       
       $scope.$on('refresh', function () {
          $scope.$storage.submission = vm.submission;
-      })
+      });
       
       /**
        * Checks to see if localstorage has a submission object.

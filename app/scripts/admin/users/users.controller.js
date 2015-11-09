@@ -28,9 +28,9 @@
          });
       };
 
-      vm.upsertUser = function (user) {
+      vm.upsertUser = function () {
          if (AuthFactory.isAuthenticated() && !angular.equals(vm.user, vm.master)) {
-            UsersFactory.upsertUser(user).then(function () {
+            UsersFactory.upsertUser(vm.user).then(function () {
                toastr.success('User updated successfully', 'Done');
             });
          }

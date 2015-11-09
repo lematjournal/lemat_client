@@ -227,14 +227,14 @@
 
    angular.module('lematClient').run(['$rootScope', '$state', function ($rootScope, $state) {
       $rootScope.$on('$stateChangeStart', function (event, to, params) {
-//         console.log(event, to, params);
+         //         console.log(event, to, params);
          if (to.redirectTo) {
             event.preventDefault();
             $state.go(to.redirectTo, params);
          }
       });
    }]);
-   
+
    angular.module('lematClient').run(['$rootScope', '$window', function ($rootScope, $window) {
       var window = angular.element($window);
       window.on('beforeunload', function (event) {
@@ -243,45 +243,47 @@
          $rootScope.$broadcast('refresh');
       });
    }]);
-   
-   angular.module('lematClient').run(['$localStorage', 'PostsFactory', 'UsersFactory', function ($localStorage, PostsFactory, UsersFactory) {      
-      if (!UsersFactory.users) {
-         UsersFactory.getUsers();
-      } else if (($localStorage.usersGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60 * 72)) {
-         UsersFactory.getUsers();
-      }
-      
-      if (!PostsFactory.tags) {
-         PostsFactory.getTags();
-      } else if (($localStorage.tagsGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60)) {
-        PostsFactory.getTags();
-      }                    
+
+   angular.module('lematClient').run(['$localStorage', 'PostsFactory', 'UsersFactory', 'ServerUrl', function ($localStorage, PostsFactory, UsersFactory, ServerUrl) {
+      (function () {
+         if (!UsersFactory.users) {
+            UsersFactory.getUsers();
+         } else if (($localStorage.usersGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60 * 72)) {
+            UsersFactory.getUsers();
+         }
+
+         if (!PostsFactory.tags) {
+            PostsFactory.getTags();
+         } else if (($localStorage.tagsGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60)) {
+            PostsFactory.getTags();
+         }
+      })();
    }]);
 
-//   angular.module('lematClient').run(['$rootScope', '$log', function ($rootScope, $log) {
-//      $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-//         $log.debug('successfully changed states');
-//
-//         $log.debug('event', event);
-//         $log.debug('toState', toState);
-//         $log.debug('toParams', toParams);
-//         $log.debug('fromState', fromState);
-//         $log.debug('fromParams', fromParams);
-//      });
-//
-//      $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
-//         $log.error('The requested state was not found: ', unfoundState);
-//      });
-//
-//      $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-//         $log.error('An error occured while changing states: ', error);
-//
-//         $log.debug('event', event);
-//         $log.debug('toState', toState);
-//         $log.debug('toParams', toParams);
-//         $log.debug('fromState', fromState);
-//         $log.debug('fromParams', fromParams);
-//      });
-//         }]);
+   //   angular.module('lematClient').run(['$rootScope', '$log', function ($rootScope, $log) {
+   //      $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+   //         $log.debug('successfully changed states');
+   //
+   //         $log.debug('event', event);
+   //         $log.debug('toState', toState);
+   //         $log.debug('toParams', toParams);
+   //         $log.debug('fromState', fromState);
+   //         $log.debug('fromParams', fromParams);
+   //      });
+   //
+   //      $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
+   //         $log.error('The requested state was not found: ', unfoundState);
+   //      });
+   //
+   //      $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+   //         $log.error('An error occured while changing states: ', error);
+   //
+   //         $log.debug('event', event);
+   //         $log.debug('toState', toState);
+   //         $log.debug('toParams', toParams);
+   //         $log.debug('fromState', fromState);
+   //         $log.debug('fromParams', fromParams);
+   //      });
+   //         }]);
 
 })(angular);

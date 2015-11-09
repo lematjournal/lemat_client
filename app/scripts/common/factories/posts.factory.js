@@ -9,19 +9,19 @@
 
       function resetPost() {
          angular.copy({}, post);
-      };
+      }
 
       function getPosts() {
          return $http.get(ServerUrl + '/content/posts/').then(function (response) {
             angular.copy(response.data, posts);
          });
-      };
+      }
 
       function getPost(titleUrl) {
          return $http.get(ServerUrl + '/content/posts/' + titleUrl).then(function (response) {
             angular.copy(response.data, post);
          });
-      };
+      }
 
       function getTags() {
          var promise = $http.get(ServerUrl + '/content/tags/').then(function (response) {
@@ -31,7 +31,7 @@
          });
          
          return promise;
-      };
+      }
       
       function upsertPost(post) {
          var params = {
@@ -46,8 +46,6 @@
             }
          };
 
-         console.log(params);
-
          if (post.id) {
             return $http.patch(ServerUrl + '/content/posts/' + post.id, params).then(function (response) {
                console.log(response);
@@ -57,7 +55,7 @@
                console.log(response);
             });
          }
-      };
+      }
 
       function findPostIndexById(id) {
          for (var i = 0; i < posts.length; i++) {
@@ -65,13 +63,13 @@
                return i;
             }
          }
-      };
+      }
 
       function deletePost(id) {
          return $http.delete(ServerUrl + '/content/posts/' + id).then(function () {
             posts.splice(findPostIndexById(id), 1);
          });
-      };
+      }
 
       return {
          getPosts: getPosts,

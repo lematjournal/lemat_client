@@ -4,6 +4,8 @@
 
    function EntriesAdminController($scope, $stateParams, $location, $uibModal, AuthFactory, EntryFactory) {
       var vm = this;
+      
+      vm.entry = {};
 
       vm.identifier = $stateParams.entry;
 
@@ -38,7 +40,7 @@
       // user modal
 
       $scope.openUserModal = function () {
-         $scope.$modalInstance = $uibModal.open({
+         $scope.$uibModalInstance = $uibModal.open({
             scope: $scope,
             templateUrl: 'scripts/admin/users/users.create.modal/users.create.modal.html',
             controller: 'UsersController',

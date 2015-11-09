@@ -17,25 +17,25 @@
             angular.copy(modifiedResponse, currentSubmissions);
             console.log(currentSubmissions);
          });
-      };
+      }
 
       function getPendingSubmisions() {
          return $http.get(ServerUrl + '/voting/pending-submissions').then(function (response) {
             angular.copy(response.data, pendingSubmissions);
          });
-      };
+      }
 
       function getSubmissions() {
          return $http.get(ServerUrl + '/submissions/').then(function (response) {
             angular.copy(response.data, submissions);
          });
-      };
+      }
 
       function getSubmission(uid) {
          return $http.get(ServerUrl + '/submissions/' + uid).then(function (response) {
             angular.copy(response.data, submission);
          });
-      };
+      }
 
       function upsertSubmission(submission) {
          var params = {
@@ -58,7 +58,7 @@
                angular.copy(response.data, submission);
             });
          }
-      };
+      }
 
       function upsertComment(commentHash) {
          var params = {
@@ -68,7 +68,7 @@
             angular.copy(response.data, comment);
             console.log('comment: ', comment);
          });
-      };
+      }
 
       function updateVotes(submission) {
          var params = {
@@ -81,7 +81,7 @@
          return $http.patch(ServerUrl + '/submissions/' + submission.id, params).then(function (response) {
             angular.copy(response.data, submission);
          });
-      };
+      }
 
       function setDates(responseData) {
          var newData = [];
@@ -103,13 +103,13 @@
             angular.copy(response.data, rounds);
             console.log(rounds);
          });
-      };
+      }
 
       function deleteSubmission(id) {
          return $http.delete(ServerUrl + '/submissions/' + id).then(function () {
             pendingSubmissions.splice(findSubmissionIndexById(id), 1);
          });
-      };
+      }
 
       function findSubmissionIndexById(id) {
          for (var i = 0; i < pendingSubmissions.length; i++) {
@@ -117,7 +117,7 @@
                return i;
             }
          }
-      };
+      }
 
       return {
          currentSubmissions: currentSubmissions,

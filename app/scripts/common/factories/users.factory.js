@@ -50,6 +50,7 @@
       }
 
       function upsertUser(user) {
+         console.log(user);
          var params = {
             user: {
                email: user.email,

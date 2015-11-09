@@ -4,11 +4,11 @@
          <label for="name">Title</label>
          <input type="text" ng-model="entriesAdminCtrl.entry.title" id="title" class="form-control" placeholder="title" required>
       </div>
-      <div class="form-group" ng-controller="UsersController as userCtrl" ng-init="userCtrl.getUsers()">
+      <div class="form-group" ng-controller="UsersController as usersCtrl">
          <label for="user">Author: </label>{{ ::entriesAdminCtrl.entry.user.username }}
          <div class="input-group">
             <span class="input-group-addon" id="user-addon"><a ng-click="openUserModal()">Create user</a></span>
-            <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="user.users" search-fields="username" title-field="username" minlength="1" input-class="form-control" aria-describedby="user-addon" />
+            <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="usersCtrl.users" search-fields="username" title-field="username" minlength="1" input-class="form-control" aria-describedby="user-addon" />
          </div>
       </div>
       <div class="form-group">

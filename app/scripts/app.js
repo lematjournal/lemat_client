@@ -11,7 +11,7 @@
 
    angular.module('lematClient.common.constants', []);
 
-   angular.module('lematClient.common.directives', ['ngTouch', 'ui.bootstrap', 'duScroll', 'wysiwyg.module', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'angucomplete-alt', 'ngTagsInput', 'validation.match', 'akoenig.deckgrid', 'bootstrapColumnsSameHeight', 'socialLinks', 'youtube-embed', 'slugifier', 'timer', 'ngStorage']);
+   angular.module('lematClient.common.directives', ['ngTouch', 'ui.bootstrap', 'duScroll', 'wysiwyg.module', 'angularUtils.directives.dirPagination', 'angularUtils.directives.dirDisqus', 'angucomplete-alt', 'ngTagsInput', 'validation.match', 'akoenig.deckgrid', 'bootstrapColumnsSameHeight', 'socialLinks', 'youtube-embed', 'slugifier', 'timer', 'ngStorage', 'truncate']);
 
    angular.module('lematClient.common.factories', []);
 
