@@ -7,10 +7,6 @@
 
       $scope.$storage = $localStorage;
 
-      vm.submission = $scope.$storage.submission;
-
-      vm.submission.attachments = [];
-
       vm.doc = $scope.$storage.doc;
 
       vm.images = $scope.$storage.images;
@@ -38,6 +34,9 @@
       function setStorage() {
          if (!$scope.$storage.submission) {
             $scope.$storage.submission = {};
+            $scope.$storage.submission.attachments = [];
+            vm.submission = $scope.$storage.submission;
+            vm.submission.attachments = $scope.$storage.submission.attachments;
          }
       }
       
