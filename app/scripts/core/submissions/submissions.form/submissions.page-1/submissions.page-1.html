@@ -24,11 +24,10 @@
       </div>
    </section>
 </div>
-<div class="row" ng-init="submissionsCtrl.getTags()">
+<div class="row">
    <h2 class="title text-center">Info</h2>
    <hr>
    <form name="infoForm">
-      <div ng-init="submissionsCtrl.setForm(infoForm)"></div>
       <div class="form-group">
          <label for="name">Title</label>
          <input type="text" name="title" ng-model="submissionsCtrl.submission.title" id="title" class="form-control" required>
@@ -62,8 +61,8 @@
       <div class="form-group">
          <label for="content">Description†††</label>
          <br>
-         <label class="text-muted"><i>†††in a short message to the editors describe your work and include anything else you'd like to let us know</i></label>
-         <wysiwyg textarea-id="question" textarea-class="form-control" textarea-height="200px" textarea-name="description" textarea-required ng-model="submissionsCtrl.submission.email_content" textarea-menu="customMenu"></wysiwyg>
+         <label class="text-muted"><i>†††in a short message to the editors describe your work, how you would like it shown and anything else you'd like to let us know</i></label>
+         <wysiwyg textarea-id="description" textarea-class="form-control" textarea-height="200px" textarea-name="description" textarea-required ng-model="submissionsCtrl.submission.email_content" textarea-menu="customMenu"></wysiwyg>
       </div>
    </form>
    <hr class="dotted">
