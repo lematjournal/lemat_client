@@ -7,8 +7,6 @@
 
       $scope.$storage = $localStorage;
 
-      vm.images = $scope.$storage.images;
-
       vm.tags = PostsFactory.tags;
 
       $scope.imagePopover = {
@@ -24,28 +22,84 @@
       $scope.$on('refresh', function () {
          $scope.$storage.submission = vm.submission;
          $scope.$storage.doc = vm.doc;
+         $scope.$storage.images = vm.images;
       });
 
       /**
        * Checks to see if localstorage has a submission object.
-       * If it doesn't it creates it so the following methods don't error out
+       * If it doesn't it creates it so the below methods don't error out
        */
       function setStorage() {
          if (!$scope.$storage.submission) {
             $scope.$storage.submission = {};
             $scope.$storage.submission.attachments = [];
             $scope.$storage.doc = {};
+            $scope.$storage.images = [];
          }
          vm.doc = $scope.$storage.doc;
          vm.submission = $scope.$storage.submission;
          vm.submission.attachments = $scope.$storage.submission.attachments;
+         vm.images = $scope.$storage.images;
+         vm.attachment = {};
       }
 
       setStorage();
 
       /**
+       * Utility method to reset submission.
+       */
+      
+      function resetSubmission() {
+         delete $scope.$storage.submission;
+         delete $scope.$storage.submission.attachments;
+         delete $scope.$storage.doc;
+         delete $scope.$storage.images;
+         vm.doc = $scope.$storage.doc;
+         vm.submission = $scope.$storage.submission;
+         vm.submission.attachments = $scope.$storage.submission.attachments;
+         vm.images = $scope.$storage.images;
+      }
+      
+      /**
+       * Utility method to clear all attachments by resetting local storage.
+       */
+      function resetAttachments() {
+         $scope.$storage.submission.attachments = [];
+         vm.submission.attachments = $scope.$storage.submission.attachments;
+         $scope.$storage.doc = {};
+         vm.doc = $scope.$storage.doc;
+         $scope.$storage.images = [];
+         vm.images = $scope.$storage.images;
+      }
+      
+      $scope.$watch(function () {
+         return vm.submission.submission_type;
+      }, function (val, newVal) {
+         if (val !== newVal) {
+            if (vm.submission.attachments.length > 0) {
+               resetAttachments();
+               toastr.info('Resetting attachments', 'Submission type changed');
+            }
+         }
+      });
+
+      /**
+       * Submits video link. If there is already a link
+       * it clears the attachment array and pushes the new link.
+       */
+      vm.submitVideo = function () {
+         if (vm.submission.attachments.length === 0) {
+            vm.submission.attachments.push(vm.submission.link);
+         } else {
+            vm.submission.attachments[0] = vm.submission.link;
+         }
+         toastr.info('', 'Video submitted');
+      };
+
+      /**
        * Uploads a document or image file.
        * If its a document it converts it html.
+       * Note: this is dropped into the fileSelect directive
        */
       $scope.uploadFile = function () {
          toastr.success('Success', 'File Uploaded'); // todo: add error clause for fileselect directive
@@ -114,6 +168,7 @@
          $scope.$storage.submission.attachments = [];
          $scope.$storage.doc = {};
          vm.doc = $scope.$storage.doc;
+         vm.submission.attachments = $scope.$storage.submission.attachments;
       };
 
       /**
@@ -157,6 +212,12 @@
          return deferred.promise;
       };
 
+      /**
+       * Posts an Html string to the back-end to convert it to a ".docx" file
+       * @param   {String} htmlString  Html string taken from vm.doc
+       * @param   {String} fileName  randomly generated unique filename
+       * @returns {String} Amazon S3 key of the uploaded file
+       */
       vm.convertHtmlToDocx = function (htmlString, fileName) {
          var params = {
             submission: {
@@ -164,10 +225,12 @@
                title: fileName
             }
          };
-         
+
          var deferred = $q.defer();
          $http.post(ServerUrl + '/submissions/convert-doc', params).then(function (response) {
             deferred.resolve(response);
+         }, function (errors) {
+            deferred.reject(errors);
          });
          return deferred.promise;
       };
@@ -184,9 +247,20 @@
             $state.go('main.submissions-thank-you');
          }, function (response) {
             console.log('error: ', response);
+            angular.forEach(response.data, function (obj, key) {
+               if (key === 'email_content') {
+                  toastr.error('Description ' + obj[0], 'Error');
+               }
+            });
          });
       };
 
+      /**
+       * Utility method for iterating through attachment array.
+       * @param   {Number} id id of the file being searched for 
+       * @returns {Object}  file if it is in the attachment array
+       */
+      
       function findFileIndexById(id) {
          for (var i = 0; i < vm.submission.attachments.length; i++) {
             if (vm.submission.attachments[i].id === id) {
