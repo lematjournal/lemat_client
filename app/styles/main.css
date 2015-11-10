@@ -1,3 +1,5 @@
+/* to do: break up this effing file */
+
 body {
    font-family: 'Arial', sans-serif;
    padding-top: 50px;
@@ -581,7 +583,7 @@ p {
 }
 
 .video {
-   margin: -16px -15.5px -20px;
+   margin: -16px -16px -20px;
 }
 
 .panel-footer {
@@ -593,7 +595,7 @@ p {
    width: 100%;   
 }
 
-.tags {
+.tags-meta {
    display: table-cell;
    text-transform: uppercase;
    border-right: 1px solid #ddd;
@@ -873,7 +875,7 @@ span.round-tab:hover {
 }
 
 .popover-image {
-   margin: -20px 0px -9px -15px;
+   margin: -11px 0px -12px -15px;
 }
 
 /* centered columns styles */
