@@ -37,7 +37,7 @@
    <form name="uploadForm" ng-show="submissionsCtrl.submission.submission_type !== 'video'">
       <p class="text-center" ng-show="submissionsCtrl.submission.submission_type !== 'image'">Please upload a document with your written work.
          <br> You can revise your work before submitting by clicking the "edit attachment" button below.
-         <br> You can also copy and paste your submission by clicking the "copy and paste document" button below.</p>
+         <br> You can also copy and paste your submission by clicking "edit attachment" and pasting it in the text editor.</p>
       <p class="text-center" ng-show="submissionsCtrl.submission.submission_type === 'image'">Upload any image files you wish to include in your submission.
          <br> You can also upload a document containing any text you would like accompanying your text.
          <br> If you would like the images and text displayed in a specific way,
@@ -85,16 +85,13 @@
          <button type="button" uploadfile class="btn btn-default btn-block"><i class="glyphicon glyphicon-cloud-upload"></i> Select file to upload</button>
       </div>
       <div class="form-group">
-         <button type="button" class="btn btn-default btn-block" ng-click="$parent.showEdit = !$parent.showEdit"><i class="glyphicon glyphicon-copy"></i> Copy and Paste Document</button>
-      </div>
-      <div class="form-group">
-         <button type="button" ng-disabled="!submissionsCtrl.doc" ng-click="$parent.showEdit = !$parent.showEdit; submissionsCtrl.getAttachmentHtml()" class="btn btn-default btn-block"><i class="
+         <button type="button" ng-click="$parent.showEdit = !$parent.showEdit" class="btn btn-default btn-block"><i class="
 glyphicon glyphicon-text-size"></i>Edit Attachment</button>
       </div>
       <div class="form-group">
          <button type="button" ng-disabled="submissionsCtrl.submission.attachments.length === 0" class="btn btn-default btn-block" ng-click="submissionsCtrl.clearAttachments()"><i class="glyphicon glyphicon-erase"></i> Clear Attachments</button>
       </div>
-      <div class="form-group" ng-show="showEdit || submissionsCtrl.doc">
+      <div class="form-group" ng-show="showEdit || submissionsCtrl.doc.length > 0">
          <label>Edit Document</label>
          <br>
          <label class="text-muted"><i>note: when editing your attachment some styles and elements like footnotes or list items may have to be manually formatted (this is a beta feature)</i></label>
