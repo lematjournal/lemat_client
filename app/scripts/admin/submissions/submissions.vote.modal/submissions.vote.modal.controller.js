@@ -2,7 +2,7 @@
 
    'use strict';
 
-   function SubmissionsVoteModalController($scope, $rootScope, $modalInstance, AuthFactory, SubFactory, submission) {
+   function SubmissionsVoteModalController($scope, $rootScope, $uibModalInstance, AuthFactory, SubFactory, submission) {
       var vm = this;
       
       AuthFactory.setUser();
@@ -36,13 +36,13 @@
       $scope.ok = function () {
          SubFactory.upsertComment(vm.comment);
          vm.submission.comments.push(vm.comment);
-         $modalInstance.close(vm.submission);
+         $uibModalInstance.close(vm.submission);
          
       };
 
       $scope.cancel = function () {
          vm.submission = submission;
-         $modalInstance.dismiss('cancel');
+         $uibModalInstance.dismiss('cancel');
       };
 
       $scope.customMenu = [
@@ -57,6 +57,6 @@
    angular.module('lematClient.admin.submissions')
       .controller('SubmissionsVoteModalController', SubmissionsVoteModalController);
 
-   SubmissionsVoteModalController.$inject = ['$scope', '$rootScope', '$modalInstance', 'AuthFactory', 'SubFactory', 'submission'];
+   SubmissionsVoteModalController.$inject = ['$scope', '$rootScope', '$uibModalInstance', 'AuthFactory', 'SubFactory', 'submission'];
 
 })(angular);
