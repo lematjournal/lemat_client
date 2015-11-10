@@ -7,13 +7,13 @@
       var emails = [],
          email = {};
 
-      var getEmails = function () {
+      function getEmails() {
          return $http.get(ServerUrl + '/emails/').then(function (response) {
             angular.copy(response.data, emails);
          });
       };
 
-      var getEmail = function (id) {
+      function getEmail(id) {
          return $http.get(ServerUrl + '/emails/' + id).then(function (response) {
             angular.copy(response.data, email);
          });
