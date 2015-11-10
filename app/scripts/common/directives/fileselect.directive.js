@@ -42,7 +42,7 @@
          });
       }
    }
-   
+
    angular.module('lematClient.common.directives')
       .directive('fileSelect', fileSelect);
 

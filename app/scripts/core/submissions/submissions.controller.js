@@ -22,8 +22,8 @@
       $scope.showEdit = false;
 
       $scope.$on('refresh', function () {
-//         $scope.$storage.submission = vm.submission;
-//         $scope.$storage.doc = vm.doc;
+         $scope.$storage.submission = vm.submission;
+         $scope.$storage.doc = vm.doc;
       });
 
       /**
@@ -48,6 +48,7 @@
        * If its a document it converts it html.
        */
       $scope.uploadFile = function () {
+         toastr.success('Success', 'File Uploaded'); // todo: add error clause for fileselect directive
          // check and see if the file is an image
          if ((/\.(gif|jpg|jpeg|tiff|png)$/i).test(vm.attachment)) {
             var image = {
@@ -147,9 +148,12 @@
                document: $filter('filterDocs')(vm.submission.attachments)[0]
             }
          };
-         deferred.resolve($http.post(ServerUrl + '/submissions/render-doc', params).then(function (response) {
+         $http.post(ServerUrl + '/submissions/render-doc', params).then(function (response) {
             vm.doc = response.data;
-         }));
+            deferred.resolve(vm.doc);
+         }, function (errors) {
+            deferred.reject(errors);
+         });
          return deferred.promise;
       };
 
