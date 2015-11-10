@@ -85,7 +85,7 @@
       };
 
       function submissionModal(submissionIndex) {
-         $scope.$modalInstance = $uibModal.open({
+         $scope.$uibModalInstance = $uibModal.open({
             templateUrl: 'scripts/admin/submissions/submissions.vote.modal/submissions.vote.modal.html',
             controller: 'SubmissionsVoteModalController',
             controllerAs: 'submissionsVoteModalCtrl',
@@ -97,7 +97,7 @@
             }
          });
 
-         $scope.$modalInstance.result.then(function (submission) {
+         $scope.$uibModalInstance.result.then(function (submission) {
             vm.currentSubmissions[submissionIndex] = submission;
             SubFactory.updateVotes(vm.currentSubmissions[submissionIndex]);
             vm.querySubmissions(vm.currentSubmissions);
