@@ -48,12 +48,11 @@
       /**
        * Utility method to reset submission.
        */
-      
       function resetSubmission() {
-         delete $scope.$storage.submission;
-         delete $scope.$storage.submission.attachments;
-         delete $scope.$storage.doc;
-         delete $scope.$storage.images;
+         $scope.$storage.submission = {};
+         $scope.$storage.submission.attachments = [];
+         $scope.$storage.doc = {};
+         $scope.$storage.images = [];
          vm.doc = $scope.$storage.doc;
          vm.submission = $scope.$storage.submission;
          vm.submission.attachments = $scope.$storage.submission.attachments;
@@ -65,23 +64,25 @@
        */
       function resetAttachments() {
          $scope.$storage.submission.attachments = [];
-         vm.submission.attachments = $scope.$storage.submission.attachments;
          $scope.$storage.doc = {};
-         vm.doc = $scope.$storage.doc;
          $scope.$storage.images = [];
+         vm.submission.attachments = $scope.$storage.submission.attachments;
+         vm.doc = $scope.$storage.doc;
          vm.images = $scope.$storage.images;
       }
       
       $scope.$watch(function () {
          return vm.submission.submission_type;
       }, function (val, newVal) {
-         if (val !== newVal) {
+         if (val !== newVal && $state.current !== 'main.submissions-thank-you') {
             if (vm.submission.attachments.length > 0) {
                resetAttachments();
                toastr.info('Resetting attachments', 'Submission type changed');
             }
          }
       });
+      
+      console.log($state);
 
       /**
        * Submits video link. If there is already a link
@@ -124,6 +125,7 @@
                   }
                }
             }
+            toastr.info('', 'Generating Preview...');
             vm.convertDocxToHtml();
          }
       };
@@ -205,11 +207,24 @@
          };
          $http.post(ServerUrl + '/submissions/render-doc', params).then(function (response) {
             vm.doc = response.data;
+            toastr.success('You can edit your submission in the browser.', 'Preview Generated');
             deferred.resolve(vm.doc);
          }, function (errors) {
+            console.log(errors);
+            console.log(typeof vm.doc);
             deferred.reject(errors);
+            toastr.info('This happens when the file format contains irregular data, we\'re working on being able to generate previews in all cases.', 'Could not generate preview');
          });
          return deferred.promise;
+      };
+      
+      /**
+       * Method to evaluate if vm.doc has been populated with a preview.
+       * Called on the view to determine whether the 'preview document' div appears.
+       * @returns {Boolean} true if the preview string was generated, otherwise false
+       */
+      vm.evaluateDoc = function () {
+         return typeof vm.doc === 'string';
       };
 
       /**
@@ -241,9 +256,7 @@
        */
       vm.postSubmission = function () {
          SubFactory.upsertSubmission(vm.submission).then(function (response) {
-            console.log(response);
-            delete $scope.$storage.doc;
-            delete $scope.$storage.submission;
+            resetSubmission();
             $state.go('main.submissions-thank-you');
          }, function (response) {
             console.log('error: ', response);
@@ -260,7 +273,6 @@
        * @param   {Number} id id of the file being searched for 
        * @returns {Object}  file if it is in the attachment array
        */
-      
       function findFileIndexById(id) {
          for (var i = 0; i < vm.submission.attachments.length; i++) {
             if (vm.submission.attachments[i].id === id) {

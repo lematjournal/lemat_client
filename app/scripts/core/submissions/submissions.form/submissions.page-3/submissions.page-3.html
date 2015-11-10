@@ -103,7 +103,7 @@
    </div>
    <hr>
 -->
-   <div class="row" ng-show="submissionsCtrl.submission.submission_type === 'text'">
+   <div class="row" ng-show="submissionsCtrl.submission.submission_type === 'text' && submissionsCtrl.evaluateDoc()">
       <h2 class="title text-center">Document Preview</h2>
       <hr>
       <h4 class="title text-center">{{ submissionsCtrl.submission.title }}</h4>
