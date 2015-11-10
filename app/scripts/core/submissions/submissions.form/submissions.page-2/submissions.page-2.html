@@ -26,6 +26,7 @@
 </div>
 <div class="row">
    <h2 class="title text-center">Upload</h2>
+   <hr>
    <form name="linkForm" ng-show="submissionsCtrl.submission.submission_type === 'video'">
       <p class="text-center" ng-show="submissionsCtrl.submission.submission_type !== 'image'">Please upload your submission to YouTube and provide a link below</p>
       <div class="form-group">
@@ -51,11 +52,11 @@
             </tr>
             <tr ng-repeat="attachment in submissionsCtrl.submission.attachments | filterImages">
                <td>
-                  <a uib-popover-template="imagePopover.templateUrl" popover-placement="right"><img src="{{ attachment.image_url }}" height="50px" width="50px" /></a>
+                  <a uib-popover-template="imagePopover.templateUrl" popover-placement="right"><img ng-src="{{ attachment.image_url }}" height="50px" width="50px" /></a>
                </td>
                <script type="text/ng-template" id="image-popover.template.html">
                   <div class="text-center profile-image">
-                     <img class="popover-image" src="{{ attachment.image_url }}" height="50%" width="499px" />
+                     <img class="popover-image" ng-src="{{ attachment.image_url }}" height="50%" width="499px" />
                   </div>
                </script>
                <td><a uib-popover="{{ attachment.image_url }}" popover-placement="right">{{ attachment.image_url | cut:true:30 }}</a></td>
@@ -66,7 +67,7 @@
          </table>
          <p>*click to preview image</p>
       </div>
-      <div class="form-group" ng-show="submissionsCtrl.doc || submissonsCtrl.submission.attachments.length > 0">
+      <div class="form-group" ng-show="submissionsCtrl.doc && submissonsCtrl.submission.attachments.length > 0">
          <table class="table">
             <label>Attached Document</label>
             <tr>
@@ -93,7 +94,7 @@ glyphicon glyphicon-text-size"></i>Edit Attachment</button>
       <div class="form-group">
          <button type="button" ng-disabled="submissionsCtrl.submission.attachments.length === 0" class="btn btn-default btn-block" ng-click="submissionsCtrl.clearAttachments()"><i class="glyphicon glyphicon-erase"></i> Clear Attachments</button>
       </div>
-      <div class="form-group" ng-show="showEdit">
+      <div class="form-group" ng-show="showEdit || submissionsCtrl.doc">
          <label>Edit Document</label>
          <br>
          <label class="text-muted"><i>note: when editing your attachment some styles and elements like footnotes or list items may have to be manually formatted (this is a beta feature)</i></label>

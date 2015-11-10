@@ -2,15 +2,13 @@
 
    'use strict';
 
-   function SubmissionsController($scope, $filter, $http, $uibModal, $localStorage, $q, $rootScope, $state, $stateParams, $sessionStorage, $timeout, $window, AS3Factory, ImagesFactory, PostsFactory, SubFactory, UsersFactory, ServerUrl, JSZipUtils, FileSaver, Blob) {
+   function SubmissionsController($scope, $filter, $http, $uibModal, $localStorage, $q, $rootScope, $state, $stateParams, $sessionStorage, $timeout, $window, AS3Factory, ImagesFactory, PostsFactory, SubFactory, UsersFactory, ServerUrl, JSZipUtils) {
       var vm = this;
 
       $scope.$storage = $localStorage;
 
-      vm.doc = $scope.$storage.doc;
-
       vm.images = $scope.$storage.images;
-      
+
       vm.tags = PostsFactory.tags;
 
       $scope.imagePopover = {
@@ -22,11 +20,12 @@
       };
 
       $scope.showEdit = false;
-      
+
       $scope.$on('refresh', function () {
-         $scope.$storage.submission = vm.submission;
+//         $scope.$storage.submission = vm.submission;
+//         $scope.$storage.doc = vm.doc;
       });
-      
+
       /**
        * Checks to see if localstorage has a submission object.
        * If it doesn't it creates it so the following methods don't error out
@@ -35,11 +34,13 @@
          if (!$scope.$storage.submission) {
             $scope.$storage.submission = {};
             $scope.$storage.submission.attachments = [];
-            vm.submission = $scope.$storage.submission;
-            vm.submission.attachments = $scope.$storage.submission.attachments;
+            $scope.$storage.doc = {};
          }
+         vm.doc = $scope.$storage.doc;
+         vm.submission = $scope.$storage.submission;
+         vm.submission.attachments = $scope.$storage.submission.attachments;
       }
-      
+
       setStorage();
 
       /**
@@ -68,7 +69,7 @@
                   }
                }
             }
-            vm.getAttachmentHtml();
+            vm.convertDocxToHtml();
          }
       };
 
@@ -78,22 +79,19 @@
        * '.docx' files in the attachment array and replaces them with the new file
        */
       vm.uploadDoc = function () {
-         generateDocx(vm.doc).then(function (response) {
-            var filename = vm.submission.title + '-' + vm.submission.user.username + '-' + Date.now() + '.docx';
-            var file = blobToFile(response, filename);
-            AS3Factory.uploadFile(file, 'submissions/').then(function (response) {
-               var s3Path = 'https://lematjournal.s3.amazonaws.com/' + response.params.Key;
-               if ($filter('filterDocs')(vm.submission.attachments).length === 0) {
-                  vm.submission.attachments.push(s3Path);
-               } else {
-                  for (var i = 0; vm.submission.attachments.length > i; i++) {
-                     if (!(/\.(gif|jpg|jpeg|tiff|png)$/i).test(vm.submission.attachments[i])) {
-                        vm.submission.attachments[i] = s3Path;
-                     }
+         var fileName = vm.submission.title + '-' + vm.submission.user.username + '-' + Date.now().toString() + '.docx';
+         vm.convertHtmlToDocx(vm.doc, fileName).then(function (response) {
+            var s3Path = response.data;
+            console.log(response.data);
+            if (vm.submission.attachments && $filter('filterDocs')(vm.submission.attachments).length === 0) {
+               vm.submission.attachments.push(s3Path);
+            } else {
+               for (var i = 0; vm.submission.attachments.length > i; i++) {
+                  if (!(/\.(gif|jpg|jpeg|tiff|png)$/i).test(vm.submission.attachments[i])) {
+                     vm.submission.attachments[i] = s3Path;
                   }
                }
-               vm.getAttachmentHtml();
-            });
+            }
          });
       };
 
@@ -112,52 +110,10 @@
                AS3Factory.deleteFile(attachment);
             }
          }
-         $scope.showEdit = false;
-         vm.submission.attachments = [];
-         vm.doc = '';
+         $scope.$storage.submission.attachments = [];
+         $scope.$storage.doc = {};
+         vm.doc = $scope.$storage.doc;
       };
-
-      /**
-       * Takes a fileblob and assigns it the necessary properties so it can be
-       * treated as a file (a blob is a file minus date info and a filename)
-       * @param   {Object} theBlob preassembled file blob
-       * @param   {Object} fileName automatically generated file name + date
-       * @returns {Object} file blob that can be treatd as a file
-       */
-      function blobToFile(theBlob, fileName) {
-         theBlob.lastModifiedDate = new Date();
-         theBlob.name = fileName;
-         return theBlob;
-      }
-
-      /**
-       * Generates a '.docx' file from the input string
-       * @param   {String} inputString
-       * @returns {Object} Promise containing the file blob
-       */
-      function generateDocx(inputString) {
-         var deferred = $q.defer();
-         var out = {};
-         var loadFile = function (url, callback) {
-            JSZipUtils.getBinaryContent(url, callback);
-         };
-
-         loadFile('scripts/core/submissions/submissions.form/input.docx', function (err, content) {
-            if (err) {
-               throw e;
-            };
-            var doc = new Docxgen(content);
-            doc.setData({
-               "template": inputString
-            });
-            doc.render();
-            out = doc.getZip().generate({
-               type: 'blob'
-            });
-            deferred.resolve(out);
-         });
-         return deferred.promise;
-      }
 
       /**
        * Takes an attachment as an argument. Checks to see if it is an image,
@@ -184,16 +140,31 @@
        * Sends '.docx' attachment url to the back-end where it is retrieved and converted to html
        * @returns {Object} Promise containing a string of the converted html
        */
-      vm.getAttachmentHtml = function () {
+      vm.convertDocxToHtml = function () {
          var deferred = $q.defer();
-         var link = {
+         var params = {
             submission: {
                document: $filter('filterDocs')(vm.submission.attachments)[0]
             }
          };
-         deferred.resolve($http.post(ServerUrl + '/submissions/render-doc', link).then(function (response) {
+         deferred.resolve($http.post(ServerUrl + '/submissions/render-doc', params).then(function (response) {
             vm.doc = response.data;
          }));
+         return deferred.promise;
+      };
+
+      vm.convertHtmlToDocx = function (htmlString, fileName) {
+         var params = {
+            submission: {
+               document: htmlString,
+               title: fileName
+            }
+         };
+         
+         var deferred = $q.defer();
+         $http.post(ServerUrl + '/submissions/convert-doc', params).then(function (response) {
+            deferred.resolve(response);
+         });
          return deferred.promise;
       };
 
@@ -233,6 +204,6 @@
    angular.module('lematClient.core.submissions')
       .controller('SubmissionsController', SubmissionsController);
 
-   SubmissionsController.$inject = ['$scope', '$filter', '$http', '$uibModal', '$localStorage', '$q', '$rootScope', '$state', '$stateParams', '$sessionStorage', '$timeout', '$window', 'AS3Factory', 'ImagesFactory', 'PostsFactory', 'SubFactory', 'UsersFactory', 'ServerUrl', 'JSZipUtils', 'FileSaver', 'Blob'];
+   SubmissionsController.$inject = ['$scope', '$filter', '$http', '$uibModal', '$localStorage', '$q', '$rootScope', '$state', '$stateParams', '$sessionStorage', '$timeout', '$window', 'AS3Factory', 'ImagesFactory', 'PostsFactory', 'SubFactory', 'UsersFactory', 'ServerUrl', 'JSZipUtils'];
 
 })(angular);

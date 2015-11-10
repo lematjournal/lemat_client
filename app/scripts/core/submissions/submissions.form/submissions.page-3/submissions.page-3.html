@@ -28,6 +28,7 @@
 <div class="row">
    <div class="row-centered">
       <h2 class="title">Submission Info</h2>
+      <hr>
       <h4 class="title">Name</h4>
       <p>{{ submissionsCtrl.submission.user.username }}</p>
       <h4 class="title">Email</h4>
@@ -35,7 +36,7 @@
       <h4 class="title">Type</h4>
       <p class="">{{ submissionsCtrl.submission.submission_type }}</p>
       <h4 class="title">Description</h4>
-      <p class="" ng-bind-html="submissionsCtrl.submission.email_content | to_trusted"></p>
+      <p class="" ng-bind-html="submissionsCtrl.submission.email_content"></p>
       <h4 class="title">Attachment(s)</h4>
       <div class="form-group" ng-show="submissionsCtrl.doc">
          <p class="title">Document</p>
@@ -108,7 +109,7 @@
       </div>
       <p ng-bind-html="submissionsCtrl.doc"></p>
       <div class="text-center" ng-repeat="attachment in submissionsCtrl.submission.attachments | filterImages">
-         <img src="{{ attachment.image_url }}" />
+         <img ng-src="{{ attachment.image_url }}" />
          <p class="text-center">{{ attachment.credits }}</p>
       </div>
    </div>
