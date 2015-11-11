@@ -38,7 +38,6 @@
       }
 
       function upsertSubmission(submission) {
-         console.log(submission.user);
          var params = {
             submission: {
                attachments: submission.attachments,

@@ -20,12 +20,13 @@
    <div class="form-group">
       <wysiwyg textarea-id="submission" textarea-class="form-control" textarea-height="400px" textarea-name="document" textarea-required ng-model="submissionsCtrl.doc" ng-hide="submissionsCtrl.submission.submission_type !== 'text'"></wysiwyg>
    </div>
-<!--
-   <div class="form-group">
-      <label>Embedded html</label>
-      <input type="text" class="form-control" ng-model="submissionsCtrl.submission.email_content">
+   <div class="row" ng-show="submissionsCtrl.submission.submission_type === 'text' && submissionsCtrl.evaluateDoc()">
+      <h4 class="title text-center">{{ submissionsCtrl.submission.title }}</h4>
+      <p class="text-center">{{ submissionsCtrl.submission.user.username }}</p>
+      <p class="text-center">{{ submissionsCtrl.submission.created_at | date: 'medium' }}</p>
+      <hr>
+      <p ng-bind-html="submissionsCtrl.doc"></p>
    </div>
--->
    <a class="btn btn-default" ng-click="submissionsCtrl.upsertSubmission()">Submit</a>
    <a class="btn btn-default" ng-click="submissionsCtrl.deleteSubmission()"><i class="glyphicon glyphicon-trash"></i>
 Delete</a>
