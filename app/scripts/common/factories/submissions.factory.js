@@ -38,6 +38,7 @@
       }
 
       function upsertSubmission(submission) {
+         console.log(submission.user);
          var params = {
             submission: {
                attachments: submission.attachments,
@@ -49,8 +50,8 @@
                username: submission.user.username
             }
          };
-         if (submission.id) {
-            return $http.patch(ServerUrl + '/submissions/' + submission.id, params).then(function (response) {
+         if (submission.uid) {
+            return $http.patch(ServerUrl + '/submissions/' + submission.uid, params).then(function (response) {
                angular.copy(response.data, submission);
             });
          } else {
