@@ -82,8 +82,6 @@
          }
       });
       
-      console.log($state);
-
       /**
        * Submits video link. If there is already a link
        * it clears the attachment array and pushes the new link.
@@ -211,7 +209,6 @@
             deferred.resolve(vm.doc);
          }, function (errors) {
             console.log(errors);
-            console.log(typeof vm.doc);
             deferred.reject(errors);
             toastr.info('This happens when the file format contains irregular data, we\'re working on being able to generate previews in all cases.', 'Could not generate preview');
          });
