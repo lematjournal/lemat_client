@@ -2,15 +2,21 @@
    <div class="row">
       <table class="table">
          <h1>issues</h1>
+         <col style="width: 10%">
+         <col style="width: 23%">
+         <col style="width: 33%">
+         <col style="width: 34%">
          <tr>
+            <th>id</th>
             <th>title</th>
             <th>created</th>
             <th>options</th>
          </tr>
          <tr ng-repeat="issue in issuesAdminCtrl.issues">
+           <td>{{ issue.id }}</td>
             <td>{{ issue.title | cut:true: 25 }}</td>
             <td>{{ issue.created_at | date: 'medium' }}</td>
-            <td><a class="btn btn-default" ui-sref="admin.issues-edit({ id: issue.id })">Edit</a>
+            <td><div class="btn-group"><a class="btn btn-default" ui-sref="main.issues-detail({ id: issue.id })">View</a> <a class="btn btn-default" ui-sref="admin.issues-edit({ id: issue.id })">Edit</a> <a class="btn btn-default" ng-click="issuesAdminCtrl.deleteIssue(issue.id)" confirm="are you sure?">Delete</a></div>
             </td>
          </tr>
       </table>
