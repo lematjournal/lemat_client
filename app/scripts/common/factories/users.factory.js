@@ -24,23 +24,19 @@
       }
 
       function getPostUsers() {
-         var promise = $http.get(ServerUrl + '/users/post-users').then(function (response) {
+         $http.get(ServerUrl + '/users/post-users').then(function (response) {
             $localStorage.postUsers = response.data;
             $localStorage.postUsersGrabDate = Date.now();
             return $localStorage.postUsers;
          });
-         
-         return promise;
       }
       
       function getIssueUsers() {
-         var promise = $http.get(ServerUrl + '/users/issue-users').then(function (response) {
+         $http.get(ServerUrl + '/users/issue-users').then(function (response) {
             $localStorage.issueUsers = response.data;
             $localStorage.issueUsersGrabDate = Date.now();
             return $localStorage.issueUsers;
          });
-         
-         return promise;
       }
 
       function getEditors() {
@@ -50,7 +46,6 @@
       }
 
       function upsertUser(user) {
-         console.log(user);
          var params = {
             user: {
                email: user.email,
@@ -67,15 +62,18 @@
             return $http.patch(ServerUrl + '/users/' + user.id, params).then(function (response) {
                angular.copy(response.data, user);
                users.push(response.data);
-               getUsers();
+            }, function (errors) {
+               console.log(errors);
             });
          } else {
             return $http.post(ServerUrl + '/users/', params).then(function (response) {
                angular.copy(response.data, user);
                users.push(response.data);
-               getUsers();
+            }, function (errors) {
+               console.log(errors);
             });
          }
+         getUsers();
       }
 
       function findUserById(id) {
@@ -86,8 +84,8 @@
          }
       }
 
-      function deleteUser(id, username) {
-         return $http.delete(ServerUrl + '/users/' + username).then(function () {
+      function deleteUser(id) {
+         return $http.delete(ServerUrl + '/users/' + id).then(function () {
             users.splice(findUserById(id), 1);
          });
       }
