@@ -4,7 +4,9 @@
    </div>
    <div class="row">
       <div class="col-md-5 news-image">
-         <img height="400" width="400" ng-src="{{ entriesCtrl.entry.image_url }}" />
+         <a ui-sref="main.entries-detail({ entry: entriesCtrl.entry.title_url })">
+            <img height="400" width="400" ng-src="{{ entriesCtrl.entry.image_url }}" />
+         </a>
       </div>
       <div class="col-md-6">
          <a ui-sref="main.entries-detail({ entry: entriesCtrl.entry.title_url })"><h3 class="news-entry" style="text-transform: uppercase">{{ ::entriesCtrl.entry.title }}</h3></a>

@@ -79,14 +79,14 @@
                controller: 'PiecesAdminController',
                controllerAs: 'piecesAdminCtrl'
             })
-            .state('admin.mail', {
-               url: '/mail',
+            .state('admin.email', {
+               url: '/email',
                templateUrl: 'scripts/admin/mail/mail.html',
                controller: 'MailController',
                controllerAs: 'mailCtrl'
             })
-            .state('admin.mail-detail', {
-               url: 'mail/:mail',
+            .state('admin.email-detail', {
+               url: '/email/:email',
                templateUrl: 'scripts/admin/mail/mail.detail/mail.detail.html',
                controller: 'MailController',
                controllerAs: 'mailCtrl'
