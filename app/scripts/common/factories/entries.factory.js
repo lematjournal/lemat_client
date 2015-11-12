@@ -23,21 +23,15 @@
       }
 
       function upsertEntry(entry) {         
-//         var params = {
-//            entry: {
-//               title: entry.title,
-//               content: entry.content,
-//               user_id: entry.user_id,
-//               image_url: entry.image_url,
-//               title_url: Slug.slugify(entry.title),
-//               preview: 
-//            }
-//         }
-         
-         var string = strip(entry.content).trim();
-         console.log(string);
-         string = intelligentlyTruncate(string, 100);
-         console.log(string);
+         var params = {
+            entry: {
+               title: entry.title,
+               content: entry.content,
+               user_id: entry.user_id,
+               image_url: entry.image_url,
+               title_url: Slug.slugify(entry.title)
+            }
+         };
                   
          if (entry.id) {
             return $http.patch(ServerUrl + '/news/entries/' + entry.id, params).then(function (response) {
@@ -53,20 +47,6 @@
                console.log("response: ", response);
             });
          }
-      }
-      
-      function strip(html) {
-         var tmp = document.createElement("DIV");
-         tmp.innerHTML = html;
-         return tmp.textContent || tmp.innerText || "";
-      }
-      
-      function intelligentlyTruncate(text, threshhold) {    
-         for(var i = threshhold; i < text.length; i++) {
-            if( /^\s/.test(text.substr( i, 1 ) ) )
-               return text.substr( 0, i ); // + '...' if you want the elipsis.
-         }
-         return text;
       }
 
       function deleteEntry(id) {
