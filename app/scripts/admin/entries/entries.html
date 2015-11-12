@@ -1,17 +1,27 @@
 <div class="container" ng-init="entriesAdminCtrl.getEntries()">
    <div class="row">
       <table class="table">
+         <col style="width: 5%">
+         <col style="width: 25%">
+         <col style="width: 10%">
+         <col style="width: 25%">
+         <col style="width: 30%">
+   
          <h1>news entries</h1>
          <tr>
+            <th>id</th>
             <th>title</th>
             <th>author</th>
+            <th>created</th>
             <th>options</th>
          </tr>
          <tr ng-repeat="entry in entriesAdminCtrl.entries">
+            <td>{{ entry.id }}</td>
             <td>{{ entry.title }}</td>
             <td>{{ entry.user.username }}</td>
+            <td>{{ entry.created_at | date:'medium' }}</td>
             <td>
-               <a class="btn btn-default" ui-sref="main.entries-detail({ entry: entry.title_url })">View</a> <a class="btn btn-default" ui-sref="admin.entries-edit({ entry: entry.title_url })">Edit</a> <a class="btn btn-default" ng-click="entriesAdminCtrl.deleteEntry(entry.id)">Delete</a>
+               <div class="btn-group"><a class="btn btn-default" ui-sref="main.entries-detail({ entry: entry.title_url })">View</a> <a class="btn btn-default" ui-sref="admin.entries-edit({ entry: entry.title_url })">Edit</a> <a class="btn btn-default" ng-click="entriesAdminCtrl.deleteEntry(entry.id)" confirm="are you sure?">Delete</a></div>
             </td>
          </tr>
       </table>
