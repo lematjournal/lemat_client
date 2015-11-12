@@ -8,22 +8,26 @@
       AuthFactory.setUser();
       
       vm.userId = AuthFactory.session.id;
-      
-      vm.submission = submission;
-      
+                  
       vm.comment = {
          user_id: vm.userId,
          submission_id: submission.id,
          body: ''
       };
       
-      $scope.index = vm.submission.votes_array.length;
+      function setSubmission() {
+         vm.master = {};
+         vm.submission = submission;
+         angular.copy(vm.submission, vm.master);
+         $scope.index = vm.submission.votes_array.length;
+         vm.submission.votes_array[$scope.index] = {
+            user_id: vm.userId,
+            vote: undefined,
+            weight: AuthFactory.session.weight
+         };
+      }
       
-      vm.submission.votes_array[$scope.index] = {
-         user_id: vm.userId,
-         vote: undefined,
-         weight: AuthFactory.session.weight
-      };
+      setSubmission();
       
       vm.incrementVotes = function (index) {
          if (vm.currentSubmissions[index].votes_array[vm.currentSubmissions[index].length]) {
@@ -41,7 +45,7 @@
       };
 
       $scope.cancel = function () {
-         vm.submission = submission;
+         angular.copy(vm.master, vm.submission); // resets submission, prevents vote duplication
          $uibModalInstance.dismiss('cancel');
       };
 

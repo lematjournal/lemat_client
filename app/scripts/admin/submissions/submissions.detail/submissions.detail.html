@@ -1,21 +1,9 @@
 <div class="content" ng-init="submissionsCtrl.getSubmission()">
    <div class="container">
       <div class="row-centered">
-         <h3 class="title">Title</h3>
-         <h3>{{ submissionsCtrl.submission.title }}</h3>
-         <h3 class="title">Type</h3>
-         <h3>{{ submissionsCtrl.submission.submission_type }}</h3>
-         <h3 class="title">Uid</h3>
-         <h3>{{ submissionsCtrl.submission.uid }}</h3>
-         <h3 class="title">Votes Array</h3>
-         <h3>{{ submissionsCtrl.submission.votes_array }}</h3>
-         <h3 class="title">Round Id</h3>
-         <h3>{{ submissionsCtrl.submission.round_id }}</h3>
+         <h3>{{ submissionsCtrl.submission.title }} from {{ submissionsCtrl.submission.email_address }}</h3>
       </div>
       <div class="row-centered">
-         <p class="text-center">{{ submissionsCtrl.submission.username }}</p>
-         <p class="text-center">{{ submissionsCtrl.submission.created_at | date: 'medium' }}</p>
-         <hr>
          <p ng-bind-html="submissionsCtrl.doc"></p>
       </div>
       <div class="row-centered" ng-repeat="attachment in submissionsCtrl.submission.attachments | filterImages">
@@ -26,7 +14,7 @@
          </div>
       </div>
       <div class="row row-centered" ng-repeat="attachment in submissionsCtrl.submission.attachments">
-         <a class="btn btn-default" href="{{ attachment }}">download submission</a>
+         <a ng-show="submissionsCtrl.submission.submission_type === 'text'" class="btn btn-default" href="{{ attachment }}">download submission</a>
       </div>
    </div>
 </div>

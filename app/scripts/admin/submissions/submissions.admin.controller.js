@@ -37,15 +37,27 @@
             vm.submissions = SubFactory.submissions;
          });
       };
+      
+      vm.getAcceptedSubmissions = function () {
+         SubFactory.getAcceptedSubmissions().then(function () {
+            vm.acceptedSubmissions = SubFactory.acceptedSubmissions;
+         });
+      };
 
       vm.getPendingSubmissions = function () {
          SubFactory.getPendingSubmissions().then(function () {
             vm.pendingSubmissions = SubFactory.pendingSubmissions;
          });
       };
+      
+      vm.getPendingSubmissions = function () {
+         SubFactory.getPendingSubmissions().then(function () {
+            vm.pendingSubmissions = SubFactory.pendingSubmissions;
+         });
+      };
 
-      vm.getCurrentSubmissions = function () {
-         SubFactory.getCurrentSubmissions().then(function () {
+      vm.getCurrentRoundSubmissions = function () {
+         SubFactory.getCurrentRoundSubmissions().then(function () {
             vm.currentSubmissions = SubFactory.currentSubmissions;
             if (vm.currentSubmissions) {
                vm.querySubmissions(vm.currentSubmissions);
@@ -66,8 +78,6 @@
                username: vm.submission.username
             }
          };
-         console.log(submission);
-         console.log(vm.submission);
          SubFactory.upsertSubmission(submission)
       };
 
@@ -76,21 +86,25 @@
             vm.tags = PostsFactory.tags;
          });
       };
+      
+      $scope.disabled = [];
 
       vm.querySubmissions = function (submissions) {
-         $scope.disabled = [];
          // need to find a faster way to do this
+         // iterate through submissions...
          for (var i = 0; submissions.length > i; i++) {
+            // iterate through votes array
             for (var j = 0; submissions[i].votes_array.length > j; j++) {
-               if (submissions[i].votes_array[j].user_id === vm.userId && submissions[i].votes_array[j].vote) {
+               console.log('submission: ', submissions[i].uid, ' : ', submissions[i].votes_array[j].user_id === vm.userId);
+               
+               if (submissions[i].votes_array[j].user_id === vm.userId) {
                   $scope.disabled[i] = true;
-               } else {
-                  $scope.disabled[i] = false;
                }
             }
          }
       };
 
+      // this should be moved to a service to stop duplication...
       vm.convertDocxToHtml = function () {
          var deferred = $q.defer();
          var params = {
