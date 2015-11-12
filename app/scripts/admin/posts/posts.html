@@ -2,16 +2,25 @@
    <div class="row">
       <table class="table">
          <h1>posts</h1>
+         <col style="width: 5%">
+         <col style="width: 25%">
+         <col style="width: 10%">
+         <col style="width: 25%">
+         <col style="width: 30%">
          <tr>
+           <th>id</th>
             <th>title</th>
             <th>author</th>
+            <th>created</th>
             <th>options</th>
          </tr>
          <tr ng-repeat="post in postsAdminCtrl.posts">
+           <td>{{ ::post.id }}</td>
             <td>{{ ::post.title }}</a>
             </td>
             <td>{{ ::post.user.username }}</td>
-            <td><a class="btn btn-default" ui-sref="main.posts-detail({ post: post.title_url })">View</a> <a class="btn btn-default" ui-sref="admin.posts-edit({ post: post.title_url })">Edit</a> <a class="btn btn-default" ng-click="vm.deletePost(post.id)">Delete</a>
+            <td>{{ ::post.created_at | date:'medium' }}</td>
+      <td><div class="btn-group"><a class="btn btn-default" ui-sref="main.posts-detail({ post: post.title_url })">View</a> <a class="btn btn-default" ui-sref="admin.posts-edit({ post: post.title_url })">Edit</a> <a class="btn btn-default" ng-click="vm.deletePost(post.id)" confirm="are you sure?">Delete</a></div>
             </td>
          </tr>
       </table>
