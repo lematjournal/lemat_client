@@ -9,7 +9,17 @@
       
       vm.master = {};
       
-      vm.users = UsersFactory.users;
+      function initialize() {
+         if (!UsersFactory.users || UsersFactory.users.length === 0) {
+            UsersFactory.getUsers().then(function () {
+               vm.users = UsersFactory.users;
+            });
+         } else {
+            vm.users = UsersFactory.users;
+         }
+      }
+      
+      initialize();
 
       vm.getUser = function () {
          UsersFactory.getUser($stateParams.user).then(function () {
@@ -36,14 +46,14 @@
          }
       };
 
-      vm.deleteUser = function (id, username) {
+      vm.deleteUser = function (id) {
          if (AuthFactory.isAuthenticated()) {
-            UsersFactory.deleteUser(id, username);
+            UsersFactory.deleteUser(id);
          }
       };
 
       vm.resetUser = function () {
-         $scope.user = $scope.master;
+         vm.user = vm.master;
          toastr.info('User reset to last save', 'Done');
       };
 
@@ -72,7 +82,7 @@
       // profile image upload modal
 
       function openImageUploadModal() {
-         vm.$uibModalInstance = $uibModal.open({
+         $scope.$uibModalInstance = $uibModal.open({
             templateUrl: 'scripts/core/profile/profile.image-upload.modal/profile.image-upload.modal.html',
             controller: 'ProfileImageUploadModalController',
             controllerAs: 'profileImageUploadModalCtrl',
@@ -88,7 +98,7 @@
             }
          });
 
-         vm.$uibModalInstance.result.then(function (profileImage) {
+         $scope.$uibModalInstance.result.then(function (profileImage) {
             vm.user.profile_image = profileImage;
             vm.upsertUser(vm.user);
          });
