@@ -1,17 +1,19 @@
 <div class="container" ng-init="mailCtrl.getEmails()">
-   <div class="row" >
+   <div class="row" ng-show="mailCtrl.emails.length > 0" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
       <h1>mail</h1>
       <table class="table">
          <tr>
             <th>subject</th>
             <th>sender</th>
+            <th>uid</th>
             <th>options</th>
          </tr>
          <tr ng-repeat="email in mailCtrl.emails | orderBy:'uid' : reverse">
             <td>{{ ::email.subject }}</td>
             <td>{{ ::email.sender }}</td>
+            <td>{{ ::email.uid }}</td>
             <td>
-               <a class="btn btn-default" href="#!/admin/email/{{ ::email.message_id }}">View</a>
+               <a class="btn btn-default" ui-sref="admin.email-detail({ email: email.uid })">View</a>
             </td>
          </tr>
       </table>

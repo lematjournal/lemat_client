@@ -2,7 +2,7 @@
 
    'use strict';
 
-   function MailController($scope, $stateParams, EmailFactory) {
+   function MailController($stateParams, EmailFactory) {
       var vm = this;
 
       vm.getEmails = function () {
@@ -21,6 +21,6 @@
    angular.module('lematClient.admin.mail')
       .controller('MailController', MailController);
 
-   MailController.$inject = ['$scope', '$stateParams', 'EmailFactory'];
+   MailController.$inject = ['$stateParams', 'EmailFactory'];
 
 })(angular);

@@ -11,13 +11,13 @@
          return $http.get(ServerUrl + '/emails/').then(function (response) {
             angular.copy(response.data, emails);
          });
-      };
+      }
 
-      function getEmail(id) {
-         return $http.get(ServerUrl + '/emails/' + id).then(function (response) {
+      function getEmail(uid) {
+         return $http.get(ServerUrl + '/emails/' + uid).then(function (response) {
             angular.copy(response.data, email);
          });
-      };
+      }
 
       return {
          getEmails: getEmails,
@@ -28,7 +28,7 @@
    }
    
    angular.module('lematClient.admin.mail')
-      .factory('EmailFactory', EmailFactory)
+      .factory('EmailFactory', EmailFactory);
 
    EmailFactory.$inject = ['$http', 'ServerUrl'];
 
