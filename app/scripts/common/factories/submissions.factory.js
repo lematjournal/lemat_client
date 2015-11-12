@@ -1,26 +1,37 @@
 (function (angular) {
 
    'use strict';
-                  
+
    function SubFactory($http, ServerUrl) {
-      var comment = {},
+      var acceptedSubmissions = [],
+         comment = {},
          currentSubmissions = [],
-         newSubmissions = [],
          pendingSubmissions = [],
          rounds = [],
          submissions = [],
          submission = {};
+      
+      
+      function getAcceptedSubmissions() {
+         return $http.get(ServerUrl + '/voting/accepted').then(function (response) {
+            angular.copy(response.data, acceptedSubmissions);
+         }); 
+      }
 
-      function getCurrentSubmissions() {
-         return $http.get(ServerUrl + '/voting/current-submissions').then(function (response) {
+      /**
+       * Returns submissions currently under vote.
+       * Assigns the time remaining the voting round
+       * @returns {Array} Array of submissions currently under vote
+       */
+      function getCurrentRoundSubmissions() {
+         return $http.get(ServerUrl + '/voting/current').then(function (response) {
             var modifiedResponse = setDates(response.data);
             angular.copy(modifiedResponse, currentSubmissions);
-            console.log(currentSubmissions);
          });
       }
 
       function getPendingSubmisions() {
-         return $http.get(ServerUrl + '/voting/pending-submissions').then(function (response) {
+         return $http.get(ServerUrl + '/voting/pending').then(function (response) {
             angular.copy(response.data, pendingSubmissions);
          });
       }
@@ -78,7 +89,7 @@
             }
          };
 
-         return $http.patch(ServerUrl + '/submissions/' + submission.id, params).then(function (response) {
+         return $http.patch(ServerUrl + '/voting/' + submission.uid, params).then(function (response) {
             angular.copy(response.data, submission);
          });
       }
@@ -101,7 +112,6 @@
       function getRounds() {
          return $http.get(ServerUrl + '/voting/rounds').then(function (response) {
             angular.copy(response.data, rounds);
-            console.log(rounds);
          });
       }
 
@@ -120,27 +130,28 @@
       }
 
       return {
+         acceptedSubmissions: acceptedSubmissions,
          currentSubmissions: currentSubmissions,
          deleteSubmission: deleteSubmission,
-         getCurrentSubmissions: getCurrentSubmissions,
+         getAcceptedSubmissions: getAcceptedSubmissions,
+         getCurrentRoundSubmissions: getCurrentRoundSubmissions,
          getPendingSubmissions: getPendingSubmisions,
          getSubmissions: getSubmissions,
          getSubmission: getSubmission,
          getRounds: getRounds,
-         newSubmissions: newSubmissions,
          pendingSubmissions: pendingSubmissions,
+         rounds: rounds,
          submissions: submissions,
          submission: submission,
-         rounds: rounds,
          updateVotes: updateVotes,
          upsertComment: upsertComment,
          upsertSubmission: upsertSubmission,
       };
    }
-      
+
    angular.module('lematClient.admin.submissions')
       .factory('SubFactory', SubFactory);
-      
+
    SubFactory.$inject = ['$http', 'ServerUrl'];
 
 })(angular);
