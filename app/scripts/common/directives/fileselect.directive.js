@@ -33,7 +33,7 @@
                console.log(scope.filename);
                $timeout(function () {
                   ngModel.$setViewValue(scope.filename);
-               }, 1000).then(function () {
+               }, 1500).then(function () {
                   if (scope.uploadAction) {
                      scope.uploadAction();
                   }

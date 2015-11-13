@@ -1,13 +1,40 @@
 <div class="modal-body" style="height: 785px; width: 900px">
    <!-- navigation -->
-   <dir-pagination-controls template-url="scripts/admin/issues/issues.cover.modal/issues.cover.modal.pagination.tpl.html"></dir-pagination-controls>
+   <div class="lightbox-nav row-centered">
+      <!-- close button -->
+      <button class="close" aria-hidden="true" ng-click="cancel()">×</button>
+      <div class="btn-group">
+         <a class="btn btn-xs btn-default"  ng-click="prevSlide()">
+            ‹ Previous
+         </a>
+
+         <a target="_blank" class="btn btn-xs btn-default" title="Open in new tab">
+            Open image in new tab
+         </a>
+
+         <a class="btn btn-xs btn-default" ng-click="nextSlide()">
+            Next ›
+         </a>
+      </div>
+   </div>
+<!--   <dir-pagination-controls template-url="scripts/admin/issues/issues.cover.modal/issues.cover.modal.pagination.tpl.html"></dir-pagination-controls>-->
    <hr>
 
    <div class="lightbox-image-container row-centered">
       <!-- image -->
-      <div class="profile-image" dir-paginate="image in imagesUploadModalCtrl.images | itemsPerPage: 1" current-page="currentPage" style="margin-top: 5px">
-         <a ng-click="imagesUploadModalCtrl.setImage(image)">
-            <img ng-src="{{ image.image_url }}" height="600px" width="100%">
+      <div class="modal-image" style="margin-top: 5px">
+         <a ng-click="imagesUploadModalCtrl.setImage(imagesUploadModalCtrl.images[currentIndex])">
+            <img ng-repeat="image in imagesUploadModalCtrl.images" ng-hide="!isCurrentSlideIndex($index)" ng-src="{{ image.image_url }}" height="600px" width="100%">
+            <a class="arrow prev pull-right" ng-click="nextSlide()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+            <a class="arrow next pull-left" ng-click="prevSlide()" style="height: 100px"><span class="glyphicon glyphicon-chevron-left"></span></a>
+            <nav class="nav carousel-nav">
+               <div class="wrapper">
+                  <ul class="dots">
+                     <li class="dot" ng-repeat="image in imagesUploadModalCtrl.images">
+                        <a ng-class="{'active':isCurrentSlideIndex($index)}" ng-click="setCurrentSlideIndex($index);">{{ image.image_url }}</a></li>
+                  </ul>
+               </div>
+            </nav>
          </a>
          <!-- caption -->
          <!-- caption will go here -->
