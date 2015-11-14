@@ -51,7 +51,7 @@
          <br> You can also upload a document containing any text you would like accompanying your text.
          <br> If you would like the images and text displayed in a specific way,
          <br> please indicate your specifications in the document.</p>
-      <div class="form-group" ng-show="submissionsCtrl.images.length > 0 && submissionsCtrl.submission.attachments.length > 0">
+      <div class="form-group" ng-show="submissionsCtrl.imagesPresent() && submissionsCtrl.submission.attachments.length > 0">
          <table class="table">
             <label>Attached Images</label>
             <tr>
@@ -78,7 +78,7 @@
          </table>
          <p>*click to preview image</p>
       </div>
-      <div class="form-group" ng-show="submissionsCtrl.doc && submissionsCtrl.submission.attachments.length > 0">
+      <div class="form-group" ng-show="submissionsCtrl.documentPresent()">
          <table class="table">
             <label>Attached Document</label>
             <tr>

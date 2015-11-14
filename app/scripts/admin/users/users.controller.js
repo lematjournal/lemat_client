@@ -24,6 +24,7 @@
       vm.getUser = function () {
          UsersFactory.getUser($stateParams.user).then(function () {
             vm.user = UsersFactory.user;
+            console.log(UsersFactory.user);
             angular.copy(vm.user, vm.master);
          });
       };

@@ -227,7 +227,6 @@
 
    angular.module('lematClient').run(['$rootScope', '$state', function ($rootScope, $state) {
       $rootScope.$on('$stateChangeStart', function (event, to, params) {
-         //         console.log(event, to, params);
          if (to.redirectTo) {
             event.preventDefault();
             $state.go(to.redirectTo, params);
@@ -248,13 +247,13 @@
       (function () {
          if (!UsersFactory.users) {
             UsersFactory.getUsers();
-         } else if (($localStorage.usersGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60 * 72)) {
+         } else if ($localStorage.usersGrabDate && ($localStorage.usersGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60 * 72)) {
             UsersFactory.getUsers();
          }
 
          if (!PostsFactory.tags) {
             PostsFactory.getTags();
-         } else if (($localStorage.tagsGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60)) {
+         } else if ($localStorage.tagsGrabDate && ($localStorage.tagsGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60)) {
             PostsFactory.getTags();
          }
       })();

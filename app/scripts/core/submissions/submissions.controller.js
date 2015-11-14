@@ -4,7 +4,7 @@
 
    function SubmissionsController($scope, $filter, $http, $uibModal, $localStorage, $q, $rootScope, $state, $stateParams, $sessionStorage, $timeout, $window, AS3Factory, ImagesFactory, PostsFactory, SubFactory, UsersFactory, ServerUrl, JSZipUtils) {
       var vm = this;
-
+      
       $scope.$storage = $localStorage;
 
       vm.tags = PostsFactory.tags;
@@ -16,13 +16,12 @@
       $scope.tagPopover = {
          templateUrl: 'tag-popover.template.html'
       };
-
+      
       $scope.showEdit = false;
 
       $scope.$on('refresh', function () {
          $scope.$storage.submission = vm.submission;
          $scope.$storage.doc = vm.doc;
-         $scope.$storage.images = vm.images;
       });
 
       /**
@@ -34,12 +33,10 @@
             $scope.$storage.submission = {};
             $scope.$storage.submission.attachments = [];
             $scope.$storage.doc = {};
-            $scope.$storage.images = [];
          }
          vm.doc = $scope.$storage.doc;
          vm.submission = $scope.$storage.submission;
          vm.submission.attachments = $scope.$storage.submission.attachments;
-         vm.images = $scope.$storage.images;
          vm.attachment = {};
       }
 
@@ -52,11 +49,9 @@
          $scope.$storage.submission = {};
          $scope.$storage.submission.attachments = [];
          $scope.$storage.doc = {};
-         $scope.$storage.images = [];
          vm.doc = $scope.$storage.doc;
          vm.submission = $scope.$storage.submission;
          vm.submission.attachments = $scope.$storage.submission.attachments;
-         vm.images = $scope.$storage.images;
       }
       
       /**
@@ -65,12 +60,12 @@
       function resetAttachments() {
          $scope.$storage.submission.attachments = [];
          $scope.$storage.doc = {};
-         $scope.$storage.images = [];
          vm.submission.attachments = $scope.$storage.submission.attachments;
          vm.doc = $scope.$storage.doc;
-         vm.images = $scope.$storage.images;
       }
       
+//      resetSubmission();
+                  
       $scope.$watch(function () {
          return vm.submission.submission_type;
       }, function (val, newVal) {
@@ -81,6 +76,14 @@
             }
          }
       });
+      
+      vm.imagesPresent = function () {
+         return !!$filter('filterImages')(vm.submission.attachments);
+      };
+      
+      vm.documentPresent = function () {
+         return typeof vm.doc === 'string';
+      };
       
       /**
        * Submits video link. If there is already a link
@@ -109,7 +112,6 @@
             };
             ImagesFactory.uploadImage(image);
             vm.submission.attachments.push(image);
-            vm.images.push(image);
             // if it isn't then check if there is a document in the attachment array
          } else {
             // if there isn't a document then push to array

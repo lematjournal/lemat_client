@@ -12,6 +12,7 @@
       vm.getEditors = function () {
          return UsersFactory.getEditors().then(function () {
             vm.editors = UsersFactory.editors;
+            console.log(vm.editors);
          });
       };
 

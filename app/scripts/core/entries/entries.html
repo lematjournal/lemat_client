@@ -11,7 +11,7 @@
       <div class="col-md-6">
          <a ui-sref="main.entries-detail({ entry: entriesCtrl.entry.title_url })"><h3 class="news-entry" style="text-transform: uppercase">{{ ::entriesCtrl.entry.title }}</h3></a>
          <p class="entry-meta">Posted by <a ui-sref="main.profile-detail({ profile: entriesCtrl.entry.user.username })"> {{ ::entriesCtrl.entry.user.email }}</a> on {{ ::entriesCtrl.entry.created_at | date:'medium' }}</p>
-         <p ng-bind-html="entriesCtrl.entry.content |  words: 165 | to_trusted"></p>
+         <p ng-bind-html="entriesCtrl.entry.content |  words: 162: false | to_trusted"></p>
       </div>
    </div>
    <hr class="dotted">
