@@ -33,6 +33,10 @@
             $scope.title = '';
          }
       });
+      
+      $scope.toggled = function (open) {
+         $scope.$broadcast('dropdownToggled', open);
+      };
 
       $scope.scrollShow = function () {
          return $location.url() === '/issue/1';

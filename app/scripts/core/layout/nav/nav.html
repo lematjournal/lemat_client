@@ -1,8 +1,8 @@
-<nav class="navbar navbar-default navbar-fixed-top" style="margin-top: -25px">
+<nav class="navbar navbar-default navbar-fixed-top" style="margin-top: -25px; position: absolute">
    <div class="container-fluid">
-      <div class="navbar-header-dropdown" uib-dropdown dropdown-append-to-body>
+      <div class="navbar-header-dropdown" uib-dropdown dropdown-append-to-body on-toggle="toggled(open)">
          <a class="menu-bar" uib-dropdown-toggle><span class="glyphicon glyphicon-menu-hamburger" style="font-size: 16px;"></span><font class="menu-logo"><b ng-if="title"> //</b> {{ title }}</a></font>
-         <div class="dropdown-menu row" same-height>
+         <div class="dropdown-menu row" same-height style="overflow: hidden; position: absolute">
             <ul class="nav col-sm-6 col-xs-6" role="menu">
                <li>
                   <h4 style="padding-left: 5px;">HOME</h4>
