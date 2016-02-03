@@ -1,70 +1,73 @@
 <div class="row">
-   <section>
-      <div class="wizard">
-         <div class="wizard-inner">
-            <div class="connecting-line"></div>
-            <ul class="nav nav-tabs" role="tablist">
-               <li role="presentation" ui-sref-active="active">
-                  <a ui-sref="main.submissions-info" aria-controls="step1" role="tab" title="Step 1">
-                     <span class="round-tab"><i class="glyphicon glyphicon-pencil"></i></span>
-                  </a>
-               </li>
-               <li role="presentation">
-                  <a aria-controls="step2" role="tab" title="Step 2" ng-class="{ disabled: !valid }" ui-sref-if="!infoForm.$invalid" ui-sref-val="main.submissions-upload">
-                     <span class="round-tab"><i class="glyphicon glyphicon-folder-open"></i></span>
-                  </a>
-               </li>
-               <li role="presentation">
-                  <a ng-class=" { disabled : !valid }" ui-sref-if="!infoForm.$invalid && submissionsCtrl.submission.attachments.length > 0" ui-sref-val="main.submissions-final" aria-controls="complete" role="tab" title="Complete">
-                     <span class="round-tab"><i class="glyphicon glyphicon-ok"></i></span>
-                  </a>
-               </li>
-            </ul>
-         </div>
+  <section>
+    <div class="wizard">
+      <div class="wizard-inner">
+        <div class="connecting-line"></div>
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" ui-sref-active="active">
+            <a ui-sref="main.submissions-info" aria-controls="step1" role="tab" title="Step 1">
+              <span class="round-tab"><i class="glyphicon glyphicon-pencil"></i></span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a aria-controls="step2" role="tab" title="Step 2" ng-class="{ disabled: !valid }" ui-sref-if="!infoForm.$invalid" ui-sref-val="main.submissions-upload">
+              <span class="round-tab"><i class="glyphicon glyphicon-folder-open"></i></span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a ng-class=" { disabled : !valid }" ui-sref-if="!infoForm.$invalid && submissionsCtrl.submission.attachments.length > 0" ui-sref-val="main.submissions-final" aria-controls="complete" role="tab" title="Complete">
+              <span class="round-tab"><i class="glyphicon glyphicon-ok"></i></span>
+            </a>
+          </li>
+        </ul>
       </div>
-   </section>
+    </div>
+  </section>
 </div>
 <div class="row">
-   <h2 class="title text-center">Info</h2>
-   <hr>
-   <form name="infoForm">
-      <div class="form-group">
-         <label for="name">Title</label>
-         <input type="text" name="title" ng-model="submissionsCtrl.submission.title" id="title" class="form-control" required>
-      </div>
-      <div class="form-group">
-         <label for="name">Name</label>
-         <input type="text" name="username" ng-model="submissionsCtrl.submission.user.username" id="name" class="form-control" required>
-      </div>
-      <div class="form-group">
-         <label for="email">Email Address†</label>
-         <br>
-         <label for="email" class="text-muted"><i>†we will not send you any unsolicited emails, this is to send a confirmation that we have recieved your submission and so the editors can coordinate with you on publishing your piece</i></label>
-         <input type="email" name="email" ng-model="submissionsCtrl.submission.email_address" id="email" class="form-control" required>
-      </div>
-      <div class="form-group">
-         <label for="name">Submission Type</label>
-         <select ng-model="submissionsCtrl.submission.submission_type" id="type" name="type" class="form-control" required>
-            <option value="image">image(s)</option>
-            <option value="text">text</option>
-            <option value="video">video</option>
-         </select>
-      </div>
-      <div class="form-group">
-         <label for="tags">Tags††</label>
-         <br>
-         <label class="text-muted"><i>††enter how you would like your work to be tagged in the online edition</i></label>
-         <tags-input display-property="name" ng-model="submissionsCtrl.submission.tags">
-            <auto-complete source="submissionsCtrl.tags"></auto-complete>
-         </tags-input>
-      </div>
-      <div class="form-group">
-         <label for="content">Description†††</label>
-         <br>
-         <label class="text-muted"><i>†††in a short message to the editors describe your work, how you would like it shown and anything else you'd like to let us know</i></label>
-         <wysiwyg textarea-id="description" textarea-class="form-control" textarea-height="200px" textarea-name="description" textarea-required ng-model="submissionsCtrl.submission.email_content" textarea-menu="customMenu"></wysiwyg>
-      </div>
-   </form>
-   <hr class="dotted">
-   <a class="btn btn-default pull-right" ng-class="{ disabled: infoForm.$invalid }" ui-sref-if="!infoForm.$invalid" ui-sref-val="main.submissions-upload">Next</a>
+  <h2 class="title text-center">Info</h2>
+  <hr>
+  <form name="infoForm">
+    <div class="form-group">
+      <label for="name">Title</label>
+      <input type="text" name="title" ng-model="submissionsCtrl.submission.title" id="title" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" name="username" ng-model="submissionsCtrl.submission.user.username" id="name" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address†</label>
+      <br>
+      <label for="email" class="text-muted"><i>†we will not send you any unsolicited emails, this is to send a confirmation that we have recieved your submission and so the editors can coordinate with you on publishing your piece</i></label>
+      <input type="email" name="email" ng-model="submissionsCtrl.submission.email_address" id="email" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="name">Submission Type</label>
+      <select ng-model="submissionsCtrl.submission.submission_type" id="type" name="type" class="form-control" required>
+        <option value="image">image(s)</option>
+        <option value="text">text</option>
+        <option value="video">video</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="tags">Tags††</label>
+      <br>
+      <label class="text-muted"><i>††enter how you would like your work to be tagged in the online edition</i></label>
+      <tags-input display-property="name" ng-model="submissionsCtrl.submission.tags">
+        <auto-complete source="submissionsCtrl.tags">
+          </wysiwyg-edit>
+      </tags-input>
+    </div>
+    <div class="form-group">
+      <label for="content">Description†††</label>
+      <br>
+      <label class="text-muted"><i>†††in a short message to the editors describe your work, how you would like it shown and anything else you'd like to let us know</i></label>
+      <textarea required ng-model="submissionsCtrl.submission.email_content">
+        <p> some shit</p>
+      </textarea>
+    </div>
+  </form>
+  <hr class="dotted">
+  <a class="btn btn-default pull-right" ng-class="{ disabled: infoForm.$invalid }" ui-sref-if="!infoForm.$invalid" ui-sref-val="main.submissions-upload">Next</a>
 </div>

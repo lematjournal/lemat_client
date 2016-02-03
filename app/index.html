@@ -2,184 +2,49 @@
 <html ng-app="lematClient">
 
 <head>
-   <meta charset="utf-8">
-   <title>Le Mat Journal</title>
-   <meta name="description" content="">
-   <meta name="viewport" content="width=device-width">
-   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-   <link href='http://fonts.googleapis.com/css?family=Arimo:400' rel='stylesheet'>
-   <link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
-   <link href='https://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
-   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <title>Le Mat Journal</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <link href='http://fonts.googleapis.com/css?family=Arimo:400' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
-
-   <!-- build:css(.) styles/vendor.css -->
-   <!-- bower:css -->
-   <link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css" />
-   <link rel="stylesheet" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
-   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
-   <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
-   <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css" />
-   <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
-   <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
-   <!-- endbower -->
-   <!-- endbuild -->
-   <!-- build:css(.tmp) styles/main.css -->
-   <link rel="stylesheet" href="styles/main.css">
-   <!-- endbuild -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body>
-   <!--[if lte IE 8]>
+  <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-   <div ui-view="nav"></div>
-   <div class="container">
-      <div ui-view="logo"></div>
-      <div ui-view="header"></div>
-   </div>
-   <div ui-view></div>
-   <div ui-view="footer"></div>
+  <div class="container">
+    <div ui-view="nav"></div>
+    <div ui-view="logo"></div>
+    <div ui-view></div>
+    <div ui-view="footer"></div>
+  </div>
 
-   <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-   <script>
-      ! function (A, n, g, u, l, a, r) {
-         A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
-               (A[l].q = A[l].q || []).push(arguments)
-            }, A[l].l = +new Date, a = n.createElement(g),
-            r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
-      }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+  <script>
+    ! function(A, n, g, u, l, a, r) {
+      A.GoogleAnalyticsObject = l, A[l] = A[l] || function() {
+          (A[l].q = A[l].q || []).push(arguments)
+        }, A[l].l = +new Date, a = n.createElement(g),
+        r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+    }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-      ga('create', 'UA-68259405-1', 'auto');
-      ga('send', 'pageview');
-   </script>
-   <script src="https://www.youtube.com/iframe_api"></script>
-   <!-- build:js(.) scripts/vendor.js -->
-   <!-- bower:js -->
-   <script src="bower_components/jquery/dist/jquery.js"></script>
-   <script src="bower_components/angular/angular.js"></script>
-   <script src="bower_components/angucomplete-alt/angucomplete-alt.js"></script>
-   <script src="bower_components/angular-animate/angular-animate.js"></script>
-   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-   <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-   <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
-   <script src="bower_components/angular-resource/angular-resource.js"></script>
-   <script src="bower_components/angular-route/angular-route.js"></script>
-   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-   <script src="bower_components/angular-scroll/angular-scroll.js"></script>
-   <script src="bower_components/angular-touch/angular-touch.js"></script>
-   <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
-   <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
-   <script src="bower_components/angular-wysiwyg/src/angular-wysiwyg.js"></script>
-   <script src="bower_components/angularUtils-disqus/dirDisqus.js"></script>
-   <script src="bower_components/angular-utils-pagination/dirPagination.js"></script>
-   <script src="bower_components/re-tree/re-tree.js"></script>
-   <script src="bower_components/ng-device-detector/ng-device-detector.js"></script>
-   <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
-   <script src="bower_components/angular-social-links/angular-social-links.js"></script>
-   <script src="bower_components/aws-sdk/dist/aws-sdk.js"></script>
-   <script src="bower_components/toastr/toastr.js"></script>
-   <script src="bower_components/angular-deckgrid/angular-deckgrid.js"></script>
-   <script src="bower_components/angular-youtube-mb/src/angular-youtube-embed.js"></script>
-   <script src="bower_components/underscore/underscore.js"></script>
-   <script src="bower_components/angular-underscore-module/angular-underscore-module.js"></script>
-   <script src="bower_components/angular-slugify/angular-slugify.js"></script>
-   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-   <script src="bower_components/angular-mocks/angular-mocks.js"></script>
-   <script src="bower_components/momentjs/moment.js"></script>
-   <script src="bower_components/humanize-duration/humanize-duration.js"></script>
-   <script src="bower_components/angular-timer/dist/angular-timer.js"></script>
-   <script src="bower_components/ngstorage/ngStorage.js"></script>
-   <script src="bower_components/moment/moment.js"></script>
-   <script src="bower_components/docxtemplater-pykiss/browser/docxgen.js"></script>
-   <script src="bower_components/blob-polyfill/Blob.js"></script>
-   <script src="bower_components/file-saver.js/FileSaver.js"></script>
-   <script src="bower_components/angular-file-saver/dist/angular-file-saver.js"></script>
-   <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
-   <script src="bower_components/angular-confirm-modal/angular-confirm.min.js"></script>
-   <!-- endbower -->
-   <!-- endbuild -->
-
-   <!-- build:js({.tmp,app}) scripts/scripts.js -->
-   <script src="scripts/app.js"></script>
-
-   <!--	constants -->
-   <script src="scripts/common/constants/constants.js"></script>
-
-   <!-- components admin -->
-   <script src="scripts/admin/entries/entries.admin.controller.js"></script>
-   <script src="scripts/admin/entries/entries.admin.controller.js"></script>
-   <script src="scripts/admin/images/images.controller.js"></script>
-   <script src="scripts/admin/images/images.factory.js"></script>
-   <script src="scripts/admin/images/images.upload.modal/images.upload.modal.controller.js"></script>
-   <script src="scripts/admin/issues/issues.admin.controller.js"></script>
-   <script src="scripts/admin/issues/issues.cover.modal/issues.cover.modal.controller.js"></script>
-   <script src="scripts/admin/mail/mail.controller.js"></script>
-   <script src="scripts/admin/mail/mail.factory.js"></script>
-   <script src="scripts/admin/issues/pieces/pieces.admin.controller.js"></script>
-   <script src="scripts/admin/posts/posts.admin.controller.js"></script>
-   <script src="scripts/admin/submissions/submissions.admin.controller.js"></script>
-   <script src="scripts/admin/submissions/submissions.vote.modal/submissions.vote.modal.controller.js"></script>
-   <script src="scripts/admin/users/users.controller.js"></script>
-   <script src="scripts/admin/users/users.create.modal/users.create.modal.controller.js"></script>
-
-   <!-- components core -->
-   <script src="scripts/core/editors/editors.controller.js"></script>
-   <script src="scripts/core/layout/footer/footer.controller.js"></script>
-   <script src="scripts/core/entries/entries.controller.js"></script>
-   <script src="scripts/core/layout/nav/nav.controller.js"></script>
-   <script src="scripts/core/issues/issues.controller.js"></script>
-   <script src="scripts/core/posts/posts.controller.js"></script>
-   <script src="scripts/core/login/login.controller.js"></script>
-   <script src="scripts/core/profile/profile.controller.js"></script>
-   <script src="scripts/core/profile/profile.image-upload.modal/profile.image-upload.modal.controller.js"></script>
-   <script src="scripts/core/submissions/submissions.controller.js"></script>
-
-   <!-- directives -->
-   <script src="scripts/common/directives/file.directive.js"></script>
-   <script src="scripts/common/directives/fileselect.directive.js"></script>
-   <script src="scripts/common/directives/fileupload.directive.js"></script>
-   <script src="scripts/common/directives/lemat-repeat.directive.js"></script>
-   <script src="scripts/common/directives/loading.directive.js"></script>
-   <script src="scripts/common/directives/ng-enter.directive.js"></script>
-   <script src="scripts/common/directives/ng-esc.directive.js"></script>
-   <script src="scripts/common/directives/scroll.directive.js"></script>
-   <script src="scripts/common/directives/scrollposition.directive.js"></script>
-   <script src="scripts/common/directives/ui-sref-if.directive.js"></script>
-
-   <!-- factories -->
-   <script src="scripts/common/factories/as3.factory.js"></script>
-   <script src="scripts/common/factories/authentication.factory.js"></script>
-   <script src="scripts/common/factories/entries.factory.js"></script>
-   <script src="scripts/common/factories/issues.factory.js"></script>
-   <script src="scripts/common/factories/permission.factory.js"></script>
-   <script src="scripts/common/factories/pieces.factory.js"></script>
-   <script src="scripts/common/factories/posts.factory.js"></script>
-   <script src="scripts/common/factories/submissions.factory.js"></script>
-   <script src="scripts/common/factories/users.factory.js"></script>
-
-   <!-- filters -->
-   <script src="scripts/common/filters/cut.filter.js"></script>
-   <script src="scripts/common/filters/escape-html.filter.js"></script>
-   <script src="scripts/common/filters/filter-docs.filter.js"></script>
-   <script src="scripts/common/filters/filter-images.filter.js"></script>
-   <script src="scripts/common/filters/new-lines.filter.js"></script>
-   <script src="scripts/common/filters/spaceless.filter.js"></script>
-   <script src="scripts/common/filters/to-trusted.filter.js"></script>
-
-   <!-- libs -->
-   <script src="scripts/common/libs/angularBootstrapColumnsSameHeight/angularBootstrapColumnsSameHeight.js"></script>
-   <script src="scripts/common/libs/jszip-utils/lib/index.js"></script>
-   <script src="scripts/common/libs/angular-truncate/src/truncate.js"></script>
-
-   <!-- routes -->
-   <script src="scripts/routes/admin.routes.js"></script>
-   <script src="scripts/routes/core.routes.js"></script>
-
-   <!-- endbuild -->
-
+    ga('create', 'UA-68259405-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="scripts/vendor.js"></script>
+  <script src="scripts/scripts.js"></script>
 </body>
 
 </html>

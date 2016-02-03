@@ -1,4 +1,4 @@
-<div class="container" id="contents" ng-init="issuesCtrl.getIssue()" scroll>
+<div class="container" id="contents" scroll>
 	<div class="row">
 		<div class="col-md-4">
 			<h2>WRITTEN</h2>
@@ -26,7 +26,7 @@
 					<h4 class="title text-center"><a ui-sref="main.issues-detail-piece({ id: piece.issue_id, piece: piece.title_url })">{{ ::piece.title }}</a></h4>
 					<p class="text-center"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span><a ui-sref="main.profile-detail({ profile: user.username })">{{ ::user.username }}</a></font></p>
 				<br>
-				<p ng-bind-html="piece.content | to_trusted"></p>
+				<p ng-bind-html="piece.content | toTrusted"></p>
 			</div>
 		</div>
 	</div>

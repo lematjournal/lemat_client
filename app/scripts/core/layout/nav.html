@@ -1,0 +1,145 @@
+<style>
+  .navbar-header-dropdown {
+    margin-top: 16px;
+    margin-left: -16px;
+    font-size: 18px;
+  }
+
+  .menu-logo {
+    margin-left: 9px;
+    font-size: 21px;
+  }
+
+  .menu-bar {
+    position: absolute;
+    top: 20px;
+    left: 3.5%;
+    height: 14px;
+    margin-left: -10px;
+    color: black;
+  }
+
+  .bars {
+    display: block;
+    width: 20px;
+    height: 3px;
+    background-color: #333;
+    box-shadow: 0 5px 0 #333, 0 10px 0 #333;
+  }
+
+  .menu {
+    display: none;
+    width: 100%;
+    padding: 30px 10px 50px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #fff;
+  }
+
+  .menu ul {
+    margin-bottom: 0;
+  }
+
+  .menu a {
+    color: #333;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .menu a:hover {
+    text-decoration: none;
+    opacity: 1;
+  }
+
+  .dropdown-menu {
+    position: relative;
+    border: 0px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    margin-top: 48px;
+    width: 100%;
+    left: 1px;
+    border-radius: 0px;
+    -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .175);
+    box-shadow: 0 0 0 rgba(0, 0, 0, .175);
+  }
+
+  .dropdown-menu .col-sm-6 {
+    width: 25%;
+  }
+
+  @media(max-width:778px) {
+    .dropdown-menu .col-sm-6 {
+      width: 50%;
+    }
+  }
+</style>
+<nav class="navbar navbar-default navbar-fixed-top" style="margin-top: -25px; position: absolute">
+  <div class="container-fluid">
+    <div class="navbar-header-dropdown" uib-dropdown on-toggle="toggled(open)">
+      <a class="menu-bar" uib-dropdown-toggle><span class="glyphicon glyphicon-menu-hamburger" style="font-size: 16px;"></span><font class="menu-logo"><b ng-if="title"> //</b> {{ title }}</a></font>
+      <div class="dropdown-menu row" style="overflow: hidden; position: absolute">
+        <ul class="nav col-sm-6 col-xs-6" role="menu">
+          <li>
+            <h4 style="padding-left: 5px;">HOME</h4>
+          </li>
+          <li class="divider"></li>
+          <li><a ui-sref="main">MAIN PAGE</a>
+          </li>
+          <li><a ui-sref="main.issues-detail({ id: 1 })">CURRENT ISSUE</a>
+          </li>
+          <li><a ui-sref="main.issues">ISSUES</a>
+          </li>
+          <li ng-if="navCtrl.isAuthenticated()"><a ui-sref="main.profile">PROFILE</a></li>
+          <li ng-if="!navCtrl.isAuthenticated()"><a ui-sref="main.login">LOGIN</a>
+          </li>
+          <li ng-if="navCtrl.isAuthenticated()"><a ng-click="navCtrl.logout()">LOGOUT</a>
+          </li>
+        </ul>
+        <ul class="nav col-sm-6 col-xs-6" role="menu">
+          <li>
+            <h4 style="padding-left: 5px;">ONLINE</h4>
+          </li>
+          <li class="divider"></li>
+          <li><a ng-click="setFilter()">CONTENTS</a>
+          </li>
+          <li><a ng-click="setFilter('art')">ART</a>
+          </li>
+          <li><a ng-click="setFilter('essay')">ESSAYS</a>
+          </li>
+          <li><a ng-click="setFilter('poetry')">POETRY</a>
+          </li>
+        </ul>
+        <ul class="nav col-sm-6 col-xs-6 contact" role="menu">
+          <li>
+            <h4 style="padding-left: 5px;">JOURNAL</h4>
+          </li>
+          <li class="divider"></li>
+          <li><a ui-sref="main.about">ABOUT</a>
+          </li>
+          <li ng-if="navCtrl.isAdmin()"><a ui-sref="admin">ADMIN</a>
+          </li>
+          <li><a ui-sref="main.editors">EDITORS</a>
+          </li>
+          <li><a ui-sref="main.submissions">SUBMISSIONS</a>
+          </li>
+
+        </ul>
+        <ul class="nav col-sm-6 col-xs-6" role="menu">
+          <li>
+            <h4 style="padding-left: 5px;">SOCIAL</h4>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="https://www.facebook.com/lematjournal"><i class=" fa fa-facebook"></i></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/lematjournal"><i class="fa fa-twitter"></i></a>
+          </li>
+          <li>
+            <a href="https://github.com/lematjournal"><i class="fa fa-github"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

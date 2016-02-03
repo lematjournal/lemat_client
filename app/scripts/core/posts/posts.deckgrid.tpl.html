@@ -1,39 +1,39 @@
 <div class="panel panel-default">
-   <div class="panel-heading" ng-if="card.post_type === 'text'"><a style="text-transform: uppercase" ui-sref="main.posts-detail({ post: card.title_url })">{{ card.title }}</a>
-   </div>
-   <div class="panel-body">
-      <div class="video embed-responsive embed-responsive-16by9" ng-if="card.post_type === 'video'">
-         <youtube-video video-url="card.content" style="padding-bottom: 5px"></youtube-video>
+  <div class="panel-heading" ng-if="card.post_type === 'text'"><a style="text-transform: uppercase" ui-sref="main.posts-detail({ post: card.title_url })">{{ card.title }}</a>
+  </div>
+  <div class="panel-body">
+    <div class="video embed-responsive embed-responsive-16by9" ng-if="card.post_type === 'video'">
+      <youtube-video video-url="card.content" style="padding-bottom: 5px"></youtube-video>
+    </div>
+    <p class="overflow elipsis" ng-if="card.post_type === 'text'" ng-bind-html="card.content | toTrusted"></p>
+  </div>
+  <div class="panel-footer">
+    <div class="row meta">
+      <div class="tags-meta">
+        <a class="text-center" style="margin-top: 5px" uib-popover-template="popover.templateUrl">
+          <p>TAGS</p>
+        </a>
+        <script type="text/ng-template" id="tag-popover.template.html">
+          <div class="form-group">
+            <p><font ng-repeat="tag in card.tags"><span ng-show="!$first">, </span><a ng-click="setFilter(tag)">#{{ ::tag | uppercase }}</a></font></p>
+          </div>
+        </script>
       </div>
-      <p class="overflow elipsis" ng-if="card.post_type === 'text'" ng-bind-html="card.content | to_trusted"></p>
-   </div>
-   <div class="panel-footer">
-      <div class="row meta">
-         <div class="tags-meta">
-            <a class="text-center" style="margin-top: 5px" uib-popover-template="popover.templateUrl">
-               <p>TAGS</p>
-            </a>
-            <script type="text/ng-template" id="tag-popover.template.html">
-               <div class="form-group">
-                  <p><font ng-repeat="tag in card.tags"><span ng-show="!$first">, </span><a ng-click="setFilter(tag)">#{{ ::tag | uppercase }}</a></font></p>
-               </div>
-            </script>
-         </div>
-         <div class="author">
-            <a ui-sref="main.profile-detail({ profile: card.user.username })">
-               <p class="text-center" style="margin-top: 5px">{{ ::card.user.username }}</p>
-            </a>
-         </div>
-         <div class="share" style="text-align: center">
-            <a social-twitter custom-url="http://lematjournal.org/#!/online/{{ ::post.title_url }}" style="margin-top: 5px">
-               <p class="fa fa-twitter"></p>
-            </a>
-         </div>
-         <div class="link">
-            <a ui-sref="main.posts-detail({ post: card.title_url })" style="margin-top: 5px">
-               <p class="text-center" style="margin-left: -5px">LINK</p>
-            </a>
-         </div>
+      <div class="author">
+        <a ui-sref="main.profile-detail({ profile: card.user.username })">
+          <p class="text-center" style="margin-top: 5px">{{ ::card.user.username }}</p>
+        </a>
       </div>
-   </div>
+      <div class="share" style="text-align: center">
+        <a social-twitter custom-url="http://lematjournal.org/#!/online/{{ ::post.title_url }}" style="margin-top: 5px">
+          <p class="fa fa-twitter"></p>
+        </a>
+      </div>
+      <div class="link">
+        <a ui-sref="main.posts-detail({ post: card.title_url })" style="margin-top: 5px">
+          <p class="text-center" style="margin-left: -5px">LINK</p>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>

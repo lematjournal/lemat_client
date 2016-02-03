@@ -37,7 +37,7 @@
             </p>
          </div>
       </div>
-      <div class="row">
+      <div class="row" ng-if="profileCtrl.user.social_links.length > 0">
          <h4 class="title text-center">SOCIAL LINKS</h4>
          <div class="col-xs-6 col-center-block">
             <ul class="social" ng-repeat="(key, val) in profileCtrl.user.social_links">

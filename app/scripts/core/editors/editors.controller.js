@@ -1,21 +1,14 @@
-(function (angular) {
+import UsersFactory from '../../services/factories.module';
+import AuthFactory from '../../services/factories.module';
 
-   'use strict';
-
-   function EditorsController($scope, $location, AuthFactory, UsersFactory) {
-      var vm = this;
-      
-      vm.users = UsersFactory.users;
-
-      $scope.exclude = function (elem) {
-         return !elem.role.match(/^(admin|editor)$/);
-      };
-
-   }
-   
-   angular.module('lematClient.core.editors')
-      .controller('EditorsController', EditorsController);
-
-   EditorsController.$inject = ['$scope', '$location', 'AuthFactory', 'UsersFactory'];
-
-})(angular);
+export default class EditorsController {
+  /*@ngInject*/
+  constructor($scope, $location, AuthFactory, UsersFactory) {
+    this.AuthFactory = AuthFactory;
+    this.UsersFactory = UsersFactory;
+    this.users = UsersFactory.users;
+    $scope.exclude = (elem) => {
+      return !elem.role.match(/^(admin|editor)$/);
+    };
+  }
+}

@@ -1,88 +1,82 @@
-(function (angular) {
+export default class ProfileController {
+  /*@ngInject*/
+  constructor($scope, $rootScope, $uibModal, $location, $stateParams, AuthFactory, UsersFactory) {
+    this.master = {};
+    this.fields = [];
+    this.$scope = $scope;
+    this.$rootScope = $rootScope;
+    this.$uibModal = $uibModal;
+    this.$location = $location;
+    this.$stateParams = $stateParams;
+    this.AuthFactory = AuthFactory;
+    this.UsersFactory = UsersFactory;
+    $scope.popover = {
+      templateUrl: 'popoverTemplate.html',
+    };
+  }
 
-   'use strict';
+  getProfile() {
+    this.UsersFactory.getUser(this.$stateParams.profile).then(() => {
+      this.user = this.UsersFactory.user;
+    });
+  };
 
-   function ProfileController($scope, $rootScope, $uibModal, $location, $stateParams, AuthFactory, UsersFactory, ServerUrl) {
-      var vm = this;
+  getUserProfile() {
+    this.AuthFactory.setUser().then(() => {
+      this.$rootScope.session = this.AuthFactory.session;
+      this.UsersFactory.getProfile(this.$rootScope.session).then(() => {
+        this.user = this.UsersFactory.profile;
+        angular.copy(this.user, this.master);
+      });
+    });
+  }
 
-      vm.master = {};
-      
-      vm.getProfile = function () {
-         UsersFactory.getUser($stateParams.profile).then(function () {
-            vm.user = UsersFactory.user;
-         });
-      };
+  upsertProfile(user) {
+    if (this.AuthFactory.isAuthenticated() && !angular.equals(this.user, this.master)) {
+      this.UsersFactory.upsertUser(user).then(() => {
+        // toastr.success('User updated successfully', 'Done');
+      });
+    }
+  };
 
-      vm.getUserProfile = function () {
-         AuthFactory.setUser().then(function () {
-            $rootScope.session = AuthFactory.session;
-            UsersFactory.getProfile($rootScope.session).then(function () {
-               vm.user = UsersFactory.profile;
-               angular.copy(vm.user, vm.master);
-            });
-         });
-      };
+  resetProfile() {
+    this.$scope.user = this.$scope.master;
+    toastr.info('User reset to last save', 'Done');
+  }
 
-      vm.upsertProfile = function (user) {
-         if (AuthFactory.isAuthenticated() && !angular.equals(vm.user, vm.master)) {
-            UsersFactory.upsertUser(user).then(function () {
-               toastr.success('User updated successfully', 'Done');
-            });
-         }
-      };
+  // profile image upload modal
 
-      vm.resetProfile = function () {
-         $scope.user = $scope.master;
-         toastr.info('User reset to last save', 'Done');
-      };
-
-      // profile image upload modal
-
-      function openImageUploadModal() {
-         vm.$uibModalInstance = $uibModal.open({
-            templateUrl: 'scripts/core/profile/profile.image-upload.modal/profile.image-upload.modal.html',
-            controller: 'ProfileImageUploadModalController',
-            controllerAs: 'profileImageUploadModalCtrl',
-            size: 'lg',
-            resolve: {
-               images: function () {
-                  return vm.user.images;
-               },
-               userId: function () {
-                  return vm.user.id;
-               }
-            }
-         });
-
-         vm.$uibModalInstance.result.then(function (profileImage) {
-            vm.user.profile_image = profileImage;
-            vm.upsertProfile(vm.user);
-         });
+  openImageUploadModal() {
+    this.$uibModalInstance = $uibModal.open({
+      templateUrl: 'scripts/core/profile/profile.image-upload.modal/profile.image-upload.modal.html',
+      controller: 'ProfileImageUploadModalController',
+      controllerAs: 'profileImageUploadModalCtrl',
+      size: 'lg',
+      resolve: {
+        images: () => {
+          return this.user.images;
+        },
+        userId: () => {
+          return this.user.id;
+        }
       }
-      
-      vm.openImageUploadModal = openImageUploadModal;
+    });
 
-      vm.fields = {};
+    this.$uibModalInstance.result.then((profileImage) => {
+      this.user.profile_image = profileImage;
+      this.upsertProfile(this.user);
+    });
+  }
 
-      vm.save = function (event, field, user) {
-         vm.fields[field] = !vm.fields[field];
-         vm.upsertProfile(user);
-      };
 
-      vm.reset = function (event) {
-         if (event.keyCode === 27) {
-            vm.userForm.$rollbackViewValue();
-         }
-      };
+  save(event, field, user) {
+    this.fields[field] = !this.fields[field];
+    this.upsertProfile(user);
+  };
 
-      $scope.popover = {
-         templateUrl: 'popoverTemplate.html',
-      };
-   }
-
-   angular.module('lematClient.core.profile')
-      .controller('ProfileController', ProfileController);
-
-   ProfileController.$inject = ['$scope', '$rootScope', '$uibModal', '$location', '$stateParams', 'AuthFactory', 'UsersFactory', 'ServerUrl'];
-
-})(angular);
+  reset(event) {
+    if (event.keyCode === 27) {
+      this.userForm.$rollbackViewValue();
+    }
+  };
+}

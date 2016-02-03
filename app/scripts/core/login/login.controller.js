@@ -1,27 +1,20 @@
-(function (angular) {
+import toastr from 'toastr';
 
-   'use strict';
+export default class LoginController {
+  /*@ngInject*/
+  constructor($rootScope, $location, AuthFactory) {
+    this.$rootScope = $rootScope;
+    this.$location = $location;
+    this.AuthFactory = AuthFactory;
+    $rootScope.session = AuthFactory.setUser();
+    $rootScope.userId = AuthFactory.session.id;
+  }
 
-   function LoginController($scope, $rootScope, $location, AuthFactory) {
-      var vm = this;
-      
-      $rootScope.session = AuthFactory.setUser();
-      $rootScope.userId = AuthFactory.session.id;
-      
-      vm.postCredentials = function (credentials) {
-         AuthFactory.login(credentials).then(function () {
-            $rootScope.session = AuthFactory.setUser();
-            $rootScope.userId = AuthFactory.session.id;
-            $location.path('/');
-         });
-         toastr.success('Logged in', 'Done');
-      };
-      
-   }
-
-   angular.module('lematClient.core.login')
-      .controller('LoginController', LoginController);
-
-   LoginController.$inject = ['$scope', '$rootScope', '$location', 'AuthFactory'];
-
-})(angular);
+  postCredentials(credentials) {
+    this.AuthFactory.login(credentials);
+    this.$rootScope.session = this.AuthFactory.setUser();
+    this.$rootScope.userId = this.AuthFactory.session.id;
+    this.$location.path('/');
+    this.toastr.success('Logged in', 'Done');
+  }
+}
