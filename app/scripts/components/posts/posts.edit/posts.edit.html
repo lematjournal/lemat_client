@@ -1,0 +1,43 @@
+<div class="container" ng-init="postsAdminCtrl.getPost()">
+   <div class="form-group">
+      <label for="name">Title</label>
+      <input type="text" ng-model="postsAdminCtrl.post.title" id="title" class="form-control" placeholder="title" required>
+   </div>
+   <div class="form-group">
+      <label for="name">Type</label>
+      <select ng-model="postsAdminCtrl.post.post_type" id="type" class="form-control" required>
+         <option value="image">image</option>
+         <option value="text">text</option>
+         <option value="video">video</option>
+      </select>
+   </div>
+   <div class="form-group" ng-init="postsAdminCtrl.getTags()">
+      <label for="tags">Tags</label>
+      <tags-input display-property="name" ng-model="postsAdminCtrl.post.tags">
+         <auto-complete source="postsAdminCtrl.tags"></auto-complete>
+      </tags-input>
+   </div>
+   <div class="form-group" ng-controller="UsersController as usersCtrl" ng-init="usersCtrl.getUsers()">
+      <label for="user">Author(s):</label><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last"> and </span>{{ user.username }}</font>
+      <div class="input-group">
+         <span class="input-group-addon" id="user-addon"><a ng-click="openUserModal()">Create user</a></span>
+         <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="users" search-fields="username" title-field="username" minlength="1" input-class="form-control form-control-small" initial-value="postsAdminCtrl.post.user.username" aria-describedby="user-addon" />
+      </div>
+   </div>
+   <div class="form-group">
+      <wysiwyg textarea-id="post" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="postsAdminCtrl.post.content" ng-hide="postsAdminCtrl.post.post_type !== 'text'"></wysiwyg>
+   </div>
+   <div class="form-group">
+      <label>Embedded html</label>
+      <input type="text" class="form-control" ng-model="postsAdminCtrl.post.content">
+   </div>
+<!--
+   <div class="form-group">
+      <label>Preview html</label>
+      <input type="text" class="form-control" ng-model="postsAdminCtrl.post.preview">
+   </div>
+-->
+   <a class="btn btn-default" ng-click="postsAdminCtrl.upsertPost(postsAdminCtrl.post)">Submit</a>
+   <a class="btn btn-default" ng-click="postsAdminCtrl.deletePost()"><i class="glyphicon glyphicon-trash"></i>
+Delete</a>
+</div>

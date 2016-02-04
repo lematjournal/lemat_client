@@ -1,4 +1,4 @@
 {
-  "presets": ["es2015", "stage-0"],
-  "plugins": ["transform-decorators-legacy"]
+  "presets": ["stage-0", "es2015"],
+  "plugins": ["transform-function-bind", "transform-decorators-legacy"]
 }

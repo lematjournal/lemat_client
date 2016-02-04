@@ -8,6 +8,7 @@ export default class AS3Factory {
   }
 
   uploadFile(file, folder) {
+    console.log(file, folder);
     let deferred = this.$q.defer();
 
     return deferred.promise;
@@ -26,8 +27,6 @@ export default class AS3Factory {
     for (let i = 0; i < 16; i++) {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
-
     return text;
-
   }
 }

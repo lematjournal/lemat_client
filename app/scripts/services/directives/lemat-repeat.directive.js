@@ -1,10 +1,9 @@
-'use strict';
-
 export default function lematRepeat() {
-  var directive = function(scope, element) {
+  'ngInject';
+  let directive = function(scope, element) {
     angular.element(element);
     if (scope.$last) {
-      setTimeout(function() {
+      setTimeout(() => {
         scope.$emit('lastElem');
       }, 1);
     }

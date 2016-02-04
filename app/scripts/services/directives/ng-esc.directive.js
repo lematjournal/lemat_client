@@ -1,18 +1,14 @@
-'use strict';
-
 export default function ngEsc() {
   'ngInject';
-  var directive = function(scope, element, attrs) {
-    element.bind('keydown keypress', function(event) {
+  let directive = (scope, element, attrs) => {
+    element.bind('keydown keypress', (event) => {
       if (event.which === 27) {
-        scope.$apply(function() {
+        scope.$apply(() => {
           scope.$eval(attrs.ngEsc);
         });
         event.preventDefault();
       }
     });
   };
-
   return directive;
-
 }

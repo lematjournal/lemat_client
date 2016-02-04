@@ -1,0 +1,214 @@
+<style>
+  .footer {
+    height: auto;
+    padding-bottom: 30px;
+    margin-top: 10px;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+    //  border-top: 1px solid #DDDDDD;
+  }
+
+  .footer p {
+    margin: 0;
+  }
+
+  .footer img {
+    max-width: 100%;
+  }
+
+  .footer h3 {
+    border-bottom: 1px solid #BAC1C8;
+    /*	color: #54697E;*/
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    padding: 40px 0 10px;
+    text-transform: uppercase;
+  }
+
+  .footer ul {
+    font-size: 13px;
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 15px;
+    color: #7F8C8D;
+  }
+
+  .footer ul li a {
+    padding: 0 0 5px 0;
+    display: block;
+  }
+
+  .footer a {
+    color: #78828D
+  }
+
+  .social li a {
+    color: #EDEFF1;
+  }
+
+  .social li:hover {
+    border: 2px solid #2c3e50;
+    background: #2c3e50;
+  }
+
+  .social li a i {
+    font-size: 16px;
+    margin: 0 0 0 5px;
+    color: #EDEFF1 !important;
+  }
+
+  .footer-bottom {
+    background: #E3E3E3;
+    border-top: 1px solid #DDDDDD;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .footer-bottom p.pull-left {
+    padding-top: 6px;
+  }
+
+  .full {
+    width: 100%;
+  }
+
+  .gap {
+    height: 30px;
+    width: 100%;
+    clear: both;
+    display: block;
+  }
+
+  .supportLi h4 {
+    font-size: 20px;
+    font-weight: lighter;
+    line-height: normal;
+    margin-bottom: 0 !important;
+    padding-bottom: 0;
+  }
+
+  .newsletter-box input#appendedInputButton {
+    background: #FFFFFF;
+    display: inline-block;
+    float: left;
+    height: 30px;
+    clear: both;
+    width: 100%;
+  }
+
+  .newsletter-box .btn {
+    border: medium none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    display: inline-block;
+    height: 40px;
+    padding: 0;
+    width: 100%;
+    color: #fff;
+  }
+
+  .social li {
+    background: none repeat scroll 0 0 #B5B5B5;
+    border: 2px solid #B5B5B5;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    float: left;
+    height: 36px;
+    line-height: 36px;
+    margin: 0 8px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 36px;
+    transition: all 0.5s ease 0s;
+    -moz-transition: all 0.5s ease 0s;
+    -webkit-transition: all 0.5s ease 0s;
+    -ms-transition: all 0.5s ease 0s;
+    -o-transition: all 0.5s ease 0s;
+  }
+
+  @media (max-width: 768px) {
+    .col-sm-6 {
+      width: 100%;
+    }
+  }
+</style>
+<div class="footer" id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+        <h3>EDITORS</h3>
+        <ul>
+          <li><a ui-sref="main.profile-detail({ profile: 'Carter Halbrooks' })">Carter Halbrooks</a>
+          </li>
+          <li><a ui-sref="main.profile-detail({ profile: 'Danielle Norris' })">Danielle Norris</a>
+          </li>
+          <li><a ui-sref="main.profile-detail({ profile: 'Ian Delairre' })">Ian Delairre</a>
+          </li>
+          <li><a ui-sref="main.profile-detail({ profile: 'Phoebe Meskill' })">Phoebe Meskill</a>
+          </li>
+          <li><a ui-sref="main.profile-detail({ profile: 'Ian McCament' })">Ian McCament</a>
+          </li>
+          <li><a ui-sref="main.profile-detail({ profile: 'Shelby Jackson' })">Shelby Jackson</a>
+          </li>
+          <li><a ui-sref="main.profile-detail({ profile: 'Turner Roth' })">Turner Roth</a>
+          </li>
+          <li><a ui-sref="main.profile-detail({ profile: 'Jacky Connolly' })">Jacky Connolly</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+        <h3>CONTRIBUTORS</h3>
+        <ul>
+          <li ng-repeat="user in footerCtrl.issueUsers"><a ui-sref="main.profile-detail({ profile: user })">{{ user }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+        <h3>JOURNAL</h3>
+        <ul>
+          <li><a ui-sref="main.about">About</a>
+          </li>
+          <li><a ui-sref="main.editors">Editors</a>
+          </li>
+          <li><a ui-sref="main.issues">Issues</a>
+          </li>
+          <li><a ui-sref="main.submissions">Submissions</a>
+          </li>
+        </ul>
+      </div>
+      <!-- <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12 pull-right social-buttons">
+        <h3>SOCIAL LINKS</h3>
+        <ul class="social">
+          <li>
+            <a href="https://www.facebook.com/lematjournal"><i class="fa fa-facebook"></i></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/lematjournal"><i class="fa fa-twitter"></i></a>
+          </li>
+          <li>
+            <a href="https://github.com/lematjournal"><i class="fa fa-github"></i></a>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+    <!--/.row-->
+  </div>
+  <!--/.container-->
+</div>
+<!--/.footer-->
+
+<!--
+<div class="footer-bottom">
+	<div class="container">
+		<p class="pull-left"></p>
+	</div>
+</div>-->

@@ -1,4 +1,4 @@
-export default class SecFactory {
+export default class PermissionFactory {
   /*@ngInject*/
   constructor($rootScope, $location, AuthFactory) {
     this.$rootScope = $rootScope;

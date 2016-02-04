@@ -1,0 +1,24 @@
+<div class="container">
+   <div class="row">
+      <h1>images</h1>
+      <hr>
+      <div dir-paginate="image in imagesCtrl.images | itemsPerPage: 8" current-page="currentPage">
+         <div class="col-xs-3">
+            <div class="profile-image">
+               <img ng-src="{{ image.image_url }}" height="255px" width="255px" />
+               <div class="inner-box">
+                  <p class="pull-right"><a ng-click="imagesCtrl.deleteImage(image)">[x]</a></p>
+               </div>
+               <div class="description">
+                  owner: {{ image.user }}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <ul class="pager">
+         <dir-pagination-controls template-url="scripts/services/templates/pagination.template.html"></dir-pagination-controls>
+      </ul>
+   </div>
+</div>

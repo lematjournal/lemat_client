@@ -1,4 +1,4 @@
-import { PostsFactory, UsersFactory } from '../core/core.module';
+import { PostsFactory, UsersFactory } from '../components/components.module';
 
 export default class CheckUsers {
   /*@ngInject*/

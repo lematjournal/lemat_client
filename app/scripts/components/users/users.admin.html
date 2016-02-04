@@ -1,0 +1,27 @@
+<div class="container">
+   <div class="row">
+      <table class="table">
+         <h1>users</h1>
+         <col style="width: 5%">
+         <col style="width: 25%">
+         <col style="width: 20%">
+         <col style="width: 15%">
+         <col style="width: 35%">
+         <tr>
+            <th>id</th>
+            <th>user</th>
+            <th>name</th>
+            <th>role</th>
+            <th>options</th>
+         </tr>
+         <tr ng-repeat="user in usersCtrl.users">
+            <td>{{ ::user.id }}</td>
+            <td>{{ ::user.email }}</td>
+            <td>{{ ::user.username }}</td>
+            <td>{{ ::user.role }}</td>
+            <td><div class="btn-group"><a class="btn btn-default" ui-sref="main.profile-detail({ profile: user.username })">View</a> <a class="btn btn-default" ui-sref="admin.users-edit({ user: user.username })">Edit</a> <a class="btn btn-default" ng-click="usersCtrl.deleteUser(user.id)" confirm="are you sure?">Delete</a></div> </td>
+         </tr>
+      </table>
+      <a class="btn btn-default btn-block" ui-sref="admin.users-create">Add User</a>
+   </div>
+</div>

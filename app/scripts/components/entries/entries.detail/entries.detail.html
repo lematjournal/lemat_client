@@ -1,0 +1,15 @@
+<div class="container">
+   <div class="row">
+      <h3 class="title text-center">{{ entriesCtrl.entry.title }}</h3>
+   </div>
+   <br>
+   <div class="row">
+      <p ng-bind-html="entriesCtrl.entry.content | toTrusted"></p>
+      <p class="pull-right">- {{ entriesCtrl.entry.user.email }}</p>
+   </div>
+   <div class="row">
+      <a class="btn btn-default" ui-sref="main">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ ::entriesCtrl.url }}"><span class="fa fa-twitter"></span></a>
+      <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ entries.identifier }}" disqus-url="{{ entriesCtrl.url }}" disqus-title="{{ entriesCtrl.entry.title }}">
+      </dir-disqus>
+   </div>
+</div>

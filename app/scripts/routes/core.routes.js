@@ -1,7 +1,4 @@
-import EntriesFactory from '../core/core.module';
-import UsersFactory from '../services/factories.module';
-import PostsFactory from '../core/core.module';
-import IssuesFactory from '../core/core.module';
+import { EntriesFactory, UsersFactory, PostsFactory, IssuesFactory } from '../components/components.module';
 
 export default class CoreRoutes {
   /*@ngInject*/
@@ -11,25 +8,25 @@ export default class CoreRoutes {
         url: '/',
         views: {
           '@': {
-            templateUrl: 'scripts/core/entries/entries.html',
+            templateUrl: 'scripts/components/entries/entries.html',
             controller: 'EntriesController',
             controllerAs: 'entriesCtrl'
           },
           'footer@': {
-            templateUrl: 'scripts/core/layout/footer.html',
+            templateUrl: 'scripts/components/layout/footer.html',
             controller: 'FooterController',
             controllerAs: 'footerCtrl'
           },
           'nav@': {
-            templateUrl: 'scripts/core/layout/nav.html',
+            templateUrl: 'scripts/components/layout/nav.html',
             controller: 'NavController',
             controllerAs: 'navCtrl'
           },
-          'logo@': {
-            templateUrl: 'scripts/core/layout/logo.html'
+          'header@': {
+            templateUrl: 'scripts/components/layout/header.html'
           }
         },
-        onEnter: (EntriesFactory, PostsFactory, IssuesFactory, UsersFactory) => {
+        onEnter: (EntriesFactory, PostsFactory, IssuesFactory, UsersFactory) => { /* @ngInject */
           EntriesFactory.getEntries() && PostsFactory.getPosts() && IssuesFactory.getIssues() && UsersFactory.checkStoredUsers();
         }
       })
@@ -37,13 +34,13 @@ export default class CoreRoutes {
         url: 'news/:entry',
         views: {
           '@': {
-            templateUrl: 'scripts/core/entries/entries.detail/entries.detail.html',
+            templateUrl: 'scripts/components/entries/entries.detail/entries.detail.html',
             controller: 'EntriesController',
             controllerAs: 'entriesCtrl'
           },
-          'logo@': {}
+          'header@': {}
         },
-        onEnter: (EntriesFactory, $stateParams) => {
+        onEnter: (EntriesFactory, $stateParams) => { /* @ngInject */
           EntriesFactory.getEntry($stateParams.entry);
         }
       })
@@ -51,13 +48,13 @@ export default class CoreRoutes {
         url: 'issues',
         views: {
           '@': {
-            templateUrl: 'scripts/core/issues/issues.html',
+            templateUrl: 'scripts/components/issues/issues.html',
             controller: 'IssuesController',
             controllerAs: 'issuesCtrl'
           },
-          'logo@': {}
+          'header@': {}
         },
-        onEnter: (IssuesFactory) => {
+        onEnter: (IssuesFactory) => { /* @ngInject */
           IssuesFactory.getIssues();
         }
       })
@@ -65,13 +62,13 @@ export default class CoreRoutes {
         url: 'issues/:issue',
         views: {
           '@': {
-            templateUrl: 'scripts/core/issues/issues.detail/issues.detail.html',
+            templateUrl: 'scripts/components/issues/issues.detail/issues.detail.html',
             controller: 'IssuesController',
             controllerAs: 'issuesCtrl'
           },
-          'logo@': {}
+          'header@': {}
         },
-        onEnter: (IssuesFactory, $stateParams) => {
+        onEnter: (IssuesFactory, $stateParams) => { /* @ngInject */
           IssuesFactory.getIssue($stateParams.issue);
         }
       })
@@ -79,13 +76,13 @@ export default class CoreRoutes {
         url: 'issues/:issue/:piece',
         views: {
           '@': {
-            templateUrl: 'scripts/core/issues/issues.detail/piece.html',
+            templateUrl: 'scripts/components/issues/issues.detail/piece.html',
             controller: 'IssuesController',
             controllerAs: 'issuesCtrl'
           },
-          'logo@': {}
+          'header@': {}
         },
-        onEnter: (PiecesFactory, $stateParams) => {
+        onEnter: (PiecesFactory, $stateParams) => { /* @ngInject */
           PiecesFactory.getPiece($stateParams.issue, $stateParams.piece);
         }
       })
@@ -93,13 +90,13 @@ export default class CoreRoutes {
         url: 'online',
         views: {
           '@': {
-            templateUrl: 'scripts/core/posts/posts.html',
+            templateUrl: 'scripts/components/posts/posts.html',
             controller: 'PostsController',
             controllerAs: 'postsCtrl'
           },
-          'logo@': {}
+          'header@': {}
         },
-        onEnter: (PostsFactory) => {
+        onEnter: (PostsFactory) => { /* @ngInject */
           PostsFactory.getPosts();
         }
       })
@@ -107,13 +104,13 @@ export default class CoreRoutes {
         url: 'online/:post',
         views: {
           '@': {
-            templateUrl: 'scripts/core/posts/posts.detail/posts.detail.html',
+            templateUrl: 'scripts/components/posts/posts.detail/posts.detail.html',
             controller: 'PostsController',
             controllerAs: 'postsCtrl'
           },
-          'logo@': {}
+          'header@': {}
         },
-        onEnter: (PostsFactory, $stateParams) => {
+        onEnter: (PostsFactory, $stateParams) => { /* @ngInject */
           PostsFactory.getPost($stateParams.post);
         }
       })
@@ -121,13 +118,13 @@ export default class CoreRoutes {
         url: 'editors',
         views: {
           '@': {
-            templateUrl: 'scripts/core/editors/editors.html',
+            templateUrl: 'scripts/components/editors/editors.html',
             controller: 'EditorsController',
             controllerAs: 'editorsCtrl'
           },
-          'logo@': {}
+          'header@': {}
         },
-        onEnter: (UsersFactory, $stateParams) => {
+        onEnter: (UsersFactory, $stateParams) => { /* @ngInject */
           UsersFactory.getUsers();
         }
       })
@@ -135,66 +132,66 @@ export default class CoreRoutes {
         url: 'login',
         views: {
           '@': {
-            templateUrl: 'scripts/core/login/login.html',
+            templateUrl: 'scripts/components/login/login.html',
             controller: 'LoginController',
             controllerAs: 'loginCtrl'
           },
-          'logo@': {}
+          'header@': {}
         }
       })
       .state('main.about', {
         url: 'about',
         views: {
           '@': {
-            templateUrl: 'scripts/core/about/about.html'
+            templateUrl: 'scripts/components/about/about.html'
           },
-          'logo@': {}
+          'header@': {}
         }
       })
       .state('main.profile', {
         url: 'profile',
         views: {
           '@': {
-            templateUrl: 'scripts/core/profile/profile.html',
+            templateUrl: 'scripts/components/profile/profile.edit.html',
             controller: 'ProfileController',
             controllerAs: 'profileCtrl'
           },
-          'logo@': {}
+          'header@': {}
         }
       })
       .state('main.profile-detail', {
         url: 'profile/:profile',
         views: {
           '@': {
-            templateUrl: 'scripts/core/profile/profile.detail/profile.detail.html',
+            templateUrl: 'scripts/components/profile/profile.detail.html',
             controller: 'ProfileController',
             controllerAs: 'profileCtrl'
           },
-          'logo@': {}
+          'header@': {}
         }
       })
       .state('main.submissions', {
         url: 'submissions',
         views: {
           '@': {
-            templateUrl: 'scripts/core/submissions/submissions.html'
+            templateUrl: 'scripts/components/submissions/submissions.html'
           },
-          'logo@': {}
+          'header@': {}
         }
       })
       .state('main.submissions-form', {
         url: 'submissions/form',
         views: {
           '@': {
-            templateUrl: 'scripts/core/submissions/submissions.form/submissions.form.html',
+            templateUrl: 'scripts/components/submissions/submissions.form/submissions.form.html',
             controller: 'SubmissionsController',
             controllerAs: 'submissionsCtrl'
           },
-          'logo@': {
-            templateUrl: 'scripts/core/submissions/submissions.form/submissions.title/submissions.title.html'
+          'header@': {
+            templateUrl: 'scripts/components/submissions/submissions.form/submissions.title/submissions.title.html'
           },
           'body@main.submissions-form': {
-            templateUrl: 'scripts/core/submissions/submissions.form/submissions.page-1/submissions.page-1.html'
+            templateUrl: 'scripts/components/submissions/submissions.form/submissions.page-1/submissions.page-1.html'
           }
         },
       })
@@ -202,7 +199,7 @@ export default class CoreRoutes {
         url: '/upload',
         views: {
           'body@main.submissions-form': {
-            templateUrl: 'scripts/core/submissions/submissions.form/submissions.page-2/submissions.page-2.html'
+            templateUrl: 'scripts/components/submissions/submissions.form/submissions.page-2/submissions.page-2.html'
           }
         },
         parent: 'main.submissions-form'
@@ -211,10 +208,10 @@ export default class CoreRoutes {
         url: '/final',
         views: {
           'body@main.submissions-form': {
-            templateUrl: 'scripts/core/submissions/submissions.form/submissions.page-3/submissions.page-3.html'
+            templateUrl: 'scripts/components/submissions/submissions.form/submissions.page-3/submissions.page-3.html'
           },
           'title@main.submissions-form': {
-            templateUrl: 'scripts/core/submissions/submissions.form/submissions.title/submissions.title-complete.html'
+            templateUrl: 'scripts/components/submissions/submissions.form/submissions.title/submissions.title-complete.html'
           }
         },
         parent: 'main.submissions-form'
@@ -223,7 +220,7 @@ export default class CoreRoutes {
         url: '/thanks',
         views: {
           'body@main.submissions-form': {
-            templateUrl: 'scripts/core/submissions/submissions.form/submissions.page-4/submissions.page-4.html'
+            templateUrl: 'scripts/components/submissions/submissions.form/submissions.page-4/submissions.page-4.html'
           },
           'title@main.submissions-form': {}
         },
@@ -231,6 +228,7 @@ export default class CoreRoutes {
       })
   }
 
+  /* @ngInject */
   static routeFactory($stateProvider, $urlRouterProvider) {
     CoreRoutes.instance = new CoreRoutes($stateProvider, $urlRouterProvider);
     return CoreRoutes.instance;

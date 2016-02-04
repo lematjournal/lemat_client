@@ -15,14 +15,6 @@ var babelify = require('babelify');
 var watchify = require('watchify');
 var wiredep = require('wiredep').stream;
 var source = require('vinyl-source-stream');
-// var ngAutoBootstrap = require('gulp-ng-autobootstrap');
-
-// gulp.task('ng-autobootstrap', function() {
-//     return gulp
-//         .src('app/scripts/**/*.js')
-//         .pipe(ngAutoBootstrap())
-//         .pipe(gulp.dest('app/scripts'));
-// });
 
 var bundler = {
   w: null,
@@ -32,14 +24,18 @@ var bundler = {
       extensions: ['.js'],
       debug: true
     }).transform(babelify.configure({
-      presets: ['es2015', 'stage-0'],
-      plugins: ['transform-decorators-legacy']
+      presets: ['stage-0', 'es2015'],
+      plugins: ['transform-function-bind', 'transform-decorators-legacy']
     })));
   },
   bundle: function() {
     return this.w && this.w.bundle()
       .on('error', $.util.log.bind($.util, 'Browserify Error'))
       .pipe(source('scripts.js'))
+      .pipe($.ngAnnotate({
+        add: true,
+        single_quotes: true
+      }))
       .pipe(gulp.dest('./dist/scripts/'));
   },
   watch: function() {
@@ -49,6 +45,18 @@ var bundler = {
     this.w && this.w.close();
   }
 };
+
+// gulp.task('templates', function () {
+//   gulp.src([
+//       './**/*.html',
+//       '!./node_modules/**'
+//     ])
+//     .pipe($.minifyHTML({
+//       quotes: true
+//     }))
+//     .pipe(templates('templates.js'))
+//     .pipe(gulp.dest('tmp'));
+// });
 
 //watch scss for changes and render into minified css with nice auto-prefixing
 gulp.task('styles', function() {
@@ -73,13 +81,21 @@ gulp.task('fonts', function() {
     .pipe($.size());
 });
 
-gulp.task('html', function() {
+gulp.task('html:main', function() {
   var assets = $.useref();
   return gulp.src('app/**/*.html')
     .pipe(assets)
     .pipe(gulp.dest('dist'))
     .pipe($.size());
 });
+
+gulp.task('html:assets', function() {
+  var assets = $.useref();
+  return gulp.src(['node_modules/angular-ui-bootstrap/**/*.html', '!node_modules/angular-ui-bootstrap/src/**/*.html'])
+    .pipe(assets)
+    .pipe(gulp.dest('dist/uib'))
+    .pipe($.size());
+})
 
 gulp.task('cache', function() {
   return gulp.src('app/**/*.html')
@@ -100,11 +116,14 @@ gulp.task('images', function() {
 
 gulp.task('deploy', function() {
   return gulp.src('./dist/**/*')
-    .pipe($.ghPages());
+    .pipe($.ghPages({
+      remoteUrl: 'git@github.com:lematjournal/lematjournal.github.io.git',
+      branch: 'master'
+    }));
 });
 
 gulp.task('extras', function() {
-  return gulp.src(['app/*.txt', 'app/*.ico'])
+  return gulp.src(['app/*.txt', 'app/*.ico', 'app/CNAME'])
     .pipe(gulp.dest('dist/'))
     .pipe($.size());
 });
@@ -135,7 +154,7 @@ gulp.task('wiredep', function() {
 gulp.task('minify:js', function() {
   return gulp.src('dist/scripts/**/*.js')
     .pipe($.uglify())
-    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest('dist/scripts'))
     .pipe($.size());
 });
 
@@ -146,14 +165,7 @@ gulp.task('minify:css', function() {
     .pipe($.size());
 });
 
-gulp.task('sources', function() {
-  return gulp.src('./app/**/*.js')
-    .pipe($.concat('/scripts/scripts.js'))
-    .pipe(gulp.dest('dist'))
-    .pipe($.size());
-});
-
-gulp.task('bower-scripts', function() {
+gulp.task('bower:scripts', function() {
   var filterJS = gulpFilter('**/*.js', {
     restore: false
   });
@@ -164,7 +176,7 @@ gulp.task('bower-scripts', function() {
     .pipe(gulp.dest('dist/scripts'));
 });
 
-gulp.task('bower-css', function() {
+gulp.task('bower:css', function() {
   var bowerCopyFiles = [];
   return gulp.src('./bower.json')
     .pipe($.mainBowerFiles(), {
@@ -197,27 +209,29 @@ gulp.task('set-production', function() {
   process.env.NODE_ENV = 'production';
 });
 
+gulp.task('html', ['html:main','html:assets']);
+
 gulp.task('minify', ['minify:js', 'minify:css']);
 
 gulp.task('clean', del.bind(null, 'dist'));
 
 gulp.task('clean-bundle', sync(['clean', 'bundle']));
 
-gulp.task('bower', ['bower-css', 'bower-scripts']);
+gulp.task('bower', ['bower:css', 'bower:scripts']);
 
 gulp.task('build', ['clean-bundle'], bundler.stop.bind(bundler));
 
-gulp.task('bundle', ['bower', 'html', 'styles', 'fonts', 'scripts', 'images', 'extras', 'cache']);
+gulp.task('bundle', ['html', 'styles', 'fonts', 'scripts', 'images', 'extras']);
 
-gulp.task('build:production', sync(['set-production', 'build', 'minify']));
+gulp.task('build:production', sync(['set-production', 'minify', 'build']));
 
-gulp.task('serve:production', sync(['build:production', 'lint', 'serve']));
+gulp.task('serve:production', sync(['build:production', 'serve']));
 
 gulp.task('default', ['build']);
 
 gulp.task('watch', sync(['clean-bundle', 'serve']), function() {
   bundler.watch();
-  gulp.watch('app/*.html', ['html']);
+  gulp.watch('app/**/*.html', ['html']);
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('app/images/**/*', ['images']);
   gulp.watch('app/fonts/**/*', ['fonts']);
