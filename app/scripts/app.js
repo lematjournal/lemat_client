@@ -15,6 +15,7 @@ import 'angular-deckgrid';
 import 'angular-filter';
 import 'angular-sanitize';
 import 'angular-trix';
+import 'angular-scroll';
 import 'angular-ui-bootstrap';
 import 'angular-ui-router';
 import 'angular-utils-pagination';
@@ -24,7 +25,7 @@ import 'ng-file-upload';
 import 'ngstorage';
 import 're-tree';
 
-angular.module('lematClient.directives', ['akoenig.deckgrid', 'angularUtils.directives.dirPagination', 'ngFileUpload', 'ui.bootstrap.modal', 'youtube-embed']);
+angular.module('lematClient.directives', ['akoenig.deckgrid', 'angularUtils.directives.dirPagination','duScroll', 'ngFileUpload', 'ui.bootstrap.modal', 'youtube-embed']);
 register('lematClient.directives').directive('lematRepeat', directives.lematRepeat);
 register('lematClient.directives').directive('loading', directives.loading);
 register('lematClient.directives').directive('ngEnter', directives.ngEnter);

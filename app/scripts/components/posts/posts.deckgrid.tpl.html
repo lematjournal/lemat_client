@@ -4,12 +4,12 @@
   <div class="panel-body" ng-if="card.post_type === 'video'" style="padding: 0">
     <div class="video">
       <a ui-sref="main.posts-detail({ post: card.title_url })">
-        <img class="video-thumbnail" src="{{ card.content | thumbnail }}">
+        <img class="video-thumbnail" src="{{ ::card.content | thumbnail }}">
       </a>
     </div>
   </div>
   <div class="panel-body" ng-if="card.post_type === 'text'">
-    <p class="overflow elipsis" ng-bind-html="card.content | toTrusted"></p>
+    <p class="overflow elipsis" ng-bind-html="::card.content | toTrusted"></p>
   </div>
   <div class="panel-footer">
     <div class="row meta">

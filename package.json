@@ -66,6 +66,7 @@
     "angular-deckgrid": "git+https://github.com/akoenig/angular-deckgrid.git",
     "angular-filter": "^0.5.8",
     "angular-sanitize": "^1.4.9",
+    "angular-scroll": "^1.0.0",
     "angular-social-links": "0.0.23",
     "angular-time": "^1.1.0",
     "angular-trix": "^1.0.2",
