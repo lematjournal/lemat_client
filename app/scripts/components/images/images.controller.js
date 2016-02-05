@@ -21,14 +21,14 @@ export default class ImagesController {
   }
 
   deleteImage(image) {
-    this.AS3Factory.deleteFile(image.image_url).then(() => {
-      this.ImagesFactory.deleteImage(image.id).then(() => {
-        this.images.splice(this.findImageIndex(image.id), 1);
-      }, () => {
-        console.log('error');
-      });
-    });
-  };
+    try {
+      this.AS3Factory.deleteFile(image.image_url)
+      this.ImagesFactory.deleteImage(image.id)
+      this.images.splice(this.findImageIndex(image.id), 1);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   findImageIndex(id) {
     for (let i = 0; i < this.images.length; i++) {
