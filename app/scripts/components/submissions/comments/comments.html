@@ -1,0 +1,18 @@
+<div class="container">
+   <div class="row" ng-repeat="comment in submissionsCtrl.submission.comments" ng-if="submissionsCtrl.submission.comments">
+      <div class="media" style="margin-top: 10px">
+         <div class="media-left">
+            <div class="profile-image">
+               <img class="media-object" ng-src="{{ comment.user.profile_image }}" alt="..." height="64px" width="64px">
+            </div>
+         </div>
+         <div class="media-body">
+            <h4 class="media-heading">{{ submissionsCtrl.submission.vote_array[userId] }}</h4>
+            <p>{{ comment.body }}</p>
+         </div>
+      </div>
+   </div>
+   <div class="row" ng-if="!submissionsCtrl.submission.comments">
+      <h1 class="text-center">no comments yet</h1>
+   </div>
+</div>

@@ -1,4 +1,5 @@
 import ServerUrl from '../../services/constants.module';
+import 'babel-polyfill';
 
 export default class SubmissionsFactory {
   /*@ngInject*/
@@ -13,10 +14,13 @@ export default class SubmissionsFactory {
     this.submission = {};
   }
 
-  getAcceptedSubmissions() {
-    return this.$http.get(ServerUrl + '/voting/accepted').then((response) => {
+  async getAcceptedSubmissions() {
+    try {
+      let response = await this.$http.get(ServerUrl + '/voting/accepted');
       angular.copy(response.data, this.acceptedSubmissions);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   /**
@@ -24,32 +28,44 @@ export default class SubmissionsFactory {
    * Assigns the time remaining the voting round
    * @returns {Array} Array of submissions currently under vote
    */
-  getCurrentRoundSubmissions() {
-    return this.$http.get(ServerUrl + '/voting/current').then((response) => {
-      let modifiedResponse = setDates(response.data);
+  async getCurrentRoundSubmissions() {
+    try {
+      let response = await this.$http.get(ServerUrl + '/voting/current');
+      let modifiedResponse = this.setDates(response.data);
       angular.copy(modifiedResponse, this.currentSubmissions);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  getPendingSubmisions() {
-    return this.$http.get(ServerUrl + '/voting/pending').then((response) => {
+  async getPendingSubmissions() {
+    try {
+      let response = await this.$http.get(ServerUrl + '/voting/pending');
       angular.copy(response.data, this.pendingSubmissions);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  getSubmissions() {
-    return this.$http.get(ServerUrl + '/submissions/').then((response) => {
-      angular.copy(response.data, this.submissions);
-    });
+  async getSubmissions() {
+    try {
+      let response = await this.$http.get(ServerUrl + '/submissions/');
+      return angular.copy(response.data, this.submissions);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  getSubmission(uid) {
-    return this.$http.get(ServerUrl + '/submissions/' + uid).then((response) => {
+  async getSubmission(uid) {
+    try {
+      let response = await this.$http.get(ServerUrl + '/submissions/' + uid);
       angular.copy(response.data, this.submission);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  upsertSubmission(submission) {
+  async upsertSubmission(submission) {
     let params = {
       submission: {
         attachments: submission.attachments,
@@ -61,43 +77,50 @@ export default class SubmissionsFactory {
         username: submission.user.username
       }
     };
-    if (submission.uid) {
-      return this.$http.patch(ServerUrl + '/submissions/' + submission.uid, params).then((response) => {
+    try {
+      if (submission.uid) {
+        let response = await this.$http.patch(ServerUrl + '/submissions/' + submission.uid, params);
         angular.copy(response.data, this.submission);
-      });
-    } else {
-      return this.$http.post(ServerUrl + '/submissions/', params).then((response) => {
+      } else {
+        let response = await this.$http.post(ServerUrl + '/submissions/', params);
         angular.copy(response.data, this.submission);
-      });
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 
-  upsertComment(commentHash) {
+  async upsertComment(commentHash) {
     let params = {
       comment: commentHash
     };
-    return this.$http.post(ServerUrl + '/submissions/comments', params).then((response) => {
+    try {
+      let response = await this.$http.post(ServerUrl + '/submissions/comments', params);
       angular.copy(response.data, this.comment);
       console.log('comment: ', this.comment);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  updateVotes(submission) {
+  async updateVotes(submission) {
     let params = {
       submission: {
         votes_array: submission.votes_array,
         user_ids: submission.user_ids
       }
     };
-
-    return this.$http.patch(ServerUrl + '/voting/' + submission.uid, params).then((response) => {
+    try {
+      let response = await this.$http.patch(ServerUrl + '/voting/' + submission.uid, params);
       angular.copy(response.data, this.submission);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   setDates(responseData) {
     let newData = [];
-    angular.forEach(responseData, (obj) => {
+    responseData.map((obj) => {
       let date = new Date(obj.end_date);
       let time = new Date();
       let timeRemaining = (date.valueOf() - time.getTime().valueOf());
@@ -110,16 +133,22 @@ export default class SubmissionsFactory {
     return newData;
   }
 
-  getRounds() {
-    return this.$http.get(ServerUrl + '/voting/rounds').then((response) => {
+  async getRounds() {
+    try {
+      let response = await this.$http.get(ServerUrl + '/voting/rounds');
       angular.copy(response.data, rounds);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  deleteSubmission(id) {
-    return this.$http.delete(ServerUrl + '/submissions/' + id).then(() => {
-      this.pendingSubmissions.splice(findSubmissionIndexById(id), 1);
-    });
+  async deleteSubmission(id) {
+    try {
+      await this.$http.delete(ServerUrl + '/submissions/' + id);
+      this.pendingSubmissions.splice(this.findSubmissionIndexById(id), 1);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   findSubmissionIndexById(id) {

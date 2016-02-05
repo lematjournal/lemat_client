@@ -1,5 +1,3 @@
-'use strict';
-
 export default function words() {
   return function(input, words) {
     if (isNaN(words)) return input;

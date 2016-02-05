@@ -23,3 +23,4 @@ export UsersFactory from './users/users.factory';
 export EntriesAdminController from './entries/entries.admin.controller';
 export IssuesAdminController from './issues/issues.admin.controller';
 export PostsAdminController from './posts/posts.admin.controller';
+export SubmissionsAdminController from './submissions/submissions.admin.controller';

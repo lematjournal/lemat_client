@@ -1,5 +1,3 @@
-'use strict';
-
 export default function toTrusted ($sce) {
   "ngInject";
   return function(text) {

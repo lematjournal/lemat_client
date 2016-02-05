@@ -68,8 +68,10 @@ export default class CoreRoutes {
           },
           'header@': {}
         },
-        onEnter: (IssuesFactory, $stateParams) => { /* @ngInject */
-          IssuesFactory.getIssue($stateParams.issue);
+        resolve: {
+          promise: (IssuesFactory, $stateParams) => { /* @ngInject */
+            return IssuesFactory.getIssue($stateParams.issue);
+          }
         }
       })
       .state('main.issues-detail-piece', {

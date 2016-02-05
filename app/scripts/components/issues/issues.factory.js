@@ -25,10 +25,13 @@ export default class IssuesFactory {
     }
   }
 
-  getIssue(id) {
-    return this.$http.get(ServerUrl + '/content/issues/' + id).then((response) => {
+  async getIssue(id) {
+    try {
+      let response = await this.$http.get(ServerUrl + '/content/issues/' + id);
       angular.copy(response.data, this.issue);
-    });
+    } catch (error) {
+      console.error(error);
+    }
     console.log(this.issue)
   }
 
@@ -52,18 +55,23 @@ export default class IssuesFactory {
     }
   }
 
-  findIssueIndexById(id) {
-    for (let i = 0; i < this.issues.length; i++) {
+  findIssueById(id) {
+    for (let i = 0; this.issues.length - 1 > i; i += 1) {
       if (this.issues[i].id === id) {
-        return i;
+        console.log('found');
+        return this.issues[i];
       }
     }
   }
 
   deleteIssue(id, titleUrl) {
-    return this.$http.delete(ServerUrl + '/content/issues/' + titleUrl).then(() => {
-      this.issues.splice(this.findIssueIndexById(id), 1);
-    });
+    try {
+      this.$http.delete(ServerUrl + '/content/issues/' + titleUrl);
+      let issue = this.findIssueById(id);
+      this.issues.splice(this.issues.indexOf(issue), 1);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   getIssuePieces(issueId) {

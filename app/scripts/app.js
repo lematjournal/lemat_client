@@ -36,10 +36,24 @@ register('lematClient.services').service('AS3Factory', factories.AS3Factory);
 register('lematClient.services').service('PermissionFactory', factories.PermissionFactory);
 register('lematClient.services').service('UsersFactory', factories.UsersFactory);
 
-angular.module('lematClient', ['ui.router', 'lematClient.admin', 'lematClient.config', 'lematClient.core', 'lematClient.filters', 'lematClient.layout', 'lematClient.services'])
+angular.module('lematClient', ['ui.router', 'lematClient.admin', 'lematClient.config', 'lematClient.core', 'lematClient.layout', 'lematClient.services'])
   .config(config.Html5Mode.init)
   .config(AdminRoutes.routeFactory)
   .config(CoreRoutes.routeFactory)
+  .config(function($provide) {
+    $provide.decorator('$state', function($delegate) {
+      var originalTransitionTo = $delegate.transitionTo;
+      $delegate.transitionTo = function(to, toParams, options) {
+        console.log(to, toParams, options);
+        return originalTransitionTo(to, toParams, angular.extend({
+          reload: true,
+          inherit: false,
+          notify: true
+        }, options));
+      };
+      return $delegate;
+    });
+  });
 
 angular.module('lematClient.config', []) // these are classes with a static method 'init' so they run the config block
   // .run(config.CheckUsers.init)
@@ -49,6 +63,7 @@ angular.module('lematClient.filters', ['angular.filter'])
   .filter('cut', filters.cut)
   .filter('escapeHtml', filters.escapeHtml)
   .filter('filterDocs', filters.filterDocs)
+  .filter('filterImages', filters.filterImages)
   .filter('newlines', filters.newLines)
   .filter('spaceless', filters.spaceless)
   .filter('splitCharacters', filters.splitCharacters)
@@ -56,14 +71,15 @@ angular.module('lematClient.filters', ['angular.filter'])
   .filter('words', filters.words);
 
 // admin components
-angular.module('lematClient.admin', ['angucomplete-alt', 'lematClient.directives', 'lematClient.services']);
+angular.module('lematClient.admin', ['angucomplete-alt', 'lematClient.directives', 'lematClient.filters', 'lematClient.services']);
 
 register('lematClient.admin').controller('EntriesAdminController', components.EntriesAdminController);
 register('lematClient.admin').controller('IssuesAdminController', components.IssuesAdminController);
 register('lematClient.admin').controller('PostsAdminController', components.PostsAdminController);
+register('lematClient.admin').controller('SubmissionsAdminController', components.SubmissionsAdminController);
 
 // core components
-angular.module('lematClient.core', ['lematClient.directives'])
+angular.module('lematClient.core', ['lematClient.directives', 'lematClient.filters'])
 
 // editors
 register('lematClient.core').controller('EditorsController', components.EditorsController);

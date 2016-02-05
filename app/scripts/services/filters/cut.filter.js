@@ -1,5 +1,3 @@
-'use strict';
-
 export default function cut() {
   return function(value, wordwise, max, tail) {
     // method signature: "item | cut:true:500"

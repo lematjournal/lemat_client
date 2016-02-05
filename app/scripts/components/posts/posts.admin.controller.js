@@ -47,7 +47,7 @@ export default class PostsAdminController {
   async getUsers() {
     try {
       await this.UsersFactory.getUsers();
-      this.users = UsersFactory.users;
+      this.users = this.UsersFactory.users;
     } catch (error) {
       console.error(error);
     }

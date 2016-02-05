@@ -1,5 +1,3 @@
-'use strict';
-
 export default function newLines() {
   return function(text) {
     if (text) {

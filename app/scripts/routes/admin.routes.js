@@ -28,8 +28,10 @@ export default class AdminRoutes {
             controllerAs: 'entriesAdminCtrl'
           }
         },
-        onEnter: (EntriesFactory) => { /*@ngInject*/
-          EntriesFactory.getEntries();
+        resolve: {
+          promise: (EntriesFactory) => { /*@ngInject*/
+            return EntriesFactory.getEntries();
+          }
         }
       })
       .state('admin.entries-create', {
@@ -50,8 +52,10 @@ export default class AdminRoutes {
             controller: 'EntriesAdminController',
             controllerAs: 'entriesAdminCtrl'
           },
-          onEnter: (EntriesFactory, $stateParams) => { /*@ngInject*/
-            EntriesFactory.getEntry($stateParams.entry);
+          resolve: {
+            promise: (EntriesFactory, $stateParams) => { /*@ngInject*/
+              if (EntriesFactory.entry === {}) return getEntry($stateParams.entry);
+            }
           }
         }
       })
@@ -64,8 +68,10 @@ export default class AdminRoutes {
             controllerAs: 'imagesCtrl'
           }
         },
-        onEnter: (ImagesFactory) => { /* @ngInject */
-          ImagesFactory.getImages();
+        resolve: {
+          promise: (ImagesFactory) => { /*@ngInject*/
+            if (ImagesFactory.images.length === 0) return ImagesFactory.getImages();
+          }
         }
       })
       .state('admin.issues', {
@@ -77,8 +83,10 @@ export default class AdminRoutes {
             controllerAs: 'issuesAdminCtrl'
           }
         },
-        onEnter: (IssuesFactory) => { /* @ngInject */
-          IssuesFactory.getIssues();
+        resolve: {
+            promise: (IssuesFactory) => { /*@ngInject*/
+              if (IssuesFactory.issues.length === 0) return IssuesFactory.getIssues();
+          }
         }
       })
       .state('admin.issues-create', {
@@ -89,9 +97,6 @@ export default class AdminRoutes {
             controller: 'IssuesAdminController',
             controllerAs: 'issuesAdminCtrl'
           }
-        },
-        onEnter: (IssuesFactory) => { /* @ngInject */
-          IssuesFactory.getIssues();
         }
       })
       .state('admin.issues-edit', {
@@ -103,8 +108,10 @@ export default class AdminRoutes {
             controllerAs: 'issuesAdminCtrl'
           }
         },
-        onEnter: (IssuesFactory, $stateParams) => { /* @ngInject */
-          IssuesFactory.getIssue($stateParams.issue);
+        resolve: {
+          promise: (IssuesFactory, $stateParams) => { /*@ngInject*/
+            return IssuesFactory.getIssue($stateParams.issue);
+          }
         }
       })
       .state('admin.issues-edit-piece', {
@@ -116,8 +123,12 @@ export default class AdminRoutes {
             controllerAs: 'piecesAdminCtrl'
           }
         },
-        onEnter: (IssuesFactory, $stateParams) => { /* @ngInject */
-          IssuesFactory.getIssues($stateParams.issue, $stateParams.piece);
+        resolve: {
+          promise: (IssuesFactory, $stateParams) => { /*@ngInject*/
+            if (IssuesFactory.issue === {}) {
+              return IssuesFactory.getIssues($stateParams.issue, $stateParams.piece);
+            }
+          }
         }
       })
       .state('admin.posts', {
@@ -129,8 +140,12 @@ export default class AdminRoutes {
             controllerAs: 'postsAdminCtrl'
           }
         },
-        onEnter: (PostsFactory) => { /* @ngInject */
-          PostsFactory.getPosts();
+        resolve: {
+          promise: (PostsFactory, UsersFactory) => { /*@ngInject*/
+            if (PostsFactory.posts.length === 0 || UsersFactory.users.length === 0) {
+              return PostsFactory.getPosts() && UsersFactory.getUsers();
+            }
+          }
         }
       })
       .state('admin.posts-create', {
@@ -151,9 +166,69 @@ export default class AdminRoutes {
             controller: 'PostsAdminController',
             controllerAs: 'postsAdminCtrl'
           }
+        },
+        resolve: {
+          promise: (PostsFactory, $stateParams) => { /*@ngInject*/
+            return PostsFactory.getPost($stateParams.post);
+          }
         }
       })
-    }
+      .state('admin.submissions', { // todo: move submissions initializer here
+        url: '/submissions',
+        views: {
+          '@': {
+            templateUrl: 'scripts/components/submissions/submissions.admin.html',
+            controller: 'SubmissionsAdminController',
+            controllerAs: 'submissionsCtrl'
+          }
+        }
+      })
+      .state('admin.submissions-comments', {
+          url: '/submissions/:submission/comments',
+          views: {
+            '@': {
+              templateUrl: 'scripts/components/submissions/comments/comments.html',
+              controller: 'SubmissionsAdminController',
+              controllerAs: 'submissionsCtrl'
+            }
+          },
+          resolve: {
+            promise: (SubmissionsFactory) => { /*@ngInject*/
+              return SubmissionsFactory.getSubmissions($stateParams.submission);
+            }
+          }
+        })
+        .state('admin.submissions-detail', {
+          url: '/submissions/:submission',
+          views: {
+            '@': {
+              templateUrl: 'scripts/components/submissions/submissions.detail/submissions.detail.html',
+              controller: 'SubmissionsAdminController',
+              controllerAs: 'submissionsCtrl'
+            }
+          },
+          resolve: {
+            promise: (SubmissionsFactory, $stateParams) => { /*@ngInject*/
+              return SubmissionsFactory.getSubmission($stateParams.submission);
+            }
+          }
+        })
+        .state('admin.submissions-edit', {
+          url: '/submissions/:submission/edit',
+          views: {
+            '@': {
+              templateUrl: 'scripts/components/submissions/submissions.edit/submissions.edit.html',
+              controller: 'SubmissionsAdminController',
+              controllerAs: 'submissionsCtrl'
+            }
+          },
+          resolve: {
+            promise: (SubmissionsFactory, $stateParams) => { /*@ngInject*/
+              return SubmissionsFactory.getSubmission($stateParams.submission);
+            }
+          }
+        })
+      }
 
   static routeFactory($stateProvider) {
     AdminRoutes.instance = new AdminRoutes($stateProvider);

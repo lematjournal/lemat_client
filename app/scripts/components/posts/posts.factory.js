@@ -1,4 +1,5 @@
 import ServerUrl from '../../services/constants.module';
+import 'babel-polyfill';
 
 export default class PostsFactory {
   /*@ngInject*/
@@ -14,26 +15,38 @@ export default class PostsFactory {
     angular.copy({}, this.post);
   }
 
-  getPosts() {
-    return this.$http.get(ServerUrl + '/content/posts/').then((response) => {
+  async getPosts() {
+    try {
+      let response = await this.$http.get(ServerUrl + '/content/posts/');
       angular.copy(response.data, this.posts);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  getPost(titleUrl) {
-    return this.$http.get(ServerUrl + '/content/posts/' + titleUrl).then((response) => {
-      angular.copy(response.data, this.post);
-    });
+  async getPost(titleUrl) {
+    try {
+      if (this.posts.length === 0) {
+        let response = await this.$http.get(ServerUrl + '/content/posts/' + titleUrl);
+        angular.copy(response.data, this.post);
+      } else {
+        let post = this.findPostByTitle(titleUrl);
+        angular.copy(response.data, this.post);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  getTags() {
-    let promise = this.$http.get(ServerUrl + '/content/tags/').then((response) => {
+  async getTags() {
+    try {
+      let response = await this.$http.get(ServerUrl + '/content/tags/');
       this.$localStorage.tags = response.data;
       this.$localStorage.tagsGrabDate = Date.now();
       return this.tags;
-    });
-
-    return promise;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   upsertPost(post) {
@@ -60,17 +73,21 @@ export default class PostsFactory {
     }
   }
 
-  findPostIndexById(id) {
-    for (let i = 0; i < this.posts.length; i++) {
-      if (this.posts[i].id === id) {
-        return i;
-      }
+  findPostById(id) {
+    for (let i = 0; i < this.posts.length; i += 1) {
+      if (this.posts[i].id === id) return this.posts[i];
+    }
+  }
+
+  findPostByTitle(titleUrl) {
+    for (let i = 0; i < this.posts.length; i += 1) {
+      if (this.posts[i].titleUrl === titleUrl) return this.posts[i];
     }
   }
 
   deletePost(id) {
-    return this.$http.delete(ServerUrl + '/content/posts/' + id).then(() => {
-      this.posts.splice(this.findPostIndexById(id), 1);
-    });
+    this.$http.delete(ServerUrl + '/content/posts/' + id);
+    let post = this.findPostById(id);
+    this.posts.splice(this.posts.indexOf(post), 1);
   }
 }

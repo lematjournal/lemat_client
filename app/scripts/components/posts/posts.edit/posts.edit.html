@@ -1,4 +1,4 @@
-<div class="container" ng-init="postsAdminCtrl.getPost()">
+<div class="container">
    <div class="form-group">
       <label for="name">Title</label>
       <input type="text" ng-model="postsAdminCtrl.post.title" id="title" class="form-control" placeholder="title" required>
@@ -11,17 +11,17 @@
          <option value="video">video</option>
       </select>
    </div>
-   <div class="form-group" ng-init="postsAdminCtrl.getTags()">
+   <div class="form-group">
       <label for="tags">Tags</label>
       <tags-input display-property="name" ng-model="postsAdminCtrl.post.tags">
          <auto-complete source="postsAdminCtrl.tags"></auto-complete>
       </tags-input>
    </div>
-   <div class="form-group" ng-controller="UsersController as usersCtrl" ng-init="usersCtrl.getUsers()">
+   <div class="form-group">
       <label for="user">Author(s):</label><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last"> and </span>{{ user.username }}</font>
       <div class="input-group">
-         <span class="input-group-addon" id="user-addon"><a ng-click="openUserModal()">Create user</a></span>
-         <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="users" search-fields="username" title-field="username" minlength="1" input-class="form-control form-control-small" initial-value="postsAdminCtrl.post.user.username" aria-describedby="user-addon" />
+         <span class="input-group-addon" id="user-addon"><a ng-click="postsAdminCtrl.openUserModal()">Create user</a></span>
+         <angucomplete-alt id="authors" placeholder="Search contributing authors" pause="100" selected-object="selectedUser" local-data="postsAdminCtrl.users" search-fields="username" title-field="username" minlength="1" input-class="form-control form-control-small" initial-value="postsAdminCtrl.post.user.username" aria-describedby="user-addon" />
       </div>
    </div>
    <div class="form-group">

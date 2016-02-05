@@ -1,11 +1,10 @@
-'use strict';
-
-export default function filterImages(attachments) {
-  var filtered = [];
-  angular.forEach(attachments, function(item) {
-    if (item.image_url) {
-      filtered.push(item);
-    }
-  });
-  return filtered;
+export default function filterImages() {
+  return function (attachments) {
+    attachments = attachments.filter((item) => {
+      if (item.image_url) {
+        return item;
+      }
+    });
+    return attachments;
+  }
 }

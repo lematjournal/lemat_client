@@ -1,0 +1,33 @@
+<div class="container" ng-init="submissionsCtrl.getSubmission()">
+   <div class="form-group">
+      <label for="name">Title</label>
+      <input type="text" ng-model="submissionsCtrl.submission.title" id="title" class="form-control" placeholder="title" required>
+   </div>
+   <div class="form-group">
+      <label for="name">Type</label>
+      <select ng-model="submissionsCtrl.submission.submission_type" id="type" class="form-control" required>
+         <option value="image">image</option>
+         <option value="text">text</option>
+         <option value="video">video</option>
+      </select>
+   </div>
+   <div class="form-group" ng-init="submissionsCtrl.getTags()">
+      <label for="tags">Tags</label>
+      <tags-input display-property="name" ng-model="submissionsCtrl.submission.tags">
+         <auto-complete source="submissionsCtrl.tags"></auto-complete>
+      </tags-input>
+   </div>
+   <div class="form-group">
+      <wysiwyg textarea-id="submission" textarea-class="form-control" textarea-height="400px" textarea-name="document" textarea-required ng-model="submissionsCtrl.doc" ng-hide="submissionsCtrl.submission.submission_type !== 'text'"></wysiwyg>
+   </div>
+   <div class="row" ng-show="submissionsCtrl.submission.submission_type === 'text' && submissionsCtrl.evaluateDoc()">
+      <h4 class="title text-center">{{ submissionsCtrl.submission.title }}</h4>
+      <p class="text-center">{{ submissionsCtrl.submission.user.username }}</p>
+      <p class="text-center">{{ submissionsCtrl.submission.created_at | date: 'medium' }}</p>
+      <hr>
+      <p ng-bind-html="submissionsCtrl.doc"></p>
+   </div>
+   <a class="btn btn-default" ng-click="submissionsCtrl.upsertSubmission()">Submit</a>
+   <a class="btn btn-default" ng-click="submissionsCtrl.deleteSubmission()"><i class="glyphicon glyphicon-trash"></i>
+Delete</a>
+</div>

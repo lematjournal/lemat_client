@@ -1,5 +1,3 @@
-'use strict';
-
 export default function spaceless() {
   return function(input) {
     if (input) {

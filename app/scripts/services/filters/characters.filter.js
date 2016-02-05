@@ -1,5 +1,3 @@
-'use strict';
-
 export default function characters() {
   return function(input, chars, breakOnWord) {
     if (isNaN(chars)) return input;

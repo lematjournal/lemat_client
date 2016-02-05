@@ -1,5 +1,3 @@
-'use strict';
-
 export default function splitCharacters(input, chars) {
   if (isNaN(chars)) return input;
   if (chars <= 0) return '';

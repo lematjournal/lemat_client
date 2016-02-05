@@ -2,8 +2,8 @@
 
 export default function filterDocs() {
   return function(attachments) {
-    var filtered = [];
-    angular.forEach(attachments, function(item) {
+    let filtered = [];
+    attachments.map((item) => {
       if (!item.image_url) {
         filtered.push(item);
       }
