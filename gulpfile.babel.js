@@ -11,6 +11,7 @@ var $ = require('gulp-load-plugins')(); // loads other gulp plugins
 var sync = $.sync(gulp).sync;
 var browserify = require('browserify');
 var babelify = require('babelify');
+var minifyHtml = require('gulp-minify-html');
 var watchify = require('watchify');
 var wiredep = require('wiredep').stream;
 var source = require('vinyl-source-stream');
@@ -45,17 +46,17 @@ var bundler = {
   }
 };
 
-// gulp.task('templates', function () {
-//   gulp.src([
-//       './**/*.html',
-//       '!./node_modules/**'
-//     ])
-//     .pipe($.minifyHTML({
-//       quotes: true
-//     }))
-//     .pipe(templates('templates.js'))
-//     .pipe(gulp.dest('tmp'));
-// });
+gulp.task('templates', function() {
+  gulp.src([
+      './**/*.html',
+      '!./node_modules/**'
+    ])
+    .pipe(minifyHtml({
+      quotes: true
+    }))
+    .pipe(templateCache('templates.js'))
+    .pipe(gulp.dest('dist/scripts'));
+});
 
 //watch scss for changes and render into minified css with nice auto-prefixing
 gulp.task('styles', function() {
@@ -168,7 +169,7 @@ gulp.task('clean-bundle', sync(['clean', 'bundle']));
 
 gulp.task('build', ['clean-bundle'], bundler.stop.bind(bundler));
 
-gulp.task('bundle', ['html', 'styles', 'scripts', 'images', 'extras']);
+gulp.task('bundle', ['html', 'styles', 'scripts', 'templates', 'images', 'extras']);
 
 gulp.task('build:production', sync(['set-production', 'minify', 'build']));
 

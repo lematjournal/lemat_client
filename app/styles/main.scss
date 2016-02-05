@@ -318,3 +318,9 @@ p {
     /* inline-block space fix */
     margin-right:-4px;
 }
+
+@media(min-width:778px) {
+  .dropdown-menu .col-sm-6 {
+    width: 100%;
+  }
+}

@@ -27,7 +27,8 @@ export default class CoreRoutes {
           }
         },
         onEnter: (EntriesFactory, PostsFactory, IssuesFactory, UsersFactory) => { /* @ngInject */
-          EntriesFactory.getEntries() && PostsFactory.getPosts() && IssuesFactory.getIssues() && UsersFactory.checkStoredUsers();
+          if (EntriesFactory.entries.length === 0 || PostsFactory.posts.length === 0)
+            EntriesFactory.getEntries() && PostsFactory.getPosts() && IssuesFactory.getIssues() && UsersFactory.checkStoredUsers();
         }
       })
       .state('main.entries-detail', {
@@ -40,9 +41,11 @@ export default class CoreRoutes {
           },
           'header@': {}
         },
-        onEnter: (EntriesFactory, $stateParams) => { /* @ngInject */
-          EntriesFactory.getEntry($stateParams.entry);
-        }
+        resolve: {
+          promise: (EntriesFactory, $stateParams) => { /* @ngInject */
+              return EntriesFactory.getEntry($stateParams.entry);
+            }
+          }
       })
       .state('main.issues', {
         url: 'issues',
@@ -55,7 +58,7 @@ export default class CoreRoutes {
           'header@': {}
         },
         onEnter: (IssuesFactory) => { /* @ngInject */
-          IssuesFactory.getIssues();
+          if (IssuesFactory.issues.length === 0) IssuesFactory.getIssues();
         }
       })
       .state('main.issues-detail', {
@@ -84,8 +87,10 @@ export default class CoreRoutes {
           },
           'header@': {}
         },
-        onEnter: (PiecesFactory, $stateParams) => { /* @ngInject */
-          PiecesFactory.getPiece($stateParams.issue, $stateParams.piece);
+        resolve: {
+          promise: (PiecesFactory, $stateParams) => { /* @ngInject */
+            return PiecesFactory.getPiece($stateParams.issue, $stateParams.piece);
+          }
         }
       })
       .state('main.posts', {
@@ -99,7 +104,7 @@ export default class CoreRoutes {
           'header@': {}
         },
         onEnter: (PostsFactory) => { /* @ngInject */
-          PostsFactory.getPosts();
+          if (PostsFactory.posts.length === 0) PostsFactory.getPosts();
         }
       })
       .state('main.posts-detail', {
@@ -112,8 +117,10 @@ export default class CoreRoutes {
           },
           'header@': {}
         },
-        onEnter: (PostsFactory, $stateParams) => { /* @ngInject */
-          return PostsFactory.getPost($stateParams.post);
+        resolve: {
+          promise: (PostsFactory, $stateParams) => { /* @ngInject */
+            return PostsFactory.getPost($stateParams.post);
+          }
         }
       })
       .state('main.editors', {
@@ -171,8 +178,10 @@ export default class CoreRoutes {
           },
           'header@': {}
         },
-        onEnter: (UsersFactory, $stateParams) => { /* @ngInject */
-          UsersFactory.getUser($stateParams.profile);
+        resolve: {
+          promise: (UsersFactory, $stateParams) => { /* @ngInject */
+            return UsersFactory.getUser($stateParams.profile);
+          }
         }
       })
       .state('main.submissions', {

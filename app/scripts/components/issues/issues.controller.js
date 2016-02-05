@@ -16,8 +16,4 @@ export default class IssuesController {
   scrollToTop() {
     this.$document.scrollTopAnimated(0);
   }
-
-  exclude(elem) {
-    return elem.role.includes('contributor');
-  }
 }

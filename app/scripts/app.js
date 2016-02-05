@@ -11,7 +11,6 @@ import register from './utils/register';
 
 import 'angucomplete-alt';
 import 'angular-confirm';
-import 'angular-css';
 import 'angular-deckgrid';
 import 'angular-filter';
 import 'angular-sanitize';
@@ -25,7 +24,7 @@ import 'ng-file-upload';
 import 'ngstorage';
 import 're-tree';
 
-angular.module('lematClient.directives', ['angular-confirm', 'angularTrix', 'akoenig.deckgrid', 'angularUtils.directives.dirPagination', 'door3.css', 'ngFileUpload', 'ui.bootstrap.modal', 'youtube-embed']);
+angular.module('lematClient.directives', ['akoenig.deckgrid', 'angularUtils.directives.dirPagination', 'ngFileUpload', 'ui.bootstrap.modal', 'youtube-embed']);
 register('lematClient.directives').directive('lematRepeat', directives.lematRepeat);
 register('lematClient.directives').directive('loading', directives.loading);
 register('lematClient.directives').directive('ngEnter', directives.ngEnter);
@@ -38,24 +37,24 @@ register('lematClient.services').service('AS3Factory', factories.AS3Factory);
 register('lematClient.services').service('PermissionFactory', factories.PermissionFactory);
 register('lematClient.services').service('UsersFactory', factories.UsersFactory);
 
-angular.module('lematClient', ['ui.router', 'lematClient.admin', 'lematClient.config', 'lematClient.core', 'lematClient.directives', 'lematClient.layout', 'lematClient.services'])
+angular.module('lematClient', ['ui.router', 'lematClient.admin', 'lematClient.config', 'lematClient.core', 'lematClient.layout', 'lematClient.services'])
   .config(config.Html5Mode.init)
   .config(AdminRoutes.routeFactory)
   .config(CoreRoutes.routeFactory)
-  .config(function($provide) {
-    $provide.decorator('$state', function($delegate) {
-      var originalTransitionTo = $delegate.transitionTo;
-      $delegate.transitionTo = function(to, toParams, options) {
-        console.log(to, toParams, options);
-        return originalTransitionTo(to, toParams, angular.extend({
-          reload: true,
-          inherit: false,
-          notify: true
-        }, options));
-      };
-      return $delegate;
-    });
-  });
+  // .config(function($provide) {
+  //   $provide.decorator('$state', function($delegate) {
+  //     var originalTransitionTo = $delegate.transitionTo;
+  //     $delegate.transitionTo = function(to, toParams, options) {
+  //       console.log(to, toParams, options);
+  //       return originalTransitionTo(to, toParams, angular.extend({
+  //         reload: true,
+  //         inherit: false,
+  //         notify: true
+  //       }, options));
+  //     };
+  //     return $delegate;
+  //   });
+  // });
 
 angular.module('lematClient.config', []) // these are classes with a static method 'init' so they run the config block
   // .run(config.CheckUsers.init)
@@ -74,7 +73,7 @@ angular.module('lematClient.filters', ['angular.filter'])
   .filter('words', filters.words);
 
 // admin components
-angular.module('lematClient.admin', ['angucomplete-alt', 'angularTrix', 'lematClient.filters', 'lematClient.services']);
+angular.module('lematClient.admin', ['angucomplete-alt', 'angular-confirm', 'angularTrix', 'lematClient.directives', 'lematClient.filters', 'lematClient.services']);
 
 register('lematClient.admin').controller('EntriesAdminController', components.EntriesAdminController);
 register('lematClient.admin').controller('IssuesAdminController', components.IssuesAdminController);

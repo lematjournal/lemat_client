@@ -5,7 +5,7 @@ import 'babel-polyfill';
 export default class ProfileController {
   /*@ngInject*/
   constructor($scope, $rootScope, $uibModal, $location, $stateParams, AuthFactory, UsersFactory) {
-    this.user = {};
+    this.user = UsersFactory.user;
     this.master = {};
     this.fields = {};
     this.$scope = $scope;

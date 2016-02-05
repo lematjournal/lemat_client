@@ -6,9 +6,6 @@ export default class ImagesModalController extends ImagesController {
   constructor($scope, $rootScope, $uibModalInstance, $q, $window, AS3Factory, ImagesFactory, images) {
     super($scope, AuthFactory, AS3Factory, ImagesFactory);
     this.$rootScope = $rootScope;
-    this.$uibModalInstance = $uibModalInstance;
-    this.$q = $q;
-    this.$window = $window;
     this.image = {};
     this.images = images;
     $scope.currentPage = 0;
@@ -16,15 +13,15 @@ export default class ImagesModalController extends ImagesController {
       console.log('going to page ' + num);
     };
     $scope.ok = () => {
-      this.$uibModalInstance.close(this.image);
+      $uibModalInstance.close(this.image);
     };
 
     $scope.cancel = () => {
-      this.$uibModalInstance.dismiss('cancel');
+      $uibModalInstance.dismiss('cancel');
     };
 
     $scope.openTab = () => {
-      this.$window.open(this.images[$scope.currentPage - 1].image_url, '_blank')
+      $window.open(this.images[$scope.currentPage - 1].image_url, '_blank')
     };
   }
 
@@ -32,13 +29,10 @@ export default class ImagesModalController extends ImagesController {
     this.image = image;
   }
 
-  upload(file, folder) {
-    let deferred = this.$q.defer();
-    deferred.resolve(this.AS3Factory.uploadFile(file, folder).then((response) => {
-      let s3Path = 'https://lematjournal.s3.amazonaws.com/' + response.params.Key;
-      this.$scope.filename = s3Path;
-    }));
-    return deferred.promise;
+  async upload(file, folder) {
+    // let response = await this.AS3Factory.uploadFile(file, folder);
+    // let s3Path = 'https://lematjournal.s3.amazonaws.com/' + response.params.Key;
+    // this.$scope.filename = s3Path;
   }
 
   async uploadImage() {

@@ -32,7 +32,6 @@ export default class IssuesFactory {
     } catch (error) {
       console.error(error);
     }
-    console.log(this.issue)
   }
 
   upsertIssue(issue) {
