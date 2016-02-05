@@ -152,7 +152,7 @@ export default class AdminRoutes {
         url: '/posts/create',
         views: {
           '@': {
-            templateUrl: 'scripts/components/posts/posts.create/posts.create.html',
+            templateUrl: 'scripts/components/posts/posts.create/posts.edit.html',
             controller: 'PostsAdminController',
             controllerAs: 'postsAdminCtrl'
           }
@@ -228,6 +228,51 @@ export default class AdminRoutes {
             }
           }
         })
+        .state('admin.users', {
+            url: '/users',
+            views: {
+              '@': {
+                templateUrl: 'scripts/components/users/users.admin.html',
+                controller: 'UsersController',
+                controllerAs: 'usersCtrl'
+              }
+            },
+            resolve: {
+              promise: (UsersFactory) => { /*@ngInject*/
+                return UsersFactory.getUsers();
+              }
+            }
+          })
+          .state('admin.users-create', {
+            url: '/users/create',
+            views: {
+              '@': {
+                templateUrl: 'scripts/components/users/users.create/users.create.html',
+                controller: 'UsersController',
+                controllerAs: 'usersCtrl'
+              }
+            },
+            resolve: {
+              promise: (UsersFactory) => { /*@ngInject*/
+                return UsersFactory.resetUser();
+              }
+            }
+          })
+          .state('admin.users-edit', {
+            url: '/users/:user/edit',
+            views: {
+              '@': {
+                templateUrl: 'scripts/components/users/users.edit/users.edit.html',
+                controller: 'UsersController',
+                controllerAs: 'usersCtrl'
+              }
+            },
+            resolve: {
+              promise: (UsersFactory, $stateParams) => { /*@ngInject*/
+                return UsersFactory.getUser($stateParams.user);
+              }
+            }
+          });
       }
 
   static routeFactory($stateProvider) {

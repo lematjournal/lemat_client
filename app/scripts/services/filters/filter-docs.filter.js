@@ -1,13 +1,10 @@
-'use strict';
-
 export default function filterDocs() {
   return function(attachments) {
-    let filtered = [];
-    attachments.map((item) => {
+    attachments = attachments.filter((item) => {
       if (!item.image_url) {
         filtered.push(item);
       }
     });
-    return filtered;
+    return attachments;
   };
 }

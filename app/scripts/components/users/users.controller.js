@@ -11,7 +11,7 @@ export default class UsersController {
     this.$stateParams = $stateParams;
     this.master = {};
     this.users = UsersFactory.users;
-    this.user = UserFactory.user;
+    this.user = UsersFactory.user;
   }
 
   selectedUser($item) {
@@ -25,6 +25,7 @@ export default class UsersController {
   }
 
   select(event) {
+    console.log(event);
     if (!angular.element(event.target).hasClass('active')) {
       angular.element(event.target).addClass('active');
     } else {

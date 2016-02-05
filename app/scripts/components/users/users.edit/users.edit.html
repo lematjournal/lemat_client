@@ -1,9 +1,9 @@
-<div class="container" ng-init="usersCtrl.getUser()">
+<div class="container">
    <div class="row">
       <h3 class="title text-center">{{ usersCtrl.user.username }}</h3>
       <hr>
       <div class="profile-image">
-         <a ng-click="usersCtrl.openImageUploadModal()" uib-tooltip="click to change"><img class="img-responsive center-block" src="{{ usersCtrl.user.profile_image }}" height="455px" width="455px" />
+         <a ng-click="usersCtrl.openImageModal()" uib-tooltip="click to change"><img class="img-responsive center-block" src="{{ usersCtrl.user.profile_image }}" height="455px" width="455px" />
          </a>
       </div>
       <br>

@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 export default class ImagesModalController {
   /*@ngInject*/
   constructor($scope, $rootScope, $uibModalInstance, $q, $window, AS3Factory, ImagesFactory, images) {
@@ -10,15 +12,26 @@ export default class ImagesModalController {
     this.ImagesFactory = ImagesFactory;
     this.image = {};
     this.images = images;
-    $scope.currentPage = 1;
+    $scope.currentPage = 0;
     $scope.pageChangeHandler = (num) => {
       console.log('going to page ' + num);
+    };
+    $scope.ok = () => {
+      this.$uibModalInstance.close(this.image);
+    };
+
+    $scope.cancel = () => {
+      this.$uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.openTab = () => {
+      this.$window.open(this.images[$scope.currentPage - 1].image_url, '_blank')
     };
   }
 
   setImage(image) {
     this.image = image;
-  };
+  }
 
   upload(file, folder) {
     let deferred = this.$q.defer();
@@ -27,31 +40,17 @@ export default class ImagesModalController {
       this.$scope.filename = s3Path;
     }));
     return deferred.promise;
-  };
+  }
 
-  uploadImage() {
+  async uploadImage() {
     let image = {
       user_id: this.$rootScope.userId,
       image_url: this.image
     };
-    this.ImagesFactory.uploadImage(image).then(() => {
-      console.log(this.image.image_url, 'Image uploaded');
-      this.images.push(image);
-      this.$scope.currentIndex = this.images.length - 1;
-      this.setImage(image);
-    });
-  }
-
-  ok () {
-    this.$uibModalInstance.close(this.image);
-  };
-
-  cancel() {
-    this.$uibModalInstance.dismiss('cancel');
-  }
-
-
-  openTab() {
-    this.$window.open(this.images[this.$scope.currentPage - 1].image_url, '_blank')
+    await this.ImagesFactory.uploadImage(image);
+    console.log(this.image.image_url, 'Image uploaded');
+    this.images.push(image);
+    this.$scope.currentIndex = this.images.length - 1;
+    this.setImage(image);
   }
 }

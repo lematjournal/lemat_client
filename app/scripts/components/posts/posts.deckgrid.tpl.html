@@ -1,11 +1,15 @@
 <div class="panel panel-default">
   <div class="panel-heading" ng-if="card.post_type === 'text'"><a style="text-transform: uppercase" ui-sref="main.posts-detail({ post: card.title_url })">{{ card.title }}</a>
   </div>
-  <div class="panel-body">
-    <div class="video embed-responsive embed-responsive-16by9" ng-if="card.post_type === 'video'">
-      <youtube-video video-url="card.content" style="padding-bottom: 5px"></youtube-video>
+  <div class="panel-body" ng-if="card.post_type === 'video'" style="padding: 0">
+    <div class="video">
+      <a ui-sref="main.posts-detail({ post: card.title_url })">
+        <img class="video-thumbnail" src="{{ card.content | thumbnail }}">
+      </a>
     </div>
-    <p class="overflow elipsis" ng-if="card.post_type === 'text'" ng-bind-html="card.content | toTrusted"></p>
+  </div>
+  <div class="panel-body" ng-if="card.post_type === 'text'">
+    <p class="overflow elipsis" ng-bind-html="card.content | toTrusted"></p>
   </div>
   <div class="panel-footer">
     <div class="row meta">

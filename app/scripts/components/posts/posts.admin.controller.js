@@ -17,7 +17,7 @@ export default class PostsAdminController {
     this.tags = PostsFactory.tags;
     $scope.$on('selectedUser', this.selectedUser);
   }
-
+  
   async getPost() {
     try {
       await this.PostsFactory.getPost(this.$stateParams.post);

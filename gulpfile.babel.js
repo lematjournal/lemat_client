@@ -74,12 +74,6 @@ gulp.task('scripts', function() {
   return bundler.bundle();
 });
 
-gulp.task('fonts', function() {
-  return gulp.src(['bower_components/font-awesome/fonts/**.*'])
-    .pipe(gulp.dest('dist/fonts'))
-    .pipe($.size());
-});
-
 gulp.task('html:main', function() {
   return gulp.src('app/**/*.html')
     .pipe(gulp.dest('dist'))
@@ -172,11 +166,9 @@ gulp.task('clean', del.bind(null, 'dist'));
 
 gulp.task('clean-bundle', sync(['clean', 'bundle']));
 
-gulp.task('bower', ['bower:css', 'bower:scripts']);
-
 gulp.task('build', ['clean-bundle'], bundler.stop.bind(bundler));
 
-gulp.task('bundle', ['html', 'styles', 'fonts', 'scripts', 'images', 'extras']);
+gulp.task('bundle', ['html', 'styles', 'scripts', 'images', 'extras']);
 
 gulp.task('build:production', sync(['set-production', 'minify', 'build']));
 
@@ -189,5 +181,4 @@ gulp.task('watch', sync(['clean-bundle', 'serve']), function() {
   gulp.watch('app/**/*.html', ['html']);
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('app/images/**/*', ['images']);
-  gulp.watch('app/fonts/**/*', ['fonts']);
 });

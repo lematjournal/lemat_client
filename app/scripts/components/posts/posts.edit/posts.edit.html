@@ -27,16 +27,9 @@
    <div class="form-group">
       <wysiwyg textarea-id="post" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="postsAdminCtrl.post.content" ng-hide="postsAdminCtrl.post.post_type !== 'text'"></wysiwyg>
    </div>
-   <div class="form-group">
-      <label>Embedded html</label>
-      <input type="text" class="form-control" ng-model="postsAdminCtrl.post.content">
+   <div>
+     <trix-editor style="display: block" angular-trix ng-model="postsAdminCtrl.post.content"></trix-editor>
    </div>
-<!--
-   <div class="form-group">
-      <label>Preview html</label>
-      <input type="text" class="form-control" ng-model="postsAdminCtrl.post.preview">
-   </div>
--->
    <a class="btn btn-default" ng-click="postsAdminCtrl.upsertPost(postsAdminCtrl.post)">Submit</a>
    <a class="btn btn-default" ng-click="postsAdminCtrl.deletePost()"><i class="glyphicon glyphicon-trash"></i>
 Delete</a>

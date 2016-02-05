@@ -13,82 +13,23 @@ export default class UsersFactory {
     this.$localStorage = $localStorage;
   }
 
-   getUser(username) {
-    return this.$http.get(ServerUrl + '/users/' + username).then((response) => {
-      angular.copy(response.data, this.user);
+  checkStoredUsers() {
+    this.getContributors() && this.getOnlineUsers();
+  }
+
+  deleteUser(id) {
+    return this.$http.delete(ServerUrl + '/users/' + id).then(() => {
+      this.users.splice(this.findUserById(id), 1);
     });
   }
 
-   getUsers() {
-    return this.$http.get(ServerUrl + '/users/').then((response) => {
-      this.$localStorage.users = response.data;
-      this.$localStorage.usersGrabDate = Date.now();
-    });
-  }
-
-   getPostUsers() {
-    this.$http.get(ServerUrl + '/users/post-users').then((response) => {
-      this.$localStorage.postUsers = response.data;
-      this.$localStorage.postUsersGrabDate = Date.now();
-      return this.$localStorage.postUsers;
-    });
-  }
-
-   getIssueUsers() {
-    this.$http.get(ServerUrl + '/users/issue-users').then((response) => {
-      this.$localStorage.issueUsers = response.data;
-      this.$localStorage.issueUsersGrabDate = Date.now();
-      return this.$localStorage.issueUsers;
-    });
-  }
-
-   upsertUser(user) {
-    let params = {
-      user: {
-        email: user.email,
-        username: user.username.replace(/[^\w\s]/gi, ''),
-        role: user.role,
-        bio: user.bio,
-        password: user.password,
-        profile_image: user.profile_image,
-        social_links: user.social_links
-      }
-    };
-
-    if (user.id) {
-      return this.$http.patch(ServerUrl + '/users/' + user.id, params).then((response) => {
-        angular.copy(response.data, this.user);
-        this.users.push(response.data);
-      });
-    } else {
-      return this.$http.post(ServerUrl + '/users/', params).then((response) => {
-        angular.copy(response.data, this.user);
-        this.users.push(response.data);
-      });
-    }
-    this.getUsers();
-  }
-
-   findUserById(id) {
+  findUserById(id) {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].id === id) {
         return i;
       }
     }
   }
-
-   deleteUser(id) {
-    return this.$http.delete(ServerUrl + '/users/' + id).then(() => {
-      this.users.splice(this.findUserById(id), 1);
-    });
-  }
-
-   getProfile(user) {
-    return this.$http.get(ServerUrl + '/users/profiles/' + user.id).then((response) => {
-      angular.copy(response.data, this.profile);
-    });
-  }
-
   getContributors() {
     if (!this.issueUsers) {
       this.getIssueUsers().then((response) => {
@@ -117,7 +58,69 @@ export default class UsersFactory {
     }
   }
 
-  checkStoredUsers() {
-    this.getContributors() && this.getOnlineUsers();
+  getPostUsers() {
+    this.$http.get(ServerUrl + '/users/post-users').then((response) => {
+      this.$localStorage.postUsers = response.data;
+      this.$localStorage.postUsersGrabDate = Date.now();
+      return this.$localStorage.postUsers;
+    });
+  }
+
+  getProfile(user) {
+    return this.$http.get(ServerUrl + '/users/profiles/' + user.id).then((response) => {
+      angular.copy(response.data, this.profile);
+    });
+  }
+
+  getUser(username) {
+    return this.$http.get(ServerUrl + '/users/' + username).then((response) => {
+      angular.copy(response.data, this.user);
+    });
+  }
+
+  getUsers() {
+    return this.$http.get(ServerUrl + '/users/').then((response) => {
+      this.$localStorage.users = response.data;
+      this.$localStorage.usersGrabDate = Date.now();
+    });
+  }
+
+  getIssueUsers() {
+    this.$http.get(ServerUrl + '/users/issue-users').then((response) => {
+      this.$localStorage.issueUsers = response.data;
+      this.$localStorage.issueUsersGrabDate = Date.now();
+      return this.$localStorage.issueUsers;
+    });
+  }
+
+  resetUser() {
+    angular.copy({}, this.user);
+  }
+
+  upsertUser(user) {
+    let params = {
+      user: {
+        email: user.email,
+        username: user.username.replace(/[^\w\s]/gi, ''),
+        role: user.role,
+        bio: user.bio,
+        password: user.password,
+        profile_image: user.profile_image,
+        social_links: user.social_links
+      }
+    };
+
+    if (user.id) {
+      return this.$http.patch(ServerUrl + '/users/' + user.id, params).then((response) => {
+        angular.copy(response.data, this.user);
+        this.users.push(response.data);
+      });
+    } else {
+      return this.$http.post(ServerUrl + '/users/', params).then((response) => {
+        angular.copy(response.data, this.user);
+        this.users.push(response.data);
+      });
+    }
+    this.getUsers();
   }
 }

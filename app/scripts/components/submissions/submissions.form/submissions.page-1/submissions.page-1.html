@@ -63,7 +63,7 @@
       <label for="content">Description†††</label>
       <br>
       <label class="text-muted"><i>†††in a short message to the editors describe your work, how you would like it shown and anything else you'd like to let us know</i></label>
-      <textarea required ng-model="submissionsCtrl.submission.email_content">
+      <trix-editor style="display: block" angular-trix ng-model="submissionsCtrl.submission.submission.content"></trix-editor>
         <p> some shit</p>
       </textarea>
     </div>

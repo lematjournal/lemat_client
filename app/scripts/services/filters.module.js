@@ -5,6 +5,7 @@ export filterDocs from './filters/filter-docs.filter';
 export filterImages from './filters/filter-images.filter';
 export newLines from './filters/new-lines.filter';
 export spaceless from './filters/spaceless.filter';
-export splitCharacters from './filters/split-characters.filter'
+export splitCharacters from './filters/split-characters.filter';
 export toTrusted from './filters/to-trusted.filter';
+export thumbnail from './filters/thumbnail.filter';
 export words from './filters/words.filter';

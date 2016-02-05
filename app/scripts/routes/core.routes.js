@@ -113,7 +113,7 @@ export default class CoreRoutes {
           'header@': {}
         },
         onEnter: (PostsFactory, $stateParams) => { /* @ngInject */
-          PostsFactory.getPost($stateParams.post);
+          return PostsFactory.getPost($stateParams.post);
         }
       })
       .state('main.editors', {
@@ -170,6 +170,9 @@ export default class CoreRoutes {
             controllerAs: 'profileCtrl'
           },
           'header@': {}
+        },
+        onEnter: (UsersFactory, $stateParams) => { /* @ngInject */
+          UsersFactory.getUser($stateParams.profile);
         }
       })
       .state('main.submissions', {

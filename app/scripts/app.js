@@ -11,9 +11,11 @@ import register from './utils/register';
 
 import 'angucomplete-alt';
 import 'angular-confirm';
+import 'angular-css';
 import 'angular-deckgrid';
 import 'angular-filter';
 import 'angular-sanitize';
+import 'angular-trix';
 import 'angular-ui-bootstrap';
 import 'angular-ui-router';
 import 'angular-utils-pagination';
@@ -23,7 +25,7 @@ import 'ng-file-upload';
 import 'ngstorage';
 import 're-tree';
 
-angular.module('lematClient.directives', ['angular-confirm', 'akoenig.deckgrid', 'angularUtils.directives.dirPagination', 'ngFileUpload', 'ui.bootstrap.modal', 'youtube-embed']);
+angular.module('lematClient.directives', ['angular-confirm', 'angularTrix', 'akoenig.deckgrid', 'angularUtils.directives.dirPagination', 'door3.css', 'ngFileUpload', 'ui.bootstrap.modal', 'youtube-embed']);
 register('lematClient.directives').directive('lematRepeat', directives.lematRepeat);
 register('lematClient.directives').directive('loading', directives.loading);
 register('lematClient.directives').directive('ngEnter', directives.ngEnter);
@@ -36,7 +38,7 @@ register('lematClient.services').service('AS3Factory', factories.AS3Factory);
 register('lematClient.services').service('PermissionFactory', factories.PermissionFactory);
 register('lematClient.services').service('UsersFactory', factories.UsersFactory);
 
-angular.module('lematClient', ['ui.router', 'lematClient.admin', 'lematClient.config', 'lematClient.core', 'lematClient.layout', 'lematClient.services'])
+angular.module('lematClient', ['ui.router', 'lematClient.admin', 'lematClient.config', 'lematClient.core', 'lematClient.directives', 'lematClient.layout', 'lematClient.services'])
   .config(config.Html5Mode.init)
   .config(AdminRoutes.routeFactory)
   .config(CoreRoutes.routeFactory)
@@ -68,10 +70,11 @@ angular.module('lematClient.filters', ['angular.filter'])
   .filter('spaceless', filters.spaceless)
   .filter('splitCharacters', filters.splitCharacters)
   .filter('toTrusted', filters.toTrusted)
+  .filter('thumbnail', filters.thumbnail)
   .filter('words', filters.words);
 
 // admin components
-angular.module('lematClient.admin', ['angucomplete-alt', 'lematClient.directives', 'lematClient.filters', 'lematClient.services']);
+angular.module('lematClient.admin', ['angucomplete-alt', 'angularTrix', 'lematClient.filters', 'lematClient.services']);
 
 register('lematClient.admin').controller('EntriesAdminController', components.EntriesAdminController);
 register('lematClient.admin').controller('IssuesAdminController', components.IssuesAdminController);

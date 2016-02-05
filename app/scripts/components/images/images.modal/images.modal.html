@@ -1,3 +1,26 @@
+<style>
+  /* the caption overlays the top left corner of the image */
+  .lightbox-image-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0.5em 0.9em; /* the left and right margins are offset by 0.4em for the span box-shadow */
+    color: #000;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: left;
+    text-shadow: 0.1em 0.1em 0.2em rgba(255, 255, 255, 0.5);
+  }
+
+  .lightbox-image-caption span {
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    background-color: rgba(255, 255, 255, 0.75);
+    /* pad the left and right of each line of text */
+    box-shadow: 0.4em 0 0 rgba(255, 255, 255, 0.75),
+      -0.4em 0 0 rgba(255, 255, 255, 0.75);
+  }
+</style>
 <div class="modal-body">
   <!-- navigation -->
   <div class="row-centered">
@@ -6,13 +29,10 @@
   </div>
 
   <div class="lightbox-image-container row-centered">
-    {{ $parent }}
-    <!-- image -->
     <div class="profile-image" dir-paginate="image in imagesModalCtrl.images | itemsPerPage: 1" current-page="currentPage" style="margin-top: 5px">
       <a ng-click="imagesModalCtrl.setImage(image.image_url)">
         <img class="img-responsive" ng-src="{{ image.image_url }}" height="600px" width="100%">
       </a>
-      <!-- caption -->
     </div>
   </div>
 
@@ -21,7 +41,7 @@
       <button class="btn btn-default pull-left" style="width: 66%" ngf-select="imagesModalCtrl.uploadImage($file, 'uploads/')" ng-model="imagesModalCtrl.profileImage" name="file" ngf-pattern="'image/*'"
         ngf-accept="'image/*'">Select Image to upload</button>
       <div class="btn-group pull-right" style="margin-bottom: 5px">
-        <a class="btn btn-default" ng-click="imagesModalCtrl.cancel()">Close</a> <a class="btn btn-default" ng-click="imagesModalCtrl.ok()" style="margin-left: 5px">Save</a>
+        <a class="btn btn-default" ng-click="cancel()">Close</a> <a class="btn btn-default" ng-click="ok()" style="margin-left: 5px">Save</a>
       </div>
       <!--         <button type="button" ng-click="openImageManager()" class="btn btn-default btn-block">Manage User Images</button>-->
     </div>

@@ -11,8 +11,17 @@ export default class PostsFactory {
     this.tags = $localStorage.tags;
   }
 
-  resetPost() {
-    angular.copy({}, this.post);
+
+  deletePost(id) {
+    this.$http.delete(ServerUrl + '/content/posts/' + id);
+    let post = this.findPostById(id);
+    this.posts.splice(this.posts.indexOf(post), 1);
+  }
+
+  findPostById(id) {
+    for (let i = 0; i < this.posts.length; i += 1) {
+      if (this.posts[i].id === id) return this.posts[i];
+    }
   }
 
   async getPosts() {
@@ -26,13 +35,8 @@ export default class PostsFactory {
 
   async getPost(titleUrl) {
     try {
-      if (this.posts.length === 0) {
-        let response = await this.$http.get(ServerUrl + '/content/posts/' + titleUrl);
-        angular.copy(response.data, this.post);
-      } else {
-        let post = this.findPostByTitle(titleUrl);
-        angular.copy(response.data, this.post);
-      }
+      let response = await this.$http.get(ServerUrl + '/content/posts/' + titleUrl);
+      angular.copy(response.data, this.post);
     } catch (error) {
       console.error(error);
     }
@@ -73,21 +77,7 @@ export default class PostsFactory {
     }
   }
 
-  findPostById(id) {
-    for (let i = 0; i < this.posts.length; i += 1) {
-      if (this.posts[i].id === id) return this.posts[i];
-    }
-  }
-
-  findPostByTitle(titleUrl) {
-    for (let i = 0; i < this.posts.length; i += 1) {
-      if (this.posts[i].titleUrl === titleUrl) return this.posts[i];
-    }
-  }
-
-  deletePost(id) {
-    this.$http.delete(ServerUrl + '/content/posts/' + id);
-    let post = this.findPostById(id);
-    this.posts.splice(this.posts.indexOf(post), 1);
+  resetPost() {
+    angular.copy({}, this.post);
   }
 }
