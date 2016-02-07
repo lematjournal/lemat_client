@@ -1,10 +1,11 @@
+import { Controller } from 'a1atscript';
 import IssuesController from './issues.controller';
 import { ImageModal } from '../images/images.decorator';
 import 'babel-polyfill';
 
 @ImageModal
+@Controller('IssuesAdminController', ['$scope', '$rootScope', '$stateParams', '$document', '$uibModal', 'AuthFactory', 'AS3Factory', 'IssuesFactory', 'ImagesFactory', 'PiecesFactory'])
 export default class IssuesAdminController extends IssuesController {
-  /*@ngInject*/
   constructor($scope, $rootScope, $stateParams, $document, $uibModal, AuthFactory, AS3Factory, IssuesFactory, ImagesFactory, PiecesFactory) {
     super($scope, $rootScope, $stateParams, $document, IssuesFactory, PiecesFactory);
     this.$uibModal = $uibModal;
@@ -19,24 +20,17 @@ export default class IssuesAdminController extends IssuesController {
     }
   }
 
-  findPieceById(id) {
-    for (var i = 0; i < this.issue.piece.length; i++) {
-      if (this.issue.pieces[i].id === id) {
-        return this.issue.pieces[i].id;
-      }
-    }
-  }
-
-
-  getIssue() {
-    this.IssuesFactory.getIssue(this.$stateParams.issue).then(() => {
-      this.issue = IssuesFactory.issue;
-    });
-  }
-
   deleteIssue(id) {
     if (this.AuthFactory.isAuthenticated()) {
       this.IssuesFactory.deletePost(id);
+    }
+  }
+
+  findPieceById(id) {
+    for (let i = 0; i < this.issue.piece.length; i++) {
+      if (this.issue.pieces[i].id === id) {
+        return this.issue.pieces[i].id;
+      }
     }
   }
 
@@ -45,9 +39,9 @@ export default class IssuesAdminController extends IssuesController {
     this.upsertIssue(this.issue);
   }
 
-  upsertIssue(issue) {
+  async upsertIssue(issue) {
     if (this.AuthFactory.isAuthenticated()) {
-      this.IssuesFactory.upsertIssue(issue);
+      await this.IssuesFactory.upsertIssue(issue);
       this.IssuesFactory.getIssues();
     }
   }

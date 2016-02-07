@@ -1,24 +1,21 @@
-// import EntriesController from './entries.controller';
+import { Controller } from 'a1atscript';
+import EntriesController from './entries.controller';
 import { ImageModal } from '../images/images.decorator';
+import { UserModal } from '../users/users.decorator';
 import 'babel-polyfill';
 
 @ImageModal
-export default class EntriesAdminController {
-  /*@ngInject*/
-  constructor($scope, $stateParams, $uibModal, AuthFactory, AS3Factory, EntriesFactory, ImagesFactory, IssuesFactory, PostsFactory, UsersFactory) {
-    this.$scope = $scope;
+@UserModal
+@Controller('EntriesAdminController', ['$scope', '$stateParams', '$uibModal', 'AS3Factory', 'AuthFactory', 'EntriesFactory', 'ImagesFactory', 'IssuesFactory', 'PostsFactory', 'UsersFactory'])
+export default class EntriesAdminController extends EntriesController {
+  constructor($scope, $stateParams, $uibModal, AS3Factory, AuthFactory, EntriesFactory, ImagesFactory, IssuesFactory, PostsFactory, UsersFactory) {
+    super($scope, $stateParams, EntriesFactory, IssuesFactory, PostsFactory);
     this.$uibModal = $uibModal;
-    this.EntriesFactory = EntriesFactory;
-    this.IssuesFactory = IssuesFactory;
-    this.PostsFactory = PostsFactory;
     this.AuthFactory = AuthFactory;
     this.AS3Factory = AS3Factory;
     this.ImagesFactory = ImagesFactory;
     this.UsersFactory = UsersFactory;
     this.users = UsersFactory.users;
-    this.issues = IssuesFactory.issues;
-    this.entries = EntriesFactory.entries;
-    this.entry = EntriesFactory.entry;
     $scope.$on('selectedUser', this.selectedUser);
   }
 
@@ -38,18 +35,5 @@ export default class EntriesAdminController {
       this.EntryFactory.deleteEntry(id);
       this.$stateParams('admin.entries')
     }
-  }
-
-  openUserModal() {
-    this.$uibModalInstance = this.$uibModal.open({
-      templateUrl: 'scripts/components/users/users.create.modal/users.create.modal.html',
-      controller: 'UsersCreateModalController',
-      controllerAs: 'usersCreateModalCtrl',
-      size: 'lg'
-    });
-
-    this.$uibModalInstance.result.then((user) => {
-      this.entry.user_id = user.id;
-    });
   }
 }

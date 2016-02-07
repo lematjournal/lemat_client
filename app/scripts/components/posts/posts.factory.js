@@ -52,8 +52,10 @@ export default class PostsFactory {
       console.error(error);
     }
   }
-
-  upsertPost(post) {
+  resetPost() {
+    angular.copy({}, this.post);
+  }
+  async upsertPost(post) {
     let params = {
       post: {
         title: post.title,
@@ -65,19 +67,16 @@ export default class PostsFactory {
         title_url: post.title_url
       }
     };
-
-    if (post.id) {
-      return this.$http.patch(ServerUrl + '/content/posts/' + post.id, params).then((response) => {
-        console.log(response);
-      });
-    } else {
-      return this.$http.post(ServerUrl + '/content/posts/', params).then((response) => {
-        console.log(response);
-      });
+    try {
+      if (post.id) {
+        let response = await this.$http.patch(ServerUrl + '/content/posts/' + post.id, params);
+        angular.copy(response.data, this.post);
+      } else {
+        let response = await this.$http.post(ServerUrl + '/content/posts/', params);
+        angular.copy(response.data, this.post);
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }
-
-  resetPost() {
-    angular.copy({}, this.post);
   }
 }

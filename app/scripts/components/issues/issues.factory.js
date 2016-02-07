@@ -4,7 +4,8 @@ import 'babel-polyfill';
 
 export default class IssuesFactory {
   /*@ngInject*/
-  constructor($http, $window) {
+  constructor($filter, $http, $window) {
+    this.$filter = $filter;
     this.$http = $http;
     this.$window = $window;
     this.issues = [];
@@ -12,14 +13,39 @@ export default class IssuesFactory {
     this.pieces = [];
   }
 
-  resetIssue() {
-    angular.copy({}, this.issue);
+  deleteIssue(id, titleUrl) {
+    try {
+      this.$http.delete(ServerUrl + '/content/issues/' + titleUrl);
+      let issue = this.findIssueById(id);
+      this.issues.splice(this.issues.indexOf(issue), 1);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+  findIssueById(id) {
+    for (let i = 0; this.issues.length - 1 > i; i += 1) {
+      if (this.issues[i].id === id) {
+        console.log('found');
+        return this.issues[i];
+      }
+    }
+  }
+
+
+  getIssuePieces(issueId) {
+    return this.$http.get(ServerUrl + '/content/issues/' + issueId + '/pieces').then((response) => {
+      angular.copy(response.data, this.pieces);
+    });
   }
 
   async getIssues() {
     try {
       let response = await this.$http.get(ServerUrl + '/content/issues/');
       angular.copy(response.data, this.issues);
+      let latest = this.$filter('orderBy')(response.data, '-created_at')[0];
+      angular.copy(latest, this.issue);
     } catch (error) {
       console.error(error);
     }
@@ -32,6 +58,10 @@ export default class IssuesFactory {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  resetIssue() {
+    angular.copy({}, this.issue);
   }
 
   upsertIssue(issue) {
@@ -52,31 +82,6 @@ export default class IssuesFactory {
         this.issues.push(response.data);
       });
     }
-  }
-
-  findIssueById(id) {
-    for (let i = 0; this.issues.length - 1 > i; i += 1) {
-      if (this.issues[i].id === id) {
-        console.log('found');
-        return this.issues[i];
-      }
-    }
-  }
-
-  deleteIssue(id, titleUrl) {
-    try {
-      this.$http.delete(ServerUrl + '/content/issues/' + titleUrl);
-      let issue = this.findIssueById(id);
-      this.issues.splice(this.issues.indexOf(issue), 1);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  getIssuePieces(issueId) {
-    return this.$http.get(ServerUrl + '/content/issues/' + issueId + '/pieces').then((response) => {
-      angular.copy(response.data, this.pieces);
-    });
   }
 
   uploadIssueImage(image) {

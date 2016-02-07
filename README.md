@@ -4,12 +4,18 @@ A project to democratize the curatorial and editorial process inspired by Jacque
 
 ## The Concept
 
-An artistic/academic "do-ocracy" where anyone can be an editor. Artists, writers and the editors themselves submit their pieces to the journal, when enough pieces accumulate editors will vote on submissions. Voting requires leaving a comment, providing adequate reason for the vote. Comments are moderated by an admin (a rotating position) to ensure that fair reasons are given. Voting will take place within a limited time frame, if time elapses then editors who didn't vote lose a small percentage of their voting power. Editor's voting weight is determined by participation in voting cycles, so if an editor is absent through several voting blocks the wieght of their vote decreases. Voting power can be increased to 100% again by participation. In a given voting cycle, an editor will have the weight of their vote increased to 150% to allow editors an opportunity to highlight their tastes in a given issue.
+A theory/art journal "do-ocracy" where anyone can be an editor. Artists, writers and the editors themselves submit their pieces to the journal. When enough pieces accumulate editors will vote on submissions.
+
+The basic idea is that it is easy to participate in the voting process and the longer one stays involved the more their vote counts. Voting takes place in the span of a few weeks. Editor's voting weight is determined by participation in previous voting cycles and increases slightly overtime. Periodically, an editor will have the weight of their vote doubled to allow editors an opportunity to highlight their tastes and showcase their work in a given issue.
+
+## Technical Shit
+
+Angular 1 app recently refactored to es6 and "componentized" in a React inspired style in an attempt to prepare for Angular 2.
 
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+Run `gulp build` for building and `gulp watch` for preview.
 
 ## Testing
 
-Running `grunt test` will run the unit tests with karma.
+Uninstalled test suite after refactor. Tests coming soon.

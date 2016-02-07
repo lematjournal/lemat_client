@@ -1,5 +1,7 @@
+import { Controller } from 'a1atscript';
+
+@Controller('EntriesController', ['$scope', '$stateParams', 'EntriesFactory', 'IssuesFactory', 'PostsFactory'])
 export default class EntriesController {
-  /*@ngInject*/
   constructor($scope, $stateParams, EntriesFactory, PostsFactory, IssuesFactory) {
     this.$scope = $scope;
     this.$stateParams = $stateParams;

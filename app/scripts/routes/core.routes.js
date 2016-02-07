@@ -12,16 +12,6 @@ export default class CoreRoutes {
             controller: 'EntriesController',
             controllerAs: 'entriesCtrl'
           },
-          'footer@': {
-            templateUrl: 'scripts/components/layout/footer.html',
-            controller: 'FooterController',
-            controllerAs: 'footerCtrl'
-          },
-          'nav@': {
-            templateUrl: 'scripts/components/layout/nav.html',
-            controller: 'NavController',
-            controllerAs: 'navCtrl'
-          },
           'header@': {
             templateUrl: 'scripts/components/layout/header.html'
           }
@@ -71,10 +61,8 @@ export default class CoreRoutes {
           },
           'header@': {}
         },
-        resolve: {
-          promise: (IssuesFactory, $stateParams) => { /* @ngInject */
-            return IssuesFactory.getIssue($stateParams.issue);
-          }
+        onEnter: (IssuesFactory, $stateParams) => { /* @ngInject */
+          if ($stateParams.issue !== IssuesFactory.issue.id) return IssuesFactory.getIssue($stateParams.issue);
         }
       })
       .state('main.issues-detail-piece', {
@@ -197,48 +185,10 @@ export default class CoreRoutes {
         url: 'submissions/form',
         views: {
           '@': {
-            templateUrl: 'scripts/components/submissions/submissions.form/submissions.form.html',
-            controller: 'SubmissionsController',
-            controllerAs: 'submissionsCtrl'
+            templateUrl: 'scripts/components/submissions/submissions.form/form.html'
           },
-          'header@': {
-            templateUrl: 'scripts/components/submissions/submissions.form/submissions.title/submissions.title.html'
-          },
-          'body@main.submissions-form': {
-            templateUrl: 'scripts/components/submissions/submissions.form/submissions.page-1/submissions.page-1.html'
-          }
-        },
-      })
-      .state('main.submissions-upload', {
-        url: '/upload',
-        views: {
-          'body@main.submissions-form': {
-            templateUrl: 'scripts/components/submissions/submissions.form/submissions.page-2/submissions.page-2.html'
-          }
-        },
-        parent: 'main.submissions-form'
-      })
-      .state('main.submissions-final', {
-        url: '/final',
-        views: {
-          'body@main.submissions-form': {
-            templateUrl: 'scripts/components/submissions/submissions.form/submissions.page-3/submissions.page-3.html'
-          },
-          'title@main.submissions-form': {
-            templateUrl: 'scripts/components/submissions/submissions.form/submissions.title/submissions.title-complete.html'
-          }
-        },
-        parent: 'main.submissions-form'
-      })
-      .state('main.submissions-thank-you', {
-        url: '/thanks',
-        views: {
-          'body@main.submissions-form': {
-            templateUrl: 'scripts/components/submissions/submissions.form/submissions.page-4/submissions.page-4.html'
-          },
-          'title@main.submissions-form': {}
-        },
-        parent: 'main.submissions-form'
+          'header@': {}
+        }
       })
   }
 

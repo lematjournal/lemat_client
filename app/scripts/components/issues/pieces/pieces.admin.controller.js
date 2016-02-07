@@ -9,24 +9,6 @@ export default class PiecesAdminController extends IssuesController {
     this.AuthFactory = AuthFactory;
   }
 
-  getPiece() {
-    this.PiecesFactory.getPiece(this.$stateParams.id, this.$stateParams.piece);
-    this.piece = this.PiecesFactory.piece;
-  }
-
-  async upsertPiece(piece) {
-    if (this.AuthFactory.isAuthenticated()) {
-      try {
-        this.PiecesFactory.upsertPiece(piece, this.$stateParams.id);
-        await IssuesFactory.getIssue(this.$stateParams.id);
-        await PiecesFactory.getPiece($stateParams.id, this.$stateParams.piece);
-        this.piece = this.PiecesFactory.piece;
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
-
   deletePiece() {
     if (this.AuthFactory.isAuthenticated()) {
       this.PiecesFactory.deletePiece(this.piece);
@@ -41,7 +23,25 @@ export default class PiecesAdminController extends IssuesController {
     }
   }
 
+  getPiece() {
+    this.PiecesFactory.getPiece(this.$stateParams.id, this.$stateParams.piece);
+    this.piece = this.PiecesFactory.piece;
+  }
+  
   removeUser(id) {
     this.piece.users.splice(this.findUserIndexById(id), 1);
+  }
+
+  async upsertPiece(piece) {
+    if (this.AuthFactory.isAuthenticated()) {
+      try {
+        this.PiecesFactory.upsertPiece(piece, this.$stateParams.id);
+        await IssuesFactory.getIssue(this.$stateParams.id);
+        await PiecesFactory.getPiece($stateParams.id, this.$stateParams.piece);
+        this.piece = this.PiecesFactory.piece;
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 }

@@ -1,8 +1,9 @@
+import { Service } from 'a1atscript';
 import ServerUrl from '../../services/constants.module';
 import 'babel-polyfill';
 
+@Service('SubmissionsFactory', ['$http'])
 export default class SubmissionsFactory {
-  /*@ngInject*/
   constructor($http) {
     this.$http = $http;
     this.acceptedSubmissions = [];
@@ -11,7 +12,48 @@ export default class SubmissionsFactory {
     this.pendingSubmissions = [];
     this.rounds = [];
     this.submissions = [];
-    this.submission = {};
+    this.submission = [];
+  }
+
+  /**
+   * Posts an Html string to the back-end to convert it to a ".docx" file
+   * @param   {String} htmlString  Html string taken from vm.doc
+   * @param   {String} fileName  randomly generated unique filename
+   * @returns {String} Amazon S3 key of the uploaded file
+   */
+  async convertHtmlToDocx(htmlString, fileName) {
+    let params = {
+      submission: {
+        document: htmlString,
+        title: fileName
+      }
+    };
+    try {
+      let response = await this.$http.post(ServerUrl + '/submissions/convert-doc', params);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  /**
+   * Sends '.docx' attachment url to the back-end where it is retrieved and converted to html
+   * @returns {Object} Promise containing a string of the converted html
+   */
+  async convertDocxToHtml() {
+    let params = {
+      submission: {
+        document: $filter('filterDocs')(this.submission.attachments)[0]
+      }
+    };
+    try {
+      let response = await this.$http.post(ServerUrl + '/submissions/render-doc', params);
+      this.doc = response.data;
+      console.log('You can edit your submission in the browser.', 'Preview Generated');
+      return this.doc;
+    } catch (error) {
+      console.error(errors);
+    }
   }
 
   async getAcceptedSubmissions() {
@@ -65,6 +107,19 @@ export default class SubmissionsFactory {
     }
   }
 
+  async upsertComment(commentHash) {
+    let params = {
+      comment: commentHash
+    };
+    try {
+      let response = await this.$http.post(ServerUrl + '/submissions/comments', params);
+      angular.copy(response.data, this.comment);
+      console.log('comment: ', this.comment);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async upsertSubmission(submission) {
     let params = {
       submission: {
@@ -85,19 +140,6 @@ export default class SubmissionsFactory {
         let response = await this.$http.post(ServerUrl + '/submissions/', params);
         angular.copy(response.data, this.submission);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async upsertComment(commentHash) {
-    let params = {
-      comment: commentHash
-    };
-    try {
-      let response = await this.$http.post(ServerUrl + '/submissions/comments', params);
-      angular.copy(response.data, this.comment);
-      console.log('comment: ', this.comment);
     } catch (error) {
       console.error(error);
     }

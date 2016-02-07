@@ -1,27 +1,28 @@
+import { Controller } from 'a1atscript';
 import ServerUrl from '../../services/constants.module';
 
+@Controller('SubmissionsController', ['$scope', '$filter', '$rootScope', '$localStorage', '$state', '$stateParams', '$window', 'SubmissionsFactory'])
 export default class SubmissionsController {
-  /*@ngInject*/
-  constructor($scope, $filter, $http, $uibModal, $localStorage, $q, $rootScope, $state, $stateParams, $sessionStorage, $timeout, $window, AS3Factory, ImagesFactory, PostsFactory, SubmissionsFactory, UsersFactory) {
-    this.submission = {
-      attachments: []
-    };
+  constructor($scope, $filter, $rootScope, $localStorage, $state, $stateParams, $window, SubmissionsFactory) {
     this.$scope = $scope;
-    this.$http = $http;
-    this.$uibModal = $uibModal;
-    this.$localStorage = $localStorage;
+    this.$scope.$storage = $localStorage
+    // .$default({
+    //   submission: {
+    //     attachments: [],
+    //     submission_type: null,
+    //     title: null,
+    //     user: {
+    //       username: null,
+    //       email_address: null
+    //     }
+    //   }
+    // });
+    this.submission = this.$scope.$storage.submission;
     this.$q = $q;
-    this.$rootScope = $rootScope;
     this.$state = $state;
     this.$stateParams = $stateParams;
-    this.$sessionStorage = $sessionStorage;
-    this.$timeout = $timeout;
     this.$window = $window;
-    this.AS3Factory = AS3Factory;
-    this.ImagesFactory = ImagesFactory;
-    this.PostsFactory = PostsFactory;
-    this.$scope.$storage = $localStorage;
-    this.tags = PostsFactory.tags;
+
     this.imagePopover = {
       templateUrl: 'image-popover.template.html'
     };
@@ -32,31 +33,6 @@ export default class SubmissionsController {
     // $scope.$on('refresh', this.watchRefresh());
 
     // $scope.$watch(this.watchSubmission());
-  }
-
-  /**
-   * Checks to see if localstorage has a submission object.
-   * If it doesn't it creates it so the below methods don't error out
-   */
-  setStorage() {
-    if (!this.$scope.$storage.submission) {
-      this.$scope.$storage.submission = {};
-      this.$scope.$storage.submission.attachments = [];
-      this.$scope.$storage.doc = {};
-    }
-    this.doc = this.$scope.$storage.doc;
-    this.submission = this.$scope.$storage.submission;
-    this.submission.attachments = this.$scope.$storage.submission.attachments;
-    this.attachment = {};
-  }
-
-  // setStorage();
-
-  watchRefresh() {
-    return () => {
-      this.$scope.$storage.submission = this.submission;
-      this.$scope.$storage.doc = this.doc;
-    }
   }
 
   watchSubmission(val, newVal) {
@@ -94,8 +70,6 @@ export default class SubmissionsController {
     this.doc = this.$scope.$storage.doc;
   }
 
-  //      resetSubmission();
-
   imagesPresent() {
     return !!this.$filter('filterImages')(this.submission.attachments);
   }
@@ -115,39 +89,7 @@ export default class SubmissionsController {
       this.submission.attachments[0] = this.submission.link;
     }
     toastr.info('', 'Video submitted');
-  };
-
-  /**
-   * Uploads a document or image file.
-   * If its a document it converts it html.
-   * Note: this is dropped into the fileSelect directive
-   */
-  uploadFile() {
-    toastr.success('Success', 'File Uploaded'); // todo: add error clause for fileselect directive
-    // check and see if the file is an image
-    if ((/\.(gif|jpg|jpeg|tiff|png)$/i).test(this.attachment)) {
-      let image = {
-        image_url: vm.attachment
-      };
-      this.ImagesFactory.uploadImage(image);
-      this.submission.attachments.push(image);
-      // if it isn't then check if there is a document in the attachment array
-    } else {
-      // if there isn't a document then push to array
-      if ($filter('filterDocs')(this.submission.attachments).length === 0) {
-        vm.submission.attachments.push(this.attachment);
-        // if there is then find it in the array and replace it
-      } else {
-        for (let i = 0; this.submission.attachments.length > i; i++) {
-          if (!(/\.(gif|jpg|jpeg|tiff|png)$/i).test(this.submission.attachments[i])) {
-            this.submission.attachments[i] = this.attachment;
-          }
-        }
-      }
-      toastr.info('', 'Generating Preview...');
-      this.convertDocxToHtml();
-    }
-  };
+  }
 
   /**
    * Takes html stored in 'vm.doc' and generates a file blob to post to Amazon S3.
@@ -286,11 +228,6 @@ export default class SubmissionsController {
     });
   };
 
-  /**
-   * Utility method for iterating through attachment array.
-   * @param   {Number} id id of the file being searched for
-   * @returns {Object}  file if it is in the attachment array
-   */
   findFileIndexById(id) {
     for (let i = 0; i < this.submission.attachments.length; i++) {
       if (this.submission.attachments[i].id === id) {

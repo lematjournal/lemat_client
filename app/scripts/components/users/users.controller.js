@@ -25,7 +25,6 @@ export default class UsersController {
   }
 
   select(event) {
-    console.log(event);
     if (!angular.element(event.target).hasClass('active')) {
       angular.element(event.target).addClass('active');
     } else {

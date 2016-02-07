@@ -3,8 +3,8 @@ import 'babel-polyfill';
 
 export default class ImagesModalController extends ImagesController {
   /*@ngInject*/
-  constructor($scope, $rootScope, $uibModalInstance, $q, $window, AS3Factory, ImagesFactory, images) {
-    super($scope, AuthFactory, AS3Factory, ImagesFactory);
+  constructor($scope, $rootScope, $uibModalInstance, $q, $window, AS3Factory, AuthFactory, ImagesFactory, images) {
+    super($scope, AuthFactory, AS3Factory, ImagesFactory, images);
     this.$rootScope = $rootScope;
     this.image = {};
     this.images = images;

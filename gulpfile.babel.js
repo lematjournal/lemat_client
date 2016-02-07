@@ -169,7 +169,7 @@ gulp.task('clean-bundle', sync(['clean', 'bundle']));
 
 gulp.task('build', ['clean-bundle'], bundler.stop.bind(bundler));
 
-gulp.task('bundle', ['html', 'styles', 'scripts', 'templates', 'images', 'extras']);
+gulp.task('bundle', ['html', 'styles', 'scripts', 'templates', 'extras']);
 
 gulp.task('build:production', sync(['set-production', 'minify', 'build']));
 

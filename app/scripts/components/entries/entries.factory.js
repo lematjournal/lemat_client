@@ -12,8 +12,21 @@ export default class EntriesFactory {
     this.entry = {};
   }
 
-  resetEntry() {
-    angular.copy({}, this.entry);
+  async deleteEntry(id) {
+    try {
+      await this.$http.delete(ServerUrl + '/news/entries/' + id);
+      this.entries.splice(this.findEntryIndexById(id), 1);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  findEntryIndexById(id) {
+    for (let i = 0; i < this.entry.length; i++) {
+      if (this.entry[i].id === id) {
+        return i;
+      }
+    }
   }
 
   async getEntries() {
@@ -37,6 +50,10 @@ export default class EntriesFactory {
     }
   }
 
+  resetEntry() {
+    angular.copy({}, this.entry);
+  }
+
   upsertEntry(entry) {
     let params = {
       entry: {
@@ -54,23 +71,6 @@ export default class EntriesFactory {
       return this.$http.post(ServerUrl + '/news/entries/', params).then((response) => {
         this.getEntry(response.data.id);
       });
-    }
-  }
-
-  async deleteEntry(id) {
-    try {
-      await this.$http.delete(ServerUrl + '/news/entries/' + id);
-      this.entries.splice(this.findEntryIndexById(id), 1);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  findEntryIndexById(id) {
-    for (let i = 0; i < this.entry.length; i++) {
-      if (this.entry[i].id === id) {
-        return i;
-      }
     }
   }
 }

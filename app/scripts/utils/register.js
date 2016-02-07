@@ -8,6 +8,7 @@ export default function register(appName) {
     return {
         directive: directive,
         controller: controller,
+        component: component,
         service: service,
         provider: provider,
         factory: factory
@@ -47,6 +48,11 @@ export default function register(appName) {
     function controller(name, contructorFn) {
         app.controller(name, contructorFn);
         return this;
+    }
+
+    function component(name, constructorFn) {
+      app.component(name, constructorFn);
+      return this;
     }
 
     function service(name, contructorFn) {

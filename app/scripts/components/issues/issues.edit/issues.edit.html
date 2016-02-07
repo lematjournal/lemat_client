@@ -7,7 +7,7 @@
       <h3>num. of pieces: {{ issuesAdminCtrl.issue.pieces.length }}</h3>
       <h3>download link: {{ issuesAdminCtrl.issue.download_link }}</h3>
       <h3>cover image:</h3>
-      <img class="center-block" uib-tooltip="click to change" ng-click="issuesAdminCtrl.openImageManager()" ng-src="{{ issuesAdminCtrl.issue.image_url }}" style="width: 50%; height: 25%; margin-bottom: 5px">
+      <img class="center-block" uib-tooltip="click to change" ng-click="issuesAdminCtrl.openImageModal()" ng-src="{{ issuesAdminCtrl.issue.image_url }}" style="width: 50%; height: 25%; margin-bottom: 5px">
       <div class="form-group" style="margin-bottom: 5px">
          <input id="upload" type="file" name="cover" class="upload" style="display: none" file-select folder="'covers/'" accept="image/*" ng-model="issuesAdminCtrl.issue.image_url" upload-action="uploadImage" />
          <button type="button" uploadfile class="btn btn-default btn-block">Upload Cover Image</button>

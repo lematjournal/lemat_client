@@ -6,11 +6,6 @@ export default class AdminRoutes {
     $stateProvider.state('admin', {
         url: '/admin',
         views: {
-          'nav@': {
-            templateUrl: 'scripts/components/layout/nav.html',
-            controller: 'NavController',
-            controllerAs: 'navCtrl',
-          },
           'header@': {
             templateUrl: 'scripts/components/layout/admin.html',
           },
@@ -41,6 +36,11 @@ export default class AdminRoutes {
             templateUrl: 'scripts/components/entries/entries.edit/entries.edit.html',
             controller: 'EntriesAdminController',
             controllerAs: 'entriesAdminCtrl'
+          }
+        },
+        resolve: {
+          promise: (EntriesFactory) => { /*@ngInject*/
+            return EntriesFactory.resetEntry();
           }
         }
       })
@@ -152,9 +152,14 @@ export default class AdminRoutes {
         url: '/posts/create',
         views: {
           '@': {
-            templateUrl: 'scripts/components/posts/posts.create/posts.edit.html',
+            templateUrl: 'scripts/components/posts/posts.edit/posts.edit.html',
             controller: 'PostsAdminController',
             controllerAs: 'postsAdminCtrl'
+          }
+        },
+        resolve: {
+          promise: (PostsFactory) => { /*@ngInject*/
+            return PostsFactory.resetPost();
           }
         }
       })
