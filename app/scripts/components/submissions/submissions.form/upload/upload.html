@@ -1,8 +1,8 @@
 <div class="row">
   <h2 class="title text-center">Upload</h2>
   <hr>
-  <form name="linkForm" ng-show="lematSubmissionUpload.submission.submission_type === 'video'">
-    <p class="text-center" ng-show="lematSubmissionUpload.submission.submission_type !== 'image'">Please upload your submission to YouTube and provide a link below. Click submit when you've finished.</p>
+  <form name="linkForm" ng-if="lematSubmissionUpload.submission.submission_type ==='video'">
+    <p class="text-center">Please upload your submission to YouTube and provide a link below. Click submit when you've finished.</p>
     <div class="form-group">
       <label>Link to YouTube Video</label>
       <div class="form-group">
@@ -18,72 +18,65 @@
       </div>
     </div>
   </form>
-   <!-- <form name="uploadForm" ng-show="lematSubmissionUpload.submission.submission_type !== 'video'" novalidate>
-      <p class="text-center" ng-show="lematSubmissionUpload.submission.submission_type !== 'image'">Please upload a document with your written work.
-         <br> You can also copy and paste your submission by clicking "edit attachment" and pasting it in the text editor.</p>
-      <p class="text-center" ng-show="lematSubmissionUpload.submission.submission_type === 'image'">Upload any image files you wish to include in your submission.
-         <br> You can also upload a document containing any text you would like accompanying your text.
-         <br> If you would like the images and text displayed in a specific way,
-         <br> please indicate your specifications in the document.</p>
-      <div class="form-group" ng-show="lematSubmissionUpload.imagesPresent() && lematSubmissionUpload.submission.attachments.length > 0">
-         <table class="table">
-            <label>Attached Images</label>
-            <tr>
-               <th>image thumbnail*</th>
-               <th>filename</th>
-               <th>credits</th>
-            </tr>
-            <tr ng-repeat="attachment in lematSubmissionUpload.submission.attachments | filterImages">
-               <td>
-                 <div class="profile-image">
-                  <a uib-popover-template="imagePopover.templateUrl" popover-placement="right"><img ng-src="{{ attachment.image_url }}" height="50px" width="50px" /></a>
-                  </div>
-               </td>
-               <script type="text/ng-template" id="image-popover.template.html">
-                  <div class="text-center profile-image">
-                     <img class="popover-image" ng-src="{{ attachment.image_url }}" height="50%" width="499px" />
-                  </div>
-               </script>
-               <td><a uib-popover="{{ attachment.image_url }}" popover-placement="right">{{ attachment.image_url | cut:true:30 }}</a></td>
-               <td>
-                  <input type="text" class="form-control" ng-model="lematSubmissionUpload.submission.attachments[$index].credits" placeholder="title, date, medium and dimensions" ng-enter=""/>
-               </td>
-            </tr>
-         </table>
-         <p>*click to preview image</p>
-      </div>
-      <div class="form-group" ng-show="lematSubmissionUpload.documentPresent()">
-         <table class="table">
-            <label>Attached Document</label>
-            <tr>
-               <th>filename</th>
-            </tr>
-            <tr ng-repeat="attachment in lematSubmissionUpload.submission.attachments | filterDocs">
-               <td><a ng-href="{{ attachment }}">{{ attachment }}</a></td>
-            </tr>
-         </table>
-      </div>
+  <form name="uploadForm" ng-show="lematSubmissionUpload.submission.submission_type !== 'video'" novalidate>
+    <p class="text-center" ng-show="lematSubmissionUpload.submission.submission_type !== 'image'">Please upload a document with your written work plz.
+    <p class="text-center" ng-show="lematSubmissionUpload.submission.submission_type === 'image'">Upload any image files you wish to include in your submission plz.
       <br>
-      <div class="form-group">
-         <label>Upload Options</label>
-         <input id="upload" type="file" name="submission" class="upload" style="display: none" file-select folder="'submissions/'" ng-model="lematSubmissionUpload.attachment" upload-action="uploadFile" />
-         <button type="button" uploadfile class="btn btn-default btn-block"><i class="glyphicon glyphicon-cloud-upload"></i> Select file to upload</button>
-      </div>
-      <div class="form-group">
-         <button type="button" ng-click="$parent.showEdit = !$parent.showEdit" class="btn btn-default btn-block"><i class="
-glyphicon glyphicon-text-size"></i>Edit Attachment</button>
-      </div>
-      <div class="form-group">
-         <button type="button" ng-disabled="lematSubmissionUpload.submission.attachments.length === 0" class="btn btn-default btn-block" ng-click="lematSubmissionUpload.clearAttachments()"><i class="glyphicon glyphicon-erase"></i> Clear Attachments</button>
-      </div>
-      <div class="form-group" ng-show="showEdit || lematSubmissionUpload.doc.length > 0">
-         <label>Edit Document</label>
-         <br>
-         <label class="text-muted"><i>note: when editing your attachment some styles and elements like footnotes or list items may have to be manually formatted (this is a beta feature)</i></label>
-         <wysiwyg textarea-id="question" textarea-class="form-control" textarea-height="400px" textarea-name="textareaQuestion" textarea-required ng-model="lematSubmissionUpload.doc"></wysiwyg>
-         <br>
-         <button type="button" class="btn btn-default btn-block" ng-click="lematSubmissionUpload.uploadDoc(lematSubmissionUpload.doc)" ng-disabled="!lematSubmissionUpload.doc"><i class="glyphicon glyphicon-cloud-upload"></i> Submit and Upload Document</button>
-      </div>
-      <p class="text-center"><i>note: if you opt to copy and paste your text or edit the attachment before submission you can preview your submission on the final page of this form.</i></p>
-   </form> -->
+      You can also upload a document containing any text you would like accompanying your images or specifications for the editors.
+      <br>
+    <div class="form-group">
+      <table class="table">
+        <label>Attached Images</label>
+        <tr>
+          <th>image thumbnail*</th>
+          <th>filename</th>
+          <th>credits</th>
+        </tr>
+        <tr ng-repeat="attachment in lematSubmissionUpload.submission.attachments">
+          <td>
+            <div class="profile-image">
+              <a uib-popover-template="imagePopover.templateUrl" popover-placement="right"><img ng-src="{{ attachment.image_url }}" height="50px" width="50px"/></a>
+            </div>
+          </td>
+          <script type="text/ng-template" id="image-popover.template.html">
+            <div class="text-center profile-image">
+              <img class="popover-image" ng-src="{{ attachment.image_url }}" height="50%" width="499px"/>
+            </div>
+          </script>
+          <td>
+            <a uib-popover="{{ attachment.image_url }}" popover-placement="right">{{ attachment.image_url | cut : true : 30 }}</a>
+          </td>
+          <td>
+            <input type="text" class="form-control" ng-model="lematSubmissionUpload.submission.attachments[$index].credits" placeholder="title, date, medium and dimensions" ng-enter=""/>
+          </td>
+        </tr>
+      </table>
+      <p>*click to preview image</p>
+    </div>
+    <div class="form-group">
+      <table class="table">
+        <label>Attached Document(s)</label>
+        <tr>
+          <th>filename</th>
+        </tr>
+        <tr ng-repeat="attachment in lematSubmissionUpload.submission.attachments">
+          <td>
+            <a ng-href="{{ attachment }}">{{ attachment }}</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <div class="form-group">
+      <label>Upload Options</label>
+      <button type="button" ngf-select="lematSubmissionUpload.uploadFile($file, 'uploads/')" class="btn btn-default btn-block">
+        <i class="glyphicon glyphicon-cloud-upload"></i>
+        Select file to upload</button>
+    </div>
+    <div class="form-group">
+      <button type="button" ng-disabled="lematSubmissionUpload.submission.attachments.length === 0" class="btn btn-default btn-block" ng-click="lematSubmissionUpload.clearAttachments()">
+        <i class="glyphicon glyphicon-erase"></i>
+        Clear Attachments</button>
+    </div>
+  </form>
 </div>

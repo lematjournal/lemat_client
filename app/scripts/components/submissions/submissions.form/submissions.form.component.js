@@ -16,7 +16,7 @@ import { AsModule, Component, View } from 'a1atscript';
   template: '<div ng-switch="submissionsFormCtrl.state">' +
               '<lemat-submission-header bind-complete="submissionsFormCtrl.complete" bind-state="submissionsFormCtrl.state" bind-states="submissionsFormCtrl.states"></lemat-submission-header>' +
               '<lemat-submission-info bind-submission="submissionsFormCtrl.submission" ng-switch-when="info"></lemat-submission-info>' +
-              '<lemat-submission-upload ng-switch-when="upload"></lemat-submission-upload>' +
+              '<lemat-submission-upload bind-submission="submissionsFormCtrl.submission" ng-switch-when="upload"></lemat-submission-upload>' +
               '<lemat-submission-final ng-switch-when="final"></lemat-submission-final>' +
               '<hr class="dotted">' +
               '<lemat-submission-buttons bind-state="submissionsFormCtrl.state" bind-states="submissionsFormCtrl.states" />' +

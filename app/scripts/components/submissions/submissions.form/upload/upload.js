@@ -1,7 +1,7 @@
 import { Component, View } from 'a1atscript';
 
 @Component({
-  appInjector: ['$scope','$rootScope', '$state', '$localStorage'],
+  appInjector: ['$scope'],
   selector: 'lemat-submission-upload',
   properties: {
     'submission' : 'submission'
@@ -11,7 +11,8 @@ import { Component, View } from 'a1atscript';
   templateUrl: './scripts/components/submissions/submissions.form/upload/upload.html'
 })
 export default class SubmissionsUpload {
-  constructor($scope, $rootScope, $state, $localStorage) {
+  constructor($scope) {
+    this.$scope = $scope;
   }
 
   /**
@@ -20,7 +21,8 @@ export default class SubmissionsUpload {
    * Resets dom and attachment array.
    */
   clearAttachments() {
-    for (let i = 0; this.submission.attachments.length > i; i++) {
+    if (this.submission.attachments.length === 0) return;
+    for (let i = 0; this.submission.attachments.length > i; i += 1) {
       if (this.submission.attachments[i].image_url) {
         let image = this.submission.attachments[i].image_url;
         this.AS3Factory.deleteFile(image);
@@ -29,10 +31,8 @@ export default class SubmissionsUpload {
         this.AS3Factory.deleteFile(attachment);
       }
     }
-    this.$scope.$storage.submission.attachments = [];
-    this.$scope.$storage.doc = {};
-    this.doc = this.$scope.$storage.doc;
-    this.submission.attachments = this.$scope.$storage.submission.attachments;
+    this.$scope.$parent.$storage.submission.attachments = [];
+    this.submission.attachments = this.$scope.$parent.$storage.submission.attachments;
   }
 
   /**
@@ -98,9 +98,7 @@ export default class SubmissionsUpload {
    */
   resetAttachments() {
     this.$scope.$storage.submission.attachments = [];
-    this.$scope.$storage.doc = {};
     this.submission.attachments = this.$scope.$storage.submission.attachments;
-    this.doc = this.$scope.$storage.doc;
   }
 
   /**
