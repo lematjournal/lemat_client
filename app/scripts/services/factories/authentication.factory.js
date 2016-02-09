@@ -1,10 +1,10 @@
+import { Service } from 'a1atscript';
 import ServerUrl from '../constants.module';
 
+@Service('AuthFactory', ['$http', '$window'])
 export default class AuthFactory {
-  /*@ngInject*/
-  constructor($http, $q, $window) {
+  constructor($http, $window) {
     this.$http = $http;
-    this.$q = $q;
     this.$window = $window;
     this.userId = {};
     this.session = {};

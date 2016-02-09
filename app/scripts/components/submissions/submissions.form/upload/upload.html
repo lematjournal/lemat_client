@@ -19,49 +19,16 @@
     </div>
   </form>
   <form name="uploadForm" ng-show="lematSubmissionUpload.submission.submission_type !== 'video'" novalidate>
-    <p class="text-center" ng-show="lematSubmissionUpload.submission.submission_type !== 'image'">Please upload a document with your written work plz.
-    <p class="text-center" ng-show="lematSubmissionUpload.submission.submission_type === 'image'">Upload any image files you wish to include in your submission plz.
-      <br>
-      You can also upload a document containing any text you would like accompanying your images or specifications for the editors.
-      <br>
+    <p class="text-center">Please upload any images and a document with any written work or specifications for the editors u wld like to include plz.</p>
     <div class="form-group">
       <table class="table">
-        <label>Attached Images</label>
-        <tr>
-          <th>image thumbnail*</th>
-          <th>filename</th>
-          <th>credits</th>
-        </tr>
-        <tr ng-repeat="attachment in lematSubmissionUpload.submission.attachments">
-          <td>
-            <div class="profile-image">
-              <a uib-popover-template="imagePopover.templateUrl" popover-placement="right"><img ng-src="{{ attachment.image_url }}" height="50px" width="50px"/></a>
-            </div>
-          </td>
-          <script type="text/ng-template" id="image-popover.template.html">
-            <div class="text-center profile-image">
-              <img class="popover-image" ng-src="{{ attachment.image_url }}" height="50%" width="499px"/>
-            </div>
-          </script>
-          <td>
-            <a uib-popover="{{ attachment.image_url }}" popover-placement="right">{{ attachment.image_url | cut : true : 30 }}</a>
-          </td>
-          <td>
-            <input type="text" class="form-control" ng-model="lematSubmissionUpload.submission.attachments[$index].credits" placeholder="title, date, medium and dimensions" ng-enter=""/>
-          </td>
-        </tr>
-      </table>
-      <p>*click to preview image</p>
-    </div>
-    <div class="form-group">
-      <table class="table">
-        <label>Attached Document(s)</label>
+        <label>Attached Filez(es)</label>
         <tr>
           <th>filename</th>
         </tr>
         <tr ng-repeat="attachment in lematSubmissionUpload.submission.attachments">
           <td>
-            <a ng-href="{{ attachment }}">{{ attachment }}</a>
+            <a ng-href="{{ attachment.url }}">{{ attachment.url }}</a>
           </td>
         </tr>
       </table>
@@ -69,7 +36,7 @@
     <br>
     <div class="form-group">
       <label>Upload Options</label>
-      <button type="button" ngf-select="lematSubmissionUpload.uploadFile($file, 'uploads/')" class="btn btn-default btn-block">
+      <button type="button" ngf-select="lematSubmissionUpload.uploadFile($file, '/uploads/')" class="btn btn-default btn-block">
         <i class="glyphicon glyphicon-cloud-upload"></i>
         Select file to upload</button>
     </div>

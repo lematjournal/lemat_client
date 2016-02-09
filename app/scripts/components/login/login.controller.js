@@ -1,5 +1,7 @@
+import { Controller } from 'a1atscript';
+
+@Controller('LoginController', ['$rootScope', '$location', 'AuthFactory'])
 export default class LoginController {
-  /*@ngInject*/
   constructor($rootScope, $location, AuthFactory) {
     this.$rootScope = $rootScope;
     this.$location = $location;

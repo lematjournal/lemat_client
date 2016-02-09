@@ -1,0 +1,15 @@
+.inner-box {
+   height: 100%;
+   width: 100%;
+   opacity: 0;
+   top: 0;
+   left: 0;
+   position: absolute;
+   padding: 0;
+   transition: opacity .5s;
+}
+
+.inner-box:hover {
+   opacity: .9;
+   transition: opacity .5s;
+}

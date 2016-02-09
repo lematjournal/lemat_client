@@ -1,9 +1,10 @@
+import { Controller } from 'a1atscript';
 import ImagesController from '../images.controller';
 import 'babel-polyfill';
 
+@Controller('ImagesModalController', ['$scope', '$rootScope', '$uibModalInstance', '$window', 'AS3Factory', 'AuthFactory', 'ImagesFactory', 'images'])
 export default class ImagesModalController extends ImagesController {
-  /*@ngInject*/
-  constructor($scope, $rootScope, $uibModalInstance, $q, $window, AS3Factory, AuthFactory, ImagesFactory, images) {
+  constructor($scope, $rootScope, $uibModalInstance, $window, AS3Factory, AuthFactory, ImagesFactory, images) {
     super($scope, AuthFactory, AS3Factory, ImagesFactory, images);
     this.$rootScope = $rootScope;
     this.image = {};

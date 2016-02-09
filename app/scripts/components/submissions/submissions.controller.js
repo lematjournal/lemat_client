@@ -6,76 +6,11 @@ export default class SubmissionsController {
   constructor($scope, $filter, $rootScope, $localStorage, $state, $stateParams, $window, SubmissionsFactory) {
     this.$scope = $scope;
     this.$scope.$storage = $localStorage
-    // .$default({
-    //   submission: {
-    //     attachments: [],
-    //     submission_type: null,
-    //     title: null,
-    //     user: {
-    //       username: null,
-    //       email_address: null
-    //     }
-    //   }
-    // });
     this.submission = this.$scope.$storage.submission;
     this.$q = $q;
     this.$state = $state;
     this.$stateParams = $stateParams;
     this.$window = $window;
-
-    this.imagePopover = {
-      templateUrl: 'image-popover.template.html'
-    };
-    this.tagPopover = {
-      templateUrl: 'tag-popover.template.html'
-    };
-    this.showEdit = false;
-    // $scope.$on('refresh', this.watchRefresh());
-
-    // $scope.$watch(this.watchSubmission());
-  }
-
-  watchSubmission(val, newVal) {
-    return () => {
-      return this.submission.submission_type;
-    }, (val, newVal) => {
-      if (val !== newVal && this.$state.current !== 'main.submissions-thank-you') {
-        if (this.submission.attachments.length > 0) {
-          this.resetAttachments();
-          toastr.info('Resetting attachments', 'Submission type changed');
-        }
-      }
-    }
-  }
-
-  /**
-   * Utility method to reset submission.
-   */
-  resetSubmission() {
-    this.$scope.$storage.submission = {};
-    this.$scope.$storage.submission.attachments = [];
-    this.$scope.$storage.doc = {};
-    this.doc = this.$scope.$storage.doc;
-    this.submission = this.$scope.$storage.submission;
-    this.submission.attachments = this.$scope.$storage.submission.attachments;
-  }
-
-  /**
-   * Utility method to clear all attachments by resetting local storage.
-   */
-  resetAttachments() {
-    this.$scope.$storage.submission.attachments = [];
-    this.$scope.$storage.doc = {};
-    this.submission.attachments = this.$scope.$storage.submission.attachments;
-    this.doc = this.$scope.$storage.doc;
-  }
-
-  imagesPresent() {
-    return !!this.$filter('filterImages')(this.submission.attachments);
-  }
-
-  documentPresent() {
-    return typeof this.doc === 'string';
   }
 
   /**
@@ -111,27 +46,6 @@ export default class SubmissionsController {
         }
       }
     });
-  };
-
-  /**
-   * Clears all attachments, if there are images present in the attachment array
-   * it will delete their corresponding Rails SQL entry.
-   * Resets dom and attachment array.
-   */
-  clearAttachments() {
-    for (let i = 0; this.submission.attachments.length > i; i++) {
-      if (this.submission.attachments[i].image_url) {
-        let image = this.submission.attachments[i].image_url;
-        this.AS3Factory.deleteFile(image);
-      } else {
-        let attachment = this.submission.attachments[i];
-        this.AS3Factory.deleteFile(attachment);
-      }
-    }
-    this.$scope.$storage.submission.attachments = [];
-    this.$scope.$storage.doc = {};
-    this.doc = this.$scope.$storage.doc;
-    this.submission.attachments = this.$scope.$storage.submission.attachments;
   };
 
   /**

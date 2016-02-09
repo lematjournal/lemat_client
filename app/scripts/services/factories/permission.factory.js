@@ -1,5 +1,7 @@
+import { Service } from 'a1atscript';
+
+@Service('PermissionFactory', ['$rootScope', '$location', 'AuthFactory'])
 export default class PermissionFactory {
-  /*@ngInject*/
   constructor($rootScope, $location, AuthFactory) {
     this.$rootScope = $rootScope;
     this.$location = $location;

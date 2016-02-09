@@ -1,9 +1,10 @@
+import { Controller } from 'a1atscript';
 import IssuesController from '../issues.controller';
 import { UserModal } from '../../users/users.decorator';
 
 @UserModal
+@Controller('PiecesAdminController', ['$scope', '$stateParams', 'AuthFactory', 'IssuesFactory', 'PiecesFactory'])
 export default class PiecesAdminController extends IssuesController {
-  /*@ngInject*/
   constructor($scope, $stateParams, AuthFactory, IssuesFactory, PiecesFactory) {
     super($scope, $rootScope, $stateParams, IssuesFactory, PiecesFactory);
     this.AuthFactory = AuthFactory;
@@ -27,7 +28,7 @@ export default class PiecesAdminController extends IssuesController {
     this.PiecesFactory.getPiece(this.$stateParams.id, this.$stateParams.piece);
     this.piece = this.PiecesFactory.piece;
   }
-  
+
   removeUser(id) {
     this.piece.users.splice(this.findUserIndexById(id), 1);
   }

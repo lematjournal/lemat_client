@@ -1,8 +1,9 @@
+import { Service } from 'a1atscript';
 import ServerUrl from '../../services/constants.module';
 import 'babel-polyfill';
 
+@Service('PostsFactory', ['$http', '$localStorage'])
 export default class PostsFactory {
-  /*@ngInject*/
   constructor($http, $localStorage) {
     this.$http = $http;
     this.$localStorage = $localStorage;
@@ -10,7 +11,6 @@ export default class PostsFactory {
     this.post = {};
     this.tags = $localStorage.tags;
   }
-
 
   deletePost(id) {
     this.$http.delete(ServerUrl + '/content/posts/' + id);

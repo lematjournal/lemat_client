@@ -1,7 +1,8 @@
+import { Service } from 'a1atscript';
 import ServerUrl from '../../services/constants.module';
 
+@Service('UsersFactory', ['$http', '$localStorage', 'AuthFactory'])
 export default class UsersFactory {
-  /*@ngInject*/
   constructor($http, $localStorage, AuthFactory) {
     this.editors = [];
     this.users = $localStorage.users;

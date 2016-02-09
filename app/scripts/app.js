@@ -12,8 +12,8 @@ import register from './utils/register';
 
 import 'angucomplete-alt';
 import 'angular-confirm';
-import 'angular-deckgrid';
 import 'angular-filter';
+import 'angular-mocks';
 import 'angular-sanitize';
 import 'angular-trix';
 import 'angular-scroll';
@@ -26,17 +26,14 @@ import 'ng-file-upload';
 import 'ngstorage';
 import 're-tree';
 
-angular.module('lematClient.directives', ['akoenig.deckgrid', 'angularUtils.directives.dirPagination','duScroll', 'ngFileUpload', 'ui.bootstrap.modal', 'ui.bootstrap.popover', 'youtube-embed']);
+angular.module('lematClient.directives', ['angucomplete-alt', 'akoenig.deckgrid', 'angularTrix', 'angularUtils.directives.dirPagination', 'duScroll', 'ngFileUpload', 'ui.bootstrap.modal', 'ui.bootstrap.popover', 'youtube-embed']);
+// register('lematClient.directives').directive('deckgrid', directives.angularDeckgrid);
 register('lematClient.directives').directive('lematRepeat', directives.lematRepeat);
 register('lematClient.directives').directive('ngEnter', directives.ngEnter);
 register('lematClient.directives').directive('ngEsc', directives.ngEsc);
 register('lematClient.directives').directive('uiSrefIf', directives.uiSrefIf);
 
-angular.module('lematClient.services', ['ngSanitize', 'ng.deviceDetector', 'ngStorage']);
-register('lematClient.services').service('AuthFactory', factories.AuthFactory);
-register('lematClient.services').service('AS3Factory', factories.AS3Factory);
-register('lematClient.services').service('PermissionFactory', factories.PermissionFactory);
-register('lematClient.services').service('UsersFactory', factories.UsersFactory);
+let services = new Module('lematClient.services', ['ngSanitize', 'ng.deviceDetector', 'ngStorage', factories.AuthFactory, factories.AS3Factory, factories.PermissionFactory]);
 
 angular.module('lematClient.config', []) // these are classes with a static method 'init' so they run the config block
   .config(config.Html5Mode.init)
@@ -57,49 +54,43 @@ angular.module('lematClient.filters', ['angular.filter'])
   .filter('thumbnail', filters.thumbnail)
   .filter('words', filters.words);
 
-// core components
-angular.module('lematClient.core', ['lematClient.directives', 'lematClient.filters', 'ngStorage'])
+let entries = new Module('lematClient.core.entries', [components.EntriesController, components.EntriesFactory]);
 
-// editors
-register('lematClient.core').controller('EditorsController', components.EditorsController);
+let images = new Module('lematClient.core.images', [components.ImagesController, components.ImagesFactory, components.ImagesModalController]);
 
-// entries
-register('lematClient.core').service('EntriesFactory', components.EntriesFactory);
-register('lematClient.core').controller('EntriesController', components.EntriesController);
+let issues = new Module('lematClient.core.issues', [components.IssuesController, components.IssuesFactory, components.PiecesFactory, components.scroll, components.scrollPosition]);
 
-// images
-register('lematClient.core').service('ImagesFactory', components.ImagesFactory);
-register('lematClient.core').controller('ImagesController', components.ImagesController);
-register('lematClient.core').controller('ImagesModalController', components.ImagesModalController);
+let posts = new Module('lematClient.core.posts', [components.PostsController, components.PostsFactory]);
 
-// issues
-register('lematClient.core').controller('IssuesController', components.IssuesController);
-register('lematClient.core').service('IssuesFactory', components.IssuesFactory);
-register('lematClient.core').service('PiecesFactory', components.PiecesFactory);
-register('lematClient.core').directive('scroll', components.scroll);
-register('lematClient.core').directive('scrollPosition', components.scrollPosition);
+let submissions = new Module('lematClient.core.submissions', [components.SubmissionsForm, components.SubmissionsFactory]);
 
-// // login
-register('lematClient.core').controller('LoginController', components.LoginController);
-
-// // posts
-register('lematClient.core').controller('PostsController', components.PostsController)
-register('lematClient.core').service('PostsFactory', components.PostsFactory);
-
-// profile
-register('lematClient.core').controller('ProfileController', components.ProfileController);
-
-//submissions
-let submissions = new Module('lematClient.core.submissions', ['lematClient.layout', components.SubmissionsForm, components.SubmissionsFactory]);
-
-// users
-register('lematClient.core').controller('UsersController', components.UsersController);
-register('lematClient.core').service('UsersFactory', components.UsersFactory);
+let users = new Module('lematClient.core.users', [components.UsersController, components.UsersFactory]);
 
 let layout = new Module('lematClient.layout', ['ui.bootstrap.dropdown', components.footer, components.nav, components.lematButton]);
 
-let admin = new Module('lematClient.admin', ['angucomplete-alt', 'angular-confirm', 'angularTrix', 'lematClient.directives', 'lematClient.filters', 'lematClient.services', components.EntriesAdminController, components.IssuesAdminController, components.PostsAdminController, components.SubmissionsController]);
+let admin = new Module('lematClient.admin', [
+  'angular-confirm',
+  'lematClient.directives',
+  'lematClient.filters',
+  components.EntriesAdminController,
+  components.IssuesAdminController,
+  components.PostsAdminController,
+  components.SubmissionsController
+]);
 
-let app = new Module('lematClient', ['ui.router', admin, 'lematClient.config', 'lematClient.core', submissions, layout, 'lematClient.services']);
+let core = new Module('lematClient.core', [
+  'lematClient.directives',
+  'lematClient.filters',
+  components.EditorsController,
+  components.LoginController,
+  components.ProfileController,
+  entries,
+  issues,
+  posts,
+  users,
+  submissions
+]);
+
+let app = new Module('lematClient', [services, 'ui.router', 'lematClient.config', 'lematClient.directives', core, layout]);
 
 bootstrap(app);

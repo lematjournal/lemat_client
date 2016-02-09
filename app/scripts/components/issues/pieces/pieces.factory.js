@@ -1,8 +1,9 @@
+import { Service } from 'a1atscript';
 import ServerUrl from '../../../services/constants.module';
 import slug from 'slug';
 
+@Service('PiecesFactory', ['$http', '$window'])
 export default class PiecesFactory {
-  /*@ngInject*/
   constructor($http, $window) {
     this.$http = $http;
     this.$window = $window;

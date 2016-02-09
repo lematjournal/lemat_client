@@ -1,49 +1,22 @@
-<!-- submissionsCtrl.getAttachmentHtml() -->
 <div class="row">
    <div class="row-centered">
       <h2 class="title">Submission Info</h2>
+      {{ lematSubmissionReview.submission }}
       <hr>
       <h4 class="title">Name</h4>
-      <p>{{ submissionsCtrl.submission.user.username }}</p>
+      <p>{{ lematSubmissionReview.submission.user.username }}</p>
       <h4 class="title">Email</h4>
-      <p class="">{{ submissionsCtrl.submission.email_address }}</p>
+      <p class="">{{ lematSubmissionReview.submission.user.email_address }}</p>
       <h4 class="title">Type</h4>
-      <p class="">{{ submissionsCtrl.submission.submission_type }}</p>
+      <p class="">{{ lematSubmissionReview.submission.submission_type }}</p>
       <h4 class="title">Description</h4>
-      <p class="" ng-bind-html="submissionsCtrl.submission.email_content"></p>
+      <p class="" ng-bind-html="lematSubmissionReview.submission.description | toTrusted"></p>
       <h4 class="title">Attachment(s)</h4>
-      <div class="form-group" ng-show="submissionsCtrl.submission.submission_type === 'video'">
-         <p ng-repeat="attachment in submissionsCtrl.submission.attachments"> {{ attachment }}</p>
+      <div class="form-group" ng-show="lematSubmissionReview.submission.submission_type === 'video'">
+         <youtube-embed video-url="lematSubmissionUpload.submission.link"> {{ attachment.url }}</p>
       </div>
-      <div class="form-group" ng-show="submissionsCtrl.submission.submission_type === 'text'">
-         <p class="title">Document</p>
-         <p class="" ng-repeat="attachment in submissionsCtrl.submission.attachments | filterDocs">{{ attachment }}</p>
+      <div class="form-group" ng-show="lematSubmissionReview.submission.submission_type === 'text' || lematSubmissionReview.submission.submission_type === 'image'">
+         <p class="" ng-repeat="attachment in lematSubmissionReview.submission.attachments">{{ attachment.url }}</p>
       </div>
-      <div class="form-group" ng-show="submissionsCtrl.images.length > 0">
-         <p class="title">Images</p>
-         <p class="" ng-repeat="attachment in submissionsCtrl.submission.attachments">{{ attachment.image_url }}</p>
-      </div>
-   </div>
-
-   <div class="row" ng-show="submissionsCtrl.submission.submission_type === 'text' && submissionsCtrl.evaluateDoc()">
-      <h2 class="title text-center">Document Preview</h2>
-      <hr>
-      <h4 class="title text-center">{{ submissionsCtrl.submission.title }}</h4>
-      <p class="text-center">{{ submissionsCtrl.submission.user.username }}</p>
-      <p class="text-center">{{ submissionsCtrl.submission.created_at | date: 'medium' }}</p>
-      <p ng-bind-html="submissionsCtrl.doc"></p>
-   </div>
-   <div class="row" ng-show="submissionsCtrl.images.length > 0 && submissionsCtrl.submission.submission_type === 'image'">
-      <h2 class="title text-center">Images Preview</h2>
-      <hr>
-      <div class="text-center" ng-repeat="attachment in submissionsCtrl.submission.attachments | filterImages">
-         <img ng-src="{{ attachment.image_url }}" />
-         <p class="text-center">{{ attachment.credits }}</p>
-      </div>
-   </div>
-   <hr class="dotted">
-   <div class="btn-group pull-right">
-      <a class="btn btn-default" ui-sref="main.submissions-upload">Back</a>
-      <a class="btn btn-default" style="margin-left: 5px" ng-click="submissionsCtrl.postSubmission()">Submit</a>
    </div>
 </div>

@@ -1,9 +1,10 @@
+import { Controller } from 'a1atscript';
 import { ImageModal } from '../images/images.decorator';
 import 'babel-polyfill';
 
 @ImageModal
+@Controller('UsersController', ['$scope', '$rootScope', '$uibModal', '$stateParams', 'AuthFactory', 'ImagesFactory', 'UsersFactory'])
 export default class UsersController {
-  /*@ngInject*/
   constructor($scope, $rootScope, $uibModal, $stateParams, AuthFactory, ImagesFactory, UsersFactory) {
     this.$scope = $scope;
     this.$rootScope = $rootScope;

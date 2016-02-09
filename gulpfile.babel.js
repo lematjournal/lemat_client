@@ -1,17 +1,11 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
-var templateCache = require('gulp-angular-templatecache');
+var browserSync = require('browser-sync');
 var gulpFilter = require('gulp-filter');
-var forEach = require('gulp-foreach');
-var path = require('path');
-var reworkUrl = require('rework-plugin-url');
 var fs = require('fs');
-var del = require('del'); // deletes stuff
 var $ = require('gulp-load-plugins')(); // loads other gulp plugins
-var sync = $.sync(gulp).sync;
 var browserify = require('browserify');
 var babelify = require('babelify');
-var minifyHtml = require('gulp-minify-html');
 var watchify = require('watchify');
 var wiredep = require('wiredep').stream;
 var source = require('vinyl-source-stream');
@@ -24,7 +18,7 @@ var bundler = {
       extensions: ['.js'],
       debug: true
     }).transform(babelify.configure({
-      presets: ['stage-0', 'es2015'],
+      presets: ['es2015', 'stage-0'],
       plugins: ['transform-function-bind', 'transform-decorators-legacy']
     })));
   },
@@ -36,7 +30,10 @@ var bundler = {
         add: true,
         single_quotes: true
       }))
-      .pipe(gulp.dest('./dist/scripts/'));
+      .pipe(gulp.dest('./dist/scripts/'))
+      .pipe(browserSync.reload({
+        stream: true
+      }));
   },
   watch: function() {
     this.w && this.w.on('update', this.bundle.bind(this));
@@ -46,27 +43,25 @@ var bundler = {
   }
 };
 
-gulp.task('templates', function() {
-  gulp.src([
-      './**/*.html',
-      '!./node_modules/**'
-    ])
-    .pipe(minifyHtml({
-      quotes: true
-    }))
-    .pipe(templateCache('templates.js'))
-    .pipe(gulp.dest('dist/scripts'));
+gulp.task('serve', function() {
+  browserSync.init({
+    server: {
+      baseDir: './dist'
+    }
+  });
+  gulp.watch('app/**/*.js', ['scripts']);
 });
 
 //watch scss for changes and render into minified css with nice auto-prefixing
 gulp.task('styles', function() {
-  return $.rubySass('app/styles/main.scss', {
-      style: 'expanded',
-      precision: 10
-    })
-    .on('error', $.util.log.bind($.util, 'Sass Error'))
+  return gulp.src('app/**/*.css')
+    .on('error', $.util.log.bind($.util, 'Css error'))
     .pipe($.autoprefixer('last 1 version'))
+    .pipe($.concat('main.css'))
     .pipe(gulp.dest('dist/styles'))
+    .pipe(browserSync.reload({
+      stream: true
+    }))
     .pipe($.size());
 });
 
@@ -76,31 +71,17 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('html:main', function() {
-  return gulp.src('app/**/*.html')
+  return gulp.src(['app/**/*.html', 'app/index.html'])
     .pipe(gulp.dest('dist'))
-    .pipe($.size());
+    .pipe(browserSync.reload({
+      stream: true
+    }))
+  .pipe($.size());
 });
 
 gulp.task('html:assets', function() {
   return gulp.src(['node_modules/angular-ui-bootstrap/**/*.html', '!node_modules/angular-ui-bootstrap/src/**/*.html'])
     .pipe(gulp.dest('dist/uib'))
-    .pipe($.size());
-})
-
-gulp.task('cache', function() {
-  return gulp.src('app/**/*.html')
-    .pipe(templateCache())
-    .pipe(gulp.dest('dist'));
-});
-
-gulp.task('images', function() {
-  return gulp.src('app/images/**/*')
-    .pipe($.cache($.imagemin({
-      optimizationLevel: 3,
-      progressive: true,
-      interlaced: true
-    })))
-    .pipe(gulp.dest('dist/images'))
     .pipe($.size());
 });
 
@@ -116,23 +97,6 @@ gulp.task('extras', function() {
   return gulp.src(['app/*.txt', 'app/*.ico', 'app/CNAME'])
     .pipe(gulp.dest('dist/'))
     .pipe($.size());
-});
-
-//stylish output for errors
-gulp.task('lint', function() {
-  return gulp.src(['/app/*.js', '!./bower_components/**'])
-    .pipe($.jshint())
-    .pipe($.jshint('.jshintrc'))
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.jshint.reporter('fail'));
-});
-
-gulp.task('serve', function() {
-  gulp.src('dist')
-    .pipe($.webserver({
-      livereload: true,
-      port: 9000
-    }));
 });
 
 gulp.task('wiredep', function() {
@@ -159,27 +123,23 @@ gulp.task('set-production', function() {
   process.env.NODE_ENV = 'production';
 });
 
-gulp.task('html', ['html:main','html:assets']);
+gulp.task('html', ['html:main', 'html:assets']);
 
 gulp.task('minify', ['minify:js', 'minify:css']);
 
-gulp.task('clean', del.bind(null, 'dist'));
+gulp.task('build', bundler.stop.bind(bundler));
 
-gulp.task('clean-bundle', sync(['clean', 'bundle']));
+gulp.task('bundle', ['html', 'styles', 'scripts', 'extras']);
 
-gulp.task('build', ['clean-bundle'], bundler.stop.bind(bundler));
+gulp.task('build:production', ['set-production', 'minify', 'build']);
 
-gulp.task('bundle', ['html', 'styles', 'scripts', 'templates', 'extras']);
-
-gulp.task('build:production', sync(['set-production', 'minify', 'build']));
-
-gulp.task('serve:production', sync(['build:production', 'serve']));
+gulp.task('serve:production', ['build:production', 'serve']);
 
 gulp.task('default', ['build']);
 
-gulp.task('watch', sync(['clean-bundle', 'serve']), function() {
-  bundler.watch();
-  gulp.watch('app/**/*.html', ['html']);
-  gulp.watch('app/styles/**/*.scss', ['styles']);
-  gulp.watch('app/images/**/*', ['images']);
-});
+gulp.task('watch', ['bundle', 'serve']),
+  function() {
+    bundler.watch();
+    gulp.watch('app/**/*.html', ['html']);
+    gulp.watch('app/styles/**/*.scss', ['styles']);
+  };

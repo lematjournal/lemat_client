@@ -1,8 +1,9 @@
+import { Controller } from 'a1atscript';
 import { ImageModal } from './images.decorator';
 
 @ImageModal
+@Controller('ImagesController', ['$scope', '$uibModal', 'AuthFactory', 'AS3Factory', 'ImagesFactory'])
 export default class ImagesController {
-  /*@ngInject*/
   constructor($scope, $uibModal, AuthFactory, AS3Factory, ImagesFactory) {
     this.$scope = $scope;
     this.$uibModal = $uibModal;

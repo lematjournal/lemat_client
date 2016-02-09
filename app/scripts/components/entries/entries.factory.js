@@ -1,9 +1,10 @@
+import { Service } from 'a1atscript';
 import ServerUrl from '../../services/constants.module';
 import slug from 'slug';
 import 'babel-polyfill';
 
+@Service('EntriesFactory', ['$filter', '$http', '$window'])
 export default class EntriesFactory {
-  /*@ngInject*/
   constructor($filter, $http, $window) {
     this.$http = $http;
     this.$filter = $filter;

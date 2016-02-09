@@ -1,32 +1,58 @@
+import { Service } from 'a1atscript';
 import ServerUrl from '../constants.module';
 
+@Service('AS3Factory', ['$http', 'Upload'])
 export default class AS3Factory {
-  /*@ngInject*/
-  constructor($http, $q) {
+  constructor($http, Upload) {
     this.$http = $http;
-    this.$q = $q;
+    this.Upload = Upload;
   }
 
-  uploadFile(file, folder) {
-    console.log(file, folder);
-    let deferred = this.$q.defer();
-
-    return deferred.promise;
-  }
-
-  deleteFile(key) {
-    console.log(key);
-    let deferred = this.$q.defer();
-    return deferred.promise;
-  }
-
-  uniqueString() {
-    let text = "";
-    let possible = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (let i = 0; i < 16; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
+  async upload(file, folder) {
+    try {
+      let response = await this.Upload.upload({
+        url: `${ServerUrl}/uploads`,
+        data: {
+          upload: {
+            file: file,
+            name: file.name,
+            key: `uploads/${file.name}`,
+            url: `https://s3-us-west-2.amazonaws.com/lematjournal/uploads/${file.name}`
+          }
+        }
+      });
+      return response;
+    } catch (error) {
+      console.error(error);
     }
-    return text;
+  }
+
+
+  async deleteFile(key) {
+    try {
+      let response = await this.$http.delete(ServerUrl + '/uploads/' + key);
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  encode(file, callback) {
+    console.log(file);
+    let reader = new FileReader();
+    reader.onload = function(file) {
+      console.log(file.result);
+      return callback(file.result);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  parseDataUrl(url) {
+    console.log(url);
+    let matches = url.match(/^data:.+\/(.+);base64,(.*)$/);
+    let ext = matches[1];
+    let base64Data = matches[2];
+    let buffer = new Buffer(base64Data, 'base64');
+    return buffer;
   }
 }

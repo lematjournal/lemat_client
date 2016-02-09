@@ -1,5 +1,7 @@
+import { Controller } from 'a1atscript';
+
+@Controller('PostsController', ['$scope', '$rootScope', 'PostsFactory'])
 export default class PostsController {
-  /*@ngInject*/
   constructor($scope, $rootScope, PostsFactory) {
     this.$scope = $scope;
     this.$rootScope = $rootScope;

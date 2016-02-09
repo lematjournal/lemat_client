@@ -1,7 +1,7 @@
 import { Component, View } from 'a1atscript';
 
 @Component({
-  appInjector: ['$scope'],
+  appInjector: ['$scope', 'AS3Factory'],
   selector: 'lemat-submission-upload',
   properties: {
     'submission' : 'submission'
@@ -11,8 +11,10 @@ import { Component, View } from 'a1atscript';
   templateUrl: './scripts/components/submissions/submissions.form/upload/upload.html'
 })
 export default class SubmissionsUpload {
-  constructor($scope) {
+  constructor($scope, AS3Factory) {
     this.$scope = $scope;
+    this.AS3Factory = AS3Factory;
+    this.file = {};
   }
 
   /**
@@ -23,13 +25,8 @@ export default class SubmissionsUpload {
   clearAttachments() {
     if (this.submission.attachments.length === 0) return;
     for (let i = 0; this.submission.attachments.length > i; i += 1) {
-      if (this.submission.attachments[i].image_url) {
-        let image = this.submission.attachments[i].image_url;
-        this.AS3Factory.deleteFile(image);
-      } else {
-        let attachment = this.submission.attachments[i];
-        this.AS3Factory.deleteFile(attachment);
-      }
+      let attachment = this.submission.attachments[i];
+      this.AS3Factory.deleteFile(attachment.key);
     }
     this.$scope.$parent.$storage.submission.attachments = [];
     this.submission.attachments = this.$scope.$parent.$storage.submission.attachments;
@@ -44,13 +41,8 @@ export default class SubmissionsUpload {
    */
   async deleteFile(attachment) {
     try {
-      if ((/\.(gif|jpg|jpeg|tiff|png)$/i).test(attachment.image_url)) {
-        await this.AS3Factory.deleteFile(attachment.image_url);
-        await this.ImagesFactory.deleteImage(attachment.id);
-        await this.submission.attachments.splice(this.findFileIndexById(attachment.id), 1);
-      } else {
-        this.AS3Factory.deleteFile(attachment);
-      }
+      await this.AS3Factory.deleteFile(attachment);
+      this.submission.attachments.splice(this.findFileIndexById(attachment.id), 1);
     } catch (error) {
       console.error(error);
     }
@@ -70,30 +62,6 @@ export default class SubmissionsUpload {
   }
 
   /**
-   * Takes html stored in 'this.doc' and generates a file blob to post to Amazon S3.
-   * There is only one document attachment allowed so the method searches for any other
-   * '.docx' files in the attachment array and replaces them with the new file
-   */
-  async uploadDoc() {
-    try {
-      let fileName = this.submission.title + '-' + this.submission.user.username + '-' + Date.now().toString() + '.docx';
-      let response = await this.convertHtmlToDocx(this.doc, fileName);
-      let s3Path = response.data;
-      if (this.submission.attachments && this.$filter('filterDocs')(this.submission.attachments).length === 0) {
-        this.submission.attachments.push(s3Path);
-      } else {
-        for (let i = 0; this.submission.attachments.length > i; i++) {
-          if (!(/\.(gif|jpg|jpeg|tiff|png)$/i).test(this.submission.attachments[i])) {
-            this.submission.attachments[i] = s3Path;
-          }
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  /**
    * Utility method to clear all attachments by resetting local storage.
    */
   resetAttachments() {
@@ -106,29 +74,13 @@ export default class SubmissionsUpload {
    * If its a document it converts it html.
    * Note: this is dropped into the fileSelect directive
    */
-  uploadFile() {
-    // check and see if the file is an image
-    if ((/\.(gif|jpg|jpeg|tiff|png)$/i).test(this.attachment)) {
-      let image = {
-        image_url: this.attachment
-      };
-      this.ImagesFactory.uploadImage(image);
-      this.submission.attachments.push(image);
-      // if it isn't then check if there is a document in the attachment array
-    } else {
-      // if there isn't a document then push to array
-      if ($filter('filterDocs')(this.submission.attachments).length === 0) {
-        this.submission.attachments.push(this.attachment);
-        // if there is then find it in the array and replace it
-      } else {
-        for (let i = 0; this.submission.attachments.length > i; i++) {
-          if (!(/\.(gif|jpg|jpeg|tiff|png)$/i).test(this.submission.attachments[i])) {
-            this.submission.attachments[i] = this.attachment;
-          }
-        }
-      }
-      console.log('', 'Generating Preview...');
-      this.convertDocxToHtml();
+  async uploadFile(file, folder) {
+    try {
+      let response = await this.AS3Factory.upload(file, folder);
+      this.submission.attachments.push(response.data);
+      this.$scope.$digest();
+    } catch (error) {
+      console.error(error);
     }
   }
 }

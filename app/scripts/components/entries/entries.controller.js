@@ -1,6 +1,6 @@
 import { Controller } from 'a1atscript';
 
-@Controller('EntriesController', ['$scope', '$stateParams', 'EntriesFactory', 'IssuesFactory', 'PostsFactory'])
+@Controller('EntriesController', ['$scope', '$stateParams', 'EntriesFactory', 'PostsFactory', 'IssuesFactory'])
 export default class EntriesController {
   constructor($scope, $stateParams, EntriesFactory, PostsFactory, IssuesFactory) {
     this.$scope = $scope;
