@@ -1,18 +1,19 @@
-import { Component, View } from 'a1atscript';
+import { Component, Inject, Input } from 'ng-forward';
+import 'reflect-metadata';
 
 @Component({
-  appInjector: ['$scope'],
+  controllerAs: 'submissionHeader',
   selector: 'lemat-submission-header',
-  properties: {
-    'complete' : 'complete',
-    'states' : 'states',
-    'state' : 'state'
-  }
+  templateUrl: './scripts/components/submissions/submissions.form/header/header.html',
+  inputs: ['currentPage', 'states', 'state']
 })
-@View({
-  templateUrl: './scripts/components/submissions/submissions.form/header/header.html'
-})
+
+@Inject('$scope')
 export default class SubmissionsHeader {
+  @Input() complete;
+  @Input() states;
+  @Input() state;
+
   constructor($scope) {
     this.$scope = $scope;
     this.currentPage = this.$scope.$parent.$storage.currentPage;

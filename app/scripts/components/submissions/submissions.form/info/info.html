@@ -3,21 +3,21 @@
   <hr>
     <div class="form-group">
       <label for="name">Title</label>
-      <input type="text" name="title" ng-model="lematSubmissionInfo.submission.title" id="title" class="form-control" required>
+      <input type="text" name="title" ng-model="info.submission.title" id="title" class="form-control" required>
     </div>
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" name="username" ng-model="lematSubmissionInfo.submission.user.username" id="name" class="form-control" required>
+      <input type="text" name="name" ng-model="info.submission.user.username" id="name" class="form-control" required>
     </div>
     <div class="form-group">
       <label for="email">Email Address†</label>
       <br>
       <label for="email" class="text-muted"><i>†we will not send you any unsolicited emails, this is to send a confirmation that we have recieved your submission and so the editors can coordinate with you on publishing your piece</i></label>
-      <input type="email" name="email" ng-model="lematSubmissionInfo.submission.user.email_address" id="email" class="form-control" required>
+      <input type="email" name="email" ng-model="info.submission.user.email_address" id="email" class="form-control" required>
     </div>
     <div class="form-group">
       <label for="name">Submission Type</label>
-      <select ng-model="lematSubmissionInfo.submission.submission_type" id="type" name="type" class="form-control" required>
+      <select ng-model="info.submission.submission_type" id="type" name="type" class="form-control" required>
         <option value="image">image(s)</option>
         <option value="text">text</option>
         <option value="video">video</option>
@@ -27,7 +27,7 @@
       <label for="content">Description†††</label>
       <br>
       <label class="text-muted"><i>†††in a short message to the editors describe your work, how you would like it shown and anything else you'd like to let us know</i></label>
-        <trix-editor angular-trix style="display: block" ng-model="lematSubmissionInfo.submission.description"></trix-editor>
+      <wysiwyg ng-model="info.submission.description" textarea-class="form-control" textarea-height="80px" textarea-menu="info.menu" textarea-required></wysiwyg>
     </div>
   </form>
 </div>

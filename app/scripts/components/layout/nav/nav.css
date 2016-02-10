@@ -67,9 +67,19 @@
   border: 0 solid #ccc;
   border: 1px solid rgba(0, 0, 0, .15);
   margin-top: 19px;
-  width: 50%;
+  width: 800px;
   left: 10px;
   border-radius: 0;
   -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .175);
   box-shadow: 0 0 0 rgba(0, 0, 0, .175);
+}
+
+@media(max-width:900px) {
+  .dropdown-menu {
+    width: 100%;
+  }
+
+  .dropdown-menu .col-sm-6 {
+    width: 50%;
+  }
 }

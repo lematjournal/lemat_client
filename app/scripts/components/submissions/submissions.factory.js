@@ -1,8 +1,10 @@
-import { Service } from 'a1atscript';
-import ServerUrl from '../../services/constants.module';
+import { Injectable, Inject } from 'ng-forward';
+import ServerUrl from '../../constants.module';
 import 'babel-polyfill';
+import 'reflect-metadata';
 
-@Service('SubmissionsFactory', ['$http'])
+@Injectable()
+@Inject('$http')
 export default class SubmissionsFactory {
   constructor($http) {
     this.$http = $http;
@@ -18,7 +20,8 @@ export default class SubmissionsFactory {
   /**
    * Posts an Html string to the back-end to convert it to a ".docx" file
    * @param   {String} htmlString  Html string taken from vm.doc
-   * @param   {String} fileName  randomly generated unique filename
+   * @param   {String} fil
+    ng-click="lematSubmissionButtons.submit(lematSubmissionButtons.submission)"eName  randomly generated unique filename
    * @returns {String} Amazon S3 key of the uploaded file
    */
   async convertHtmlToDocx(htmlString, fileName) {
@@ -40,19 +43,28 @@ export default class SubmissionsFactory {
    * Sends '.docx' attachment url to the back-end where it is retrieved and converted to html
    * @returns {Object} Promise containing a string of the converted html
    */
-  async convertDocxToHtml() {
-    let params = {
-      submission: {
-        document: $filter('filterDocs')(this.submission.attachments)[0]
-      }
-    };
+  async convertDocxToHtml(url) {
     try {
+      let doc = await this.$http.get(url);
+      let params = {
+        submission: {
+          document: doc
+        }
+      };
       let response = await this.$http.post(ServerUrl + '/submissions/render-doc', params);
-      this.doc = response.data;
+      return response.data;
       console.log('You can edit your submission in the browser.', 'Preview Generated');
       return this.doc;
     } catch (error) {
       console.error(errors);
+    }
+  }
+
+  findSubmissionIndexById(id) {
+    for (let i = 0; i < this.pendingSubmissions.length; i++) {
+      if (this.pendingSubmissions[i].id === id) {
+        return i;
+      }
     }
   }
 
@@ -190,14 +202,6 @@ export default class SubmissionsFactory {
       this.pendingSubmissions.splice(this.findSubmissionIndexById(id), 1);
     } catch (error) {
       console.error(error);
-    }
-  }
-
-  findSubmissionIndexById(id) {
-    for (let i = 0; i < this.pendingSubmissions.length; i++) {
-      if (this.pendingSubmissions[i].id === id) {
-        return i;
-      }
     }
   }
 }

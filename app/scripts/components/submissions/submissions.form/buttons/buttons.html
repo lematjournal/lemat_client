@@ -1,8 +1,9 @@
 <div class="btn-group pull-right">
    <lemat-button
     style="default"
-    ng-if="lematSubmissionButtons.state !== 'info'"
-    ng-click="lematSubmissionButtons.back()">Back</lemat-button>
-   <lemat-button style="default"
-    ng-click="lematSubmissionButtons.next()">Next</lemat-button>
+    ng-if="submissionButtons.state !== 'info'"
+    (click)="submissionButtons.back()">Back</lemat-button>
+   <lemat-button ng-if="submissionButtons.state !== 'review'" style="default"
+    (click)="submissionButtons.next()">Next</lemat-button>
+   <lemat-button (click)="submissionButtons.triggerSubmit($event)" ng-if="submissionButtons.state === 'review'" style="default">Submit</lemat-button>
 </div>

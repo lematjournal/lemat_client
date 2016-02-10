@@ -1,16 +1,18 @@
-import { Component, View } from 'a1atscript';
+import { Component, Inject, Input } from 'ng-forward';
+import AS3Factory from '../../../../services/as3.factory';
+import 'reflect-metadata';
 
 @Component({
-  appInjector: ['$scope', 'AS3Factory'],
+  controllerAs: 'upload',
+  providers: ['ngFileUpload', AS3Factory],
   selector: 'lemat-submission-upload',
-  properties: {
-    'submission' : 'submission'
-  }
+  templateUrl: './scripts/components/submissions/submissions.form/upload/upload.html',
+  inputs: ['submission']
 })
-@View({
-  templateUrl: './scripts/components/submissions/submissions.form/upload/upload.html'
-})
+
+@Inject('$scope', AS3Factory)
 export default class SubmissionsUpload {
+  @Input() submission;
   constructor($scope, AS3Factory) {
     this.$scope = $scope;
     this.AS3Factory = AS3Factory;

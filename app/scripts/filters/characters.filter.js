@@ -1,5 +1,8 @@
-export default function characters() {
-  return function(input, chars, breakOnWord) {
+import { Pipe } from 'ng-forward';
+
+@Pipe()
+export default class Characters {
+  transform(input, chars, breakOnWord) {
     if (isNaN(chars)) return input;
     if (chars <= 0) return '';
     if (input && input.length > chars) {
@@ -19,5 +22,5 @@ export default function characters() {
       return input + '…';
     }
     return input;
-  };
+  }
 }

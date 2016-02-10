@@ -1,5 +1,8 @@
-export default function cut() {
-  return function(value, wordwise, max, tail) {
+import { Pipe } from 'ng-forward';
+
+@Pipe()
+export default class Cut {
+  transform(value, wordwise, max, tail) {
     // method signature: "item | cut:true:500"
     if (!value) {
       return '';
@@ -14,13 +17,12 @@ export default function cut() {
     }
     value = value.substr(0, max);
     if (wordwise) {
-      var lastspace = value.lastIndexOf(' ');
+      let lastspace = value.lastIndexOf(' ');
       if (lastspace !== -1) {
         value = value.substr(0, lastspace);
       }
     }
 
     return value + (tail || '…');
-
-  };
+  }
 }

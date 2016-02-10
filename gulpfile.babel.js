@@ -19,7 +19,7 @@ var bundler = {
       debug: true
     }).transform(babelify.configure({
       presets: ['es2015', 'stage-0'],
-      plugins: ['transform-function-bind', 'transform-decorators-legacy']
+      plugins: ['transform-class-properties', 'transform-decorators-legacy', 'transform-function-bind']
     })));
   },
   bundle: function() {
@@ -50,6 +50,8 @@ gulp.task('serve', function() {
     }
   });
   gulp.watch('app/**/*.js', ['scripts']);
+  gulp.watch('app/**/*.html', ['html']);
+  gulp.watch('app/**/*.css', ['styles']);
 });
 
 //watch scss for changes and render into minified css with nice auto-prefixing
@@ -140,6 +142,5 @@ gulp.task('default', ['build']);
 gulp.task('watch', ['bundle', 'serve']),
   function() {
     bundler.watch();
-    gulp.watch('app/**/*.html', ['html']);
-    gulp.watch('app/styles/**/*.scss', ['styles']);
+    gulp.watch('app/styles/**/*.css', ['styles']);
   };

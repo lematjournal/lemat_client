@@ -1,22 +1,23 @@
 <div class="row">
    <div class="row-centered">
       <h2 class="title">Submission Info</h2>
-      {{ lematSubmissionReview.submission }}
       <hr>
       <h4 class="title">Name</h4>
-      <p>{{ lematSubmissionReview.submission.user.username }}</p>
+      <p>{{ vm.submission.user.username }}</p>
       <h4 class="title">Email</h4>
-      <p class="">{{ lematSubmissionReview.submission.user.email_address }}</p>
+      <p class="">{{ vm.submission.user.email_address }}</p>
       <h4 class="title">Type</h4>
-      <p class="">{{ lematSubmissionReview.submission.submission_type }}</p>
+      <p class="">{{ vm.submission.submission_type }}</p>
       <h4 class="title">Description</h4>
-      <p class="" ng-bind-html="lematSubmissionReview.submission.description | toTrusted"></p>
+      <p class="" ng-bind-html="vm.submission.description | ToTrusted"></p>
       <h4 class="title">Attachment(s)</h4>
-      <div class="form-group" ng-show="lematSubmissionReview.submission.submission_type === 'video'">
+      <div class="form-group" ng-show="vm.submission.submission_type === 'video'">
          <youtube-embed video-url="lematSubmissionUpload.submission.link"> {{ attachment.url }}</p>
       </div>
-      <div class="form-group" ng-show="lematSubmissionReview.submission.submission_type === 'text' || lematSubmissionReview.submission.submission_type === 'image'">
-         <p class="" ng-repeat="attachment in lematSubmissionReview.submission.attachments">{{ attachment.url }}</p>
+      <div class="form-group" ng-show="vm.submission.submission_type === 'text' || vm.submission.submission_type === 'image'" ng-repeat="attachment in vm.submission.attachments">
+        <img ng-src="{{ attachment.url }}" ng-if="vm.isImage(attachment.url)" />
+        <p class="">{{ attachment.url }}</p>
+        <!-- <p ng-if="vm.isDoc(attachment.url)">{{ vm.renderDoc(attachment) }}</p> -->
       </div>
    </div>
 </div>

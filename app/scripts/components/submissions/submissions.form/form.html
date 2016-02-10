@@ -1,3 +1,19 @@
 <div class="container">
-  <lemat-submission-form></lemat-submission-form>
+  <div ng-switch="submissionsCtrl.state">
+    <lemat-submission-header [(currentPage)]="submissionsCtrl.currentPage" [(states)]="submissionsCtrl.states" [(state)]="submissionsCtrl.state"></lemat-submission-header>
+    <div ng-switch-when="info">
+      <lemat-submission-info [(submission)]="submissionsCtrl.submission"></lemat-submission-info>
+    </div>
+    <div ng-switch-when="upload">
+      <lemat-submission-upload ng-switch="upload" [(submission)]="submissionsCtrl.submission"></lemat-submission-upload>
+    </div>
+    <div ng-switch-when="review">
+      <lemat-submission-review ng-switch="review" [(submission)]="submissionsCtrl.submission"></lemat-submission-review>
+    </div>
+    <div ng-switch-when="final">
+      <lemat-submission-final ng-switch="final"></lemat-submission-final>
+    </div>
+    <hr class="dotted">
+    <lemat-submission-buttons [(state)]="submissionsCtrl.state" [(states)]="submissionsCtrl.states" (submit)="submissionsCtrl.submit()" />
+  </div>
 </div>

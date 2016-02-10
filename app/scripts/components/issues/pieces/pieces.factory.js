@@ -1,5 +1,5 @@
 import { Service } from 'a1atscript';
-import ServerUrl from '../../../services/constants.module';
+import ServerUrl from '../../../constants.module';
 import slug from 'slug';
 
 @Service('PiecesFactory', ['$http', '$window'])

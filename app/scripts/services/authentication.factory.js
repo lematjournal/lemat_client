@@ -1,7 +1,9 @@
-import { Service } from 'a1atscript';
+import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../constants.module';
+import 'reflect-metadata';
 
-@Service('AuthFactory', ['$http', '$window'])
+@Injectable()
+@Inject('$http', '$window')
 export default class AuthFactory {
   constructor($http, $window) {
     this.$http = $http;

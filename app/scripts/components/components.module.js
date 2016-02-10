@@ -13,9 +13,7 @@ export PiecesFactory from './issues/pieces/pieces.factory';
 export PostsController from './posts/posts.controller';
 export PostsFactory from './posts/posts.factory';
 export ProfileController from './profile/profile.controller';
-
-export SubmissionsForm from './submissions/submissions.form/submissions.form.component';
-export SubmissionsFactory from './submissions/submissions.factory';
+export SubmissionsForm from './submissions/submissions.component';
 
 export UsersController from './users/users.controller';
 export UsersFactory from './users/users.factory';
@@ -23,7 +21,6 @@ export UsersFactory from './users/users.factory';
 export EntriesAdminController from './entries/entries.admin.controller';
 export IssuesAdminController from './issues/issues.admin.controller';
 export PostsAdminController from './posts/posts.admin.controller';
-export SubmissionsController from './submissions/submissions.controller';
 
 export lematButton from './layout/buttons/lemat-button.js';
 export footer from './layout/footer/footer.js';

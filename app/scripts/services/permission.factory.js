@@ -1,6 +1,9 @@
-import { Service } from 'a1atscript';
+import { Injectable, Inject } from 'ng-forward';
+import AuthFactory from './authentication.factory';
+import 'reflect-metadata';
 
-@Service('PermissionFactory', ['$rootScope', '$location', 'AuthFactory'])
+@Injectable()
+@Inject('$rootScope', '$location', AuthFactory)
 export default class PermissionFactory {
   constructor($rootScope, $location, AuthFactory) {
     this.$rootScope = $rootScope;

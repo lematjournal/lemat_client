@@ -1,18 +1,8 @@
-/* to do: break up this effing file */
-
 body {
   font-family: 'Arial', sans-serif;
   padding: 30px 15px 0;
 }
-/*#trix-input-1 {
-  display: none;
-}
-#trix-toolbar-1 {
-  display: none;
-}
-trix-editor {
-  display: none;
-}*/
+
 .container {
   padding-top: 50px;
 }
@@ -70,21 +60,11 @@ tags-input .autocomplete, tags-input .tags {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.angucomplete-dropdown {
-  /*   margin-top: 35px;*/
-}
 .input-group-addon {
   border-radius: 0;
 }
 .input-group-addon a {
   color: black;
-}
-.pager li > a, .pager li > span {
-  display: inline-block;
-  padding: 5px 14px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 0;
 }
 p {
   font-family: 'Arial', sans-serif;
@@ -96,6 +76,9 @@ p {
 }
 .profile-image img {
   object-fit: contain;
+}
+.modal-content {
+  border-radius: 0;
 }
 .modal-image img {
   object-fit: cover;
@@ -138,9 +121,6 @@ p {
   -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
-.modal-content {
-  border-radius: 0;
-}
 .about-text {
   line-height: 200%;
   font-size: 16px;
@@ -165,11 +145,6 @@ p {
   /* inline-block space fix */
   margin-right: -4px;
 }
-@media(min-width:778px) {
-  .dropdown-menu .col-sm-6 {
-    width: 100%;
-  }
-}
 @media (min-width: 768px) {
   .social-buttons {
     width: inherit;
@@ -190,17 +165,5 @@ p {
     width: 50px;
     height: 50px;
     line-height: 50px;
-  }
-  /*
-  .wizard li.active:after {
-      content: " ";
-      position: absolute;
-      left: 40%;
-  }
-*/
-}
-@media (max-width: 768px) {
-  .col-sm-6 {
-    width: 100%;
   }
 }

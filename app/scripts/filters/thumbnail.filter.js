@@ -1,7 +1,8 @@
-'use strict';
+import { Pipe } from 'ng-forward';
 
-export default function thumbnail() {
-  return function(input) {
+@Pipe()
+export default class Thumbnail {
+  transform(input) {
     if (input.match('watch')) {
       input = input.replace(/https(.*)watch\?v=/, 'http://img.youtube.com/vi/');
       input += '/hqdefault.jpg';
