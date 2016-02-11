@@ -23,6 +23,16 @@ export default class UsersFactory {
     this.$http = $http;
   }
 
+  checkLocalStorage() {
+    try {
+      let contributors = JSON.parse(this.$window.localStorage.getItem('ngStorage-issueUsers'));
+      if (contributors) angular.copy(contributors, this.contributors);
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
   deleteUser(id) {
     return this.$http.delete(ServerUrl + '/users/' + id).then(() => {
       this.users.splice(this.findUserById(id), 1);
@@ -35,12 +45,10 @@ export default class UsersFactory {
   }
 
   async fetchContributors() {
-    if (!this.contributors || this.contributors.length === 0) {
+    if (!this.checkLocalStorage()) {
       await this.getContributors();
-      return this.users;
     } else if (this.evalContributorsAge) {
       await this.getContributors();
-      return this.users;
     } else {
       // the users are d'accord
     }
@@ -50,7 +58,6 @@ export default class UsersFactory {
     try {
       if (!this.users) {
         let response = await this.getUsers();
-        angular.copy(response, this.users);
       }
     } catch (error) {
       console.error(error);

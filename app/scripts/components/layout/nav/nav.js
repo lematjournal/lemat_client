@@ -67,6 +67,6 @@ export default class Nav {
 
   setFilter(filter) {
     this.$rootScope.filters.tags = filter;
-    this.$location.path('/online');
+    this.$location.path('/online/');
   }
 }

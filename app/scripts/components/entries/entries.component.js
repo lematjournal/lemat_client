@@ -1,16 +1,13 @@
 import { Component, Inject, Resolve } from 'ng-forward';
 import EntriesFactory from './entries.factory';
-import PostsFactory from '../posts/posts.factory';
-import IssuesFactory from '../issues/issues.factory';
-import UsersFactory from '../users/users.factory';
 
 @Component({
   selector: 'entries',
-  providers: [EntriesFactory, PostsFactory, IssuesFactory],
+  providers: [EntriesFactory],
   templateUrl: './scripts/components/entries/entries.html'
 })
 
-@Inject('$scope', '$stateParams', EntriesFactory, PostsFactory, IssuesFactory)
+@Inject('$scope', '$stateParams', EntriesFactory)
 export default class EntriesComponent {
   // @Resolve()
   // @Inject(EntriesFactory, PostsFactory, IssuesFactory)
@@ -20,16 +17,12 @@ export default class EntriesComponent {
   //   }
   // }
 
-  constructor($scope, $stateParams, EntriesFactory, PostsFactory, IssuesFactory) {
+  constructor($scope, $stateParams, EntriesFactory) {
     this.$scope = $scope;
     this.$stateParams = $stateParams;
     this.identifier = $stateParams.entry;
     this.EntriesFactory = EntriesFactory;
-    this.IssuesFactory = IssuesFactory;
-    this.PostsFactory = PostsFactory;
-    this.posts = PostsFactory.posts;
     this.entries = EntriesFactory.entries;
     this.entry = EntriesFactory.entry;
-    this.issues = IssuesFactory.issues;
   }
 }

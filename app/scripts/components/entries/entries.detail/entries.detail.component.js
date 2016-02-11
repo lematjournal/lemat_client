@@ -1,12 +1,13 @@
 import { Component, Inject, Resolve } from 'ng-forward';
 import EntriesComponent from '../entries.component';
 import EntriesFactory from '../entries.factory';
-import uiRouter from 'angular-ui-router';
+import ToTrusted from '../../../filters/to-trusted.filter';
 
 @Component({
-  selector: 'entriesDetail',
+  selector: 'entries-detail',
   controllerAs: 'entriesDetailCtrl',
-  providers: [uiRouter, EntriesFactory],
+  pipes: [ToTrusted],
+  providers: [EntriesFactory],
   templateUrl: './scripts/components/entries/entries.detail/entries.detail.html'
 })
 

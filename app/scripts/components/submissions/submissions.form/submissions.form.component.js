@@ -1,25 +1,24 @@
-import lematButton from '../layout/buttons/lemat-button';
-import SubmissionsButtons from './submissions.form/buttons/buttons';
-import SubmissionsFactory from './submissions.factory';
-import SubmissionsHeader from './submissions.form/header/header';
-import SubmissionsInfo from './submissions.form/info/info';
-import SubmissionsReview from './submissions.form/review/review';
-import SubmissionsUpload from './submissions.form/upload/upload';
-import { bundle, Component, Input, Inject } from 'ng-forward';
+import SubmissionsButtons from './buttons/buttons';
+import SubmissionsFactory from '../submissions.factory';
+import SubmissionsHeader from './header/header';
+import SubmissionsInfo from './info/info';
+import SubmissionsReview from './review/review';
+import SubmissionsUpload from './upload/upload';
+import { Component, Input, Inject } from 'ng-forward';
 
 import 'ngstorage';
 import 'reflect-metadata';
 
 @Component({
+  selector: 'submission-form',
   controllerAs: 'submissionsCtrl',
-  selector: 'lemat-submission-form',
-  directives: [lematButton, SubmissionsButtons, SubmissionsHeader, SubmissionsInfo, SubmissionsReview, SubmissionsUpload],
+  directives: [SubmissionsButtons, SubmissionsHeader, SubmissionsInfo, SubmissionsReview, SubmissionsUpload],
   providers: ['ngStorage', SubmissionsFactory],
   templateUrl: './scripts/components/submissions/submissions.form/form.html'
 })
 
 @Inject('$localStorage', '$rootScope', '$scope', SubmissionsFactory)
-class SubmissionsForm {
+export default class SubmissionsForm {
   constructor($localStorage, $rootScope, $scope, $stateParams, SubmissionsFactory) {
     this.$scope = $scope;
     this.$scope.$storage = $localStorage.$default({
@@ -57,5 +56,3 @@ class SubmissionsForm {
     }
   }
 }
-
-export default bundle('lematClient.core.submissions', SubmissionsForm).publish();

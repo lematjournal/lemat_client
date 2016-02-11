@@ -1,6 +1,5 @@
 import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../constants.module';
-
 import 'babel-polyfill';
 import 'reflect-metadata';
 import 'ng-file-upload';

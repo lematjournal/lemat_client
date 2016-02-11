@@ -1,15 +1,15 @@
 <div class="container">
 	<div class="content" ng-repeat="issue in issuesCtrl.issues">
 		<div class="content-inner">
-			<h2 style="text-transform: uppercase"><a ui-sref="main.issues-detail({ issue: issue.id })">{{ ::issue.title }}:</a></h2>
-			<h2><a ui-sref="main.issues-detail({ issue: issue.id })"><img ng-src="{{ ::issue.image_url }}" class="img-responsive" /></a>
+			<h2 style="text-transform: uppercase"><a ui-sref="issues-detail({ issue: issue.id })">{{ ::issue.title }}:</a></h2>
+			<h2><a ui-sref="issues-detail({ issue: issue.id })"><img ng-src="{{ ::issue.image_url }}" class="img-responsive" /></a>
 </h2>
 		</div>
 		<div class="content-inner">
 			<h3>CONTENTS:</h3>
          <hr class="dotted">
 			<div class="content-inner" ng-repeat="piece in issue.pieces | orderBy: 'order'">
-				<li><a ui-sref="main.issues-detail-piece({ issue: issue.id, piece: piece.title_url })"><h4>{{ ::piece.title }} - <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></a>
+				<li><a ui-sref="pieces-detail({ issue: issue.id, piece: piece.title_url })"><h4>{{ ::piece.title }} - <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></a>
 					</h4>
 				</li>
 			</div>

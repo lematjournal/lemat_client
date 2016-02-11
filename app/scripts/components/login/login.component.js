@@ -13,7 +13,7 @@ import 'babel-polyfill';
 
 @Inject('$rootScope', AuthFactory)
 export default class LoginComponent {
-  constructor($rootScope, $location, AuthFactory) {
+  constructor($rootScope, AuthFactory) {
     this.$rootScope = $rootScope;
     this.AuthFactory = AuthFactory;
     this.credentials = {};

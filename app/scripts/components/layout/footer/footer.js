@@ -1,5 +1,6 @@
 import { Component, Inject } from 'ng-forward';
 import UsersFactory from '../../users/users.factory';
+import 'babel-polyfill';
 import 'reflect-metadata';
 
 @Component({
@@ -7,15 +8,20 @@ import 'reflect-metadata';
   providers: [UsersFactory],
   controllerAs: 'footerCtrl',
   templateUrl: './scripts/components/layout/footer/footer.html'
-
 })
-@Inject('$rootScope', '$state', UsersFactory)
+
+@Inject('$scope', UsersFactory)
 export default class Footer {
-  constructor($rootScope, $state, UsersFactory) {
-    UsersFactory.fetchContributors();
-    this.$rootScope = $rootScope;
-    this.$state = $state;
+  constructor($scope, UsersFactory) {
+    this.$scope = $scope;
     this.UsersFactory = UsersFactory;
     this.contributors = UsersFactory.contributors;
+  }
+
+  async ngOnInit() {
+    await this.UsersFactory.fetchContributors();
+    this.$scope.$apply(() => {
+      this.contributors = this.UsersFactory.contributors;
+    });
   }
 }

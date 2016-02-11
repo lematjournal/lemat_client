@@ -10,6 +10,7 @@ export EntriesDetailComponent from './entries/entries.detail/entries.detail.comp
 
 export IssuesComponent from './issues/issues.component';
 export IssuesDetailComponent from './issues/issues.detail/issues.detail.component';
+export PiecesDetailComponent from './issues/pieces/pieces.detail/pieces.detail.component';
 
 export LoginComponent from './login/login.component';
 
@@ -19,7 +20,8 @@ export PostsDetailComponent from './posts/posts.detail/posts.detail.component';
 export ProfileDetailComponent from './profile/profile.detail.component';
 export ProfileEditComponent from './profile/profile.edit.component';
 
-export SubmissionsForm from './submissions/submissions.component';
+export SubmissionsComponent from './submissions/submissions.component';
+export SubmissionsFormComponent from './submissions/submissions.form/submissions.form.component';
 
 // export UsersController from './users/users.controller';
 // export UsersFactory from './users/users.factory';
@@ -28,6 +30,7 @@ export SubmissionsForm from './submissions/submissions.component';
 // export IssuesAdminController from './issues/issues.admin.controller';
 // export PostsAdminController from './posts/posts.admin.controller';
 
-export lematButton from './layout/buttons/lemat-button.js';
-export footer from './layout/footer/footer.js';
-export nav from './layout/nav/nav.js';
+export lematButton from './layout/buttons/lemat-button';
+export footer from './layout/footer/footer';
+export header from './layout/header/header';
+export nav from './layout/nav/nav';

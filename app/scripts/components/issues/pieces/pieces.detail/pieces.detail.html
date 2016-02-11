@@ -1,0 +1,8 @@
+<div class="container">
+	<div class="content">
+		<h4 class="title text-center">{{ piecesDetailCtrl.piece.title }}</h4>
+		<p class="text-center"><font ng-repeat="user in piecesDetailCtrl.piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span><a ui-sref="profile({ profile: user.username })">{{ user.username }}</a></font></p>
+		<br>
+		<p ng-bind-html="piecesDetailCtrl.piece.content | ToTrusted"></p>
+	</div>
+</div>

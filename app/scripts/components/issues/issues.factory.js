@@ -1,7 +1,6 @@
 import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../../constants.module';
 import slug from 'slug';
-
 import 'babel-polyfill';
 import 'reflect-metadata';
 
