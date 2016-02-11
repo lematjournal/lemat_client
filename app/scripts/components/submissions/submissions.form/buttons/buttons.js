@@ -1,10 +1,12 @@
+import lematButton from '../../../layout/buttons/lemat-button';
 import { Component, EventEmitter, Inject, Input, Output } from 'ng-forward';
 import 'reflect-metadata';
 
 @Component({
-  controllerAs: 'submissionButtons',
   selector: 'lemat-submission-buttons',
+  controllerAs: 'submissionButtons',
   templateUrl: './scripts/components/submissions/submissions.form/buttons/buttons.html',
+  directives: [lematButton],
   inputs: ['states', 'state'],
   outputs: ['submit']
 })
@@ -13,7 +15,7 @@ import 'reflect-metadata';
 export default class SubmissionsButtons {
   @Input() states;
   @Input() state;
-  @Output() submit = new Event('submit', { bubbles: true });
+  @Output() submit = new EventEmitter();
   constructor($scope, $element) {
     this.$scope = $scope;
     this.$element = $element;
@@ -35,7 +37,6 @@ export default class SubmissionsButtons {
   }
 
   triggerSubmit(event) {
-    console.log(event);
     this.submit.next();
   }
 }

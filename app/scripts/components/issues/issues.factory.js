@@ -1,14 +1,16 @@
-import { Service } from 'a1atscript';
+import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../../constants.module';
 import slug from 'slug';
-import 'babel-polyfill';
 
-@Service('IssuesFactory', ['$filter', '$http', '$window'])
+import 'babel-polyfill';
+import 'reflect-metadata';
+
+@Injectable()
+@Inject('$filter', '$http')
 export default class IssuesFactory {
-  constructor($filter, $http, $window) {
+  constructor($filter, $http) {
     this.$filter = $filter;
     this.$http = $http;
-    this.$window = $window;
     this.issues = [];
     this.issue = {};
     this.pieces = [];

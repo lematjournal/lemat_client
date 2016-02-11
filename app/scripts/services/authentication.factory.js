@@ -1,6 +1,7 @@
 import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../constants.module';
 import 'reflect-metadata';
+import 'babel-polyfill';
 
 @Injectable()
 @Inject('$http', '$window')
@@ -68,7 +69,6 @@ export default class AuthFactory {
   }
 
   setUser() {
-    let deferred = this.$q.defer();
     if (this.$window.localStorage.getItem('lemat-user')) {
       let user = JSON.parse(this.$window.localStorage.getItem('lemat-user'));
       user = {
@@ -78,11 +78,8 @@ export default class AuthFactory {
         role: user.data.role,
         weight: user.data.weight
       };
-      deferred.resolve(angular.copy(user, this.session));
+      Promise.resolve(angular.copy(user, this.session));
     }
-
-    return deferred.promise;
-
   }
 
   _storeSession(response) {

@@ -1,15 +1,15 @@
 <div class="panel panel-default">
-  <div class="panel-heading" ng-if="card.post_type === 'text'"><a style="text-transform: uppercase" ui-sref="main.posts-detail({ post: card.title_url })">{{ card.title }}</a>
+  <div class="panel-heading" ng-if="card.post_type === 'text'"><a style="text-transform: uppercase" ui-sref="posts-detail({ post: card.title_url })">{{ card.title }}</a>
   </div>
   <div class="panel-body" ng-if="card.post_type === 'video'" style="padding: 0">
     <div class="video">
-      <a ui-sref="main.posts-detail({ post: card.title_url })">
-        <img class="video-thumbnail" ng-src="{{ card.content | thumbnail }}">
+      <a ui-sref="posts-detail({ post: card.title_url })">
+        <img class="video-thumbnail" ng-src="{{ card.content | Thumbnail }}">
       </a>
     </div>
   </div>
   <div class="panel-body" ng-if="card.post_type === 'text'">
-    <p class="overflow elipsis" ng-bind-html="card.content | toTrusted"></p>
+    <p class="overflow elipsis" ng-bind-html="card.content | ToTrusted"></p>
   </div>
   <div class="panel-footer">
     <div class="row meta">
@@ -24,7 +24,7 @@
         </script>
       </div>
       <div class="author">
-        <a ui-sref="main.profile-detail({ profile: card.user.username })">
+        <a ui-sref="profile({ profile: card.user.username })">
           <p class="text-center" style="margin-top: 5px">{{ ::card.user.username }}</p>
         </a>
       </div>
@@ -34,7 +34,7 @@
         </a>
       </div>
       <div class="link">
-        <a ui-sref="main.posts-detail({ post: card.title_url })" style="margin-top: 5px">
+        <a ui-sref="posts-detail({ post: card.title_url })" style="margin-top: 5px">
           <p class="text-center" style="margin-left: -5px">LINK</p>
         </a>
       </div>

@@ -1,5 +1,5 @@
 import { Controller } from 'a1atscript';
-import EntriesController from './entries.controller';
+import EntriesComponent from './entries.component';
 import { ImageModal } from '../images/images.decorator';
 import { UserModal } from '../users/users.decorator';
 import 'babel-polyfill';
@@ -7,7 +7,7 @@ import 'babel-polyfill';
 @ImageModal
 @UserModal
 @Controller('EntriesAdminController', ['$scope', '$stateParams', '$uibModal', 'AS3Factory', 'AuthFactory', 'EntriesFactory', 'ImagesFactory', 'IssuesFactory', 'PostsFactory', 'UsersFactory'])
-export default class EntriesAdminController extends EntriesController {
+export default class EntriesAdminController extends EntriesComponent {
   constructor($scope, $stateParams, $uibModal, AS3Factory, AuthFactory, EntriesFactory, ImagesFactory, IssuesFactory, PostsFactory, UsersFactory) {
     super($scope, $stateParams, EntriesFactory, IssuesFactory, PostsFactory);
     this.$uibModal = $uibModal;

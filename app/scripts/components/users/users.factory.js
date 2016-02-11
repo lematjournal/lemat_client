@@ -1,27 +1,60 @@
-import { Service } from 'a1atscript';
+import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../../constants.module';
 
-@Service('UsersFactory', ['$http', '$localStorage', 'AuthFactory'])
-export default class UsersFactory {
-  constructor($http, $localStorage, AuthFactory) {
-    this.editors = [];
-    this.users = $localStorage.users;
-    this.user = {};
-    this.postUsers = $localStorage.postUsers;
-    this.profile = {};
-    this.issueUsers = $localStorage.issueUsers;
-    this.$http = $http;
-    this.$localStorage = $localStorage;
-  }
+import 'babel-polyfill';
+import 'reflect-metadata';
 
-  checkStoredUsers() {
-    this.getContributors() && this.getOnlineUsers();
+// this.users.filter((user) => {
+//   if (user.role.match(/^(admin|editor)$/)) {
+//     return user;
+//   }
+// });
+
+@Injectable()
+@Inject('$http', '$window')
+export default class UsersFactory {
+  constructor($http, $window) {
+    this.$window = $window;
+    this.users = [];
+    this.editors = [];
+    this.user = {};
+    this.profile = {};
+    this.contributors = [];
+    this.$http = $http;
   }
 
   deleteUser(id) {
     return this.$http.delete(ServerUrl + '/users/' + id).then(() => {
       this.users.splice(this.findUserById(id), 1);
     });
+  }
+
+  evalContributorsAge() {
+    let grabDate = JSON.parse(this.$window.localStorage.getItem('ngStorage-issueUsersGrabDate')).valueOf();
+    return grabdate - Date.now().valueOf() > (1000 * 60 * 60 * 72);
+  }
+
+  async fetchContributors() {
+    if (!this.contributors || this.contributors.length === 0) {
+      await this.getContributors();
+      return this.users;
+    } else if (this.evalContributorsAge) {
+      await this.getContributors();
+      return this.users;
+    } else {
+      // the users are d'accord
+    }
+  }
+
+  async fetchUsers() {
+    try {
+      if (!this.users) {
+        let response = await this.getUsers();
+        angular.copy(response, this.users);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   findUserById(id) {
@@ -31,40 +64,16 @@ export default class UsersFactory {
       }
     }
   }
-  getContributors() {
-    if (!this.issueUsers) {
-      this.getIssueUsers().then((response) => {
-        this.issueUsers = response;
-      });
-    } else if ((this.$localStorage.issueUsersGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60 * 72)) {
-      this.getIssueUsers().then((response) => {
-        this.issueUsers = response;
-      });
-    } else {
-      this.issueUsers = this.issueUsers;
-    }
-  }
 
-  getOnlineUsers() {
-    if (!this.postUsers) {
-      this.getPostUsers().then((response) => {
-        this.postUsers = response;
-      });
-    } else if ((this.$localStorage.postUsersGrabDate.valueOf() - Date.now().valueOf()) > (1000 * 60 * 60 * 72)) {
-      this.getPostUsers().then((response) => {
-        this.postUsers = response;
-      });
-    } else {
-      this.postUsers = this.postUsers;
+  async getContributors() {
+    try {
+      let response = await this.$http.get(ServerUrl + '/users/issue-users');
+      this.$window.localStorage.setItem('ngStorage-issueUsers', JSON.stringify(response.data));
+      this.$window.localStorage.setItem('ngStorage-issueUsersGrabDate', JSON.stringify(Date.now()));
+      angular.copy(response.data, this.contributors);
+    } catch (error) {
+      console.error(error);
     }
-  }
-
-  getPostUsers() {
-    this.$http.get(ServerUrl + '/users/post-users').then((response) => {
-      this.$localStorage.postUsers = response.data;
-      this.$localStorage.postUsersGrabDate = Date.now();
-      return this.$localStorage.postUsers;
-    });
   }
 
   getProfile(user) {
@@ -79,19 +88,22 @@ export default class UsersFactory {
     });
   }
 
-  getUsers() {
-    return this.$http.get(ServerUrl + '/users/').then((response) => {
-      this.$localStorage.users = response.data;
-      this.$localStorage.usersGrabDate = Date.now();
-    });
-  }
+  async getUsers() {
+    try {
+      let response = await this.$http.get(ServerUrl + '/users/');
+      this.$window.localStorage.setItem('ngStorage-users', JSON.stringify(response.data));
+      this.$window.localStorage.setItem('ngStorage-usersGrabDate', JSON.stringify(Date.now()));
+      angular.copy(JSON.parse(this.$window.localStorage.getItem('ngStorage-users')), this.users);
+      this.editors = this.users.filter((user) => {
+        if (user.role.match(/^(admin|editor)$/)) {
+          return user;
+        }
+      });
+      return this.users;
+    } catch (error) {
+      console.error(error);
+    }
 
-  getIssueUsers() {
-    this.$http.get(ServerUrl + '/users/issue-users').then((response) => {
-      this.$localStorage.issueUsers = response.data;
-      this.$localStorage.issueUsersGrabDate = Date.now();
-      return this.$localStorage.issueUsers;
-    });
   }
 
   resetUser() {

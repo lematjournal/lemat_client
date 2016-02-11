@@ -74,7 +74,7 @@
   box-shadow: 0 0 0 rgba(0, 0, 0, .175);
 }
 
-@media(max-width:900px) {
+@media(max-width:800px) {
   .dropdown-menu {
     width: 100%;
   }

@@ -1,3 +1,4 @@
+import lematButton from '../layout/buttons/lemat-button';
 import SubmissionsButtons from './submissions.form/buttons/buttons';
 import SubmissionsFactory from './submissions.factory';
 import SubmissionsHeader from './submissions.form/header/header';
@@ -12,7 +13,7 @@ import 'reflect-metadata';
 @Component({
   controllerAs: 'submissionsCtrl',
   selector: 'lemat-submission-form',
-  directives: [SubmissionsButtons, SubmissionsHeader, SubmissionsInfo, SubmissionsReview, SubmissionsUpload],
+  directives: [lematButton, SubmissionsButtons, SubmissionsHeader, SubmissionsInfo, SubmissionsReview, SubmissionsUpload],
   providers: ['ngStorage', SubmissionsFactory],
   templateUrl: './scripts/components/submissions/submissions.form/form.html'
 })

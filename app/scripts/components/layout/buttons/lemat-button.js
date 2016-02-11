@@ -1,16 +1,13 @@
-import { AsModule, Component, View } from 'a1atscript';
+import { Component, Input, Inject } from 'ng-forward';
+import 'reflect-metadata';
 
-@AsModule('lematClient.layout.lematButton')
 @Component({
   selector: 'lemat-button',
   transclude: true,
-  properties: {
-    style: 'style'
-  }
-})
-@View({
+  inputs: ['style'],
   templateUrl: './scripts/components/layout/buttons/lemat-button.html'
 })
 export default class LematButton {
+  @Input() style;
   constructor() {}
 }

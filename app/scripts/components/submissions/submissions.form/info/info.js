@@ -2,7 +2,8 @@ import { Component, Inject, Input } from 'ng-forward';
 import 'reflect-metadata';
 
 @Component({
-  controllerAs: 'vm',
+  controllerAs: 'info',
+  providers: ['colorpicker.module', 'wysiwyg.module'],
   selector: 'lemat-submission-info',
   templateUrl: './scripts/components/submissions/submissions.form/info/info.html',
   inputs: ['submission', 'state']

@@ -1,12 +1,12 @@
-import { Service } from 'a1atscript';
+import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../../../constants.module';
 import slug from 'slug';
 
-@Service('PiecesFactory', ['$http', '$window'])
+@Injectable()
+@Inject('$http')
 export default class PiecesFactory {
-  constructor($http, $window) {
+  constructor($http) {
     this.$http = $http;
-    this.$window = $window;
     this.piece = {};
     this.pieces = [];
   }

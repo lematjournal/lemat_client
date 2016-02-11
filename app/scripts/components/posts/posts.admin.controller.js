@@ -1,11 +1,11 @@
 import { Controller } from 'a1atscript';
-import PostsController from './posts.controller';
+import PostsComponent from './posts.component';
 import { ImageModal } from '../images/images.decorator';
 import 'babel-polyfill';
 
 @ImageModal
 @Controller('PostsAdminController', ['$scope', '$rootScope', '$stateParams', '$uibModal', 'AuthFactory', 'UsersFactory', 'PostsFactory'])
-export default class PostsAdminController extends PostsController {
+export default class PostsAdminController extends PostsComponent {
   constructor($scope, $stateParams, $rootScope, $uibModal, AuthFactory, UsersFactory, PostsFactory) {
     super($scope, $rootScope, PostsFactory);
     this.$stateParams = $stateParams;

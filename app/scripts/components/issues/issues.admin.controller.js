@@ -1,11 +1,11 @@
 import { Controller } from 'a1atscript';
-import IssuesController from './issues.controller';
+import IssuesComponent from './issues.component';
 import { ImageModal } from '../images/images.decorator';
 import 'babel-polyfill';
 
 @ImageModal
 @Controller('IssuesAdminController', ['$scope', '$rootScope', '$stateParams', '$document', '$uibModal', 'AuthFactory', 'AS3Factory', 'IssuesFactory', 'ImagesFactory', 'PiecesFactory'])
-export default class IssuesAdminController extends IssuesController {
+export default class IssuesAdminController extends IssuesComponent {
   constructor($scope, $rootScope, $stateParams, $document, $uibModal, AuthFactory, AS3Factory, IssuesFactory, ImagesFactory, PiecesFactory) {
     super($scope, $rootScope, $stateParams, $document, IssuesFactory, PiecesFactory);
     this.$uibModal = $uibModal;

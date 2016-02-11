@@ -58,6 +58,9 @@ gulp.task('serve', function() {
 gulp.task('styles', function() {
   return gulp.src('app/**/*.css')
     .on('error', $.util.log.bind($.util, 'Css error'))
+    // .pipe($.uncss({
+    //   html: ['app/**/*.html', 'app/index.html']
+    // }))
     .pipe($.autoprefixer('last 1 version'))
     .pipe($.concat('main.css'))
     .pipe(gulp.dest('dist/styles'))

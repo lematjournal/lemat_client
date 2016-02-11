@@ -11,12 +11,9 @@ export default class CoreRoutes {
             templateUrl: 'scripts/components/entries/entries.html',
             controller: 'EntriesController',
             controllerAs: 'entriesCtrl'
-          },
-          'header@': {
-            templateUrl: 'scripts/components/layout/header.html'
           }
         },
-        onEnter: (EntriesFactory, PostsFactory, IssuesFactory, UsersFactory) => { /* @ngInject */
+        onEnter: (EntriesFactory, PostsFactory, IssuesFactory, UsersFactory) => {
           if (EntriesFactory.entries.length === 0 || PostsFactory.posts.length === 0)
             EntriesFactory.getEntries() && PostsFactory.getPosts() && IssuesFactory.getIssues() && UsersFactory.checkStoredUsers();
         }
@@ -28,11 +25,10 @@ export default class CoreRoutes {
             templateUrl: 'scripts/components/entries/entries.detail/entries.detail.html',
             controller: 'EntriesController',
             controllerAs: 'entriesCtrl'
-          },
-          'header@': {}
+          }
         },
         resolve: {
-          promise: (EntriesFactory, $stateParams) => { /* @ngInject */
+          promise: (EntriesFactory, $stateParams) => {
               return EntriesFactory.getEntry($stateParams.entry);
             }
           }
@@ -44,8 +40,7 @@ export default class CoreRoutes {
             templateUrl: 'scripts/components/issues/issues.html',
             controller: 'IssuesController',
             controllerAs: 'issuesCtrl'
-          },
-          'header@': {}
+          }
         },
         onEnter: (IssuesFactory) => { /* @ngInject */
           if (IssuesFactory.issues.length === 0) IssuesFactory.getIssues();
@@ -58,8 +53,7 @@ export default class CoreRoutes {
             templateUrl: 'scripts/components/issues/issues.detail/issues.detail.html',
             controller: 'IssuesController',
             controllerAs: 'issuesCtrl'
-          },
-          'header@': {}
+          }
         },
         onEnter: (IssuesFactory, $stateParams) => { /* @ngInject */
           if ($stateParams.issue !== IssuesFactory.issue.id) return IssuesFactory.getIssue($stateParams.issue);
@@ -72,8 +66,7 @@ export default class CoreRoutes {
             templateUrl: 'scripts/components/issues/issues.detail/piece.html',
             controller: 'IssuesController',
             controllerAs: 'issuesCtrl'
-          },
-          'header@': {}
+          }
         },
         resolve: {
           promise: (PiecesFactory, $stateParams) => { /* @ngInject */
@@ -88,8 +81,7 @@ export default class CoreRoutes {
             templateUrl: 'scripts/components/posts/posts.html',
             controller: 'PostsController',
             controllerAs: 'postsCtrl'
-          },
-          'header@': {}
+          }
         },
         onEnter: (PostsFactory) => { /* @ngInject */
           if (PostsFactory.posts.length === 0) PostsFactory.getPosts();
@@ -102,8 +94,7 @@ export default class CoreRoutes {
             templateUrl: 'scripts/components/posts/posts.detail/posts.detail.html',
             controller: 'PostsController',
             controllerAs: 'postsCtrl'
-          },
-          'header@': {}
+          }
         },
         resolve: {
           promise: (PostsFactory, $stateParams) => { /* @ngInject */
@@ -118,8 +109,7 @@ export default class CoreRoutes {
             templateUrl: 'scripts/components/editors/editors.html',
             controller: 'EditorsController',
             controllerAs: 'editorsCtrl'
-          },
-          'header@': {}
+          }
         },
         onEnter: (UsersFactory, $stateParams) => { /* @ngInject */
           UsersFactory.getUsers();
@@ -132,8 +122,7 @@ export default class CoreRoutes {
             templateUrl: 'scripts/components/login/login.html',
             controller: 'LoginController',
             controllerAs: 'loginCtrl'
-          },
-          'header@': {}
+          }
         }
       })
       .state('main.about', {
@@ -141,8 +130,7 @@ export default class CoreRoutes {
         views: {
           '@': {
             templateUrl: 'scripts/components/about/about.html'
-          },
-          'header@': {}
+          }
         }
       })
       .state('main.profile', {
@@ -152,8 +140,7 @@ export default class CoreRoutes {
             templateUrl: 'scripts/components/profile/profile.edit.html',
             controller: 'ProfileController',
             controllerAs: 'profileCtrl'
-          },
-          'header@': {}
+          }
         }
       })
       .state('main.profile-detail', {
@@ -163,8 +150,7 @@ export default class CoreRoutes {
             templateUrl: 'scripts/components/profile/profile.detail.html',
             controller: 'ProfileController',
             controllerAs: 'profileCtrl'
-          },
-          'header@': {}
+          }
         },
         resolve: {
           promise: (UsersFactory, $stateParams) => { /* @ngInject */
@@ -177,8 +163,7 @@ export default class CoreRoutes {
         views: {
           '@': {
             templateUrl: 'scripts/components/submissions/submissions.html'
-          },
-          'header@': {}
+          }
         }
       })
       .state('main.submissions-form', {
@@ -186,8 +171,7 @@ export default class CoreRoutes {
         views: {
           '@': {
             templateUrl: 'scripts/components/submissions/submissions.form/form.html'
-          },
-          'header@': {}
+          }
         }
       })
   }

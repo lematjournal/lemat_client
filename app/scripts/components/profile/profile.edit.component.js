@@ -1,32 +1,41 @@
-import { Controller } from 'a1atscript';
+import { Component, Inject, Resolve } from 'ng-forward';
 import { ImageModal } from '../images/images.decorator';
+import AuthFactory from '../../services/authentication.factory';
+import NgEnter from '../../directives/ng-enter.directive';
+import NgEsc from '../../directives/ng-esc.directive';
+import UsersFactory from '../users/users.factory';
+
+import 'angular-ui-bootstrap';
 import 'babel-polyfill';
 
+@Component({
+  selector: 'profile-edit',
+  controllerAs: 'profileEditCtrl',
+  providers: ['ui.bootstrap.modal', 'ui.bootstrap.tooltip', AuthFactory, UsersFactory],
+  directives: [NgEnter, NgEsc],
+  templateUrl: './scripts/components/profile/profile.edit.html'
+})
+
 @ImageModal
-@Controller('ProfileController', ['$scope', '$rootScope', '$uibModal', '$location', '$stateParams', 'AuthFactory', 'UsersFactory'])
-export default class ProfileController {
-  constructor($scope, $rootScope, $uibModal, $location, $stateParams, AuthFactory, UsersFactory) {
-    this.user = UsersFactory.user;
+@Inject('$scope', '$uibModal', AuthFactory, UsersFactory)
+export default class ProfileEditComponent {
+  @Resolve()
+  @Inject('$window', UsersFactory)
+  static resolve($window, UsersFactory) {
+    let user = JSON.parse($window.localStorage.getItem('lemat-user')).data;
+    return UsersFactory.getUser(user.username);
+  }
+
+  constructor($scope, $uibModal, AuthFactory, UsersFactory) {
     this.master = {};
     this.fields = {};
-    this.$scope = $scope;
-    this.$rootScope = $rootScope;
     this.$uibModal = $uibModal;
-    this.$location = $location;
-    this.$stateParams = $stateParams;
     this.AuthFactory = AuthFactory;
     this.UsersFactory = UsersFactory;
+    this.user = UsersFactory.user;
     $scope.popover = {
       templateUrl: 'popoverTemplate.html',
     };
-  }
-
-  async getProfile() {
-    try {
-      this.user = await this.UsersFactory.getUser(this.$stateParams.profile);
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   async getUserProfile() {

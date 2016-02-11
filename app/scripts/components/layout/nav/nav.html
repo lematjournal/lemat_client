@@ -15,19 +15,19 @@
           </li>
           <li class="divider"></li>
           <li>
-            <a ui-sref="main">MAIN PAGE</a>
+            <a ui-sref="entries">MAIN PAGE</a>
           </li>
           <li>
-            <a ui-sref="main.issues-detail({ issue: 1 })">CURRENT ISSUE</a>
+            <a ui-sref="issues-detail({ issue: 1 })">CURRENT ISSUE</a>
           </li>
           <li>
-            <a ui-sref="main.issues">ISSUES</a>
+            <a ui-sref="issues">ISSUES</a>
           </li>
           <li ng-if="navCtrl.isAuthenticated()">
-            <a ui-sref="main.profile">PROFILE</a>
+            <a ui-sref="profile-edit">PROFILE</a>
           </li>
           <li ng-if="!navCtrl.isAuthenticated()">
-            <a ui-sref="main.login">LOGIN</a>
+            <a ui-sref="login">LOGIN</a>
           </li>
           <li ng-if="navCtrl.isAuthenticated()">
             <a ng-click="navCtrl.logout()">LOGOUT</a>
@@ -57,16 +57,16 @@
           </li>
           <li class="divider"></li>
           <li>
-            <a ui-sref="main.about">ABOUT</a>
+            <a ui-sref="about">ABOUT</a>
           </li>
           <li ng-if="navCtrl.isAdmin()">
             <a ui-sref="admin">ADMIN</a>
           </li>
           <li>
-            <a ui-sref="main.editors">EDITORS</a>
+            <a ui-sref="editors">EDITORS</a>
           </li>
           <li>
-            <a ui-sref="main.submissions">SUBMISSIONS</a>
+            <a ui-sref="submissions">SUBMISSIONS</a>
           </li>
 
         </ul>

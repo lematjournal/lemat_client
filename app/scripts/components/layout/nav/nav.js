@@ -1,14 +1,16 @@
-import { AsModule, Component, View } from 'a1atscript';
+import { Component, Inject } from 'ng-forward';
+import AuthFactory from '../../../services/authentication.factory';
+import 'angular-ui-bootstrap';
+import 'reflect-metadata';
 
-@AsModule('lematClient.layout.nav')
 @Component({
-  appInjector: ['$scope', '$rootScope', '$location', '$http', 'AuthFactory'],
+  providers: ['ui.bootstrap.dropdown', AuthFactory],
   controllerAs: 'navCtrl',
-  selector: 'lemat-nav'
-})
-@View({
+  selector: 'lemat-nav',
   templateUrl: './scripts/components/layout/nav/nav.html'
 })
+
+@Inject('$scope', '$rootScope', '$location', '$http', AuthFactory)
 export default class Nav {
   constructor($scope, $rootScope, $location, $http, AuthFactory) {
     this.$scope = $scope;

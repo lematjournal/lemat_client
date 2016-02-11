@@ -1,20 +1,21 @@
-import { AsModule, Component, View } from 'a1atscript';
+import { Component, Inject } from 'ng-forward';
+import UsersFactory from '../../users/users.factory';
+import 'reflect-metadata';
 
-@AsModule('lematClient.layout.footer')
 @Component({
-  appInjector: ['$rootScope', '$state', '$localStorage', 'UsersFactory'],
+  selector: 'lematFooter',
+  providers: [UsersFactory],
   controllerAs: 'footerCtrl',
-  selector: 'lematFooter'
-})
-@View({
   templateUrl: './scripts/components/layout/footer/footer.html'
+
 })
+@Inject('$rootScope', '$state', UsersFactory)
 export default class Footer {
   constructor($rootScope, $state, UsersFactory) {
+    UsersFactory.fetchContributors();
     this.$rootScope = $rootScope;
     this.$state = $state;
     this.UsersFactory = UsersFactory;
-    this.issueUsers = UsersFactory.issueUsers;
-    this.postUsers = UsersFactory.postUsers;
+    this.contributors = UsersFactory.contributors;
   }
 }

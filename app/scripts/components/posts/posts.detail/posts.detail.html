@@ -1,16 +1,16 @@
 <div class="container">
    <div class="row">
-      <h4 class="title text-center">{{ postsCtrl.post.title }}</h4>
-      <p class="text-center">{{ postsCtrl.post.user.username }}</p>
-      <p class="text-center">{{ postsCtrl.post.created_at | date: 'medium' }}</p>
+      <h4 class="title text-center">{{ postsDetailCtrl.post.title }}</h4>
+      <p class="text-center"><a ui-sref="profile({ profile: postsDetailCtrl.post.user.username })">{{ postsDetailCtrl.post.user.username }}</a></p>
+      <p class="text-center">{{ postsDetailCtrl.post.created_at | date: 'medium' }}</p>
       <hr>
-      <div class="embed-responsive embed-responsive-16by9" ng-if="postsCtrl.post.post_type === 'video'">
-         <youtube-video video-url="postsCtrl.post.content"></youtube-video>
+      <div class="embed-responsive embed-responsive-16by9" ng-if="postsDetailCtrl.post.post_type === 'video'">
+         <youtube-video video-url="postsDetailCtrl.post.content"></youtube-video>
       </div>
-      <p ng-if="postsCtrl.post.post_type === 'text'" ng-bind-html="postsCtrl.post.content | toTrusted"></p>
+      <p ng-if="postsDetailCtrl.post.post_type === 'text'" ng-bind-html="postsDetailCtrl.post.content | ToTrusted"></p>
       <hr>
-      <a class="btn btn-default" ng-href="/#!/online">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ postCtrls.url }}"><span class="fa fa-twitter"></span></a>
-      <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ postsCtrl.identifier }}" disqus-url="{{ postsCtrl.url }}" disqus-title="{{ postsCtrl.post.title }}">
+      <a class="btn btn-default" ui-sref="posts">Back</a> <a class="btn btn-default" social-twitter custom-url="{{ postDetailCtrls.url }}"><span class="fa fa-twitter"></span></a>
+      <dir-disqus disqus-shortname="lematjournal" disqus-identifier="{{ postsDetailCtrl.identifier }}" disqus-url="{{ postsDetailCtrl.url }}" disqus-title="{{ postsDetailCtrl.post.title }}">
       </dir-disqus>
    </div>
 </div>

@@ -1,4 +1,4 @@
-import { Injectable, Inject } from 'ng-forward';
+import { bundle, Injectable, Inject } from 'ng-forward';
 import AuthFactory from './authentication.factory';
 import 'reflect-metadata';
 
