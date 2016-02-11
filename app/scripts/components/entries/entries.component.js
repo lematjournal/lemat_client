@@ -4,7 +4,8 @@ import EntriesFactory from './entries.factory';
 @Component({
   selector: 'entries',
   providers: [EntriesFactory],
-  templateUrl: './scripts/components/entries/entries.html'
+  templateUrl: './scripts/components/entries/entries.html',
+  controllerAs: 'entriesCtrl'
 })
 
 @Inject('$scope', '$stateParams', EntriesFactory)

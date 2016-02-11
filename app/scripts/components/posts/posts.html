@@ -10,9 +10,9 @@
       //
       <a ng-click="postsCtrl.setFilter('poetry')">poetry</a>
       // search:
-      <input type="text" style="width: 200px" ng-model="filters.tags"/></h3>
+      <input type="text" style="width: 200px" ng-model="postsCtrl.filters.tags"/></h3>
   </header>
   <div class="row">
-    <div deckgrid class="deckgrid" source="postsCtrl.posts" filter="filters" cardTemplate="scripts/components/posts/posts.deckgrid.tpl.html"></div>
+    <div deckgrid class="deckgrid" source="postsCtrl.posts" filter="postsCtrl.filters" cardTemplate="scripts/components/posts/posts.deckgrid.tpl.html"></div>
   </div>
 </div>

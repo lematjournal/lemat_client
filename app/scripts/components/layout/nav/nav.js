@@ -12,6 +12,7 @@ import 'reflect-metadata';
 
 @Inject('$scope', '$rootScope', '$location', '$http', AuthFactory)
 export default class Nav {
+  @Output() setFilter = new EventEmitter();
   constructor($scope, $rootScope, $location, $http, AuthFactory) {
     this.$scope = $scope;
     this.$rootScope = $rootScope;

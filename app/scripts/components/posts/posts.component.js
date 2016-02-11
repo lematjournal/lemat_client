@@ -26,6 +26,7 @@ export default class PostsComponent {
     this.PostsFactory = PostsFactory;
     this.posts = PostsFactory.posts;
     this.post = PostsFactory.post;
+    this.filters = $rootScope.filters;
     $scope.popover = {
       templateUrl: 'tag-popover.template.html',
     };
