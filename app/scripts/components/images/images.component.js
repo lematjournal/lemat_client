@@ -1,9 +1,19 @@
-import { Controller } from 'a1atscript';
+import { Component, Inject } from 'ng-forward';
 import { ImageModal } from './images.decorator';
+import AS3Factory from '../../services/as3.factory'
+import AuthFactory from '../../services/authentication.factory'
+import ImagesFactory from './images.factory';
+// import ImagesModalComponent from './images.modal/images.modal.component';
+
+@Component({
+  selector: 'images',
+  providers: ['ui.bootstrap.modal', AS3Factory, AuthFactory, ImagesFactory],
+  templateUrl: './scripts/components/images/images.html'
+})
 
 @ImageModal
-@Controller('ImagesController', ['$scope', '$uibModal', 'AuthFactory', 'AS3Factory', 'ImagesFactory'])
-export default class ImagesController {
+@Inject('$scope', '$uibModal', AuthFactory, AS3Factory, ImagesFactory)
+export default class ImagesComponent {
   constructor($scope, $uibModal, AuthFactory, AS3Factory, ImagesFactory) {
     this.$scope = $scope;
     this.$uibModal = $uibModal;

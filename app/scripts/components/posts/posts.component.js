@@ -23,7 +23,6 @@ export default class PostsComponent {
   constructor($scope, $rootScope, PostsFactory) {
     this.$scope = $scope;
     this.$rootScope = $rootScope;
-    this.PostsFactory = PostsFactory;
     this.posts = PostsFactory.posts;
     this.post = PostsFactory.post;
     this.filters = $rootScope.filters;

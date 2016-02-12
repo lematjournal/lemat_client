@@ -1,8 +1,9 @@
-import { Service } from 'a1atscript';
+import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../../constants.module';
 import 'babel-polyfill';
 
-@Service('ImagesFactory', ['$http'])
+@Injectable()
+@Inject('$http')
 export default class ImagesFactory {
   constructor($http) {
     this.images = [];

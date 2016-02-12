@@ -10,13 +10,12 @@ import 'reflect-metadata';
   templateUrl: './scripts/components/layout/nav/nav.html'
 })
 
-@Inject('$scope', '$rootScope', '$location', '$http', AuthFactory)
+@Inject('$scope', '$rootScope', '$state', '$http', AuthFactory)
 export default class Nav {
-  @Output() setFilter = new EventEmitter();
-  constructor($scope, $rootScope, $location, $http, AuthFactory) {
+  constructor($scope, $rootScope, $state, $http, AuthFactory) {
     this.$scope = $scope;
     this.$rootScope = $rootScope;
-    this.$location = $location;
+    this.$state = $state;
     this.$http = $http;
     this.AuthFactory = AuthFactory;
 
@@ -24,8 +23,8 @@ export default class Nav {
       $scope.title = data;
     });
 
-    $scope.$on('$locationChangeStart', () => {
-      if ($location.url() !== '/issue/:id') {
+    $scope.$on('$stateChangeStart', () => {
+      if (!$state.is('issue') || !$state.is('issue-detail')) {
         $scope.title = '';
       }
     });
@@ -35,7 +34,7 @@ export default class Nav {
     };
 
     $scope.scrollShow = () => {
-      return $location.url() === '/issue/1';
+      return $state.is('issue-detail');
     };
 
     $rootScope.filters = {};
@@ -68,6 +67,6 @@ export default class Nav {
 
   setFilter(filter) {
     this.$rootScope.filters.tags = filter;
-    this.$location.path('/online/');
+    this.$state.go('posts');
   }
 }

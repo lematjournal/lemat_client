@@ -78,7 +78,7 @@ export default class AuthFactory {
         role: user.data.role,
         weight: user.data.weight
       };
-      Promise.resolve(angular.copy(user, this.session));
+      angular.copy(user, this.session);
     }
   }
 

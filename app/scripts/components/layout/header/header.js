@@ -5,16 +5,14 @@ import 'reflect-metadata';
   selector: 'lematHeader',
   templateUrl: './scripts/components/layout/header/header.html',
   controllerAs: 'headerCtrl'
-
 })
 @Inject('$rootScope', '$state')
 export default class Footer {
   constructor($rootScope, $state) {
-    this.display = $state.current.name === 'entries';
-    // console.log($state.current.name === 'entries');
+    this.display = $state.current.name === 'main';
     $rootScope.$on('$stateChangeStart', (event, to, params) => {
-      // console.log(event, to, params);
-      this.display = to.name === 'entries'
+      console.log($state);
+      this.display = to.name === 'main'
     });
   }
 }

@@ -1,14 +1,7 @@
 import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../../constants.module';
-
 import 'babel-polyfill';
 import 'reflect-metadata';
-
-// this.users.filter((user) => {
-//   if (user.role.match(/^(admin|editor)$/)) {
-//     return user;
-//   }
-// });
 
 @Injectable()
 @Inject('$http', '$window')

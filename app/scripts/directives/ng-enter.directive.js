@@ -4,9 +4,9 @@ import { Directive, Inject } from 'ng-forward';
   selector: '[ng-enter]'
 })
 
-@Inject('$scope', '$element', '$attr')
+@Inject('$scope', '$element', '$attrs')
 export default class NgEnter {
-  constructor($scope, $element, $attr) {
+  constructor($scope, $element, $attrs) {
     $element.bind('keydown keypress', (event) => {
       if (event.which === 13) {
         $scope.$apply(() => {

@@ -15,7 +15,7 @@
           </li>
           <li class="divider"></li>
           <li>
-            <a ui-sref="entries">MAIN PAGE</a>
+            <a ui-sref="main">MAIN PAGE</a>
           </li>
           <li>
             <a ui-sref="issues-detail({ issue: 1 })">CURRENT ISSUE</a>
@@ -24,13 +24,13 @@
             <a ui-sref="issues">ISSUES</a>
           </li>
           <li ng-if="navCtrl.isAuthenticated()">
-            <a ui-sref="profile-edit">PROFILE</a>
+            <a ui-sref="profile-edit({ profile: userId })">PROFILE</a>
           </li>
           <li ng-if="!navCtrl.isAuthenticated()">
             <a ui-sref="login">LOGIN</a>
           </li>
           <li ng-if="navCtrl.isAuthenticated()">
-            <a ng-click="navCtrl.logout()">LOGOUT</a>
+            <a (click)="navCtrl.logout()">LOGOUT</a>
           </li>
         </ul>
         <ul class="nav col-sm-6 col-xs-6" role="menu">
@@ -39,16 +39,16 @@
           </li>
           <li class="divider"></li>
           <li>
-            <a ng-click="navCtrl.setFilter()">CONTENTS</a>
+            <a (click)="navCtrl.setFilter()">CONTENTS</a>
           </li>
           <li>
-            <a ng-click="navCtrl.setFilter('art')">ART</a>
+            <a (click)="navCtrl.setFilter('art')">ART</a>
           </li>
           <li>
-            <a ng-click="navCtrl.setFilter('essay')">ESSAYS</a>
+            <a (click)="navCtrl.setFilter('essay')">ESSAYS</a>
           </li>
           <li>
-            <a ng-click="navCtrl.setFilter('poetry')">POETRY</a>
+            <a (click)="navCtrl.setFilter('poetry')">POETRY</a>
           </li>
         </ul>
         <ul class="nav col-sm-6 col-xs-6 contact" role="menu">

@@ -1,6 +1,7 @@
 import { Component, Inject, Resolve } from 'ng-forward';
 import { ImageModal } from '../images/images.decorator';
 import AuthFactory from '../../services/authentication.factory';
+import ImagesFactory from '../images/images.factory';
 import NgEnter from '../../directives/ng-enter.directive';
 import NgEsc from '../../directives/ng-esc.directive';
 import UsersFactory from '../users/users.factory';
@@ -11,7 +12,7 @@ import 'babel-polyfill';
 @Component({
   selector: 'profile-edit',
   controllerAs: 'profileEditCtrl',
-  providers: ['ui.bootstrap.modal', 'ui.bootstrap.tooltip', AuthFactory, UsersFactory],
+  providers: ['ui.bootstrap.modal', 'ui.bootstrap.tooltip', AuthFactory, ImagesFactory, UsersFactory],
   directives: [NgEnter, NgEsc],
   templateUrl: './scripts/components/profile/profile.edit.html'
 })
@@ -74,7 +75,7 @@ export default class ProfileEditComponent {
   upsertProfile(user) {
     if (this.AuthFactory.isAuthenticated() && !angular.equals(this.user, this.master)) {
       this.UsersFactory.upsertUser(user).then(() => {
-        // toastr.success('User updated successfully', 'Done');
+        console.log('User updated successfully', 'Done');
       });
     }
   }

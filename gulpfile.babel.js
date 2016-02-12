@@ -10,6 +10,8 @@ var watchify = require('watchify');
 var wiredep = require('wiredep').stream;
 var source = require('vinyl-source-stream');
 
+// $.util.log.bind($.util, 'Browserify Error')
+
 var bundler = {
   w: null,
   init: function() {
@@ -24,7 +26,7 @@ var bundler = {
   },
   bundle: function() {
     return this.w && this.w.bundle()
-      .on('error', $.util.log.bind($.util, 'Browserify Error'))
+      .on('error', handleErrors)
       .pipe(source('scripts.js'))
       .pipe($.ngAnnotate({
         add: true,
@@ -58,9 +60,6 @@ gulp.task('serve', function() {
 gulp.task('styles', function() {
   return gulp.src('app/**/*.css')
     .on('error', $.util.log.bind($.util, 'Css error'))
-    // .pipe($.uncss({
-    //   html: ['app/**/*.html', 'app/index.html']
-    // }))
     .pipe($.autoprefixer('last 1 version'))
     .pipe($.concat('main.css'))
     .pipe(gulp.dest('dist/styles'))
@@ -119,6 +118,9 @@ gulp.task('minify:js', function() {
 
 gulp.task('minify:css', function() {
   return gulp.src('dist/styles/**/*.css')
+    .pipe($.uncss({
+      html: ['app/**/*.html', 'app/index.html']
+    }))
     .pipe($.cssnano())
     .pipe(gulp.dest('dist/styles'))
     .pipe($.size());
@@ -127,6 +129,21 @@ gulp.task('minify:css', function() {
 gulp.task('set-production', function() {
   process.env.NODE_ENV = 'production';
 });
+
+var handleErrors = function() {
+  var args = Array.prototype.slice.call(arguments);
+
+  $.notify.logLevel(2);
+
+  // Send error to notification center with gulp-notify
+  $.notify.onError({
+    title: "Compile Error",
+    message: "<%= error %>"
+  }).apply(this, args);
+
+  // Keep gulp from hanging on this task
+  this.emit('end');
+};
 
 gulp.task('html', ['html:main', 'html:assets']);
 

@@ -1,9 +1,20 @@
-import { Controller } from 'a1atscript';
-import ImagesController from '../images.controller';
+import { Component, Inject } from 'ng-forward';
+import ImagesComponent from '../images.component';
+import AS3Factory from '../../../services/as3.factory'
+import AuthFactory from '../../../services/authentication.factory'
+import ImagesFactory from './../images.factory';
+import 'angular-utils-pagination';
 import 'babel-polyfill';
 
-@Controller('ImagesModalController', ['$scope', '$rootScope', '$uibModalInstance', '$window', 'AS3Factory', 'AuthFactory', 'ImagesFactory', 'images'])
-export default class ImagesModalController extends ImagesController {
+@Component({
+  selector: 'image-modal',
+  controllerAs: 'imagesModalCtrl',
+  providers: ['angularUtils.directives.dirPagination', AS3Factory, AuthFactory, ImagesFactory],
+  templateUrl: './scripts/images/images.modal/images.modal.html'
+})
+
+@Inject('$scope', '$rootScope', '$uibModalInstance', '$window', AS3Factory, AuthFactory, ImagesFactory)
+export default class ImagesModalComponent extends ImagesComponent {
   constructor($scope, $rootScope, $uibModalInstance, $window, AS3Factory, AuthFactory, ImagesFactory, images) {
     super($scope, AuthFactory, AS3Factory, ImagesFactory, images);
     this.$rootScope = $rootScope;

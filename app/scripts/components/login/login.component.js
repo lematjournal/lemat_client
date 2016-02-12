@@ -22,7 +22,7 @@ export default class LoginComponent {
   async postCredentials(credentials) {
     try {
       await this.AuthFactory.login(credentials);
-      this.$rootScope.session = this.AuthFactory.setUser();
+      this.$rootScope.session = this.AuthFactory.session;
       this.$rootScope.userId = this.AuthFactory.session.id;
       console.log('Logged in', 'Done');
     } catch (error) {

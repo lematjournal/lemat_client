@@ -39,6 +39,14 @@ import 'reflect-metadata';
 // ]);
 
 @StateConfig([{
+  name: 'admin',
+  url: '/admin/',
+  component: components.AdminComponent
+}, {
+  name: 'main',
+  url: '/',
+  component: components.MainComponent
+}, {
   name: 'about',
   url: '/about/',
   component: components.AboutComponent
@@ -48,12 +56,12 @@ import 'reflect-metadata';
   component: components.EditorsComponent
 }, {
   name: 'entries',
-  url: '/',
+  url: '/blog/',
   component: components.EntriesComponent,
   as: 'entriesCtrl'
 }, {
   name: 'entries-detail',
-  url: '/:entry',
+  url: '/blog/:entry',
   component: components.EntriesDetailComponent,
   as: 'entriesDetailCtrl'
 }, {

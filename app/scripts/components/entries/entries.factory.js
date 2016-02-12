@@ -39,6 +39,7 @@ export default class EntriesFactory {
       angular.copy(response.data, this.entries);
       let latest = this.$filter('orderBy')(response.data, '-created_at')[0];
       angular.copy(latest, this.entry);
+      return response.data;
     } catch (error) {
       console.error(error);
     }

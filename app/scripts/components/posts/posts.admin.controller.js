@@ -31,33 +31,6 @@ export default class PostsAdminController extends PostsComponent {
     }
   }
 
-  async getPost() {
-    try {
-      await this.PostsFactory.getPost(this.$stateParams.post);
-      this.post = PostsFactory.post;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async getPosts() {
-    try {
-      await this.PostsFactory.getPosts();
-      this.posts = this.PostsFactory.posts;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async getUsers() {
-    try {
-      await this.UsersFactory.getUsers();
-      this.users = this.UsersFactory.users;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   resetPost() {
     angular.copy({}, this.post);
   }
@@ -65,8 +38,6 @@ export default class PostsAdminController extends PostsComponent {
   selectedUser(event, data) {
     this.post.user_id = data.id;
   }
-
-  // crud actions
 
   upsertPost(post) {
     if (this.AuthFactory.isAuthenticated()) {

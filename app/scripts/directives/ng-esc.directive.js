@@ -4,9 +4,9 @@ import { Directive, Inject } from 'ng-forward';
   selector: '[ng-esc]'
 })
 
-@Inject('$scope', '$element', '$attr')
+@Inject('$scope', '$element', '$attrs')
 export default class NgEsc {
-  constructor($scope, $element, $attr) {
+  constructor($scope, $element, $attrs) {
     $element.bind('keydown keypress', (event) => {
       if (event.which === 27) {
         $scope.$apply(() => {
