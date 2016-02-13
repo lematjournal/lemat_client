@@ -15,34 +15,34 @@ export default class IssuesFactory {
     this.pieces = [];
   }
 
-  deleteIssue(id, titleUrl) {
+  async delete(id) {
     try {
-      this.$http.delete(ServerUrl + '/content/issues/' + titleUrl);
-      let issue = this.findIssueById(id);
-      this.issues.splice(this.issues.indexOf(issue), 1);
+      await this.$http.delete(ServerUrl + '/content/issues/' + id);
+      this.issues.splice(this.findById(id), 1);
     } catch (error) {
       console.error(error);
     }
   }
 
 
-  findIssueById(id) {
+  findById(id) {
     for (let i = 0; this.issues.length - 1 > i; i += 1) {
       if (this.issues[i].id === id) {
-        console.log('found');
-        return this.issues[i];
+        return i;
       }
     }
   }
 
-
-  getIssuePieces(issueId) {
-    return this.$http.get(ServerUrl + '/content/issues/' + issueId + '/pieces').then((response) => {
-      angular.copy(response.data, this.pieces);
-    });
+  async get(id) {
+    try {
+      let response = await this.$http.get(ServerUrl + '/content/issues/' + id);
+      return angular.copy(response.data, this.issue);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  async getIssues() {
+  async query() {
     try {
       let response = await this.$http.get(ServerUrl + '/content/issues/');
       angular.copy(response.data, this.issues);
@@ -53,20 +53,11 @@ export default class IssuesFactory {
     }
   }
 
-  async getIssue(id) {
-    try {
-      let response = await this.$http.get(ServerUrl + '/content/issues/' + id);
-      angular.copy(response.data, this.issue);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  resetIssue() {
+  reset() {
     angular.copy({}, this.issue);
   }
 
-  upsertIssue(issue) {
+  async upsert(issue) {
     let params = {
       issue: {
         title: issue.title,
@@ -75,27 +66,16 @@ export default class IssuesFactory {
       }
     };
 
-    if (issue.id) {
-      return this.$http.patch(ServerUrl + '/content/issues/' + issue.id, params).then((response) => {
-        this.getIssue(response.data.id);
-      });
-    } else {
-      return this.$http.post(ServerUrl + '/content/issues/', params).then((response) => {
+    try {
+      if (issue.id) {
+        let response = await this.$http.patch(ServerUrl + '/content/issues/' + issue.id, params);
+      } else {
+        let response = await this.$http.post(ServerUrl + '/content/issues/', params);
         this.issues.push(response.data);
-      });
-    }
-  }
-
-  uploadIssueImage(image) {
-    let params = {
-      image: {
-        image_url: image.imageUrl,
-        user_id: image.userId,
-        issue_id: image.issueId
       }
-    };
-    return this.$http.post(ServerUrl + '/content/images/', params).then((response) => {
-      angular.copy(response.data, this.image);
-    });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

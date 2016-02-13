@@ -16,7 +16,7 @@ export default class PiecesDetailComponent {
   @Resolve()
   @Inject('$stateParams', PiecesFactory)
   static resolve($stateParams, PiecesFactory) {
-    return PiecesFactory.getPiece($stateParams.issue, $stateParams.piece);
+    return PiecesFactory.get($stateParams.issue, $stateParams.piece);
   }
   constructor(PiecesFactory) {
     this.piece = PiecesFactory.piece;

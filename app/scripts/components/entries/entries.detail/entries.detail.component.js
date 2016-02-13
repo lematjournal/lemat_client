@@ -16,7 +16,7 @@ export default class EntriesDetailComponent extends EntriesComponent {
   @Resolve()
   @Inject('$stateParams', EntriesFactory)
   static resolve($stateParams, EntriesFactory) {
-    return EntriesFactory.getEntry($stateParams.entry);
+    return EntriesFactory.get($stateParams.entry);
   }
 
   constructor($scope, $stateParams, EntriesFactory) {

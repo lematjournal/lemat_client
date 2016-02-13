@@ -1,0 +1,9 @@
+.admin-modal {
+  margin-left: 10px;
+  width: 98%;
+}
+
+.btn-group-sm >.btn, .btn-sm {
+  border-radius: 0px;
+  border: 1px solid #CCCCCC;
+}

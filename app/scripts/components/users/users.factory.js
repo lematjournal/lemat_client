@@ -16,7 +16,7 @@ export default class UsersFactory {
     this.$http = $http;
   }
 
-  checkLocalStorage() {
+  _checkLocalStorage() {
     try {
       let contributors = JSON.parse(this.$window.localStorage.getItem('ngStorage-issueUsers'));
       if (contributors) angular.copy(contributors, this.contributors);
@@ -26,38 +26,31 @@ export default class UsersFactory {
     }
   }
 
-  deleteUser(id) {
-    return this.$http.delete(ServerUrl + '/users/' + id).then(() => {
-      this.users.splice(this.findUserById(id), 1);
-    });
-  }
-
-  evalContributorsAge() {
-    let grabDate = JSON.parse(this.$window.localStorage.getItem('ngStorage-issueUsersGrabDate')).valueOf();
-    return grabdate - Date.now().valueOf() > (1000 * 60 * 60 * 72);
-  }
-
-  async fetchContributors() {
-    if (!this.checkLocalStorage()) {
-      await this.getContributors();
-    } else if (this.evalContributorsAge) {
-      await this.getContributors();
-    } else {
-      // the users are d'accord
-    }
-  }
-
-  async fetchUsers() {
+  async delete(id) {
     try {
-      if (!this.users) {
-        let response = await this.getUsers();
-      }
+      await this.$http.delete(ServerUrl + '/users/' + id)
+      this.users.splice(this.findById(id), 1);
     } catch (error) {
       console.error(error);
     }
   }
 
-  findUserById(id) {
+  _evalContributorsAge() {
+    let grabDate = JSON.parse(this.$window.localStorage.getItem('ngStorage-issueUsersGrabDate')).valueOf();
+    return grabdate - Date.now().valueOf() > (1000 * 60 * 60 * 72);
+  }
+
+  async fetchContributors() {
+    if (!this._checkLocalStorage()) {
+      await this._getContributors();
+    } else if (this._evalContributorsAge) {
+      await this._getContributors();
+    } else {
+      // the users are d'accord
+    }
+  }
+
+  findById(id) {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].id === id) {
         return i;
@@ -65,30 +58,27 @@ export default class UsersFactory {
     }
   }
 
-  async getContributors() {
+  async _getContributors() {
     try {
       let response = await this.$http.get(ServerUrl + '/users/issue-users');
-      this.$window.localStorage.setItem('ngStorage-issueUsers', JSON.stringify(response.data));
-      this.$window.localStorage.setItem('ngStorage-issueUsersGrabDate', JSON.stringify(Date.now()));
+      this.$window.localStorage.setItem('ngStorage-issues', JSON.stringify(response.data));
+      this.$window.localStorage.setItem('ngStorage-issuesGrabDate', JSON.stringify(Date.now()));
       angular.copy(response.data, this.contributors);
     } catch (error) {
       console.error(error);
     }
   }
 
-  getProfile(user) {
-    return this.$http.get(ServerUrl + '/users/profiles/' + user.id).then((response) => {
-      angular.copy(response.data, this.profile);
-    });
-  }
-
-  getUser(username) {
-    return this.$http.get(ServerUrl + '/users/' + username).then((response) => {
+  async get(username) {
+    try {
+      let response = await this.$http.get(ServerUrl + '/users/' + username);
       angular.copy(response.data, this.user);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  async getUsers() {
+  async _fetchUserIndex() {
     try {
       let response = await this.$http.get(ServerUrl + '/users/');
       this.$window.localStorage.setItem('ngStorage-users', JSON.stringify(response.data));
@@ -103,14 +93,25 @@ export default class UsersFactory {
     } catch (error) {
       console.error(error);
     }
-
   }
 
-  resetUser() {
+  async query() {
+    try {
+      if (this.users.length === 0) {
+        angular.copy(JSON.parse(this.$window.localStorage.getItem('ngStorage-users')), this.users);
+        return this.users;
+      }
+    } catch (error) {
+      console.error(error, 'fetching users...');
+      this.users = await this._fetchUserIndex();
+    }
+  }
+
+  reset() {
     angular.copy({}, this.user);
   }
 
-  upsertUser(user) {
+  upsert(user) {
     let params = {
       user: {
         email: user.email,
@@ -134,6 +135,5 @@ export default class UsersFactory {
         this.users.push(response.data);
       });
     }
-    this.getUsers();
   }
 }

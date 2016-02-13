@@ -23,9 +23,6 @@
           <li>
             <a ui-sref="issues">ISSUES</a>
           </li>
-          <li ng-if="navCtrl.isAuthenticated()">
-            <a ui-sref="profile-edit({ profile: userId })">PROFILE</a>
-          </li>
           <li ng-if="!navCtrl.isAuthenticated()">
             <a ui-sref="login">LOGIN</a>
           </li>
@@ -65,10 +62,12 @@
           <li>
             <a ui-sref="editors">EDITORS</a>
           </li>
+          <li ng-if="navCtrl.isAuthenticated()">
+            <a ui-sref="profile-edit({ profile: userId })">PROFILE</a>
+          </li>
           <li>
             <a ui-sref="submissions">SUBMISSIONS</a>
           </li>
-
         </ul>
         <ul class="nav col-sm-6 col-xs-6" role="menu">
           <li>

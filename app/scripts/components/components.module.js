@@ -1,6 +1,6 @@
 export AboutComponent from './about/about.component';
 
-export AdminComponent from './layout/admin/admin.component';
+export AdminComponent from './admin/admin.component';
 
 export EditorsComponent from './editors/editors.component';
 

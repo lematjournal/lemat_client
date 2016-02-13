@@ -18,7 +18,7 @@ export default class PostsComponent {
   @Resolve()
   @Inject(PostsFactory)
   static resolve(PostsFactory) {
-    if (PostsFactory.posts.length === 0) return PostsFactory.getPosts();
+    if (PostsFactory.posts.length === 0) return PostsFactory.query();
   }
   constructor($scope, $rootScope, PostsFactory) {
     this.$scope = $scope;

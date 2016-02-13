@@ -11,13 +11,13 @@ export default class PiecesFactory {
     this.pieces = [];
   }
 
-  getPiece(issueId, pieceTitle) {
+  get(issueId, pieceTitle) {
     return this.$http.get(ServerUrl + '/content/issues/' + issueId + '/pieces/' + pieceTitle).then((response) => {
       angular.copy(response.data, this.piece);
     });
   }
 
-  upsertPiece(piece, issueId) {
+  upsert(piece, issueId) {
     let userIds = [];
     if (piece.users) {
       piece.users.map((object) => {
@@ -49,7 +49,7 @@ export default class PiecesFactory {
     }
   }
 
-  deletePiece(piece) {
+  delete(piece) {
     return $http.delete(ServerUrl + '/content/issues/' + piece.issue_id + '/pieces/' + piece.id).then((response) => {
       console.log("response: ", response);
     });

@@ -59,7 +59,7 @@ export default class UsersController {
 
   upsertUser() {
     if (this.AuthFactory.isAuthenticated() && !angular.equals(this.user, this.master)) {
-      this.UsersFactory.upsertUser(vm.user)
+      this.UsersFactory.upsertUser(this.user)
       console.log('User updated successfully', 'Done');
     }
   }

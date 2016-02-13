@@ -19,7 +19,7 @@ export default class PostsDetailComponent extends PostsComponent {
   @Resolve()
   @Inject('$stateParams', PostsFactory)
   static resolve($stateParams, PostsFactory) {
-    return PostsFactory.getPost($stateParams.post);
+    return PostsFactory.get($stateParams.post);
   }
   constructor($scope, $rootScope, PostsFactory) {
     super($scope, $rootScope, PostsFactory);

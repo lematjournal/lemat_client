@@ -1,9 +1,7 @@
 import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../../constants.module';
 import slug from 'slug';
-
 import 'babel-polyfill';
-import 'ngstorage';
 import 'reflect-metadata';
 
 @Injectable()
@@ -16,16 +14,16 @@ export default class EntriesFactory {
     this.entry = {};
   }
 
-  async deleteEntry(id) {
+  async delete(id) {
     try {
       await this.$http.delete(ServerUrl + '/news/entries/' + id);
-      this.entries.splice(this.findEntryIndexById(id), 1);
+      this.entries.splice(this.findIndexById(id), 1);
     } catch (error) {
       console.error(error);
     }
   }
 
-  findEntryIndexById(id) {
+  findIndexById(id) {
     for (let i = 0; i < this.entry.length; i++) {
       if (this.entry[i].id === id) {
         return i;
@@ -33,33 +31,36 @@ export default class EntriesFactory {
     }
   }
 
-  async getEntries() {
-    try {
-      let response = await this.$http.get(ServerUrl + '/news/entries/');
-      angular.copy(response.data, this.entries);
-      let latest = this.$filter('orderBy')(response.data, '-created_at')[0];
-      angular.copy(latest, this.entry);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async getEntry(title) {
-    console.log(title);
+  async get(title) {
     try {
       let response = await this.$http.get(ServerUrl + '/news/entries/' + title);
-      angular.copy(response.data, this.entry);
+      return angular.copy(response.data, this.entry);
     } catch (error) {
       console.error(error);
     }
   }
 
-  resetEntry() {
+  async query() {
+    try {
+      if (this.entries.length === 0) {
+        let response = await this.$http.get(ServerUrl + '/news/entries/');
+        angular.copy(response.data, this.entries);
+        let latest = this.$filter('orderBy')(response.data, '-created_at')[0];
+        angular.copy(latest, this.entry);
+        return response.data;
+      } else {
+        return this.entries;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  reset() {
     angular.copy({}, this.entry);
   }
 
-  upsertEntry(entry) {
+  async upsert(entry) {
     let params = {
       entry: {
         title: entry.title,
@@ -69,13 +70,16 @@ export default class EntriesFactory {
         title_url: slug(entry.title)
       }
     };
-
-    if (entry.id) {
-      return this.$http.patch(ServerUrl + '/news/entries/' + entry.id, params);
-    } else {
-      return this.$http.post(ServerUrl + '/news/entries/', params).then((response) => {
-        this.getEntry(response.data.id);
-      });
+    try {
+      if (entry.id) {
+        let response = await this.$http.patch(ServerUrl + '/news/entries/' + entry.id, params);
+        console.log(response);
+      } else {
+        let response = await this.$http.post(ServerUrl + '/news/entries/', params);
+        console.log(response);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 }

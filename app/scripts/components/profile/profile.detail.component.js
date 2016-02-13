@@ -14,7 +14,7 @@ export default class ProfileDetailComponent {
   @Resolve()
   @Inject('$stateParams', UsersFactory)
   static resolve($stateParams, UsersFactory) {
-    return UsersFactory.getUser($stateParams.profile);
+    return UsersFactory.get($stateParams.profile);
   }
 
   constructor(UsersFactory) {

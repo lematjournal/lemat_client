@@ -75,6 +75,7 @@
     "angular-youtube-embed": "^1.1.1",
     "angularUtils": "git+https://github.com/michaelbromley/angularUtils.git",
     "bootstrap": "^3.3.6",
+    "i": "^0.3.4",
     "jasmine-core": "^2.4.1",
     "jquery": "^2.2.0",
     "ng-cookies": "^1.0.2",

@@ -13,7 +13,7 @@ export default class EditorsComponent {
   @Resolve()
   @Inject(UsersFactory)
   static resolve(UsersFactory) {
-    return UsersFactory.getUsers();
+    return UsersFactory.query();
   }
 
   constructor(UsersFactory) {

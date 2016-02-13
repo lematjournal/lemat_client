@@ -26,12 +26,9 @@ var bundler = {
   },
   bundle: function() {
     return this.w && this.w.bundle()
+      .on('start', logger.start)
       .on('error', handleErrors)
       .pipe(source('scripts.js'))
-      .pipe($.ngAnnotate({
-        add: true,
-        single_quotes: true
-      }))
       .pipe(gulp.dest('./dist/scripts/'))
       .pipe(browserSync.reload({
         stream: true
@@ -59,7 +56,7 @@ gulp.task('serve', function() {
 //watch scss for changes and render into minified css with nice auto-prefixing
 gulp.task('styles', function() {
   return gulp.src('app/**/*.css')
-    .on('error', $.util.log.bind($.util, 'Css error'))
+    .on('error', handleErrors)
     .pipe($.autoprefixer('last 1 version'))
     .pipe($.concat('main.css'))
     .pipe(gulp.dest('dist/styles'))
@@ -129,6 +126,26 @@ gulp.task('minify:css', function() {
 gulp.task('set-production', function() {
   process.env.NODE_ENV = 'production';
 });
+
+var logger = (function() {
+  return {
+    start: function(filepath) {
+      console.log(arguments);
+      startTime = process.hrtime();
+      $.util.log('Bundling', $.util.colors.green(filepath) + '...');
+    },
+
+    watch: function(bundleName) {
+      $.util.log('Watching files required by', $.util.colors.yellow(bundleName));
+    },
+
+    end: function(filepath) {
+      var taskTime = process.hrtime(startTime);
+      var prettyTime = prettyHrtime(taskTime);
+      $.util.log('Bundled', $.util.colors.green(filepath), 'in', $.util.colors.magenta(prettyTime));
+    }
+  }
+})();
 
 var handleErrors = function() {
   var args = Array.prototype.slice.call(arguments);

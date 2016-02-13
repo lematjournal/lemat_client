@@ -16,9 +16,9 @@ import 'babel-polyfill';
 
 // @ImageModal
 // @UserModal
-@Inject('$scope', '$stateParams', '$uibModal', AS3Factory, AuthFactory, EntriesFactory, ImagesFactory)
+@Inject('$scope', '$state', '$uibModal', AS3Factory, AuthFactory, EntriesFactory, ImagesFactory)
 export default class EntriesAdminComponent extends EntriesComponent {
-  constructor($scope, $uibModal, AS3Factory, AuthFactory, EntriesFactory, ImagesFactory, IssuesFactory, PostsFactory, UsersFactory) {
+  constructor($scope, $state, $uibModal, AS3Factory, AuthFactory, EntriesFactory, ImagesFactory) {
     super($scope, EntriesFactory);
     this.$uibModal = $uibModal;
     this.AuthFactory = AuthFactory;
@@ -36,14 +36,14 @@ export default class EntriesAdminComponent extends EntriesComponent {
   upsertEntry(entry) {
     if (this.AuthFactory.isAuthenticated()) {
       this.EntryFactory.upsertEntry(entry);
-      this.$stateParams.path('admin.entries');
+      this.$state.go('admin');
     }
   }
 
   deleteEntry(id) {
     if (this.AuthFactory.isAuthenticated()) {
       this.EntryFactory.deleteEntry(id);
-      this.$stateParams('admin.entries')
+      this.$state.go('admin')
     }
   }
 }

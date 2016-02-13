@@ -13,23 +13,22 @@ export default class PostsFactory {
     // this.tags = $localStorage.tags;
   }
 
-  deletePost(id) {
+  async delete(id) {
     try {
-      this.$http.delete(ServerUrl + '/content/posts/' + id);
-      let post = this.findPostById(id);
-      this.posts.splice(this.posts.indexOf(post), 1);
+      await this.$http.delete(ServerUrl + '/content/posts/' + id);
+      this.posts.splice(this.findById(id), 1);
     } catch (error) {
       console.error(error);
     }
   }
 
-  findPostById(id) {
+  findById(id) {
     for (let i = 0; i < this.posts.length; i += 1) {
-      if (this.posts[i].id === id) return this.posts[i];
+      if (this.posts[i].id === id) return i;
     }
   }
 
-  async getPosts() {
+  async query() {
     try {
       let response = await this.$http.get(ServerUrl + '/content/posts/');
       angular.copy(response.data, this.posts);
@@ -38,7 +37,7 @@ export default class PostsFactory {
     }
   }
 
-  async getPost(titleUrl) {
+  async get(titleUrl) {
     try {
       let response = await this.$http.get(ServerUrl + '/content/posts/' + titleUrl);
       angular.copy(response.data, this.post);
@@ -47,26 +46,11 @@ export default class PostsFactory {
     }
   }
 
-  async getTags() {
-    try {
-      if (JSON.parse($window.localStorage.getItem('ngStorage-tags')).length === 0) {
-        let response = await this.$http.get(ServerUrl + '/content/tags/');
-        this.$window.localStorage.setItem('ngStorage-tags', JSON.stringify(response.data));
-        this.$window.localStorage.setItem('ngStorage-tags-GrabDate', JSON.stringify(Date.now()));
-        return response.data;
-      } else {
-        return JSON.parse(this.$window.localStorage.getItem('ngStorage-tags'));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  resetPost() {
+  reset() {
     angular.copy({}, this.post);
   }
 
-  async upsertPost(post) {
+  async upsert(post) {
     let params = {
       post: {
         title: post.title,

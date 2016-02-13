@@ -21,13 +21,13 @@ export default class IssuesDetailComponent extends IssuesComponent {
   @Resolve()
   @Inject('$stateParams', IssuesFactory)
   static resolve($stateParams, IssuesFactory) {
-    if ($stateParams.issue !== IssuesFactory.issue.id) return IssuesFactory.getIssue($stateParams.issue);
+    if ($stateParams.issue !== IssuesFactory.issue.id) return IssuesFactory.get($stateParams.issue);
   }
   constructor($document, $scope, $rootScope, IssuesFactory) {
     super($scope, $rootScope, IssuesFactory)
     this.$document = $document;
   }
-  
+
   scrollToTop() {
     this.$document.scrollTopAnimated(0);
   }

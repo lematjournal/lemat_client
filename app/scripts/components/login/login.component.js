@@ -11,10 +11,11 @@ import 'babel-polyfill';
   controllerAs: 'loginCtrl'
 })
 
-@Inject('$rootScope', AuthFactory)
+@Inject('$rootScope', '$state', AuthFactory)
 export default class LoginComponent {
-  constructor($rootScope, AuthFactory) {
+  constructor($rootScope, $state, AuthFactory) {
     this.$rootScope = $rootScope;
+    this.$state = $state;
     this.AuthFactory = AuthFactory;
     this.credentials = {};
   }
@@ -24,6 +25,7 @@ export default class LoginComponent {
       await this.AuthFactory.login(credentials);
       this.$rootScope.session = this.AuthFactory.session;
       this.$rootScope.userId = this.AuthFactory.session.id;
+      this.$state.go('main');
       console.log('Logged in', 'Done');
     } catch (error) {
       console.error(error);

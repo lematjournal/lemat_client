@@ -1,0 +1,28 @@
+<div class="admin-modal container">
+  <div class="row">
+    <h1 class="title"><font ng-if="!adminModalCtrl.object.title">Create</font><font ng-if="adminModalCtrl.object.title.length > 0">Edit</font>
+      {{ adminModalCtrl.selector }}</h1>
+    <hr>
+    <div class="form-group">
+      <label for="name">Title</label>
+      <input type="text" ng-model="adminModalCtrl.object.title" id="title" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <tags-input ng-model="adminModalCtrl.object">
+        <!-- <auto-complete source="adminModalCtrl.getTags()"></auto-complete> -->
+      </tags-input>
+    </div>
+    <div class="form-group">
+      <wysiwyg ng-model="adminModalCtrl.object.content" textarea-class="form-control" textarea-height="80px" textarea-menu="info.menu" textarea-required></wysiwyg>
+    </div>
+  </div>
+  <div class="row">
+    <div class="pull-left" style="margin-bottom: 5px">
+      <a class="btn btn-default">Attach Document</a>
+    </div>
+    <div class="pull-right" style="margin-bottom: 5px">
+      <a class="btn btn-default" style="margin-left: 5px" (click)="adminModalCtrl.close()">Close</a>
+      <a class="btn btn-default" (click)="adminModalCtrl.upsertEntry(adminModalCtrl.object)">Submit</a>
+    </div>
+  </div>
+</div>

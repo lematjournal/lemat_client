@@ -6,6 +6,7 @@ import 'reflect-metadata';
   templateUrl: './scripts/components/layout/header/header.html',
   controllerAs: 'headerCtrl'
 })
+
 @Inject('$rootScope', '$state')
 export default class Footer {
   constructor($rootScope, $state) {

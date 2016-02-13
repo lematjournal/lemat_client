@@ -14,7 +14,7 @@ export default class IssuesComponent {
   @Resolve()
   @Inject(IssuesFactory)
   static resolve(IssuesFactory) {
-    return IssuesFactory.getIssues();
+    return IssuesFactory.query();
   }
 
   constructor($scope, $rootScope, IssuesFactory) {

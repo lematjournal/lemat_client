@@ -10,6 +10,12 @@ import EntriesFactory from './entries.factory';
 
 @Inject('$scope', '$stateParams', EntriesFactory)
 export default class EntriesComponent {
+  @Resolve()
+  @Inject(EntriesFactory)
+  static resolve(EntriesFactory) {
+    EntriesFactory.query();
+  }
+
   constructor($scope, $stateParams, EntriesFactory) {
     this.$scope = $scope;
     this.identifier = $stateParams.entry;

@@ -7,7 +7,6 @@ import * as components from './components/components.module';
 import * as directives from './directives.module';
 import * as factories from './factories.module';
 
-import 'angucomplete-alt';
 import 'angular-confirm';
 import 'angular-filter';
 import 'angular-mocks';
@@ -18,7 +17,6 @@ import 'angular-ui-bootstrap';
 import 'angular-utils-pagination';
 import 'angular-youtube-embed';
 import 'angular-bootstrap-colorpicker';
-import 'ng-device-detector';
 import 'ng-file-upload';
 import 'ngstorage';
 import 're-tree';
@@ -116,6 +114,7 @@ import 'reflect-metadata';
 
 @Component({
   selector: 'lemat-app',
+  controllerAs: 'lematCtrl',
   providers: [uiRouter],
   directives: [
     components.footer,

@@ -1,7 +1,7 @@
 import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../constants.module';
-import 'reflect-metadata';
 import 'babel-polyfill';
+import 'reflect-metadata';
 
 @Injectable()
 @Inject('$http', '$window')

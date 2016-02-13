@@ -1,0 +1,22 @@
+<div class="contrast-bar">
+  <h3 class="section-title">
+    <a (click)="adminCtrl.setData('entries')">NEWS</a>
+    //
+    <a (click)="adminCtrl.setData('images')">IMAGES</a>
+    //
+    <a (click)="adminCtrl.setData('issues')">ISSUES</a>
+    //
+    <a (click)="adminCtrl.setData('email')">MAIL</a>
+    //
+    <a (click)="adminCtrl.setData('posts')">POSTS</a>
+    //
+    <a (click)="adminCtrl.setData('submissions')">SUBMISSIONS</a>
+    //
+    <a (click)="adminCtrl.setData('users')">USERS</a>
+  </h3>
+  <div class="">
+    Options: <font ng-if="adminCtrl.selector"><lemat-button style="default" (click)="adminCtrl.resetSelection(); adminCtrl.openAdminModal()">create {{ adminCtrl.selector }}</lemat-button> //</font><lemat-button style="default" (click)="adminCtrl.openAdminModal()">edit selection</lemat-button>//<lemat-button style="default">delete selection</lemat-button>
+  </div>
+</div>
+<hr>
+<div ui-grid="adminCtrl.gridOptions" ui-grid-edit ui-grid-selection class="grid"></div>
