@@ -12,7 +12,6 @@ export default class Footer {
   constructor($rootScope, $state) {
     this.display = $state.current.name === 'main';
     $rootScope.$on('$stateChangeStart', (event, to, params) => {
-      console.log($state);
       this.display = to.name === 'main'
     });
   }

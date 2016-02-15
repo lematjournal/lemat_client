@@ -1,6 +1,7 @@
 import { Injectable, Inject } from 'ng-forward';
 import ServerUrl from '../../../constants.module';
 import slug from 'slug';
+import 'babel-polyfill';
 
 @Injectable()
 @Inject('$http')
@@ -11,13 +12,34 @@ export default class PiecesFactory {
     this.pieces = [];
   }
 
-  get(issueId, pieceTitle) {
-    return this.$http.get(ServerUrl + '/content/issues/' + issueId + '/pieces/' + pieceTitle).then((response) => {
-      angular.copy(response.data, this.piece);
-    });
+  async delete(piece) {
+    try {
+      let response = this.$http.delete(ServerUrl + '/content/issues/' + piece.issue_id + '/pieces/' + piece.id);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  upsert(piece, issueId) {
+  async get(issueId, pieceTitle) {
+    try {
+      let response = await this.$http.get(ServerUrl + '/content/issues/' + issueId + '/pieces/' + pieceTitle);
+      angular.copy(response.data, this.piece);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async query() {
+    try {
+      let response = await this.$http.get(ServerUrl + '/content/issues/' + issueId + '/pieces/');
+      angular.copy(response.data, this.pieces);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async upsert(piece, issueId) {
     let userIds = [];
     if (piece.users) {
       piece.users.map((object) => {
@@ -36,22 +58,16 @@ export default class PiecesFactory {
         title_url: slug(piece.title)
       }
     };
-    if (piece.id) {
-      return this.$http.patch(ServerUrl + '/content/issues/' + piece.issue_id + '/pieces/' + piece.id, params).then((response) => {
+    try {
+      if (piece.id) {
+        let response = await this.$http.patch(ServerUrl + '/content/issues/' + piece.issue_id + '/pieces/' + piece.id, params)
         pieces.push(response.data);
-      }, (response) => {
-        console.log(response);
-      });
-    } else {
-      return this.$http.post(ServerUrl + '/content/issues/' + issueId + '/pieces/', params).then((response) => {
-        console.log("error: ", response);
-      });
+      } else {
+        let response = await this.$http.post(ServerUrl + '/content/issues/' + issueId + '/pieces/', params);
+        pieces.push(response.data);
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }
-
-  delete(piece) {
-    return $http.delete(ServerUrl + '/content/issues/' + piece.issue_id + '/pieces/' + piece.id).then((response) => {
-      console.log("response: ", response);
-    });
   }
 }

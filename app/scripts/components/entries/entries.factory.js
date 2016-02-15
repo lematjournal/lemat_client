@@ -42,15 +42,11 @@ export default class EntriesFactory {
 
   async query() {
     try {
-      if (this.entries.length === 0) {
-        let response = await this.$http.get(ServerUrl + '/news/entries/');
-        angular.copy(response.data, this.entries);
-        let latest = this.$filter('orderBy')(response.data, '-created_at')[0];
-        angular.copy(latest, this.entry);
-        return response.data;
-      } else {
-        return this.entries;
-      }
+      let response = await this.$http.get(ServerUrl + '/news/entries/');
+      angular.copy(response.data, this.entries);
+      // let latest = this.$filter('orderBy')(response.data, '-created_at')[0];
+      // angular.copy(latest, this.entry);
+      return response.data;
     } catch (error) {
       console.error(error);
     }
@@ -67,7 +63,8 @@ export default class EntriesFactory {
         content: entry.content,
         user_id: entry.user_id,
         image_url: entry.image_url,
-        title_url: slug(entry.title)
+        title_url: slug(entry.title),
+        tag_names: entry.tag_names.map((tag) => { return tag.text })
       }
     };
     try {

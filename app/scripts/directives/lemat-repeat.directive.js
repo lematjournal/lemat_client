@@ -4,13 +4,13 @@ import { Directive, Inject } from 'ng-forward';
   selector: '[lemat-repeat]'
 })
 
-@Inject('$scope, $element')
+@Inject('$scope')
 export default class LematRepeat {
-  constructor($scope, $element) {
+  constructor($scope) {
     if ($scope.$last) {
       setTimeout(() => {
         $scope.$emit('lastElem');
-      }, 1);
+      }, 100);
     }
   };
 }

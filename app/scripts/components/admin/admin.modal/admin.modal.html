@@ -1,6 +1,11 @@
-<div class="admin-modal container">
+<div class="admin-modal container" style="padding-top: 15px">
+  <div class="lightbox-nav row-centered">
+     <!-- close button -->
+     <button class="close" aria-hidden="true" (click)="adminModalCtrl.close()">×</button>
+  </div>
   <div class="row">
-    <h1 class="title"><font ng-if="!adminModalCtrl.object.title">Create</font><font ng-if="adminModalCtrl.object.title.length > 0">Edit</font>
+    <input type="hidden" ng-model="adminModalCtrl.object.user_id" ng-init="adminModalCtrl.object.user_id = adminModalCtrl.user.id" />
+    <h1 class="title"><font ng-if="!adminModalCtrl.edit">Create</font><font ng-if="adminModalCtrl.edit">Edit</font>
       {{ adminModalCtrl.selector }}</h1>
     <hr>
     <div class="form-group">
@@ -8,21 +13,21 @@
       <input type="text" ng-model="adminModalCtrl.object.title" id="title" class="form-control" required>
     </div>
     <div class="form-group">
-      <tags-input ng-model="adminModalCtrl.object">
-        <!-- <auto-complete source="adminModalCtrl.getTags()"></auto-complete> -->
+      <tags-input ng-model="adminModalCtrl.object.tag_names">
+        <auto-complete source="adminModalCtrl.tags"></auto-complete>
       </tags-input>
     </div>
     <div class="form-group">
-      <wysiwyg ng-model="adminModalCtrl.object.content" textarea-class="form-control" textarea-height="80px" textarea-menu="info.menu" textarea-required></wysiwyg>
+      <wysiwyg ng-model="adminModalCtrl.object.content" textarea-class="form-control" textarea-height="200px" textarea-menu="info.menu" textarea-required></wysiwyg>
     </div>
   </div>
   <div class="row">
     <div class="pull-left" style="margin-bottom: 5px">
-      <a class="btn btn-default">Attach Document</a>
+      <a class="btn btn-default" (click)="adminModalCtrl.attachDocument()">Attach Document</a>
     </div>
     <div class="pull-right" style="margin-bottom: 5px">
       <a class="btn btn-default" style="margin-left: 5px" (click)="adminModalCtrl.close()">Close</a>
-      <a class="btn btn-default" (click)="adminModalCtrl.upsertEntry(adminModalCtrl.object)">Submit</a>
+      <a class="btn btn-default" (click)="adminModalCtrl.ok(adminModalCtrl.object)">Submit</a>
     </div>
   </div>
 </div>

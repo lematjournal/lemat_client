@@ -3,6 +3,9 @@ import ServerUrl from '../../constants.module';
 import 'babel-polyfill';
 import 'reflect-metadata';
 
+const HOUR = (1000 * 60) * 60;
+const DAY = HOUR * 24
+
 @Injectable()
 @Inject('$http', '$window')
 export default class UsersFactory {
@@ -16,13 +19,31 @@ export default class UsersFactory {
     this.$http = $http;
   }
 
-  _checkLocalStorage() {
+  _checkLocalStorageForUsers() {
     try {
-      let contributors = JSON.parse(this.$window.localStorage.getItem('ngStorage-issueUsers'));
-      if (contributors) angular.copy(contributors, this.contributors);
+      let users = JSON.parse(this.$window.localStorage.getItem('ngStorage-users'));
+      if (users) {
+        angular.copy(users, this.users);
+        return true;
+      } else {
+        return false;
+      }
     } catch (error) {
       console.error(error);
-      return false;
+    }
+  }
+
+  _checkLocalStorageForContributors() {
+    try {
+      let contributors = JSON.parse(this.$window.localStorage.getItem('ngStorage-issueUsers'));
+      if (contributors) {
+        angular.copy(contributors, this.contributors);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -36,14 +57,23 @@ export default class UsersFactory {
   }
 
   _evalContributorsAge() {
-    let grabDate = JSON.parse(this.$window.localStorage.getItem('ngStorage-issueUsersGrabDate')).valueOf();
-    return grabdate - Date.now().valueOf() > (1000 * 60 * 60 * 72);
+    let grabDate = new Date(JSON.parse(this.$window.localStorage.getItem('ngStorage-issueUsersGrabDate')));
+    let timeElapsed = new Date(Date.now().valueOf() - grabDate.valueOf()).getHours();
+    return (timeElapsed > DAY * 30);
+  }
+
+  _evalUserAge() {
+    let grabDate = new Date(JSON.parse(this.$window.localStorage.getItem('ngStorage-usersGrabDate')));
+    let timeElapsed = new Date(Date.now().valueOf() - grabDate.valueOf()).getHours();
+    return (timeElapsed > DAY * 30);
   }
 
   async fetchContributors() {
-    if (!this._checkLocalStorage()) {
+    if (!this._checkLocalStorageForContributors()) {
+      console.info('contributors aren\'t there');
       await this._getContributors();
-    } else if (this._evalContributorsAge) {
+    } else if (this._evalContributorsAge()) {
+      console.info('contributors are old');
       await this._getContributors();
     } else {
       // the users are d'accord
@@ -61,8 +91,8 @@ export default class UsersFactory {
   async _getContributors() {
     try {
       let response = await this.$http.get(ServerUrl + '/users/issue-users');
-      this.$window.localStorage.setItem('ngStorage-issues', JSON.stringify(response.data));
-      this.$window.localStorage.setItem('ngStorage-issuesGrabDate', JSON.stringify(Date.now()));
+      this.$window.localStorage.setItem('ngStorage-issueUsers', JSON.stringify(response.data));
+      this.$window.localStorage.setItem('ngStorage-issueUsersGrabDate', JSON.stringify(Date.now()));
       angular.copy(response.data, this.contributors);
     } catch (error) {
       console.error(error);
@@ -78,32 +108,29 @@ export default class UsersFactory {
     }
   }
 
-  async _fetchUserIndex() {
+  async _getUserIndex() {
     try {
       let response = await this.$http.get(ServerUrl + '/users/');
       this.$window.localStorage.setItem('ngStorage-users', JSON.stringify(response.data));
       this.$window.localStorage.setItem('ngStorage-usersGrabDate', JSON.stringify(Date.now()));
-      angular.copy(JSON.parse(this.$window.localStorage.getItem('ngStorage-users')), this.users);
+      angular.copy(response.data, this.users);
       this.editors = this.users.filter((user) => {
         if (user.role.match(/^(admin|editor)$/)) {
           return user;
         }
       });
-      return this.users;
     } catch (error) {
       console.error(error);
     }
   }
 
   async query() {
-    try {
-      if (this.users.length === 0) {
-        angular.copy(JSON.parse(this.$window.localStorage.getItem('ngStorage-users')), this.users);
-        return this.users;
-      }
-    } catch (error) {
-      console.error(error, 'fetching users...');
-      this.users = await this._fetchUserIndex();
+    if (!this._checkLocalStorageForUsers()) {
+      await this._getUserIndex();
+    } else if (this._evalUserAge()) {
+      await this._getUserIndex();
+    } else {
+      // users are probably ok
     }
   }
 

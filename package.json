@@ -13,6 +13,7 @@
     "babelify": "^7.2.0",
     "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
+    "factory-girl": "^2.2.2",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.2",
@@ -41,7 +42,8 @@
     "karma-ng-html2js-preprocessor": "^0.2.0",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-requirejs": "^0.2.4",
-    "karma-sinon-chai": "^1.1.0",
+    "karma-sinon": "^1.0.4",
+    "sinon": "^1.17.3",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",
     "wiredep": "^3.0.0"

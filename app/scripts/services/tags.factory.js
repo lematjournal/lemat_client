@@ -27,12 +27,9 @@ export default class TagsFactory {
         this.$window.localStorage.setItem('ngStorage-tags', JSON.stringify(response.data));
         this.$window.localStorage.setItem('ngStorage-tagsGrabDate', JSON.stringify(Date.now()));
         angular.copy(response.data, this.tags);
-        return response.data;
       } else {
         let tags = JSON.parse(this.$window.localStorage.getItem('ngStorage-tags'));
         angular.copy(tags, this.tags);
-        return this.tags;
-
       }
     } catch (error) {
       console.error(error);

@@ -1,7 +1,7 @@
 import AdminModalComponent from './admin.modal.component';
 
 export default function AdminModal(target, name, descriptor) {
-  let openAdminModal = function(callback) {
+  let openAdminModal = function(callback, edit) { // edit value determines whether the modal header displays "create" or "edit"
     this.$uibModalInstance = this.$uibModal.open({
       templateUrl: 'scripts/components/admin/admin.modal/admin.modal.html',
       controller: AdminModalComponent,
@@ -16,10 +16,12 @@ export default function AdminModal(target, name, descriptor) {
         },
         selector: () => {
           return this.selector;
+        },
+        edit: () => {
+          return edit;
         }
       }
     });
-    callback ? this.$uibModalInstance.result.then(callback) : null;
   }
   target.prototype.openAdminModal = openAdminModal;
 }

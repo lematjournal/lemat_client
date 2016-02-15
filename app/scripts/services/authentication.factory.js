@@ -9,39 +9,44 @@ export default class AuthFactory {
   constructor($http, $window) {
     this.$http = $http;
     this.$window = $window;
-    this.userId = {};
     this.session = {};
   }
 
-  login(credentials) {
-    return this.$http.post(ServerUrl + '/users/login', credentials).then((response) => {
-      this.userId = response.id;
-      this._storeSession(response);
-    });
+  async login(credentials) {
+    try {
+      let response = await this.$http.post(ServerUrl + '/users/login', credentials);
+      this._storeSession(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  logout() {
-    return this.$http.post(ServerUrl + '/users/logout').then(() => {
+  async logout() {
+    try {
+      await this.$http.post(ServerUrl + '/users/logout');
       this.$window.localStorage.removeItem('lemat-user');
-      this.userId = {};
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  register(credentials) {
+  async register(credentials) {
     let params = {
       user: {
         email: credentials.email,
         password: credentials.password
       }
     };
-    return this.$http.post(ServerUrl + '/users/', params).then((response) => {
+    try {
+      let response = await this.$http.post(ServerUrl + '/users/', params);
       this._storeSession(response);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   isAuthenticated() {
-    let data = JSON.parse(this.$window.localStorage.getItem('lemat-user'));
-    if (data) {
+    if (this.$window.localStorage.getItem('lemat-user')) {
       return true;
     } else {
       return false;
@@ -49,9 +54,9 @@ export default class AuthFactory {
   }
 
   isAdmin() {
-    if (this.$window.localStorage.getItem('lemat-user')) {
-      let user = JSON.parse(this.$window.localStorage.getItem('lemat-user'));
-      if (user.data.role === 'admin') {
+    if (this.isAuthenticated()) {
+      let user = this.getUser();
+      if (user.role === 'admin') {
         return true;
       } else {
         return false;
@@ -61,22 +66,31 @@ export default class AuthFactory {
 
   getUserRole() {
     if (this.isAuthenticated()) {
-      let user = JSON.parse(this.$window.localStorage.getItem('lemat-user'));
-      return user.data.role;
+      let user = this.getUser();
+      return user.role;
     } else {
       return 'user';
     }
   }
 
-  setUser() {
-    if (this.$window.localStorage.getItem('lemat-user')) {
+  getUser() {
+    if (this.isAuthenticated()) {
       let user = JSON.parse(this.$window.localStorage.getItem('lemat-user'));
+      return user;
+    } else {
+      console.error('user is not authenticated');
+    }
+  }
+
+  setUser() {
+    if (this.isAuthenticated) {
+      let user = this.getUser();
       user = {
-        id: user.data.id,
-        email: user.data.email,
-        username: user.data.username,
-        role: user.data.role,
-        weight: user.data.weight
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        role: user.role,
+        weight: user.weight
       };
       angular.copy(user, this.session);
     }
@@ -84,9 +98,9 @@ export default class AuthFactory {
 
   _storeSession(response) {
     this.$window.localStorage.setItem('lemat-user', JSON.stringify(response));
-    if (response.data.role = "admin") {
-      this.$http.defaults.headers.common.Authorization = 'Token token=' + response.data.token;
-      console.log(response.data.token);
+    if (response.role = "admin") {
+      this.$http.defaults.headers.common.Authorization = 'Token token=' + response.token;
+      console.log(response.token);
     }
   }
 }

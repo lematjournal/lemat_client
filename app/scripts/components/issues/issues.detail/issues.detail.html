@@ -1,4 +1,4 @@
-<div class="container" id="contents" scroll>
+<div class="container" id="contents">
 	<div class="row">
 		<div class="col-md-4">
 			<h2>WRITTEN</h2>
@@ -21,7 +21,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div ng-repeat="piece in issuesDetailCtrl.issue.pieces | orderBy: 'order' | filter: author.name" lemat-repeat>
+		<div ng-repeat="piece in issuesDetailCtrl.issue.pieces | orderBy: 'order' | filter: author.name">
 			<div class="content" id="{{ ::piece.title_url }}" style="margin-bottom: 50px">
 					<h4 class="title text-center"><a ui-sref="pieces-detail({ issue: piece.issue_id, piece: piece.title_url })">{{ ::piece.title }}</a></h4>
 					<p class="text-center"><font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span><a ui-sref="profile({ profile: user.username })">{{ ::user.username }}</a></font></p>

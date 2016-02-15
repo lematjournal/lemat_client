@@ -4,7 +4,6 @@ import IssuesFactory from '../issues.factory';
 import PiecesFactory from '../pieces/pieces.factory';
 import ToTrusted from '../../../filters/to-trusted.filter';
 import uiRouter from 'angular-ui-router';
-
 import 'angular-filter';
 import 'angular-scroll';
 

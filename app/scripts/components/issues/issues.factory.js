@@ -46,8 +46,8 @@ export default class IssuesFactory {
     try {
       let response = await this.$http.get(ServerUrl + '/content/issues/');
       angular.copy(response.data, this.issues);
-      let latest = this.$filter('orderBy')(response.data, '-created_at')[0];
-      angular.copy(latest, this.issue);
+      // let latest = this.$filter('orderBy')(response.data, '-created_at')[0];
+      // angular.copy(latest, this.issue);
     } catch (error) {
       console.error(error);
     }
