@@ -10,10 +10,12 @@ import 'reflect-metadata';
   templateUrl: './scripts/components/layout/footer/footer.html'
 })
 
-@Inject('$scope', UsersFactory)
+@Inject('$rootScope', '$scope', '$state', UsersFactory)
 export default class Footer {
-  constructor($scope, UsersFactory) {
+  constructor($rootScope, $scope, $state, UsersFactory) {
+    this.$rootScope = $rootScope;
     this.$scope = $scope;
+    this.$state = $state;
     this.UsersFactory = UsersFactory;
     this.contributors = UsersFactory.contributors;
   }
@@ -23,5 +25,10 @@ export default class Footer {
     this.$scope.$apply(() => {
       this.contributors = this.UsersFactory.contributors;
     });
+  }
+
+  toDevBlog() {
+    this.$state.go('entries');
+    this.$rootScope.$broadcast('entryTagFilter', 'test');
   }
 }

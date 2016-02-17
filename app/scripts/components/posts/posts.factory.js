@@ -13,10 +13,9 @@ export default class PostsFactory {
     // this.tags = $localStorage.tags;
   }
 
-  async delete(id) {
+  delete(id) {
     try {
-      await this.$http.delete(ServerUrl + '/content/posts/' + id);
-      this.posts.splice(this.findById(id), 1);
+      this.$http.delete(ServerUrl + '/content/posts/' + id);
     } catch (error) {
       console.error(error);
     }

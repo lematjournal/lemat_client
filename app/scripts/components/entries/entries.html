@@ -1,19 +1,17 @@
-<!-- <div class="container">
+<div class="container">
   <div class="row">
-    <div class="content" ng-repeat="issue in entriesCtrl.issues">
-      <div class="col-md-6">
-        <div class="content-inner">
-          <h2><a ui-sref="main.issues-detail({ issue: issue.id })"><img ng-src="{{ ::issue.image_url }}" class="img-responsive" /></a>
-</h2>
-        </div>
+    <div class="content" ng-repeat="entry in entriesCtrl.entries | orderBy: '-created_at'">
+      <div class="row">
+        <h3 class="title text-center">{{ entry.title }}</h3>
+        <p class="text-center"><a ui-sref="profile({ profile: postsDetailCtrl.post.user.username })">{{ entry.user.username }}</a></p>
+        <p class="text-center">{{ entry.created_at | date: 'medium' }}</p>
+        <hr>
       </div>
-      <div class="col-md-6">
-        <div class="content-inner" ng-repeat="piece in issue.pieces | orderBy: 'order'">
-          <li><a ui-sref="main.issues-detail-piece({ id: piece.issue_id, piece: piece.title_url })"><h4>{{ ::piece.title }} - <font ng-repeat="user in piece.users"><span ng-show="!$first && !$last">, </span><span ng-show="$last && !$first"> and </span>{{ ::user.username }}</font></a>
-            </h4>
-          </li>
-        </div>
+      <br>
+      <div class="row">
+        <p ng-bind-html="entry.content | ToTrusted"></p>
       </div>
+      <br>
     </div>
   </div>
-</div> -->
+</div>

@@ -23,7 +23,7 @@
   </div>
   <div class="row">
     <div class="pull-left" style="margin-bottom: 5px">
-      <a class="btn btn-default" (click)="adminModalCtrl.attachDocument()">Attach Document</a>
+      <a class="btn btn-default" ngf-select="adminModalCtrl.attachDocument($file)">Attach Document</a>
     </div>
     <div class="pull-right" style="margin-bottom: 5px">
       <a class="btn btn-default" style="margin-left: 5px" (click)="adminModalCtrl.close()">Close</a>

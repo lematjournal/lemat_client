@@ -9,7 +9,7 @@
     <a (click)="adminCtrl.setData('users')">USERS</a>
   </h3>
   <div class="">
-    Options: <font ng-if="adminCtrl.selector"><lemat-button style="default" (click)="adminCtrl.resetSelection(); adminCtrl.openAdminModal(adminCtrl.refresh, false)">create {{ adminCtrl.selector }}</lemat-button> //</font><lemat-button style="default" (click)="adminCtrl.openAdminModal(adminCtrl.refresh, true)">edit selection</lemat-button>//<lemat-button style="default">delete selection</lemat-button>
+    Options: <font ng-if="adminCtrl.selector"><lemat-button style="default" (click)="adminCtrl.resetSelection(); adminCtrl.openAdminModal(adminCtrl.refresh, false)">create {{ adminCtrl.selector }}</lemat-button> //</font><lemat-button style="default" (click)="adminCtrl.openAdminModal(adminCtrl.refresh, true)">edit selection</lemat-button>//<lemat-button style="default" (click)="adminCtrl.delete(adminCtrl.object)">delete selection</lemat-button>
   </div>
 </div>
 <hr>

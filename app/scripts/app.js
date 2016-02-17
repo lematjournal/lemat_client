@@ -4,8 +4,6 @@ import { bootstrap, Component, Inject, StateConfig } from 'ng-forward';
 
 import * as config from './config';
 import * as components from './components/components.module';
-import * as directives from './directives.module';
-import * as factories from './factories.module';
 
 import 'angular-confirm';
 import 'angular-filter';
@@ -21,20 +19,6 @@ import 'ng-file-upload';
 import 'ngstorage';
 import 're-tree';
 import 'reflect-metadata';
-
-// let DIRECTIVES = new Module('lematClient.directives', [
-//   'angular-confirm',
-//   'angucomplete-alt',
-//   'akoenig.deckgrid',
-//   'angularUtils.directives.dirPagination',
-//   'colorpicker.module',
-//   'duScroll',
-//   'ngFileUpload',
-//   'ui.bootstrap.modal',
-//   'ui.bootstrap.popover',
-//   'youtube-embed',
-//   'wysiwyg.module'
-// ]);
 
 @StateConfig([{
   name: 'admin',

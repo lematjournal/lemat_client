@@ -8,7 +8,7 @@ import EntriesFactory from './entries.factory';
   controllerAs: 'entriesCtrl'
 })
 
-@Inject('$scope', '$stateParams', EntriesFactory)
+@Inject('$scope', '$rootScope', '$stateParams', EntriesFactory)
 export default class EntriesComponent {
   @Resolve()
   @Inject(EntriesFactory)
@@ -16,8 +16,9 @@ export default class EntriesComponent {
     EntriesFactory.query();
   }
 
-  constructor($scope, $stateParams, EntriesFactory) {
+  constructor($scope, $rootScope, $stateParams, EntriesFactory) {
     this.$scope = $scope;
+    this.$rootScope = $rootScope;
     this.identifier = $stateParams.entry;
     this.EntriesFactory = EntriesFactory;
     this.entries = EntriesFactory.entries;

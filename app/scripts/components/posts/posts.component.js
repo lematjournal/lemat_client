@@ -2,7 +2,6 @@ import { Component, Inject, Resolve } from 'ng-forward';
 import PostsFactory from './posts.factory';
 import ToTrusted from '../../filters/to-trusted.filter';
 import Thumbnail from '../../filters/thumbnail.filter';
-
 import 'angular-deckgrid';
 
 @Component({
@@ -26,7 +25,7 @@ export default class PostsComponent {
     this.posts = PostsFactory.posts;
     this.post = PostsFactory.post;
     this.filters = $rootScope.filters;
-    $scope.popover = {
+    this.$scope.popover = {
       templateUrl: 'tag-popover.template.html',
     };
   }
