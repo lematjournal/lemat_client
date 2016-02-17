@@ -14,9 +14,9 @@ export default class EntriesFactory {
     this.entry = {};
   }
 
-  async delete(id) {
+  delete(id) {
     try {
-      await this.$http.delete(ServerUrl + '/news/entries/' + id);
+      this.$http.delete(ServerUrl + '/news/entries/' + id);
     } catch (error) {
       console.error(error);
     }
@@ -43,8 +43,6 @@ export default class EntriesFactory {
     try {
       let response = await this.$http.get(ServerUrl + '/news/entries/');
       angular.copy(response.data, this.entries);
-      // let latest = this.$filter('orderBy')(response.data, '-created_at')[0];
-      // angular.copy(latest, this.entry);
       return response.data;
     } catch (error) {
       console.error(error);
