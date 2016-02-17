@@ -17,7 +17,6 @@ export default class EntriesFactory {
   async delete(id) {
     try {
       await this.$http.delete(ServerUrl + '/news/entries/' + id);
-      // this.entries.splice(this.findIndexById(id), 1);
     } catch (error) {
       console.error(error);
     }
