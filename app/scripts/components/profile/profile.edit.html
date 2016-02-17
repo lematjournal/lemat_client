@@ -1,17 +1,17 @@
 <div class="container">
    <form name="userForm">
       <div class="row">
-         <h3 class="title text-center"><a ng-click="profileEditCtrl.fields.editName = !profileEditCtrl.fields.editName" ng-show="!fields.editName">{{ profileEditCtrl.user.username }}</a></h3>
+         <h3 class="title text-center"><a (click)="profileEditCtrl.fields.editName = !profileEditCtrl.fields.editName" ng-show="!fields.editName">{{ profileEditCtrl.user.username }}</a></h3>
          <h3><input type="text" name="editName" class="title text-center" ng-model="profileEditCtrl.user.username" style="width: 100%" ng-keyup="reset($event, field)" ng-show="profileEditCtrl.fields.editName" ng-enter="save($event, 'editName', user)"></h3>
          <hr class="dotted">
          <div class="profile-image">
-            <a ng-click="profileEditCtrl.openImageModal()" uib-tooltip="click to change"><img class="img-responsive center-block" ng-src="{{ profileEditCtrl.user.profile_image }}" height="455px" width="443.636px" />
+            <a (click)="profileEditCtrl.openImageModal()" uib-tooltip="click to change"><img class="img-responsive center-block" ng-src="{{ profileEditCtrl.user.profile_image }}" height="455px" width="443.636px" />
             </a>
          </div>
          <br>
       </div>
       <div class="row">
-         <a ng-click="profileEditCtrl.fields.editBio = !profileEditCtrl.fields.editBio"><h4 class="title text-center">BIO</h4>
+         <a (click)="profileEditCtrl.fields.editBio = !profileEditCtrl.fields.editBio"><h4 class="title text-center">BIO</h4>
          <p class="text-center" ng-hide="profileEditCtrl.fields.editBio" ng-show="!profileEditCtrl.fields.editBio">{{ profileEditCtrl.user.bio }}</p></a>
          <input type="text" name="userBio" ng-model="profileEditCtrl.user.bio" ng-keyup="reset($event, field)" ng-if="profileEditCtrl.fields.editBio" class="form-control" ng-enter="profileEditCtrl.save($event, 'editBio', profileEditCtrl.user)" />
          <i ng-if="editBio">* press 'esc' to reset field</i>

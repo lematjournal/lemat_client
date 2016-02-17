@@ -17,7 +17,7 @@ export default class EntriesFactory {
   async delete(id) {
     try {
       await this.$http.delete(ServerUrl + '/news/entries/' + id);
-      this.entries.splice(this.findIndexById(id), 1);
+      // this.entries.splice(this.findIndexById(id), 1);
     } catch (error) {
       console.error(error);
     }
@@ -57,6 +57,10 @@ export default class EntriesFactory {
   }
 
   async upsert(entry) {
+    let tagNames = [];
+    if (entry.tag_names) {
+      tagNames = entry.tag_names.map((tag) => { return tag.text });
+    }
     let params = {
       entry: {
         title: entry.title,
@@ -64,7 +68,7 @@ export default class EntriesFactory {
         user_id: entry.user_id,
         image_url: entry.image_url,
         title_url: slug(entry.title),
-        tag_names: entry.tag_names.map((tag) => { return tag.text })
+        tag_names: tagNames
       }
     };
     try {

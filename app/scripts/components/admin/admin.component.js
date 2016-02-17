@@ -1,5 +1,6 @@
 import { Component, Inject, Resolve } from 'ng-forward';
 import AdminModal from './admin.modal/admin.modal.decorator';
+import DocumentsService from '../../services/documents.service';
 import EntriesFactory from '../entries/entries.factory';
 import IssuesFactory from '../issues/issues.factory';
 import LematButton from '../layout/buttons/lemat-button';
@@ -15,14 +16,14 @@ let inflect = require('i')();
 
 @Component({
   selector: 'admin',
-  providers: ['ngTagsInput', 'ui.bootstrap.modal', 'ui.grid', 'ui.grid.edit', 'ui.grid.selection', 'ui.grid.treeView', EntriesFactory, IssuesFactory, PiecesFactory, PostsFactory, TagsFactory, UsersFactory],
+  providers: ['ngTagsInput', 'ui.bootstrap.modal', 'ui.grid', 'ui.grid.edit', 'ui.grid.selection', 'ui.grid.treeView', DocumentsService, EntriesFactory, IssuesFactory, PiecesFactory, PostsFactory, TagsFactory, UsersFactory],
   directives: [LematButton],
   templateUrl: './scripts/components/admin/admin.html',
   controllerAs: 'adminCtrl'
 })
 
 @AdminModal
-@Inject('$scope', '$timeout', '$uibModal', 'uiGridConstants', 'uiGridTreeViewConstants', EntriesFactory, IssuesFactory, PiecesFactory, PostsFactory, TagsFactory, UsersFactory)
+@Inject('$scope', '$timeout', '$uibModal', 'uiGridConstants', 'uiGridTreeViewConstants', DocumentsService, EntriesFactory, IssuesFactory, PiecesFactory, PostsFactory, TagsFactory, UsersFactory)
 export default class AdminComponent {
   @Resolve()
   @Inject(EntriesFactory, IssuesFactory, PostsFactory, TagsFactory, UsersFactory)
@@ -30,7 +31,7 @@ export default class AdminComponent {
     return Array.prototype.slice.call(arguments).map((factory) => factory.query());
   }
 
-  constructor($scope, $timeout, $uibModal, uiGridConstants, uiGridTreeViewConstants, EntriesFactory, IssuesFactory, PiecesFactory, PostsFactory, TagsFactory, UsersFactory) {
+  constructor($scope, $timeout, $uibModal, uiGridConstants, uiGridTreeViewConstants, DocumentsService, EntriesFactory, IssuesFactory, PiecesFactory, PostsFactory, TagsFactory, UsersFactory) {
     this.$scope = $scope;
     this.$timeout = $timeout;
     this.$uibModal = $uibModal;
@@ -89,6 +90,7 @@ export default class AdminComponent {
     this.gridOptions.noUnselect = false;
     this.nodeLoaded = false;
     this.issueLoaded = false;
+    this.selectedRow = {};
 
     this.gridOptions.onRegisterApi = (gridApi) => {
       this.gridApi = gridApi;
@@ -105,6 +107,7 @@ export default class AdminComponent {
       this.selector = 'issue';
     }
     angular.copy(row.entity, this.object);
+    console.log(this.object);
   }
 
   assignTreeData(row) {
@@ -114,6 +117,18 @@ export default class AdminComponent {
       });
     }
     this.nodeLoaded = true;
+  }
+
+  async delete() {
+    try {
+      await this.ObjectsFactory.delete(this.object.id);
+      let index = this.gridOptions.data.indexOf(this.object);
+      console.log(index, this.object);
+      this.gridOptions.data.splice(index, 1);
+      this.$scope.$digest();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async refresh() {

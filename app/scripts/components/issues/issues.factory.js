@@ -15,10 +15,9 @@ export default class IssuesFactory {
     this.pieces = [];
   }
 
-  async delete(id) {
+  delete(id) {
     try {
-      await this.$http.delete(ServerUrl + '/content/issues/' + id);
-      this.issues.splice(this.findById(id), 1);
+      this.$http.delete(ServerUrl + '/content/issues/' + id);
     } catch (error) {
       console.error(error);
     }

@@ -1,7 +1,6 @@
 import { Component, Inject } from 'ng-forward';
 import SubmissionsFactory from './submissions.factory';
 import ServerUrl from '../../services/constants.module';
-
 import 'reflect-metadata';
 import 'angular-ui-router';
 
